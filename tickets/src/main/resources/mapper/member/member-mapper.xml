@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	<insert id="memberEnroll">
+		insert into
+			member
+		values (
+			#{ memberId },
+			#{ password },
+			#{ name },
+			#{ email },
+			#{ phone },
+			#{ address },
+			#{ memberRole },
+			default,
+			default
+		)
+	</insert>
+	
+	<select id="selectOneMember" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		where
+			member_id = #{ memberId }	
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		<!-- order by
+			no desc -->
+	</select>
+	
+	<resultMap type="member" id="memberMap">
+	</resultMap>
+	
+	<delete id="deleteMember">
+		delete from 
+			member
+		where 
+			member_id = #{ memberId }	
+	</delete>
+	
+	<update id="updatePassword">
+		update 
+			member 
+		set 
+			password = #{ password }
+		where 
+			member_id = #{ memberId }
+	</update>
+	
+	
+</mapper>
