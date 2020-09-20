@@ -57,5 +57,19 @@
 			member_id = #{ memberId }
 	</update>
 	
+	<update id="updateMember">
+		update
+			member
+		set
+			email = #{ email },
+			phone = #{ phone },
+			addr = #{ addr },
+			addr_detail = #{ addrDetail },
+			post_code = #{ postCode }
+		where
+			member_id = #{ memberId }
+			
+	</update>
+	
 	
 </mapper>
