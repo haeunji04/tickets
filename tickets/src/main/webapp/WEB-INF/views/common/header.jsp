@@ -116,7 +116,7 @@
 			      	<li class="nav-item dropdown" style="right: 0px !important">
 			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page </a>
 			        	<div class="dropdown-menu">
-			          		<a class="dropdown-item" href="#">내 정보</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do">내 정보</a>
 			          		<a class="dropdown-item" href="#">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
 			          		<c:if test="${ loginMember.memberRole eq 'A' }">

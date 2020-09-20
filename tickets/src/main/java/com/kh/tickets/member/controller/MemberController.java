@@ -14,14 +14,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.FlashMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
@@ -80,17 +83,12 @@ public class MemberController {
 	@RequestMapping(value="/member/memberEnroll.do",
 					method=RequestMethod.POST)
 	public String memberEnroll(Member member,
-								HttpServletRequest request,
 								RedirectAttributes redirectAttr) {
 		
 		String rawPassword = member.getPassword();
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
-		String address_ = request.getParameter("address_");
-		
-		String address = member.getAddress() + " " + address_;
 		
 		member.setPassword(encryptPassword);
-		member.setAddress(address);
 		
 		log.debug("rawPassword = {}", rawPassword);
 		log.debug("encryptPassword = {}", encryptPassword);
@@ -102,7 +100,7 @@ public class MemberController {
 		
 		// 2. 사용자 알림
 		redirectAttr.addFlashAttribute("msg", result > 0? "회원가입 성공!" : "회원가입 실패");
-
+		
 		return "redirect:/";
 	}
 	
@@ -210,7 +208,37 @@ public class MemberController {
 		
 	}
 	
-	
+		@RequestMapping("/member/memberDetail.do")
+		public String memberDetail(ModelAndView mav,
+								   @ModelAttribute("loginMember") Member loginMember) {
+			log.debug("loginMember = {}", loginMember);
+			return "member/memberDetail";
+		}
+		
+		@RequestMapping("/member/memberUpdate.do")
+		public ModelAndView memberUpdate(ModelAndView mav,
+								   		 Member member,
+								   		HttpServletRequest request) {
+			log.debug("updateMember = {}", member);
+			
+			int result = memberService.updateMember(member);
+			
+			String msg = "";		
+			if(result>0){
+				msg = "회원 정보 수정 성공!";
+				Member updateMember = memberService.selectOneMember(member.getMemberId());
+				mav.addObject("loginMember", updateMember);
+			}	
+			else {
+				msg = "회원정보 수정 실패";
+			}
+			
+			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+			flashMap.put("msg", msg);
+			
+			mav.setViewName("member/memberDetail");
+			return mav;
+		}
 	
 	
 }
