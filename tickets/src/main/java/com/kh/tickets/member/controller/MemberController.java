@@ -205,10 +205,10 @@ public class MemberController {
 //			log.debug("기존비번이 틀렸습니다@@@@");
 			redirectAttr.addFlashAttribute("msg", "기존 비밀번호가 일치하지 않습니다.");
 			return "redirect:/member/updatePasswordForm.do";
-		}		
-		
-		
+		}			
 	}
+	 
+	
 	
 	
 	

@@ -119,6 +119,8 @@
 			          		<a class="dropdown-item" href="#">내 정보</a>
 			          		<a class="dropdown-item" href="#">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연 등록</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록</a>
 			          		<c:if test="${ loginMember.memberRole eq 'A' }">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록</a>
 			          		</c:if>
