@@ -2,6 +2,7 @@ package com.kh.tickets.performance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +29,24 @@ import lombok.extern.slf4j.Slf4j;
 public class PerformanceController {
 	
 	@Autowired
-	private PerformanceService  performanceSerivce; 
+	private PerformanceService performanceService; 
 
 	@GetMapping("/list")
-	public ModelAndView listView(ModelAndView mav,
+	public ModelAndView categoryListView(ModelAndView mav,
 							@RequestParam("category") String category) {
 		log.debug("category = {}", category);
-		mav.addObject("category", category);
+		
+		List<Performance> list = performanceService.categoryListView(category);
+		
+		String categoryName = performanceService.getCategoryName(category); 
+		
+		log.debug("list = {}", list);
+		mav.addObject("list", list);
+		mav.addObject("categoryName", categoryName);
 		mav.setViewName("/performance/performanceCategoryView");
 		return mav;
 	}
+	
 	
 	@GetMapping("/search")
 	public ModelAndView searchView(ModelAndView mav,
@@ -113,7 +122,7 @@ public class PerformanceController {
 		log.debug("performance@@1 = {}", performance);
 		
 		try {
-			int result = performanceSerivce.performanceRegister(performance);
+			int result = performanceService.performanceRegister(performance);
 			redirectAttr.addFlashAttribute("msg", "공연등륵 신청 성공!");
 		} catch (Exception e) {
 			log.error("공연등륵 신청 오류", e);
@@ -130,7 +139,7 @@ public class PerformanceController {
 	
 	@RequestMapping("/performance/performanceList.do")
 	public String performanceList(Model model) {
-		List<Performance> list = performanceSerivce.selectPerformanceList();
+		List<Performance> list = performanceService.selectPerformanceList();
 		log.debug("list@controller = {}", list);
 		
 		model.addAttribute("list", list);

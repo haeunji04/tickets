@@ -37,6 +37,24 @@
 			no desc -->
 	</select>
 	
+	<select id="categoryListView" resultMap="performanceMap">
+		select
+			*
+		from
+			performance
+		where 
+			category_code = #{ category }
+	</select>
+	
+	<select id="getCategoryName" resultType="string">
+		select 
+			category_name
+		from
+			category
+		where
+			category_code = #{ category }
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	

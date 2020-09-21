@@ -3,16 +3,16 @@
 --======================================================
 --관리자계정으로 tickets계정 생성
 
---create user tickets
---identified by tickets
---default tablespace users;
---
---grant connect, resource to tickets;
---show user;
+create user tickets
+identified by tickets
+default tablespace users;
+
+grant connect, resource to tickets;
+show user;
 
 --==================================================
 --계정 삭제 후 다시 만들 때 사용할 것
---drop user dream tickets;
+drop user tickets cascade;
 
 --=============== tickets계정으로 테이블 확인/삭제 ===============
 --현재 계정 확인
@@ -24,25 +24,23 @@
 --select * from user_views;
 
 -- 테이블 삭제
-DROP TABLE "THEATER" CASCADE CONSTRAINTS;
-DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
-DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
-DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
-DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
-DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
-DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
-DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
-DROP TABLE "SEAT" CASCADE CONSTRAINTS;
-DROP TABLE "TICKET" CASCADE CONSTRAINTS;
-DROP TABLE "PAY" CASCADE CONSTRAINTS;
+--DROP TABLE "THEATER" CASCADE CONSTRAINTS;
+--DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
+--DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
+--DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
+--DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
+--DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
+--DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
+--DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
+--DROP TABLE "SEAT" CASCADE CONSTRAINTS;
+--DROP TABLE "TICKET" CASCADE CONSTRAINTS;
+--DROP TABLE "PAY" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
-DROP SEQUENCE "PERFORMANCE_SEQ";
+--DROP SEQUENCE "PERFORMANCE_SEQ";
 
 -- 뷰 삭제
 --DROP VIEW "";
-
-
 --=============== tickets계정으로 테이블 생성 ===============
 
 --Theater
@@ -76,7 +74,9 @@ create table member(
     name varchar2(30) not null,
     email varchar2(100),
     phone char(11),
-    address varchar2(200),
+    addr varchar2(200) not null,
+    addr_detail varchar2(200),
+    post_code char(5) not null,
     member_role char(1)default 'U' not null,
     enroll_date date default sysdate,
     quit_yn char(1) default 'N' not null,
@@ -278,7 +278,9 @@ values(
     '관리자',
     'admin@naver.com',
     '01075695421',
-    '서울특별시 강남구 140-47 10동 9909호',
+    '서울특별시 강남구 140-47 ',
+    '10동 9909호',
+    '12345',
     'A',
     default,
     default
@@ -295,7 +297,9 @@ values(
     '홍길동',
     'honggd@naver.com',
     '01075695421',
-    '서울특별시 한양구 경복동 112-7',
+    '서울특별시 한양구 ',
+    '경복동 112-7',
+    '23456',
     'U',
     default,
     default
@@ -309,17 +313,19 @@ values(
     '판매자1',
     'company1@naver.com',
     '01075695421',
-    '서울특별시 종로구 혜화동 115-2',
+    '서울특별시 종로구 ',
+    '혜화동 115-2',
+    '56789',
     'C',
     default,
     default
 );
 --======================================================
 
---select * from theater;
+select * from theater;
 --select * from location;
---select * from category;
---select * from member;
+select * from category;
+select * from member;
 --select * from performance;
 --select * from review;
 --select * from wishlist;
@@ -330,5 +336,3 @@ values(
 
 --rollback;
 commit;
-
-

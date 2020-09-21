@@ -24,4 +24,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.selectPerformanceList");
 	}
 
+	@Override
+	public List<Performance> categoryListView(String category) {
+		return sqlSession.selectList("performance.categoryListView", category);
+	}
+
+	@Override
+	public String getCategoryName(String category) {
+		return sqlSession.selectOne("performance.getCategoryName", category);
+	}
+
 }
