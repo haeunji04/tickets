@@ -13,7 +13,9 @@
 			#{ name },
 			#{ email },
 			#{ phone },
-			#{ address },
+			#{ addr },
+			#{ addrDetail },
+			#{ postCode },
 			#{ memberRole },
 			default,
 			default
