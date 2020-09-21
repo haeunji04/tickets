@@ -138,7 +138,11 @@ public class PerformanceController {
 		return "performance/performanceList";
 	}
 	
-	
+	@GetMapping("/performance/performanceInfoView.do")
+	public ModelAndView performanceInfoView(ModelAndView mav) {
+		mav.setViewName("/performance/performanceInfoView");
+		return mav;
+	}
 	
 	
 	

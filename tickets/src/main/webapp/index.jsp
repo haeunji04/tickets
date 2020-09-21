@@ -24,7 +24,7 @@ footer{ margin-top: 2100px; }
 		<div id="carousel3d" class="d-block flex">
 			<carousel-3d :perspective="0" :space="200" :display="5" :controls-visible="true" :controls-prev-html="'❬'" :controls-next-html="'❭'" :controls-width="30" :controls-height="100" :clickable="true" :autoplay="true" :autoplay-timeout="5000">
 				<slide :index="0">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/></a>
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/></a>
 				</slide>
 				<slide :index="1">
 					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG"/></a>
