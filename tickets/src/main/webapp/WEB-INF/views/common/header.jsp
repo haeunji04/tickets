@@ -119,10 +119,11 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do">내 정보</a>
 			          		<a class="dropdown-item" href="#">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연 등록</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록</a>
 			          		<c:if test="${ loginMember.memberRole eq 'A' }">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록</a>
 			          		</c:if>
 			          		<c:if test="${ loginMember.memberRole ne 'A' }">
 			          		<div class="dropdown-divider"></div>

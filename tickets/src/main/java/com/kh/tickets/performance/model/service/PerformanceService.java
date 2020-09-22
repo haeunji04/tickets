@@ -14,4 +14,8 @@ public interface PerformanceService {
 
 	String getCategoryName(String category);
 
+	int approvePerRegister(int perNo);
+
+	List<Performance> adminApprovalPerList();
+
 }

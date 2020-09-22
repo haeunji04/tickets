@@ -19,7 +19,7 @@
       <th>이름</th>
       <th>이메일</th>
       <th>번호</th>
-      <th>주소</th>
+     <!--  <th>주소</th> -->
       <th>회원구분</th>
       <th>가입날짜</th>
       <th>회원삭제</th>
@@ -31,7 +31,7 @@
 		<td>${ member.name }</td>
 		<td>${ member.email }</td>
 		<td>${ member.phone }</td>
-		<td>${ member.address }</td>
+		<%-- <td>${ member.address }</td> --%>
 		<td>${ member.memberRole eq 'U' ? '일반회원' : (member.memberRole eq 'C' ? '공연판매자' : '관리자') }</td>
 		<td>${ member.enrollDate }</td>		
 		<td>			
@@ -40,7 +40,7 @@
 					onclick="deleteMember('${ member.memberId }')">삭제</button>
 		</td>
 	</tr>
-	</c:forEach>    
+	</c:forEach>    *
   </tbody>
 </table>
 
