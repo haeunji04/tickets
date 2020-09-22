@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.tickets.performance.model.dao.PerformanceDAO;
 import com.kh.tickets.performance.model.vo.Performance;
+import com.kh.tickets.performance.model.vo.PerformanceHall;
 
 @Service
 public class PerformanceServiceImpl implements PerformanceService {
@@ -42,6 +43,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public List<Performance> adminApprovalPerList() {
 		return performanceDAO.adminApprovalPerList();
+	}
+
+	@Override
+	public List<PerformanceHall> searchHallName(String keyword) {
+		return performanceDAO.searchHallName(keyword);
 	}
 
 }

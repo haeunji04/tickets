@@ -51,6 +51,8 @@ create table theater(
     constraints pk_theater_no primary key(theater_no)
 );
 
+drop table theater;
+
 --Location
 create table location(
     location_code varchar2(20),
@@ -84,7 +86,7 @@ create table member(
     constraints ck_member_role check(member_role in ('U','A','C')),
     constraints ck_quit_yn check(quit_yn in ('N','Y'))
 );
-
+SELECT * FROM PERFORMANCE;
 --Performance
 create table performance(
     per_no number,

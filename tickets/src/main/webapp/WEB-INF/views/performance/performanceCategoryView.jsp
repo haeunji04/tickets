@@ -71,7 +71,7 @@
 					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
 			</a>
 			<h6>${ per.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.perAddress }</p>
+			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.theaterNo }</p>
 		</div>
 		</c:forEach>
 		</c:if>
