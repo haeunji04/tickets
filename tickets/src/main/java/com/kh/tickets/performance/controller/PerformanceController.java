@@ -153,8 +153,22 @@ public class PerformanceController {
 		return mav;
 	}
 	
+	@RequestMapping("/performance/adminApprovalPerList.do")
+	public String adminApprovalPerList(Model model) {
+		List<Performance> list = performanceService.adminApprovalPerList();
+		log.debug("list@controller = {}", list);
+		
+		model.addAttribute("list", list);
+		
+		return "performance/adminApprovalPerList";
+	}
 	
-	
+	@PostMapping("/performance/approvePerRegister.do")
+	public String deleteMember(@RequestParam int perNo, RedirectAttributes redirectAttributes){
+		int result = performanceService.approvePerRegister(perNo);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연 승인성공" : "공연 승인실패");
+		return "redirect:/performance/adminApprovalPerList.do";
+	}
 	
 	
 	

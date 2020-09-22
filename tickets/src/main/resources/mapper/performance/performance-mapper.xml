@@ -33,6 +33,7 @@
 			*
 		from
 			performance
+		
 		<!-- order by
 			no desc -->
 	</select>
@@ -53,6 +54,26 @@
 			category
 		where
 			category_code = #{ category }
+	</select>
+	
+	<update id="approvePerRegister">
+		update 
+			performance
+		set 
+			admin_approval = 'Y'
+		where 
+			per_no = #{ per_no }
+	</update>
+	
+	<select id="adminApprovalPerList" resultMap="performanceMap">
+		select
+			*
+		from
+			performance
+		where
+			admin_approval = 'N'
+		<!-- order by
+			no desc -->
 	</select>
 	
 	<resultMap type="performance" id="performanceMap">

@@ -34,4 +34,14 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.getCategoryName(category);
 	}
 
+	@Override
+	public int approvePerRegister(int perNo) {
+		return performanceDAO.approvePerRegister(perNo);
+	}
+
+	@Override
+	public List<Performance> adminApprovalPerList() {
+		return performanceDAO.adminApprovalPerList();
+	}
+
 }

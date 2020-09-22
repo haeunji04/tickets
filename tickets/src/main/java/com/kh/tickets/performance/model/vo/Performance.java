@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 public class Performance implements Serializable {
 	
-	private int per_no;
+	private int perNo;
 	private String memberId;
 	private String categoryCode;
 	private String locationCode;

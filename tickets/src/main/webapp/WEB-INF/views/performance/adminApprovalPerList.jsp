@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <br />
-<h2>공연등록 후 조회 테스트 페이지</h2>
+<h3>공연등록 신청 후 관리자가 승인하는 페이지</h3>
 <br />
 <br />
 
@@ -25,11 +25,13 @@
       <th>공연감독</th>
       <th>공연배우</th>
       <th>공연주소</th>
-      <th>공연등록날짜</th>
-      <th>관리자 승인상태</th>
-      <th>작품설명이미지</th>
+      <th>등록 신청날짜</th>
+      <th>등록 승인여부</th>
   </thead>
   <tbody>   
+  	<c:if test="${ empty list }">
+  		<p>등록 승인 대기중인 공연이 없습니다.</p>
+  	</c:if>
     <c:forEach items="${ list }" var="per">
 	<tr>		
 		<td>
@@ -40,13 +42,16 @@
 		<td>${ per.perDirector }</td>
 		<td>${ per.perActor }</td>
 		<td>${ per.perAddress }</td>
-		<td>${ per.perRegisterDate }</td>
-		<%-- <td>${ per.adminApproval }</td> --%>
-		<td>${ per.adminApproval eq 'Y' ? '승인' : '미승인'}</td>
-		<td>
+		<td>${ per.perRegisterDate }</td>		
+		<td>			
+			<button type="button" 
+					class="btn btn-outline-primary"
+					onclick="approvePerRegister('${ per.perNo }')">승인</button>
+		</td>
+		<%-- <td>
 			<img src="<c:url value='/resources/upload/performance/${ per.detailImgRenamedFileName}' />" 
 				 style="width: 100px" />	
-		</td>	
+		</td>	 --%>
 							
 	</tr>
 	</c:forEach>    
@@ -55,8 +60,24 @@
 
 
 
+<form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
+	  id="approvePerRegisterFrm" 
+	  method="POST">
+	<input type="hidden" name="perNo" />
+</form>
+
 <script>
+/**
+ * POST 요청 처리할 것
+ **/
+function approvePerRegister(perNo){
+	if(confirm("정말 승인하시겠습니까?") == false)
+		return;
+	var $frm = $("#approvePerRegisterFrm");
+	$frm.find("[name=perNo]").val(perNo);
+	$frm.submit();
+	
+}
 
 </script>
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

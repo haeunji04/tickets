@@ -34,4 +34,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.getCategoryName", category);
 	}
 
+	@Override
+	public int approvePerRegister(int perNo) {
+		return sqlSession.update("performance.approvePerRegister", perNo);
+	}
+
+	@Override
+	public List<Performance> adminApprovalPerList() {
+		return sqlSession.selectList("performance.adminApprovalPerList");
+	}
+
 }
