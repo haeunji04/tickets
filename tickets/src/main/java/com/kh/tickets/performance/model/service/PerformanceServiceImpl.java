@@ -24,4 +24,14 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectPerformanceList();
 	}
 
+	@Override
+	public List<Performance> categoryListView(String category) {
+		return performanceDAO.categoryListView(category);
+	}
+
+	@Override
+	public String getCategoryName(String category) {
+		return performanceDAO.getCategoryName(category);
+	}
+
 }

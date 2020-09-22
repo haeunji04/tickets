@@ -98,19 +98,19 @@
 		        		<a class="nav-link" href="${pageContext.request.contextPath}"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=뮤지컬">뮤지컬 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1">뮤지컬 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=연극">연극 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2">연극 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=콘서트">콘서트 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3">콘서트 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=클래식">클래식 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4">클래식 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=전시">전시 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5">전시 &nbsp;</a>
 		      		</li>
 		      		<c:if test="${ not empty loginMember }">
 			      	<li class="nav-item dropdown" style="right: 0px !important">

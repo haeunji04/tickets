@@ -14,7 +14,7 @@
 <div id="category-container" class="mx-auto pb-5">
 
 	<div id="category-header" class="my-4 text-center" >
-		<h2 class="text-primary my-4"> ${ category }</h2>	
+		<h2 class="text-primary my-4"> ${ categoryName }</h2>	
 			
 		<!-- 추천 뮤지컬 반복문 블록 시작(4번 돌리기) -->
 		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3">
@@ -62,97 +62,24 @@
 	<br />
 	
 	<div id="category-body" class="my-3 text-center">
-		<!-- 뮤지컬 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
+		<!-- 공연 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
+		<c:if test="${ not empty list }">
+		<c:forEach items="${ list }" var="per">
 		<div style="width: 213px" class="text-center d-inline-block p-3">
 			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
+				<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName }'/>" 
 					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
 			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
+			<h6>${ per.perTitle }</h6>
+			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.perAddress }</p>
 		</div>
+		</c:forEach>
+		</c:if>
+		
+		<c:if test="${ empty list }">
+			<div>공연이 존재하지 않습니다.</div>
+		</c:if>
 		<!-- 뮤지컬 반복문 블록 끝 -->
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-	
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
-
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="캣츠 포스터" height="250px" class="mb-2 img-thumbnail"/>
-			</a>
-			<h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />롯데아트홀</p>
-		</div>
 	
 	</div>
 

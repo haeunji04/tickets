@@ -10,4 +10,8 @@ public interface PerformanceService {
 
 	List<Performance> selectPerformanceList();
 
+	List<Performance> categoryListView(String category);
+
+	String getCategoryName(String category);
+
 }
