@@ -34,6 +34,10 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		<div class="mx-auto">
 		    <h2 class="mx-auto mt-3 text-center">공연 수정</h2>
 		    <br /><br />
+		    
+		    <div class="form-group" id="memberId-container">
+			  <input type="hidden" class="form-control" id="perNo" name="perNo" value="${ performance.perNo }" readonly required>
+			</div>
 				
 			<div class="form-group" id="memberId-container">
 			  <label class="col-form-label" for="memberId">기획사 아이디</label>
@@ -64,11 +68,11 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    <div class="form-group">
 		      <label for="perImgFile">공연 이미지</label>
 		      <input type="file" class="form-control-file" id="perImgFile" name="perImgFile" >	
-		      <span type="frame">${ performance.perImgOriginalFileName }</span>	 
-		      <input type="hidden" name="${ performance.perImgOriginalFileName }"
-		      		 value="${ performance.perImgOriginalFileName }"/>    
-		      <input type="hidden" name="${ performance.perImgRenamedFileName }"
-		      		 value="${ performance.perImgRenamedFileName }"/>    
+		      <span type="frame">${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }</span>	 
+		      <input type="hidden" name="perImgOriginalFileName"
+		      		 value="${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }"/>    
+		      <input type="hidden" name="perImgRenamedFileName"
+		      		 value="${ performance.perImgRenamedFileName != null ? performance.perImgRenamedFileName : "" }"/>    
 		    </div>
 			
 			<div class="form-group">
@@ -81,6 +85,17 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		      		 value="${ performance.detailImgRenamedFileName }"/>    
 		    </div>  
 		    
+		    <tr>
+				<label for="perStartDate">공연시작일</label>
+				<input type="date" class="form-control" name="perStartDate" id="perStartDate"
+					   value="${ performance.perStartDate }"/>
+			</tr> 
+		    <tr>
+				<label for="perEndDate">공연종료일</label>
+				<input type="date" class="form-control" name="perEndDate" id="perEndDate"
+					   value="${ performance.perEndDate }"/>
+			</tr> 		
+		    
 		    <div class="form-group">
 		      <label for="perRating">공연 관람 등급</label>
 		      <select class="form-control" id="perRating" name="perRating"  >
@@ -88,6 +103,25 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		        <option value="8"${ performance.perRating == 8 ? 'selected':'' }>8세이상관람가</option>
 		        <option value="15"${ performance.perRating == 15 ? 'selected':'' }>15세이상관람가</option>
 		        <option value="18"${ performance.perRating == 18 ? 'selected':'' }>18세이상관람가</option>
+		      </select>
+		    </div>
+		    
+		    <div class="form-group">
+		      <label for="perTime">공연 관람 시간</label>
+		      <select class="form-control" id="perTime" name="perTime">
+		        <option value="60"${ performance.perTime == 60 ? 'selected':'' }>60분</option>
+		        <option value="70"${ performance.perTime == 70 ? 'selected':'' }>70분</option>
+		        <option value="80"${ performance.perTime == 80 ? 'selected':'' }>80분</option>
+		        <option value="90"${ performance.perTime == 90 ? 'selected':'' }>90분</option>
+		        <option value="100"${ performance.perTime == 100 ? 'selected':'' }>100분</option>
+		        <option value="110"${ performance.perTime == 110 ? 'selected':'' }>110분</option>
+		        <option value="120"${ performance.perTime == 120 ? 'selected':'' }>120분</option>
+		        <option value="130"${ performance.perTime == 130 ? 'selected':'' }>130분</option>
+		        <option value="140"${ performance.perTime == 140 ? 'selected':'' }>140분</option>
+		        <option value="150"${ performance.perTime == 150 ? 'selected':'' }>150분</option>
+		        <option value="160"${ performance.perTime == 160 ? 'selected':'' }>160분</option>
+		        <option value="170"${ performance.perTime == 170 ? 'selected':'' }>170분</option>
+		        <option value="180"${ performance.perTime == 280 ? 'selected':'' }>180분</option>
 		      </select>
 		    </div>
 		    
@@ -114,7 +148,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    </div>
 			
 			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="수정 하기"/>
+				<input type="submit" class="btn btn-primary" value="수정 "/>
 			</div>
 		</div>
 	</form>
@@ -125,17 +159,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <script>
 
 
-$("#performanceRegisterFrm").submit(function(){
-	
 
-	var $address = $("#sample4_postcode");
-	if($address.val().trim().length == 0){
-		alert("주소를 입력해주세요.");
-		return false;
-	}
-
-	return true;
-});
 
 
 </script>

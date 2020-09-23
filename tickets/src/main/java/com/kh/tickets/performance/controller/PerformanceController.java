@@ -2,7 +2,7 @@ package com.kh.tickets.performance.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -215,6 +215,8 @@ public class PerformanceController {
 		log.debug("list@controller = {}", list);
 		
 		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("dateformat", dateformat);
 		mav.addObject("list", list);
 		mav.setViewName("/company/companyPerList");
 		return mav;
@@ -230,7 +232,58 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	
+	@PostMapping("/company/perUpdate.do")
+	public String perUpdate(Performance performance, 
+			 				@RequestParam(value="perImgFile",required=false) MultipartFile[] perImgFiles,
+			 				@RequestParam(value="detailImgFile",required=false) MultipartFile[] detailImgFiles,
+			 				HttpServletRequest request,
+							RedirectAttributes redirectAttributes){
+		
+		String saveDirectory = request.getServletContext()
+				  .getRealPath("/resources/upload/performance");
+		
+		for(MultipartFile f : perImgFiles) {
+			
+			if(!f.isEmpty() && f.getSize() != 0) {
+				//1. 파일명 생성
+				String renamedFileName = Utils.getRenamedFileName(f.getOriginalFilename());
+				
+				//2. 메모리의 파일 -> 서버경로상의 파일 
+				File newFile = new File(saveDirectory, renamedFileName);
+				try {
+					f.transferTo(newFile);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				
+				performance.setPerImgOriginalFileName(f.getOriginalFilename());
+				performance.setPerImgRenamedFileName(renamedFileName);
+			}			
+		}	
+		
+		for(MultipartFile f : detailImgFiles) {
+			
+			if(!f.isEmpty() && f.getSize() != 0) {
+				//1. 파일명 생성
+				String renamedFileName = Utils.getRenamedFileName(f.getOriginalFilename());
+				
+				//2. 메모리의 파일 -> 서버경로상의 파일 
+				File newFile = new File(saveDirectory, renamedFileName);
+				try {
+					f.transferTo(newFile);
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+				
+				performance.setDetailImgOriginalFileName(f.getOriginalFilename());
+				performance.setDetailImgRenamedFileName(renamedFileName);
+			}			
+		}	
+		
+		int result = performanceService.perUpdate(performance);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연정보 수정성공" : "공연정보 수정실패");
+		return "redirect:/company/companyPerList.do";
+	}
 	
 	
 	
