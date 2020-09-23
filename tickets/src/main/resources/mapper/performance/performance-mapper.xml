@@ -125,6 +125,10 @@
 			per_actor = #{ perActor },
 			per_time = #{ perTime },
 			per_content = #{ perContent },
+			per_img_original_filename =#{perImgOriginalFileName},
+			per_img_renamed_filename=#{perImgRenamedFileName},
+			detail_img_original_filename=#{detailImgOriginalFileName},
+			detail_img_renamed_filename=#{detailImgRenamedFileName},
 			per_rating = #{ perRating },
 			per_start_date = #{ perStartDate },
 			per_end_date = #{ perEndDate }

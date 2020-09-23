@@ -28,6 +28,10 @@ $(function(){
 		$(this).addClass('on');	
 	});
 });
+function nwindow(){
+    var url="${pageContext.request.contextPath}/performance/selectSeat.do";
+    window.open(url,"","width=1000,height=600,left=50,top=50");
+}
 </script>
 <style>
 .table td{
@@ -142,7 +146,7 @@ li.on button{
                     
                 </div>
                <div class="box_type_comment">
-               <button type="button" class="btn btn-primary btn-lg btn-block">예매하기</button>
+               <button type="button" class="btn btn-primary btn-lg btn-block" onclick="nwindow();">예매하기</button>
                </div>
               </div>
               <div class="d-block mx-auto mt-5">

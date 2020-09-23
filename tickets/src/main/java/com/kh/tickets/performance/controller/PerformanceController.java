@@ -247,11 +247,14 @@ public class PerformanceController {
 		
 		// 기존 첨부 파일이 있는 경우 처리
 		if(!"".equals(oldPerImgOriginalFileName)) {
+			log.debug("기존 첨부 파일이 있는 경우 처리");
 			//기존 첨부파일이 있고, 수정에서 새로 업로드하지 않은 경우
-			if(performance.getPerImgOriginalFileName() == null ) {
+			if(perImgFiles == null ) {
+				log.debug("기존 첨부파일이 있고, 수정에서 새로 업로드하지 않은 경우");
 				performance.setPerImgOriginalFileName(oldPerImgOriginalFileName);
 				performance.setPerImgRenamedFileName(oldPerImgRenamedFileName);
 			} else {
+				log.debug("기존 첨부파일도 있고, 수정에서 새로 업로드한 파일이 있는 경우");
 					//기존 첨부파일도 있고, 수정에서 새로 업로드한 파일이 있는 경우
 				//기존 파일 삭제
 				File f = new File(saveDirectory, oldPerImgRenamedFileName);
@@ -259,7 +262,6 @@ public class PerformanceController {
 				System.out.println("[ " + oldPerImgRenamedFileName + " ] 파일 삭제!");
 				
 				for(MultipartFile mf : perImgFiles) {
-					
 					if(!mf.isEmpty() && mf.getSize() != 0) {
 						//1. 파일명 생성
 						String renamedFileName = Utils.getRenamedFileName(mf.getOriginalFilename());
@@ -272,6 +274,7 @@ public class PerformanceController {
 							e.printStackTrace();
 						}
 						
+						log.debug("mf.getOriginalFilename()={}",mf.getOriginalFilename());
 						performance.setPerImgOriginalFileName(mf.getOriginalFilename());
 						performance.setPerImgRenamedFileName(renamedFileName);
 					}			
@@ -281,7 +284,7 @@ public class PerformanceController {
 		
 		
 		for(MultipartFile f : detailImgFiles) {
-			
+			log.debug("f = {}",f);
 			if(!f.isEmpty() && f.getSize() != 0) {
 				//1. 파일명 생성
 				String renamedFileName = Utils.getRenamedFileName(f.getOriginalFilename());
@@ -293,12 +296,11 @@ public class PerformanceController {
 				} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();
 				}
-				
+				log.debug("f.getOriginalFilename()={}",f.getOriginalFilename());
 				performance.setDetailImgOriginalFileName(f.getOriginalFilename());
 				performance.setDetailImgRenamedFileName(renamedFileName);
 			}			
 		}	
-		
 		int result = performanceService.perUpdate(performance);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연정보 수정성공" : "공연정보 수정실패");
 		return "redirect:/company/companyPerList.do";
