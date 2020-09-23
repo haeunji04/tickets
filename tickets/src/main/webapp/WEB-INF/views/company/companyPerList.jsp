@@ -25,7 +25,7 @@
       <th>공연제목</th>
       <th>공연감독</th>
       <th>공연배우</th>
-      <th>공연주소</th>
+      <!-- <th>공연주소</th> -->
       <th>공연등록날짜</th>
       <th>관리자 승인상태</th>
       <th>공연정보 수정</th>
@@ -43,7 +43,7 @@
 		<td>${ per.perTitle }</td>
 		<td>${ per.perDirector }</td>
 		<td>${ per.perActor }</td>
-		<td>${ per.perAddress }</td>
+		<%-- <td>${ per.perAddress }</td> --%>
 		<td>${ per.perRegisterDate }</td>
 		<td>${ per.adminApproval eq 'Y' ? '승인' : '미승인'}</td>
 		<td>			
