@@ -239,6 +239,18 @@ public class MemberController {
 			mav.setViewName("member/memberDetail");
 			return mav;
 		}
+		@GetMapping("/member/memberBookingList.do")
+		public ModelAndView memberBookingList(ModelAndView mav) {
+			
+			mav.setViewName("member/memberBookingList");
+			return mav;
+		}
+		@GetMapping("/member/memberOneBooking.do")
+		public ModelAndView memberOneBooking(ModelAndView mav) {
+			
+			mav.setViewName("member/memberOneBooking");
+			return mav;
+		}
 	
 	
 }
