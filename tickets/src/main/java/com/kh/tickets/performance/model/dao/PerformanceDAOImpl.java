@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tickets.performance.model.vo.Performance;
+import com.kh.tickets.performance.model.vo.PerformanceHall;
 
 @Repository
 public class PerformanceDAOImpl implements PerformanceDAO {
@@ -42,6 +43,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public List<Performance> adminApprovalPerList() {
 		return sqlSession.selectList("performance.adminApprovalPerList");
+	}
+
+	@Override
+	public List<PerformanceHall> searchHallName(String keyword) {
+		return sqlSession.selectList("performance.searchHallName", keyword);
 	}
 
 }

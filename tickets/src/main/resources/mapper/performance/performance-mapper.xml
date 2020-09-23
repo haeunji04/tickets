@@ -15,7 +15,7 @@
 			#{ perTitle },
 			#{ perDirector },
 			#{ perActor },
-			#{ perAddress },
+			#{ theaterNo },
 			#{ perContent },
 			#{ perImgOriginalFileName },
 			#{ perImgRenamedFileName },
@@ -79,7 +79,16 @@
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	
-	
+		<select id="searchHallName" resultMap="performanceHallMap">
+		select
+			*
+		from
+			theater
+		where
+			name like '%'||#{ keyword }||'%'
+	</select>
+	<resultMap type="performanceHall" id="performanceHallMap">
+	</resultMap>	
 	
 	
 </mapper>
