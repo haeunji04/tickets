@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <br />
-<h2>공연등록 후 조회 테스트 페이지</h2>
+<h2>판매자 공연 관리 페이지</h2>
 <br />
 <br />
 
@@ -28,9 +28,11 @@
       <th>공연주소</th>
       <th>공연등록날짜</th>
       <th>관리자 승인상태</th>
-      <th>작품설명이미지</th>
+      <th>공연정보 수정</th>
   </thead>
-  <tbody>   
+  <tbody>
+  			
+  	
     <c:forEach items="${ list }" var="per">
 	<tr>		
 		<td>
@@ -43,25 +45,47 @@
 		<td>${ per.perActor }</td>
 		<td>${ per.perAddress }</td>
 		<td>${ per.perRegisterDate }</td>
-		<%-- <td>${ per.adminApproval }</td> --%>
 		<td>${ per.adminApproval eq 'Y' ? '승인' : '미승인'}</td>
-		<td>
+		<td>			
+			<button type="button" 
+					class="btn btn-outline-primary"
+					onclick="perUpdate('${ per.perNo }')">수정</button>
+		</td>
+		<%-- <td>
 			<img src="<c:url value='/resources/upload/performance/${ per.detailImgRenamedFileName}' />" 
 				 style="width: 100px" />	
-		</td>	
-							
+		</td>	 --%>			
 	</tr>
-	</c:forEach>    
+	</c:forEach> 
+	   
   </tbody>
 </table>
-
 <div class="text-center">
 	<c:if test="${ empty list }"> 
 		<p>등록신청 및 승인이 완료된 공연이 없습니다.</p>
 	</c:if>
 </div>
 
+
+
+<form action="${ pageContext.request.contextPath }/company/perUpdateForm.do" 
+	  id="perUpdateFrm" 
+	  method="POST">
+	<input type="hidden" name="perNo" />
+</form>
+
 <script>
+/**
+ * POST 요청 처리할 것
+ **/
+function perUpdate(perNo){
+	/* if(confirm("해당 공연 수정페이지로 가시겠습니까?") == false)
+		return; */
+	var $frm = $("#perUpdateFrm");
+	$frm.find("[name=perNo]").val(perNo);
+	$frm.submit();
+	
+}
 
 </script>
 

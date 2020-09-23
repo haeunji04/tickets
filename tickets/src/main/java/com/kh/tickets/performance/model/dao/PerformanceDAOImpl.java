@@ -44,4 +44,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.adminApprovalPerList");
 	}
 
+	@Override
+	public List<Performance> companyPerList(String memberId) {
+		return sqlSession.selectList("performance.companyPerList", memberId);
+	}
+
+	@Override
+	public Performance selectOnePerformance(int perNo) {
+		return sqlSession.selectOne("performance.selectOnePerformance", perNo);
+	}
+
 }

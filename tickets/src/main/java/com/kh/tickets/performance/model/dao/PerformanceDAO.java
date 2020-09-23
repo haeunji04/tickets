@@ -18,4 +18,8 @@ public interface PerformanceDAO {
 
 	List<Performance> adminApprovalPerList();
 
+	List<Performance> companyPerList(String memberId);
+
+	Performance selectOnePerformance(int perNo);
+
 }

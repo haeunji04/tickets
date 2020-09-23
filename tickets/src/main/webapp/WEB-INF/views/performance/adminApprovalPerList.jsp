@@ -29,9 +29,7 @@
       <th>등록 승인여부</th>
   </thead>
   <tbody>   
-  	<c:if test="${ empty list }">
-  		<p>등록 승인 대기중인 공연이 없습니다.</p>
-  	</c:if>
+  	
     <c:forEach items="${ list }" var="per">
 	<tr>		
 		<td>
@@ -57,7 +55,11 @@
 	</c:forEach>    
   </tbody>
 </table>
-
+<div class="text-center">
+	<c:if test="${ empty list }"> 
+		<p> 승인 대기중인 공연이 없습니다.</p>
+	</c:if>
+</div>
 
 
 <form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
