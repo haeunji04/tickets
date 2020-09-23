@@ -1,7 +1,7 @@
 drop table THEATER;
 
 CREATE TABLE THEATER ( 
-no NUMBER(38),
+  no NUMBER(38),
   location VARCHAR2(50),
   city VARCHAR2(50),
   address VARCHAR2(100),
@@ -877,7 +877,7 @@ INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (433,
 --행 435
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (434,'대구광역시','중구','문우관길 47','아회아트홀',144);
 --행 436
-INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (435,'대구광역시','중구','중앙대로 394','문화예술전용극장 THE CITY',295);
+INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (435,'대구광역시','중구','중앙대로 394','문화예술전용극장 THE city',295);
 --행 437
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (436,'대구광역시','중구','동성로1길 29-29','하모니아아트홀1관',270);
 --행 438
@@ -2118,30 +2118,32 @@ update location set location_name='대전/세종/충청/강원' where location_c
 update location set location_name='부산/대구/경상/울산' where location_code='L4';
 select * from performance;
 
---PERFORMANCE테이블에서 ADDRESS컬럼 공연장번호로 변경하기
-UPDATE PERFORMANCE SET PER_ADDRESS=NULL;
-ALTER TABLE PERFORMANCE MODIFY PER_ADDRESS NUMBER;
-ALTER TABLE PERFORMANCE RENAME COLUMN PER_ADDRESS TO THEATER_NO;
+--PERFORMANCE테이블에서 address컬럼 공연장번호로 변경하기
+UPDATE PERFORMANCE SET PER_address=NULL;
+ALTER TABLE PERFORMANCE MODIFY PER_address NUMBER;
+ALTER TABLE PERFORMANCE REname COLUMN PER_address TO THEATER_no;
 
---THEATER 테이블에 LOCATION_CODE 컬럼 추가
-ALTER TABLE THEATER ADD LOCATION_CODE VARCHAR2(20);
--- LOCATION_CODE 제약조건 걸기
-ALTER TABLE THEATER ADD CONSTRAINT FK_THEATER_LOCATION_CODE FOREIGN KEY(LOCATION_CODE)
-                                                                            REFERENCES LOCATION(LOCATION_CODE);
--- LOCATION_CODE 데이터 넣기
-UPDATE THEATER SET LOCATION_CODE = 'L1' WHERE LOCATION LIKE '%서울%';
-UPDATE THEATER SET LOCATION_CODE = 'L2' WHERE LOCATION LIKE '%경기%';
-UPDATE THEATER SET LOCATION_CODE = 'L2' WHERE LOCATION LIKE '%인천%';
-UPDATE THEATER SET LOCATION_CODE = 'L3' WHERE LOCATION LIKE '%대전%';
-UPDATE THEATER SET LOCATION_CODE = 'L3' WHERE LOCATION LIKE '%세종%';
-UPDATE THEATER SET LOCATION_CODE = 'L3' WHERE LOCATION LIKE '%충청%';
-UPDATE THEATER SET LOCATION_CODE = 'L3' WHERE LOCATION LIKE '%강원%';
-UPDATE THEATER SET LOCATION_CODE = 'L4' WHERE LOCATION LIKE '%부산%';
-UPDATE THEATER SET LOCATION_CODE = 'L4' WHERE LOCATION LIKE '%대구%';
-UPDATE THEATER SET LOCATION_CODE = 'L4' WHERE LOCATION LIKE '%경상%';
-UPDATE THEATER SET LOCATION_CODE = 'L4' WHERE LOCATION LIKE '%울산%';
-UPDATE THEATER SET LOCATION_CODE = 'L5' WHERE LOCATION LIKE '%광주%';
-UPDATE THEATER SET LOCATION_CODE = 'L5' WHERE LOCATION LIKE '%전라%';
-UPDATE THEATER SET LOCATION_CODE = 'L5' WHERE LOCATION LIKE '%제주%';
+--THEATER 테이블에 location_CODE 컬럼 추가
+ALTER TABLE THEATER ADD location_CODE VARCHAR2(20);
+-- location_CODE 제약조건 걸기
+ALTER TABLE THEATER ADD CONSTRAINT FK_THEATER_location_CODE FOREIGN KEY(location_CODE)
+                                                                            REFERENCES location(location_CODE);
+-- location_CODE 데이터 넣기
+UPDATE THEATER SET location_CODE = 'L1' WHERE location LIKE '%서울%';
+UPDATE THEATER SET location_CODE = 'L2' WHERE location LIKE '%경기%';
+UPDATE THEATER SET location_CODE = 'L2' WHERE location LIKE '%인천%';
+UPDATE THEATER SET location_CODE = 'L3' WHERE location LIKE '%대전%';
+UPDATE THEATER SET location_CODE = 'L3' WHERE location LIKE '%세종%';
+UPDATE THEATER SET location_CODE = 'L3' WHERE location LIKE '%충청%';
+UPDATE THEATER SET location_CODE = 'L3' WHERE location LIKE '%강원%';
+UPDATE THEATER SET location_CODE = 'L4' WHERE location LIKE '%부산%';
+UPDATE THEATER SET location_CODE = 'L4' WHERE location LIKE '%대구%';
+UPDATE THEATER SET location_CODE = 'L4' WHERE location LIKE '%경상%';
+UPDATE THEATER SET location_CODE = 'L4' WHERE location LIKE '%울산%';
+UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%광주%';
+UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%전라%';
+UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%제주%';
+
+--select * from theater;
 
 commit;

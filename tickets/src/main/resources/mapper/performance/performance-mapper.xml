@@ -16,6 +16,7 @@
 			#{ perDirector },
 			#{ perActor },
 			#{ theaterNo },
+			#{ perTime },
 			#{ perContent },
 			#{ perImgOriginalFileName },
 			#{ perImgRenamedFileName },
@@ -24,7 +25,10 @@
 			#{ perRating },
 			default,
 			default,
-			default
+			default,
+			#{ perStartDate },
+			#{ perEndDate }
+			
 		)
 	</insert>
 	
