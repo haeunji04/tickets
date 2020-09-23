@@ -37,6 +37,7 @@ public class PerformanceController {
 	
 	@Autowired
 	private PerformanceService performanceService; 
+	
 
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav,
@@ -236,30 +237,48 @@ public class PerformanceController {
 	public String perUpdate(Performance performance, 
 			 				@RequestParam(value="perImgFile",required=false) MultipartFile[] perImgFiles,
 			 				@RequestParam(value="detailImgFile",required=false) MultipartFile[] detailImgFiles,
+			 				@RequestParam("oldPerImgOriginalFileName") String oldPerImgOriginalFileName,
+			 				@RequestParam("oldPerImgRenamedFileName") String oldPerImgRenamedFileName,
 			 				HttpServletRequest request,
 							RedirectAttributes redirectAttributes){
 		
 		String saveDirectory = request.getServletContext()
 				  .getRealPath("/resources/upload/performance");
 		
-		for(MultipartFile f : perImgFiles) {
-			
-			if(!f.isEmpty() && f.getSize() != 0) {
-				//1. 파일명 생성
-				String renamedFileName = Utils.getRenamedFileName(f.getOriginalFilename());
+		// 기존 첨부 파일이 있는 경우 처리
+		if(!"".equals(oldPerImgOriginalFileName)) {
+			//기존 첨부파일이 있고, 수정에서 새로 업로드하지 않은 경우
+			if(performance.getPerImgOriginalFileName() == null ) {
+				performance.setPerImgOriginalFileName(oldPerImgOriginalFileName);
+				performance.setPerImgRenamedFileName(oldPerImgRenamedFileName);
+			} else {
+					//기존 첨부파일도 있고, 수정에서 새로 업로드한 파일이 있는 경우
+				//기존 파일 삭제
+				File f = new File(saveDirectory, oldPerImgRenamedFileName);
+				f.delete();
+				System.out.println("[ " + oldPerImgRenamedFileName + " ] 파일 삭제!");
 				
-				//2. 메모리의 파일 -> 서버경로상의 파일 
-				File newFile = new File(saveDirectory, renamedFileName);
-				try {
-					f.transferTo(newFile);
-				} catch (IllegalStateException | IOException e) {
-					e.printStackTrace();
-				}
-				
-				performance.setPerImgOriginalFileName(f.getOriginalFilename());
-				performance.setPerImgRenamedFileName(renamedFileName);
-			}			
-		}	
+				for(MultipartFile mf : perImgFiles) {
+					
+					if(!mf.isEmpty() && mf.getSize() != 0) {
+						//1. 파일명 생성
+						String renamedFileName = Utils.getRenamedFileName(mf.getOriginalFilename());
+						
+						//2. 메모리의 파일 -> 서버경로상의 파일 
+						File newFile = new File(saveDirectory, renamedFileName);
+						try {
+							mf.transferTo(newFile);
+						} catch (IllegalStateException | IOException e) {
+							e.printStackTrace();
+						}
+						
+						performance.setPerImgOriginalFileName(mf.getOriginalFilename());
+						performance.setPerImgRenamedFileName(renamedFileName);
+					}			
+				}	
+			}
+		}
+		
 		
 		for(MultipartFile f : detailImgFiles) {
 			
@@ -285,7 +304,20 @@ public class PerformanceController {
 		return "redirect:/company/companyPerList.do";
 	}
 	
-	
+	@GetMapping("/performance/performanceInfoView2.do")
+	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo) {
+		
+		log.debug("perNo@@ = {}", perNo);
+		
+		Performance performance = performanceService.selectOnePerformance(perNo);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		
+		mav.addObject("dateformat", dateformat);
+		mav.addObject("performance", performance);		
+		mav.setViewName("/performance/performanceInfoView2");
+		return mav;
+	}
 	
 	
 	

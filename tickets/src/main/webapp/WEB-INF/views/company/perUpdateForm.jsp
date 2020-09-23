@@ -68,17 +68,17 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    <div class="form-group">
 		      <label for="perImgFile">공연 이미지</label>
 		      <input type="file" class="form-control-file" id="perImgFile" name="perImgFile" >	
-		      <span type="frame">${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }</span>	 
-		      <input type="hidden" name="perImgOriginalFileName"
+		      <span id="frame">${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }</span>	 
+		      <input type="hidden" name="oldPerImgOriginalFileName"
 		      		 value="${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }"/>    
-		      <input type="hidden" name="perImgRenamedFileName"
+		      <input type="hidden" name="oldPerImgRenamedFileName"
 		      		 value="${ performance.perImgRenamedFileName != null ? performance.perImgRenamedFileName : "" }"/>    
 		    </div>
 			
 			<div class="form-group">
 		      <label for="detailImgFile">작품설명 이미지</label>
 		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">		      
-		      <span type="frame">${ performance.detailImgOriginalFileName }</span>	 
+		      <span id="frame">${ performance.detailImgOriginalFileName }</span>	 
 		      <input type="hidden" name="${ performance.detailImgOriginalFileName }"
 		      		 value="${ performance.detailImgOriginalFileName }"/>    
 		      <input type="hidden" name="${ performance.detailImgRenamedFileName }"
@@ -157,7 +157,18 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 </div>
 
 <script>
-
+$(function(){
+	   //사용자가 파일을 선택/해제한 경우
+	   $("[name=perImgFile]").change(function(){
+	      console.log($(this).val());
+	      if($(this).val() != ""){
+	         $("#frame").hide();
+	      }else{
+	         $("#frame").show();
+	      }
+	         
+	   });
+	});
 
 
 

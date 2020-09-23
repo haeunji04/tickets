@@ -38,9 +38,13 @@
 
 		<c:forEach items="${ list }" var="per">
 			<tr>
-				<td><img
-					src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
-					style="width: 100px" /></td>
+				<td>
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+						<img
+						src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
+						style="width: 100px" />
+					</a>
+				</td>
 				<td>${ per.memberId }</td>
 				<td>${ per.perTitle }</td>
 				<td>${ per.perDirector }</td>
