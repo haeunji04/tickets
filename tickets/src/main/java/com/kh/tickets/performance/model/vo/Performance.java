@@ -25,6 +25,7 @@ public class Performance implements Serializable {
 	private String perDirector;
 	private String perActor;
 	private String theaterNo;
+	private int perTime;
 	private String perContent;
 	private String perImgOriginalFileName;
 	private String perImgRenamedFileName;
@@ -34,6 +35,8 @@ public class Performance implements Serializable {
 	private String perDisplay;
 	private String adminApproval;
 	private Date perRegisterDate;
+	private Date perStartDate;
+	private Date perEndDate;
 	
 
 }

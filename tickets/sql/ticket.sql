@@ -12,7 +12,7 @@ show user;
 
 --==================================================
 --계정 삭제 후 다시 만들 때 사용할 것
-drop user tickets cascade;
+--drop user tickets cascade;
 
 --=============== tickets계정으로 테이블 확인/삭제 ===============
 --현재 계정 확인
@@ -51,7 +51,7 @@ create table theater(
     constraints pk_theater_no primary key(theater_no)
 );
 
-drop table theater;
+--drop table theater;
 
 --Location
 create table location(
@@ -97,6 +97,7 @@ create table performance(
     per_director varchar2(20),
     per_actor varchar2(300),
     per_address varchar2(200),
+    per_time number,
     per_content varchar2(2000),
     per_img_original_filename varchar(256),
     per_img_renamed_filename varchar(256),
@@ -106,6 +107,8 @@ create table performance(
     per_display char(1) default 'N',
     admin_approval char(1) default 'N',
     per_register_date date default sysdate,
+    per_start_date date,
+    per_end_date date,
     constraints pk_per_no primary key(per_no),
     constraints fk_member_id foreign key(member_id)
                             references member(member_id) on delete set null,
@@ -143,29 +146,25 @@ create table wishlist(
 create table schedule(
     sch_no number,
     per_no number,
-    sch_days varchar2(10),
-    sch_time varchar2(7),
+    sch_round number,
+    sch_date_time date,
     constraints pk_sch_no primary key(sch_no),
     constraints fk_per_no4 foreign key(per_no) references performance(per_no)
 );
+--schedule insert
+
 --Seat
 create table seat(
-    seat_no varchar2(6),
+    seat_no number,
     seat_issue char(1) default 'N',
     seat_price number,
+    seat_grade varchar2(10),
+    floor number,
+    x number,
+    y number,
     sch_no number,
     constraints pk_seat_no primary key(seat_no),
     constraints fk_sch_no1 foreign key(sch_no) references schedule(sch_no)
-);
---Ticket
-create table ticket(
-    tic_no number,
-    tic_price number,
-    seat_no varchar2(6),
-    sch_no number,
-    constraints pk_tic_no primary key(tic_no),
-    constraints fk_seat_no foreign key(seat_no) references seat(seat_no),
-    constraints fk_sch_no2 foreign key(sch_no) references schedule(sch_no)
 );
 
 --Pay
@@ -175,16 +174,29 @@ create table pay(
     pay_option varchar2(20),
     pay_date date default sysdate,
     member_id varchar2(15),
-    tic_no number,
-    per_no number,
     pay_yn char(1) default 'N',
     cancel_yn char(1) default 'N',
+    seat_no number,
+    sch_no number,
     constraints pk_pay_no primary key(pay_no),
     constraints fk_member_id3 foreign key(member_id) references member(member_id),
-    constraints fk_tic_no foreign key(tic_no) references ticket(tic_no),
+    constraints fk_seat_no foreign key(seat_no) references seat(seat_no),
+    constraints fk_sch_no foreign key(sch_no) references schedule(sch_no)
+);
+--Ticket
+create table ticket(
+    tic_no number,
+    tic_price number,
+    pay_no number,
+    sch_no number,
+    member_id varchar2(15),
+    per_no number,
+    constraints pk_tic_no primary key(tic_no),
+    constraints fk_pay_no foreign key(pay_no) references pay(pay_no),
+    constraints fk_sch_no2 foreign key(sch_no) references schedule(sch_no),
+    constraints fk_member_id4 foreign key(member_id) references member(member_id),
     constraints fk_per_no3 foreign key(per_no) references performance(per_no)
 );
-
 --=============== tickets계정으로 시퀀스 생성 ===============
 create sequence performance_seq
 increment by 1
@@ -193,6 +205,7 @@ minvalue 1
 maxvalue 10000
 cycle;
 
+create sequence schedule_seq;
 --=============== tickets계정으로 뷰 생성 ===============
 --아직 없음
 
@@ -328,13 +341,13 @@ select * from theater;
 --select * from location;
 select * from category;
 select * from member;
---select * from performance;
+select * from performance;
 --select * from review;
 --select * from wishlist;
---select * from schedule;
+select * from schedule;
 --select * from seat;
---select * from ticket;
---select * from pay;
+select * from ticket;
+select * from pay;
 
 --rollback;
 commit;
