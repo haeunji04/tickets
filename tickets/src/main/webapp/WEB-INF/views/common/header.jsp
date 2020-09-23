@@ -117,7 +117,7 @@
 			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page </a>
 			        	<div class="dropdown-menu">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do">내 정보</a>
-			          		<a class="dropdown-item" href="#">예매 확인/취소</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
