@@ -79,8 +79,8 @@ li.on button{
 			<tr>
 				<td>장르</td>				
 				<td>${ performance.categoryCode eq 'C1' ? '뮤지컬' : 
-				    ${ performance.categoryCode eq 'C2' ? '연극' : 
-				    ${ performance.categoryCode eq 'C3' ? '콘서트' : 
+				       performance.categoryCode eq 'C2' ? '연극' : 
+				       performance.categoryCode eq 'C3' ? '콘서트' : 
 					   performance.categoryCode eq 'C4' ? '클래식': '전시' }				
 				</td>				
 				<td></td>				
