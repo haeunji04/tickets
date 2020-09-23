@@ -19,6 +19,12 @@ public interface PerformanceService {
 
 	List<Performance> adminApprovalPerList();
 
-	List<PerformanceHall> searchHallName(String keyword);
 
+	List<Performance> companyPerList(String memberId);
+
+	Performance selectOnePerformance(int perNo);
+
+	
+
+	List<PerformanceHall> searchHallName(String keyword);
 }

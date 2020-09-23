@@ -11,16 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tickets.common.Utils;
+import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -29,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@SessionAttributes(value = { "loginMember" })
 public class PerformanceController {
 	
 	@Autowired
@@ -63,12 +67,8 @@ public class PerformanceController {
 	public ModelAndView performaceRegisterForm(ModelAndView mav) {
 		mav.setViewName("/performance/performanceRegisterForm");
 		return mav;
-	}
-	
-//	@RequestMapping("/performance/performaceRegisterForm.do")
-//	public String memberEnrollForm() {
-//		return "/performance/performaceRegisterForm";
-//	}
+	}	
+
 	
 	@PostMapping("/performance/performanceRegister.do")
 	public String performanceRegister(Performance performance,
@@ -166,12 +166,26 @@ public class PerformanceController {
 	}
 	
 	@PostMapping("/performance/approvePerRegister.do")
-	public String deleteMember(@RequestParam int perNo, RedirectAttributes redirectAttributes){
+	public String approvePerRegister(@RequestParam int perNo, RedirectAttributes redirectAttributes){
 		int result = performanceService.approvePerRegister(perNo);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연 승인성공" : "공연 승인실패");
 		return "redirect:/performance/adminApprovalPerList.do";
 	}
 	
+
+//	@GetMapping("/company/companyPerList.do")
+//	public String companyPerList(Model model, @ModelAttribute("loginMember") Member loginMember) {
+//		
+//		String memberId = loginMember.getMemberId();
+//		log.debug("memberId@@ = {}", memberId);
+//		List<Performance> list = performanceService.companyPerList(memberId);
+//		log.debug("list@controller = {}", list);
+//		
+//		model.addAttribute("list", list);
+//		
+//		return "/company/companyPerList";
+//	}
+
 	@RequestMapping("/searchPerformanceHall.do")
 	public ModelAndView searchPerformanceHall(ModelAndView mav) {
 		mav.setViewName("/performance/searchPerformanceHall");
@@ -189,7 +203,32 @@ public class PerformanceController {
 		return list;
 	}
 	
+
 	
+	@GetMapping("/company/companyPerList.do")
+	public ModelAndView companyPerList(ModelAndView mav,
+									  @ModelAttribute("loginMember") Member loginMember) {
+		log.debug("loginMember = {}", loginMember);		
+		String memberId = loginMember.getMemberId();
+		log.debug("memberId@@ = {}", memberId);
+		List<Performance> list = performanceService.companyPerList(memberId);
+		log.debug("list@controller = {}", list);
+		
+		
+		mav.addObject("list", list);
+		mav.setViewName("/company/companyPerList");
+		return mav;
+	}
+	
+	@PostMapping("/company/perUpdateForm.do")
+	public ModelAndView perUpdateForm(ModelAndView mav,
+			   						 @RequestParam int perNo, RedirectAttributes redirectAttributes) {		
+		
+		Performance performance = performanceService.selectOnePerformance(perNo);
+		mav.addObject("performance", performance);
+		mav.setViewName("/company/perUpdateForm");
+		return mav;
+	}
 	
 	
 	
@@ -199,14 +238,4 @@ public class PerformanceController {
 	
 }
 
-		//파일 업로드 시도 관련 이클립스쪽 참고
-//		int maxPostSize = 1024 * 1024 * 10; //10MB
-//		
-//		FileRenamePolicy policy = new MvcFileRenamePolicy();
-//		
-//		MultipartRequest multipartRequest
-//		= new MultipartRequest(request,
-//								saveDirectory,
-//								maxPostSize,
-//								"utf-8",
-//								policy);
+	

@@ -3,12 +3,12 @@
 --======================================================
 --관리자계정으로 tickets계정 생성
 
-create user tickets
-identified by tickets
-default tablespace users;
-
-grant connect, resource to tickets;
-show user;
+--create user tickets
+--identified by tickets
+--default tablespace users;
+--
+--grant connect, resource to tickets;
+--show user;
 
 --==================================================
 --계정 삭제 후 다시 만들 때 사용할 것
@@ -24,17 +24,17 @@ show user;
 --select * from user_views;
 
 -- 테이블 삭제
---DROP TABLE "THEATER" CASCADE CONSTRAINTS;
---DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
---DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
---DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
---DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
---DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
---DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
---DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
---DROP TABLE "SEAT" CASCADE CONSTRAINTS;
---DROP TABLE "TICKET" CASCADE CONSTRAINTS;
---DROP TABLE "PAY" CASCADE CONSTRAINTS;
+DROP TABLE "THEATER" CASCADE CONSTRAINTS;
+DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
+DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
+DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
+DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
+DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
+DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
+DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
+DROP TABLE "SEAT" CASCADE CONSTRAINTS;
+DROP TABLE "TICKET" CASCADE CONSTRAINTS;
+DROP TABLE "PAY" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
 --DROP SEQUENCE "PERFORMANCE_SEQ";
@@ -96,7 +96,8 @@ create table performance(
     per_title varchar2(100) not null,
     per_director varchar2(20),
     per_actor varchar2(300),
-    per_address varchar2(200),
+    theater_no varchar2(200),
+--    per_address varchar2(200),
     per_time number,
     per_content varchar2(2000),
     per_img_original_filename varchar(256),
@@ -337,17 +338,19 @@ values(
 );
 --======================================================
 
-select * from theater;
+--select * from theater;
 --select * from location;
-select * from category;
-select * from member;
-select * from performance;
+--select * from category;
+--select * from member;
+--select * from category;
+--select * from member;
+--select * from performance;
 --select * from review;
 --select * from wishlist;
-select * from schedule;
+--select * from schedule;
 --select * from seat;
-select * from ticket;
-select * from pay;
+--select * from ticket;
+--select * from pay;
 
 --rollback;
 commit;

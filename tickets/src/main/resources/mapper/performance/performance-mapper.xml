@@ -16,6 +16,7 @@
 			#{ perDirector },
 			#{ perActor },
 			#{ theaterNo },
+			#{ perTime },
 			#{ perContent },
 			#{ perImgOriginalFileName },
 			#{ perImgRenamedFileName },
@@ -24,7 +25,10 @@
 			#{ perRating },
 			default,
 			default,
-			default
+			default,
+			#{ perStartDate },
+			#{ perEndDate }
+			
 		)
 	</insert>
 	
@@ -72,6 +76,28 @@
 			performance
 		where
 			admin_approval = 'N'
+		<!-- order by
+			no desc -->
+	</select>
+	
+	<select id="companyPerList" resultMap="performanceMap">
+		select
+			*
+		from
+			performance
+		where
+			member_id = #{ memberId } <!-- and admin_approval = 'Y' -->
+		<!-- order by
+			no desc -->
+	</select>
+	
+	<select id="selectOnePerformance" resultMap="performanceMap">
+		select
+			*
+		from
+			performance
+		where
+			per_no = #{ perNo }
 		<!-- order by
 			no desc -->
 	</select>

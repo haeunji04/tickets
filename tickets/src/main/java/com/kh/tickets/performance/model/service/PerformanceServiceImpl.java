@@ -46,8 +46,21 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
+
+	public List<Performance> companyPerList(String memberId) {
+		return performanceDAO.companyPerList(memberId);
+	}
+
+	@Override
+	public Performance selectOnePerformance(int perNo) {
+		return performanceDAO.selectOnePerformance(perNo);
+	}
+
+	
+
 	public List<PerformanceHall> searchHallName(String keyword) {
 		return performanceDAO.searchHallName(keyword);
 	}
+
 
 }

@@ -71,6 +71,14 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		      <label for="detailImgFile">작품설명 이미지</label>
 		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">		      
 		    </div>
+		    <tr>
+				<label for="perStartDate">공연시작일</label>
+				<input type="date" class="form-control" name="perStartDate" id="perStartDate"/>
+			</tr> 
+		    <tr>
+				<label for="perEndDate">공연종료일</label>
+				<input type="date" class="form-control" name="perEndDate" id="perEndDate"/>
+			</tr> 		
 		    
 		    <div class="form-group">
 		      <label for="perRating">공연 관람 등급</label>
@@ -79,6 +87,24 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		        <option value="8">8세이상관람가</option>
 		        <option value="15">15세이상관람가</option>
 		        <option value="18">18세이상관람가</option>
+		      </select>
+		    </div>
+		    
+		    <div class="form-group">
+		      <label for="perTime">공연 관람 시간</label>
+		      <select class="form-control" id="perTime" name="perTime">
+		        <option value="60">60분</option>
+		        <option value="70">70분</option>
+		        <option value="80">80분</option>
+		        <option value="90">100분</option>
+		        <option value="90">110분</option>
+		        <option value="90">120분</option>
+		        <option value="90">130분</option>
+		        <option value="90">140분</option>
+		        <option value="90">150분</option>
+		        <option value="90">160분</option>
+		        <option value="90">170분</option>
+		        <option value="90">180분</option>
 		      </select>
 		    </div>
 		    
