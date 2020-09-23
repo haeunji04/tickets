@@ -24,7 +24,7 @@ public class Performance implements Serializable {
 	private String perTitle;
 	private String perDirector;
 	private String perActor;
-	private String perAddress;
+	private String theaterNo;
 	private String perContent;
 	private String perImgOriginalFileName;
 	private String perImgRenamedFileName;

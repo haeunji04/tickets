@@ -3,6 +3,7 @@ package com.kh.tickets.performance.model.dao;
 import java.util.List;
 
 import com.kh.tickets.performance.model.vo.Performance;
+import com.kh.tickets.performance.model.vo.PerformanceHall;
 
 public interface PerformanceDAO {
 
@@ -18,8 +19,12 @@ public interface PerformanceDAO {
 
 	List<Performance> adminApprovalPerList();
 
+
 	List<Performance> companyPerList(String memberId);
 
 	Performance selectOnePerformance(int perNo);
+
+	List<PerformanceHall> searchHallName(String keyword);
+
 
 }

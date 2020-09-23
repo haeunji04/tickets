@@ -41,7 +41,7 @@
 		<td>${ per.perTitle }</td>
 		<td>${ per.perDirector }</td>
 		<td>${ per.perActor }</td>
-		<td>${ per.perAddress }</td>
+		<td>${ per.theaterNo }</td>
 		<td>${ per.perRegisterDate }</td>
 		<%-- <td>${ per.adminApproval }</td> --%>
 		<td>${ per.adminApproval eq 'Y' ? '승인' : '미승인'}</td>

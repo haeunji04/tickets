@@ -3,6 +3,7 @@ package com.kh.tickets.performance.model.service;
 import java.util.List;
 
 import com.kh.tickets.performance.model.vo.Performance;
+import com.kh.tickets.performance.model.vo.PerformanceHall;
 
 public interface PerformanceService {
 
@@ -18,10 +19,12 @@ public interface PerformanceService {
 
 	List<Performance> adminApprovalPerList();
 
+
 	List<Performance> companyPerList(String memberId);
 
 	Performance selectOnePerformance(int perNo);
 
 	
 
+	List<PerformanceHall> searchHallName(String keyword);
 }
