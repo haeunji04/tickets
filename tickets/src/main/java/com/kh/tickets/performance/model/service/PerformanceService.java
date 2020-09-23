@@ -27,4 +27,6 @@ public interface PerformanceService {
 	
 
 	List<PerformanceHall> searchHallName(String keyword);
+
+	int perUpdate(Performance performance);
 }

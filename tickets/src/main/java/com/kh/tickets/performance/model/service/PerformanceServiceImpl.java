@@ -62,5 +62,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.searchHallName(keyword);
 	}
 
+	@Override
+	public int perUpdate(Performance performance) {
+		return performanceDAO.perUpdate(performance);
+	}
+
 
 }

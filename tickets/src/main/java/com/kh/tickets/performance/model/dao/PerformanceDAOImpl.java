@@ -61,4 +61,9 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 
 	}
 
+	@Override
+	public int perUpdate(Performance performance) {		
+		return sqlSession.update("performance.perUpdate", performance);
+	}
+
 }

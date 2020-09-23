@@ -26,5 +26,7 @@ public interface PerformanceDAO {
 
 	List<PerformanceHall> searchHallName(String keyword);
 
+	int perUpdate(Performance performance);
+
 
 }

@@ -66,7 +66,7 @@
 		set 
 			admin_approval = 'Y'
 		where 
-			per_no = #{ per_no }
+			per_no = #{ perNo }
 	</update>
 	
 	<select id="adminApprovalPerList" resultMap="performanceMap">
@@ -113,6 +113,25 @@
 		where
 			name like '%'||#{ keyword }||'%'
 	</select>
+	
+	<update id="perUpdate">
+		update 
+			performance
+		set 
+			category_code = #{ categoryCode },
+			location_code = #{ locationCode },
+			per_title = #{ perTitle },
+			per_director = #{ perDirector },
+			per_actor = #{ perActor },
+			per_time = #{ perTime },
+			per_content = #{ perContent },
+			per_rating = #{ perRating },
+			per_start_date = #{ perStartDate },
+			per_end_date = #{ perEndDate }
+		where 
+			per_no = #{ perNo }
+	</update>
+	
 	<resultMap type="performanceHall" id="performanceHallMap">
 	</resultMap>	
 	

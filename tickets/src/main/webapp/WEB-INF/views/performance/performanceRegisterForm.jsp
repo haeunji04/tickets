@@ -96,15 +96,16 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		        <option value="60">60분</option>
 		        <option value="70">70분</option>
 		        <option value="80">80분</option>
-		        <option value="90">100분</option>
-		        <option value="90">110분</option>
-		        <option value="90">120분</option>
-		        <option value="90">130분</option>
-		        <option value="90">140분</option>
-		        <option value="90">150분</option>
-		        <option value="90">160분</option>
-		        <option value="90">170분</option>
-		        <option value="90">180분</option>
+		        <option value="90">90분</option>
+		        <option value="100">100분</option>
+		        <option value="110">110분</option>
+		        <option value="120">120분</option>
+		        <option value="130">130분</option>
+		        <option value="140">140분</option>
+		        <option value="150">150분</option>
+		        <option value="160">160분</option>
+		        <option value="170">170분</option>
+		        <option value="180">180분</option>
 		      </select>
 		    </div>
 		    
