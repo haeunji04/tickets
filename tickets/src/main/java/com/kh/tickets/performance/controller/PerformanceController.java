@@ -320,7 +320,12 @@ public class PerformanceController {
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}
-	
+	@GetMapping("/performance/selectSeat.do")
+	public ModelAndView selectSeat(ModelAndView mav) {
+		
+		mav.setViewName("performance/selectSeat");
+		return mav;
+	}
 	
 	
 }
