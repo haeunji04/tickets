@@ -141,14 +141,14 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		      <select class="form-control" id="locationCode" name="locationCode" value="${ performance.locationCode }">
 		        <option value="L1"${ performance.locationCode == 'L1' ? 'selected':'' }>서울</option>
 		        <option value="L2"${ performance.locationCode == 'L2' ? 'selected':'' }>경기/인천</option>
-		        <option value="L3"${ performance.locationCode == 'L3' ? 'selected':'' }>대전/충청/강원</option>
-		        <option value="L4"${ performance.locationCode == 'L4' ? 'selected':'' }>부산/대구/경상</option>
+		        <option value="L3"${ performance.locationCode == 'L3' ? 'selected':'' }>대전/세종/충청/강원</option>
+		        <option value="L4"${ performance.locationCode == 'L4' ? 'selected':'' }>부산/대구/경상/울산</option>
 		        <option value="L5"${ performance.locationCode == 'L5' ? 'selected':'' }>광주/전라/제주</option>
 		      </select>
 		    </div>
 			
 			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="수정 "/>
+				<input type="submit" class="btn btn-primary" value="다음"/>
 			</div>
 		</div>
 	</form>

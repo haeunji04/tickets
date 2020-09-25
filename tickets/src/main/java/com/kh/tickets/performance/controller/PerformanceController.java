@@ -3,6 +3,7 @@ package com.kh.tickets.performance.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,8 @@ import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
+import com.kh.tickets.performance.model.vo.SchDate;
+import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -154,7 +157,7 @@ public class PerformanceController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/performance/scheduleRegister")
+	@PostMapping("/performance/dateRegister")
 	public Map<String, Object> performanceDate(@RequestBody Map<String, Object> param) {
 		
 		String schedule = param.get("date")+" "+param.get("hour")+":"+param.get("min")+":00";
@@ -281,13 +284,13 @@ public class PerformanceController {
 	}
 	
 	@PostMapping("/company/perUpdate.do")
-	public String perUpdate(Performance performance, 
+	public ModelAndView perUpdate(Performance performance, 
 			 				@RequestParam(value="perImgFile",required=false) MultipartFile[] perImgFiles,
 			 				@RequestParam(value="detailImgFile",required=false) MultipartFile[] detailImgFiles,
 			 				@RequestParam("oldPerImgOriginalFileName") String oldPerImgOriginalFileName,
 			 				@RequestParam("oldPerImgRenamedFileName") String oldPerImgRenamedFileName,
 			 				HttpServletRequest request,
-							RedirectAttributes redirectAttributes){
+			 				ModelAndView mav){
 		
 		String saveDirectory = request.getServletContext()
 				  .getRealPath("/resources/upload/performance");
@@ -349,9 +352,49 @@ public class PerformanceController {
 			}			
 		}	
 		int result = performanceService.perUpdate(performance);
-		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연정보 수정성공" : "공연정보 수정실패");
-		return "redirect:/company/companyPerList.do";
+		mav.addObject("msg", result>0 ? "공연정보 수정성공" : "공연정보 수정실패");
+		
+		// 스케쥴 가져오기!!
+		List<Schedule> list = performanceService.selectPerSchedule(performance.getPerNo());
+		log.debug("List = {}", list);
+		
+		List<SchDate> schList = new ArrayList<>();
+		String schedule = null;
+		String date = "";
+		String hour = "";
+		String min = "";
+
+		if(list != null) {
+			for(Schedule sch: list) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				schedule = sdf.format(sch.getSchDateTime());
+				
+				date = schedule.substring(0, 11);
+				hour = schedule.substring(11, 13);
+				min = schedule.substring(14, 16);
+
+				SchDate sd = new SchDate(date, hour, min);
+				log.debug("SchDate = {}", sd);
+				
+				schList.add(sd);
+			}
+
+		}
+		log.debug("schList = {}", schList);
+		
+		mav.addObject("schList", schList);
+		mav.addObject("perNo", performance.getPerNo());
+		mav.setViewName("company/perDateUpdateForm");
+		
+		return mav;
+
 	}
+	
+	@RequestMapping("/company/perUpdateEnd")
+	public String perUpdateEnd() {
+		return "company/perUpdateEnd";
+	}
+	
 	
 	@GetMapping("/performance/performanceInfoView2.do")
 	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,

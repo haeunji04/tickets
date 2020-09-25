@@ -8,6 +8,7 @@ import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
+import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.WishList;
 
 public interface PerformanceDAO {
@@ -48,6 +49,8 @@ public interface PerformanceDAO {
 	int recentlyPerListInsert(RecentlyPerList recentlyPerList);
 
 	int recentlyPerListDelete(RecentlyPerList recentlyPerList2);
+
+	List<Schedule> selectPerSchedule(int perNo);
 
 
 }

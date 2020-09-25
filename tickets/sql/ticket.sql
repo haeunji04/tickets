@@ -64,6 +64,7 @@ create table location(
     constraints pk_location_code primary key(location_code)
 );
 
+ALTER TABLE LOCATION MODIFY LOCATION_NAME VARCHAR2(50);
 --Category
 create table category(
     category_code varchar2(20) not null,
@@ -273,6 +274,9 @@ values (
     'L5',
     '광주/전라/제주'
 );
+        -- location테이블 데이터 변경
+update location set location_name='대전/세종/충청/강원' where location_code='L3';
+update location set location_name='부산/대구/경상/울산' where location_code='L4';
 
 --category
 insert into 
@@ -382,7 +386,7 @@ values(
 --======================================================
 
 --select * from theater;
---select * from location;
+select * from location;
 --select * from category;
 --select * from member;
 --select * from category;

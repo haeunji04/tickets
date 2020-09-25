@@ -12,6 +12,7 @@ import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
+import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Repository
@@ -109,6 +110,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public int recentlyPerListDelete(RecentlyPerList recentlyPerList2) {
 		return sqlSession.delete("performance.recentlyPerListDelete", recentlyPerList2);
+	}
+
+	@Override
+	public List<Schedule> selectPerSchedule(int perNo) {
+		return sqlSession.selectList("performance.selectPerSchedule", perNo);
 	}
 
 }

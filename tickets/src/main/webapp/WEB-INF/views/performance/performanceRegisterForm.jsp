@@ -130,7 +130,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		        <option value="L1">서울</option>
 		        <option value="L2">경기/인천</option>
 		        <option value="L3">대전/세종/충청/강원</option>
-		        <option value="L4">부산/대구/경상</option>
+		        <option value="L4">부산/대구/경상/울산</option>
 		        <option value="L5">광주/전라/제주</option>
 		      </select>
 		    </div>
