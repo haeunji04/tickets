@@ -89,7 +89,6 @@
 		var $frm = $("#perUpdateFrm");
 		$frm.find("[name=perNo]").val(perNo);
 		$frm.submit();
-
 	}
 </script>
 

@@ -105,14 +105,17 @@
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	
-		<select id="searchHallName" resultMap="performanceHallMap">
+	<select id="searchHallName" resultMap="performanceHallMap">
 		select
 			*
 		from
 			theater
 		where
-			name like '%'||#{ keyword }||'%'
+			upper(name) like '%'||upper(#{ keyword })||'%'
 	</select>
+	
+	<resultMap type="performanceHall" id="performanceHallMap">
+	</resultMap>	
 	
 	<update id="perUpdate">
 		update 
@@ -136,8 +139,26 @@
 			per_no = #{ perNo }
 	</update>
 	
-	<resultMap type="performanceHall" id="performanceHallMap">
-	</resultMap>	
+	<select id="getPerNo" resultType="_int">
+		select 
+			per_no
+		from
+			performance
+		where
+			per_title like #{ perTitle }
+	</select>
+	
+	<insert id="insertSchedule">
+		insert into
+			schedule
+		values(
+			schedule_seq.nextval,
+			#{ perNo },
+			null,
+			#{ parseDate }
+		)
+	
+	</insert>	
 	
 	
 </mapper>
