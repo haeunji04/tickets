@@ -128,7 +128,6 @@ li.on button{
 					   performance.perRating == 8 ? '8세이상 관람가':
 					   performance.perRating == 15 ? '15세이상관람가': '18세이상관람가' }				
 				</td>
-				<td></td>
 			</tr>
 			<tr>
 				<td>장르</td>				

@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.performance.model.dao.PerformanceDAO;
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Service
@@ -92,7 +94,24 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int insertSchedule(Map<String, Object> param) {
 		return performanceDAO.insertSchedule(param);
+	}	
+
+	@Override
+	public List<MyRecentlyPerList> recentlyPerList(String memberId) {
+		return performanceDAO.recentlyPerList(memberId);
 	}
+
+	@Override
+	public int recentlyPerListInsert(RecentlyPerList recentlyPerList) {
+		return performanceDAO.recentlyPerListInsert(recentlyPerList);
+	}
+
+	@Override
+	public int recentlyPerListDelete(RecentlyPerList recentlyPerList2) {
+		return performanceDAO.recentlyPerListDelete(recentlyPerList2);
+	}
+
+	
 
 
 }

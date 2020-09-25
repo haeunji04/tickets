@@ -7,9 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Repository
@@ -92,6 +94,21 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public int insertSchedule(Map<String, Object> param) {
 		return sqlSession.insert("performance.insertSchedule", param);
+	}
+
+	@Override
+	public int recentlyPerListInsert(RecentlyPerList recentlyPerList) {
+		return sqlSession.insert("performance.recentlyPerListInsert", recentlyPerList);
+	}
+
+	@Override
+	public List<MyRecentlyPerList> recentlyPerList(String memberId) {
+		return sqlSession.selectList("performance.recentlyPerList", memberId);
+	}
+
+	@Override
+	public int recentlyPerListDelete(RecentlyPerList recentlyPerList2) {
+		return sqlSession.delete("performance.recentlyPerListDelete", recentlyPerList2);
 	}
 
 }

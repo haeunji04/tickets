@@ -3,9 +3,11 @@ package com.kh.tickets.performance.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.WishList;
 
 public interface PerformanceService {
@@ -42,5 +44,11 @@ public interface PerformanceService {
 	int getPerNo(String perTitle);
 
 	int insertSchedule(Map<String, Object> param);
+
+	List<MyRecentlyPerList> recentlyPerList(String memberId);
+
+	int recentlyPerListInsert(RecentlyPerList recentlyPerList);
+
+	int recentlyPerListDelete(RecentlyPerList recentlyPerList2);
 	
 }

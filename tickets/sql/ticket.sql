@@ -147,6 +147,15 @@ create table wishlist(
     constraints fk_member_id2 foreign key(member_id) references member(member_id),
     constraints fk_per_no2 foreign key(per_no) references performance(per_no)
 );
+--RecentlyPerList
+create table recently_per_list(
+    member_id varchar2(15),
+    per_no number,
+    recently_date date default sysdate,
+    constraints pk_recently_per_list primary key(member_id,per_no),
+    constraints fk_recently_member_id foreign key(member_id) references member(member_id),
+    constraints fk_recently_per_no foreign key(per_no) references performance(per_no)
+);
 --Schedule
 create table schedule(
     sch_no number,
@@ -156,6 +165,8 @@ create table schedule(
     constraints pk_sch_no primary key(sch_no),
     constraints fk_per_no4 foreign key(per_no) references performance(per_no)
 );
+
+ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
 --schedule insert
 
 --Seat
@@ -218,6 +229,15 @@ select W.member_id, per_no, W.wish_date,
        P.theater_no, P.per_start_date, P.per_end_date
 from wishlist W
     join performance P using(per_no);
+    
+create view recently_per_list_view as
+select W.member_id, per_no, W.recently_date,
+       P.per_title, P.per_img_original_filename, P. per_img_renamed_filename,
+       P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time
+from recently_per_list W
+    join performance P using(per_no);
+    
+    
     
 
 
@@ -375,6 +395,9 @@ values(
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
+select * from recently_per_list;
+select * from recently_per_list_view;
+
 
 commit;
 --rollback;
