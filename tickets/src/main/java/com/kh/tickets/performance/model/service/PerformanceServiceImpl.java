@@ -1,6 +1,7 @@
 package com.kh.tickets.performance.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public List<MyWishList> wishListView(String memberId) {
 		return performanceDAO.wishListView(memberId);
 	}
-
 	
+	public int getPerNo(String perTitle) {
+		return performanceDAO.getPerNo(perTitle);
+	}
+
+	@Override
+	public int insertSchedule(Map<String, Object> param) {
+		return performanceDAO.insertSchedule(param);
+	}
 
 
 }

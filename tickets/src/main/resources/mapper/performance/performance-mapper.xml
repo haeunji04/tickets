@@ -103,14 +103,17 @@
 			no desc -->
 	</select>	
 	
-		<select id="searchHallName" resultMap="performanceHallMap">
+	<select id="searchHallName" resultMap="performanceHallMap">
 		select
 			*
 		from
 			theater
 		where
-			name like '%'||#{ keyword }||'%'
+			upper(name) like '%'||upper(#{ keyword })||'%'
 	</select>
+	
+	<resultMap type="performanceHall" id="performanceHallMap">
+	</resultMap>	
 	
 	<update id="perUpdate">
 		update 
@@ -132,8 +135,8 @@
 			per_end_date = #{ perEndDate }
 		where 
 			per_no = #{ perNo }
-	</update>
-	
+	</update>	
+
 	<insert id="wishListInsert">
 		insert into
 			wishlist
@@ -171,6 +174,27 @@
 	</resultMap>		
 	<resultMap type="myWishList" id="myWishListMap">
 	</resultMap>		
+
+	<select id="getPerNo" resultType="_int">
+		select 
+			per_no
+		from
+			performance
+		where
+			per_title like #{ perTitle }
+	</select>
+	
+	<insert id="insertSchedule">
+		insert into
+			schedule
+		values(
+			schedule_seq.nextval,
+			#{ perNo },
+			null,
+			#{ parseDate }
+		)
+	
+	</insert>	
 	
 	
 </mapper>

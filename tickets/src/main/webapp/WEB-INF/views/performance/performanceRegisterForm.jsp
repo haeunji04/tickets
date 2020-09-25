@@ -30,7 +30,11 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		  method="POST"
 		  enctype="multipart/form-data">
 		<div class="mx-auto">
-		    <h2 class="mx-auto mt-3 text-center">공연 등록</h2>
+		    <h2 class="mx-auto mt-3 text-center">공연 등록 <small class="text-muted">&gt; 공연일정</small></h2>
+		    <br /><br />
+			<div class="progress">
+			  	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%"></div>
+			</div>
 		    <br /><br />
 				
 			<div class="form-group" id="memberId-container">
@@ -132,7 +136,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    </div>
 			
 			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="등록 신청"/>
+				<input type="submit" class="btn btn-primary d-inline" value="다음"/>
 			</div>
 		</div>
 	</form>

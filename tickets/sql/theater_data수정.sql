@@ -2144,6 +2144,8 @@ UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%광주%';
 UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%전라%';
 UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%제주%';
 
---select * from theater;
+
+--SCHEDULE테이블에서 SCH_DATE_TIME 컬럼 데이터타입 TIMESTAMP로 변경(0924)
+ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
 
 commit;

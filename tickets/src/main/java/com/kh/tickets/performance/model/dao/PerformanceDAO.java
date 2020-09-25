@@ -1,6 +1,7 @@
 package com.kh.tickets.performance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
@@ -29,12 +30,16 @@ public interface PerformanceDAO {
 	List<PerformanceHall> searchHallName(String keyword);
 
 	int perUpdate(Performance performance);
-
+	
 	int wishListInsert(WishList wishList);
 
 	int wishListDelete(WishList wishList);
 
 	List<MyWishList> wishListView(String memberId);
+	
+	int getPerNo(String perTitle);
+
+	int insertSchedule(Map<String, Object> param);
 
 
 }

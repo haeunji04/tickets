@@ -3,7 +3,10 @@ package com.kh.tickets.performance.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,11 +81,11 @@ public class PerformanceController {
 
 	
 	@PostMapping("/performance/performanceRegister.do")
-	public String performanceRegister(Performance performance,
+	public ModelAndView performanceRegister(Performance performance,
 			  						  @RequestParam(value="perImgFile",required=false) MultipartFile[] perImgFiles,
 			  						  @RequestParam(value="detailImgFile",required=false) MultipartFile[] detailImgFiles,
 									  HttpServletRequest request,
-									  RedirectAttributes redirectAttr) {
+									  ModelAndView mav) {
 		
 		String theaterNo = request.getParameter("searchHallNo");	
 		performance.setTheaterNo(theaterNo);	
@@ -131,7 +135,7 @@ public class PerformanceController {
 		
 		try {
 			int result = performanceService.performanceRegister(performance);
-			redirectAttr.addFlashAttribute("msg", "공연등륵 신청 성공!");
+			mav.addObject("msg", "공연등륵 신청 성공!");
 		} catch (Exception e) {
 			log.error("공연등륵 신청 오류", e);
 //			redirectAttr.addFlashAttribute("msg", "공연등륵 신청 실패!");
@@ -140,8 +144,44 @@ public class PerformanceController {
 			throw e;
 		}	
 		
+		int perNo = performanceService.getPerNo(performance.getPerTitle());
 		
-		return "redirect:/performance/performanceRegisterForm.do";
+		mav.addObject("perNo", perNo);
+		mav.setViewName("performance/performanceDateRegisterForm");
+		return mav;
+	}
+	
+	@ResponseBody
+	@PostMapping("/performance/scheduleRegister")
+	public Map<String, Object> performanceDate(@RequestBody Map<String, Object> param) {
+		
+		String schedule = param.get("date")+" "+param.get("hour")+":"+param.get("min")+":00";
+		log.debug("schedule = {}", schedule);
+		log.debug("param = {}", param);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date parseDate = null;
+		String msg = "일정등록 성공";
+		try {
+			parseDate = sdf.parse(schedule);
+			log.debug("parseDate = {}", parseDate);
+			param.put("parseDate", parseDate);
+			int result = performanceService.insertSchedule(param);
+			
+		} catch (Exception e) {
+			log.error("일정 등록 오류!!!!", e);
+			msg = "일정등록 실패";
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("msg", msg);
+
+		return map;
+	}
+	
+	@RequestMapping("/performance/performanceRegisterEnd")
+	public String performanceRegisterEnd() {
+		return "performance/performanceRegisterEnd";
 	}
 	
 	

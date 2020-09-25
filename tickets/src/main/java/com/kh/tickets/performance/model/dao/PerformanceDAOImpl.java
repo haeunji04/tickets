@@ -1,6 +1,7 @@
 package com.kh.tickets.performance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.wishListView", memberId);
 	}
 
-	
+
+	public int getPerNo(String perTitle) {
+		return sqlSession.selectOne("performance.getPerNo", perTitle);
+	}
+
+	@Override
+	public int insertSchedule(Map<String, Object> param) {
+		return sqlSession.insert("performance.insertSchedule", param);
+	}
 
 }
