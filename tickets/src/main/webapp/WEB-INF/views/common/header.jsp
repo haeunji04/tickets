@@ -122,6 +122,7 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜 목록</a>
 			          		<c:if test="${ loginMember.memberRole eq 'A' }">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록</a>

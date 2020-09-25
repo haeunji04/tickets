@@ -10,6 +10,10 @@
 --grant connect, resource to tickets;
 --show user;
 
+--view 생성 권한
+--grant create view to tickets;
+
+
 --==================================================
 --계정 삭제 후 다시 만들 때 사용할 것
 --drop user tickets cascade;
@@ -24,17 +28,17 @@
 --select * from user_views;
 
 -- 테이블 삭제
-DROP TABLE "THEATER" CASCADE CONSTRAINTS;
-DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
-DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
-DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
-DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
-DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
-DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
-DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
-DROP TABLE "SEAT" CASCADE CONSTRAINTS;
-DROP TABLE "TICKET" CASCADE CONSTRAINTS;
-DROP TABLE "PAY" CASCADE CONSTRAINTS;
+--DROP TABLE "THEATER" CASCADE CONSTRAINTS;
+--DROP TABLE "LOCATION" CASCADE CONSTRAINTS;
+--DROP TABLE "CATEGORY" CASCADE CONSTRAINTS;
+--DROP TABLE "MEMBER" CASCADE CONSTRAINTS;
+--DROP TABLE "PERFORMANCE" CASCADE CONSTRAINTS;
+--DROP TABLE "REVIEW" CASCADE CONSTRAINTS;
+--DROP TABLE "WISHLIST" CASCADE CONSTRAINTS;
+--DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
+--DROP TABLE "SEAT" CASCADE CONSTRAINTS;
+--DROP TABLE "TICKET" CASCADE CONSTRAINTS;
+--DROP TABLE "PAY" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
 --DROP SEQUENCE "PERFORMANCE_SEQ";
@@ -208,7 +212,14 @@ cycle;
 
 create sequence schedule_seq;
 --=============== tickets계정으로 뷰 생성 ===============
---아직 없음
+create view wishlist_view as
+select W.member_id, per_no, W.wish_date,
+       P.per_title, P.per_img_original_filename, P. per_img_renamed_filename,
+       P.theater_no, P.per_start_date, P.per_end_date
+from wishlist W
+    join performance P using(per_no);
+    
+
 
 --=============== tickets계정으로 기본 insert 생성===============
 --location
@@ -336,6 +347,18 @@ values(
     default,
     default
 );
+--========================테스트 란=======================
+
+--공연에 공연장주소 불러오기 하다만
+--select p.per_title, t.name, t.address
+--from  performance p
+--    join theater t
+--        on p.theater_no = t.no;
+
+--delete performance where per_no =21;
+
+--select * from performance order by per_register_date desc;
+
 --======================================================
 
 --select * from theater;
@@ -351,6 +374,23 @@ values(
 --select * from seat;
 --select * from ticket;
 --select * from pay;
+--select * from wishlist_view;
 
---rollback;
 commit;
+--rollback;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

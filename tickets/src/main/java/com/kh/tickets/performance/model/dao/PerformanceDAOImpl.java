@@ -6,8 +6,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.WishList;
 
 @Repository
 public class PerformanceDAOImpl implements PerformanceDAO {
@@ -64,6 +66,23 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public int perUpdate(Performance performance) {		
 		return sqlSession.update("performance.perUpdate", performance);
+	}	
+
+	@Override
+	public int wishListInsert(WishList wishList) {
+		return sqlSession.insert("performance.wishListInsert", wishList);
 	}
+
+	@Override
+	public int wishListDelete(WishList wishList) {
+		return sqlSession.delete("performance.wishListDelete", wishList);
+	}
+
+	@Override
+	public List<MyWishList> wishListView(String memberId) {
+		return sqlSession.selectList("performance.wishListView", memberId);
+	}
+
+	
 
 }
