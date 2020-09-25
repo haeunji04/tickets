@@ -4,12 +4,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.seat-charts.css">
+<title>TICATS</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jquery.seat-charts.css">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		
+	<!-- bootstrap js: jquery load 이후에 작성할것.-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<!-- css 시작  -->
+		<!-- journal 테마 -->
+       <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" />
+	<!-- css 끝 -->
+
 <style>
 body {
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color:#fafafa;
+}
+::-webkit-scrollbar { 
+    display: none !important; // 윈도우 크롬 등
 }
 a {
 	color: #b71a4c;
@@ -106,27 +120,56 @@ span.seatCharts-legendDescription {
 	overflow-x: none;
 	width: 170px;
 }
+.selected{
+	border : 2px solid black !important;
+}
+.foo {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.blue {
+  background: #70D0EA;
+}
+
+.purple {
+  background: #9076FF;
+}
+
+.brown {
+  background: #BEA886;
+}
+.pink {
+  background: pink;
+}
+.green {
+  background: #AADE48;
+}
 </style>
 </head>
 <body>
-	<div class="fixed-top" style="height:50px;padding-left:50px;">
-		<h3>좌석선택 : 캣츠<40주년> 내한공연</h3>
+	<div class="fixed-top" style="height:50px;padding:10px 50px 50px 50px;background-color:white;">
+		<h3 style="float:left;">좌석선택 : 캣츠<40주년> 내한공연</h3>
+		<div class="select-date" style="float:left;width:250px;padding-left:50px;">
 		<select class="custom-select">
 	      <option selected="">2020.09.30 17:00</option>
 	      <option value="1">2020.10.1 17:00</option>
 	      <option value="2">2020.10.2 17:00</option>
 	      <option value="3">2020.10.30 17:00</option>
 	    </select>
+		</div>
 	</div>
-	<div id="test" class="seatCharts-container" tabindex="0">
+	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:50px;">
 		  <div class="front-indicator">1F</div>
 		  <% int count=1;
 		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="1_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
-				class="seatCharts-seat seatCharts-cell first-class available" onclick="alert(this.id);"
+			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
+				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
 				style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
 					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
@@ -150,7 +193,7 @@ span.seatCharts-legendDescription {
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="1_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
+			<div id="2_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="alert(this.id);"
 				style="<% if(i<6){ %>
 						background-color:#70D0EA;
@@ -165,8 +208,77 @@ span.seatCharts-legendDescription {
 			%>
 		
 	</div>
-	<script>
+	<div class="position-fixed text-center" style="top:60px;left:750px;width:400px;height:1000px;background-color:white;line-height:30px; ">
+	<div class="show-seat h-30">
 		
+	</div>
+	<div class="text-center" style="padding-left:50px;">
+		<div class="seat-grade mx-3 mb-3" style="margin-top:50px;">
+			<table>
+              <tr>
+              	<td colspan="3">좌석별 가격 현황</td>
+              </tr>
+              <tr>
+              	<td><div class="foo brown"></div></td>
+              	<td>VIP석</td>
+              	<td>160,000원</td>
+              </tr>
+              <tr>
+              	<td><div class="foo purple"></div></td>
+              	<td>R석</td>
+              	<td>130,000원</td>
+              </tr>
+              <tr>
+              	<td><div class="foo blue"></div></td>
+              	<td>S석</td>
+              	<td>110,000원</td>
+              </tr>
+              <tr>
+              	<td><div class="foo green"></div></td>
+              	<td>A석</td>
+              	<td>90,000원</td>
+              </tr>
+              <tr>
+              	<td><div class="foo pink"></div></td>
+              	<td>B석</td>
+              	<td>60,000원</td>
+              </tr>				
+          </table>
+		</div>
+			<div class="side-bar d-block text-left" style="padding-left:20px;">
+		</div>
+		<div class="button" style="padding-left:20px;padding-top:30px;">
+			<button id="complete-select" type="button" class="btn btn-secondary disabled d-block" style="float:left;">좌석 선택 완료</button>
+		</div>
+	</div>
+	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
+		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
+	</div>
+	</div>
+	<script>
+		function select(e){
+				$('#complete-select').removeClass('btn-primary');
+				$('#complete-select').addClass('btn-secondary');
+			if($(e).hasClass('selected')==true){
+					$(e).removeClass('selected');
+					$("."+e.id).remove();
+				}else{
+					$('#complete-select').removeClass('btn-secondary');
+					$('#complete-select').addClass('btn-primary');
+					$(e).addClass('selected');
+					$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
+				
+				}
+			
+		};
+		$('.selected').click(function(){
+			$(this).removeClass('selected');
+		});
+		
+		/* window.onbeforeunload = function(e){
+				$('.loading').css('display','');
+			}; */
+
 	</script>
 	
 
