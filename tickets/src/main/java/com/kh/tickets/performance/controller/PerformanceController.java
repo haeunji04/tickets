@@ -29,9 +29,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -356,24 +358,47 @@ public class PerformanceController {
 											@ModelAttribute("loginMember") Member loginMember) {
 		
 		log.debug("perNo@@ = {}", perNo);
-		
-		Performance performance = performanceService.selectOnePerformance(perNo);
-		
 		String memberId = loginMember.getMemberId();
 		log.debug("memberId@@ = {}", memberId);
+		
+		//공연상세페이지에 들어갈 공연객체
+		Performance performance = performanceService.selectOnePerformance(perNo);
+		
+		//찜하기 여부 확인할 찜 list				
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
 		
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		
-//		int cnt1 = 0;
-//		int cnt2 = 0;		
+		//내 최근목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		MyRecentlyPerList[] arr = rList.toArray(new MyRecentlyPerList[rList.size()]);
+		
+		
+	    for(int i=0; i<arr.length; i++){
+	    	if(perNo==(arr[i].getPerNo())){
+	    		
+	    		RecentlyPerList recentlyPerList2 = new RecentlyPerList();
+	    		recentlyPerList2.setMemberId(arr[i].getMemberId());
+	    		recentlyPerList2.setPerNo(arr[i].getPerNo());
+	    		
+	    		int result = performanceService.recentlyPerListDelete(recentlyPerList2);
+	    	}
+	    	
+	    }
+	    
+	    RecentlyPerList recentlyPerList = new RecentlyPerList();
+		recentlyPerList.setMemberId(loginMember.getMemberId());
+		recentlyPerList.setPerNo(perNo);
+		
+		
+		int result = performanceService.recentlyPerListInsert(recentlyPerList);		
+		log.debug("recentlyPerListInsert@controller = {}", result);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("performance", performance);		
 		mav.addObject("list", list);		
-//		mav.addObject("cnt1", cnt1);		
-//		mav.addObject("cnt2", cnt2);		
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}
@@ -450,6 +475,23 @@ public class PerformanceController {
 		mav.addObject("list", list);
 		mav.setViewName("/performance/wishListView");
 		return mav;
+	}
+	
+	@RequestMapping("/performance/recentlyPerList.do")
+	public String recentlyPerList(Model model, @ModelAttribute("loginMember") Member loginMember) {
+		
+		log.debug("loginMember = {}", loginMember);		
+		String memberId = loginMember.getMemberId();
+		log.debug("memberId@@ = {}", memberId);
+		
+		List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
+		log.debug("list@controller = {}", list);
+				
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("list", list);
+		
+		return "performance/recentlyPerList";
 	}
 	
 	
