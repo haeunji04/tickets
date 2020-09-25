@@ -29,8 +29,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +43,9 @@ public class PerformanceController {
 	
 	@Autowired
 	private PerformanceService performanceService; 
+	
+//	@Autowired
+//	private WishList wishList;
 	
 
 	@GetMapping("/list")
@@ -347,16 +352,28 @@ public class PerformanceController {
 	}
 	
 	@GetMapping("/performance/performanceInfoView2.do")
-	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo) {
+	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,
+											@ModelAttribute("loginMember") Member loginMember) {
 		
 		log.debug("perNo@@ = {}", perNo);
 		
 		Performance performance = performanceService.selectOnePerformance(perNo);
 		
+		String memberId = loginMember.getMemberId();
+		log.debug("memberId@@ = {}", memberId);
+		List<MyWishList> list = performanceService.wishListView(memberId);
+		log.debug("list@controller = {}", list);
+		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		
+//		int cnt1 = 0;
+//		int cnt2 = 0;		
 		
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("performance", performance);		
+		mav.addObject("list", list);		
+//		mav.addObject("cnt1", cnt1);		
+//		mav.addObject("cnt2", cnt2);		
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}
@@ -366,6 +383,75 @@ public class PerformanceController {
 		mav.setViewName("performance/selectSeat");
 		return mav;
 	}
+	
+	//요거 질문: 아래 똑같은데 ModelAndView는 됬는데 Model은 왜 perNo를 못읽고 화면을 다시 못띄우는지? sql까진 wishlist 정상 들어감.
+//	@PostMapping("/performance/wishListInsert.do")
+//	public String wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,
+//								 @ModelAttribute("loginMember") Member loginMember, Model model){
+//		
+//		WishList wishList = new WishList();
+//		wishList.setMemberId(loginMember.getMemberId());
+//		wishList.setPerNo(perNo);		
+//		
+//		int result = performanceService.wishListInsert(wishList);
+//		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜하기 성공" : "찜하기 실패");
+//		
+//		model.addAttribute("perNo", perNo);
+//		return "redirect:/performance/performanceInfoView2.do";
+//	}
+	
+	@PostMapping("/performance/wishListInsert.do")
+	public ModelAndView wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,
+			 						   @ModelAttribute("loginMember") Member loginMember, ModelAndView mav){
+		
+		WishList wishList = new WishList();
+		wishList.setMemberId(loginMember.getMemberId());
+		wishList.setPerNo(perNo);		
+		
+		int result = performanceService.wishListInsert(wishList);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜하기 성공" : "찜하기 실패");
+		
+			
+		mav.addObject("perNo", perNo);		
+		mav.setViewName("redirect:/performance/performanceInfoView2.do");
+		return mav;
+	}
+	
+	@PostMapping("/performance/wishListDelete.do")
+	public ModelAndView wishListDelete(@RequestParam int perNo, RedirectAttributes redirectAttributes,
+			@ModelAttribute("loginMember") Member loginMember, ModelAndView mav){
+		
+		WishList wishList = new WishList();
+		wishList.setMemberId(loginMember.getMemberId());
+		wishList.setPerNo(perNo);		
+		
+		int result = performanceService.wishListDelete(wishList);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜 해체하기 성공" : "찜 해제하기 실패");
+		
+		
+		mav.addObject("perNo", perNo);		
+		mav.setViewName("redirect:/performance/performanceInfoView2.do");
+		return mav;
+	}
+	
+//	/performance/wishListView.do
+	@GetMapping("/performance/wishListView.do")
+	public ModelAndView wishListView(ModelAndView mav,
+									  @ModelAttribute("loginMember") Member loginMember) {
+		log.debug("loginMember = {}", loginMember);		
+		String memberId = loginMember.getMemberId();
+		log.debug("memberId@@ = {}", memberId);
+		List<MyWishList> list = performanceService.wishListView(memberId);
+		log.debug("list@controller = {}", list);
+		
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("dateformat", dateformat);
+		mav.addObject("list", list);
+		mav.setViewName("/performance/wishListView");
+		return mav;
+	}
+	
 	
 	
 }

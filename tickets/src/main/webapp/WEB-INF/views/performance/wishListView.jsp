@@ -14,20 +14,39 @@
 <div id="category-container" class="mx-auto pb-5">
 
 	<div id="category-header" class="my-4 text-center" >
-		<h2 class="text-primary my-4"> ${ categoryName }</h2>	
-			
-		<!-- 추천 뮤지컬 반복문 블록 시작(4번 돌리기) -->
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3">
-			<a href="" class="none">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="포스터" height="300px" class="mb-2"/>
-			</a>
-				<h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5>
-				<p>기념비적인 40주년 내한 공연!</p>
+		<h2 class="text-primary my-4"> 내가 찜한 공연</h2>		
+	
+	<div id="category-header" class="my-4 text-center" >		
+	
+	<div id="category-body" class="my-3 text-center">
+		<!-- 공연 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
+		<c:if test="${ not empty list }">
+		<c:forEach items="${ list }" var="wish">
+		<div style="width: 213px" class="text-center d-inline-block p-3">
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ wish.perNo }">					
+						<img
+						src="<c:url value='/resources/upload/performance/${ wish.perImgRenamedFileName}' />"
+						style="width: 200px" />
+					</a>
+			<h6>${ wish.perTitle }</h6>
+			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ wish.theaterNo }</p>
 		</div>
-		<!-- 추천 뮤지컬 반복문 블록 끝 -->
+		</c:forEach>
+		</c:if>
 		
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3 pt-0">
+		<c:if test="${ empty list }">
+			<div>공연이 존재하지 않습니다.</div>
+		</c:if>
+		<!-- 뮤지컬 반복문 블록 끝 -->
+	
+	</div>
+	
+	<!-- 구분선 -->
+	<div class="d-block dropdown-divider"></div>
+	<br />
+	
+	<p>아래는 추천도 뜨는식으로?</p>
+	<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3 pt-0">
 			<a href="">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
@@ -55,33 +74,6 @@
 			<h5>뮤지컬 [무인도 탈출기]</h5>
 			<p>청춘을 대변하는 우리들의 '극중극'</p>
 		</div>
-	</div>
-	
-	<!-- 구분선 -->
-	<div class="d-block dropdown-divider"></div>
-	<br />
-	
-	<div id="category-body" class="my-3 text-center">
-		<!-- 공연 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
-		<c:if test="${ not empty list }">
-		<c:forEach items="${ list }" var="per">
-		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
-						<img
-						src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
-						style="width: 200px" />
-					</a>
-			<h6>${ per.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.theaterNo }</p>
-		</div>
-		</c:forEach>
-		</c:if>
-		
-		<c:if test="${ empty list }">
-			<div>공연이 존재하지 않습니다.</div>
-		</c:if>
-		<!-- 뮤지컬 반복문 블록 끝 -->
-	
 	</div>
 
 

@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.performance.model.dao.PerformanceDAO;
+import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
+import com.kh.tickets.performance.model.vo.WishList;
 
 @Service
 public class PerformanceServiceImpl implements PerformanceService {
@@ -66,9 +68,23 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int perUpdate(Performance performance) {
 		return performanceDAO.perUpdate(performance);
+	}	
+
+	@Override
+	public int wishListInsert(WishList wishList) {
+		return performanceDAO.wishListInsert(wishList);
 	}
 
 	@Override
+	public int wishListDelete(WishList wishList) {
+		return performanceDAO.wishListDelete(wishList);
+	}
+
+	@Override
+	public List<MyWishList> wishListView(String memberId) {
+		return performanceDAO.wishListView(memberId);
+	}
+	
 	public int getPerNo(String perTitle) {
 		return performanceDAO.getPerNo(perTitle);
 	}

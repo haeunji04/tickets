@@ -48,6 +48,56 @@ li.on button{
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
+			<div align="right">	
+				<!-- 찜하기 -->
+				<form id="wishListInsertFrm" 
+					  action="${pageContext.request.contextPath }/performance/wishListInsert.do?perNo=${ performance.perNo }" 
+					  method="POST">
+					  
+					  <%int cnt1=0; %>
+					  <c:set var="doneLoop" value="false" />
+					  <c:forEach items="${ list }" var="wlist" varStatus="status">	
+					  	<c:choose>
+					  		<c:when test="${ performance.perNo ne wlist.perNo }">
+					  			<%cnt1=0; %>
+					  		</c:when>
+					  		<c:otherwise>
+					  			<% cnt1++;%>
+					  			<c:set var="doneLoop" value="false" />
+					  		</c:otherwise> 	
+					  	</c:choose>
+					  </c:forEach>
+					  
+					  <%if(cnt1==0) {%>
+						<input type="submit" class="btn btn-primary" value="찜하기"/>	
+					  <%} %>
+				</form>
+				
+				<!-- 찜 해제하기 -->
+				<form id="wishListInsertFrm" 
+					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
+					  method="POST">
+					  
+					  <%int cnt2=0; %>
+					  <c:set var="doneLoop" value="false" />
+					  <c:forEach items="${ list }" var="wlist" varStatus="status">	
+					  	<c:choose>
+					  		<c:when test="${ performance.perNo ne wlist.perNo }">
+					  			<%cnt2=0; %>
+					  		</c:when>
+					  		<c:otherwise>
+					  			<% cnt2++;%>
+					  			<c:set var="doneLoop" value="false" />
+					  		</c:otherwise> 	
+					  	</c:choose>
+					  </c:forEach>
+					  
+					  <%if(cnt2>0) {%>
+						<input type="submit" class="btn btn-primary" value="찜 해제하기"/>	
+					  <%} %>			
+				</form>		
+				
+			</div>
 			<table id="perform-info-tbl" >
 			
 			<tr>
@@ -57,6 +107,10 @@ li.on button{
 						style="width: 200px" />				
 				</td>
 				<td colspan=3><h3>${ performance.perTitle } </h3></td>
+				
+				<td>
+				
+				</td>
 			</tr>
 			<tr>
 				<td>공연기간</td>
