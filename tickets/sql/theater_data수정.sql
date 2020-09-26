@@ -2116,12 +2116,7 @@ INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (1051
 -- location테이블 데이터 변경
 update location set location_name='대전/세종/충청/강원' where location_code='L3';
 update location set location_name='부산/대구/경상/울산' where location_code='L4';
-select * from performance;
-
---PERFORMANCE테이블에서 address컬럼 공연장번호로 변경하기
-UPDATE PERFORMANCE SET PER_address=NULL;
-ALTER TABLE PERFORMANCE MODIFY PER_address NUMBER;
-ALTER TABLE PERFORMANCE REname COLUMN PER_address TO THEATER_no;
+select * from location;
 
 --THEATER 테이블에 location_CODE 컬럼 추가
 ALTER TABLE THEATER ADD location_CODE VARCHAR2(20);
@@ -2143,7 +2138,6 @@ UPDATE THEATER SET location_CODE = 'L4' WHERE location LIKE '%울산%';
 UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%광주%';
 UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%전라%';
 UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%제주%';
-
 
 --SCHEDULE테이블에서 SCH_DATE_TIME 컬럼 데이터타입 TIMESTAMP로 변경(0924)
 ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;

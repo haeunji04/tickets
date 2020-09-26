@@ -140,11 +140,24 @@ $(document).ready(function(){
 				<th>시</th>
 				<th>분</th>
 			</tr>
+			<c:if test="${ not empty schList }">
+				<c:forEach items="${ schList }" var="sch">
+					<tr>
+						<td>${ sch.date }</td>
+						<td>${ sch.hour }시</td>
+						<td>${ sch.min }분</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			
+			<c:if test="${ empty schList }">
+			없다없어
+			</c:if>
 		</table>
 	</div>
 	
 	<div class="mx-auto text-center">
-		<input type="button" class="btn btn-primary" value="공연 등록 완료" onclick="location.href='${pageContext.request.contextPath}/performance/performanceRegisterEnd'"/>
+		<input type="button" class="btn btn-primary" value="공연 수정 완료" onclick="location.href='${pageContext.request.contextPath}/company/perUpdateEnd'"/>
 	</div>
 
 </div>
@@ -203,7 +216,7 @@ function displayResultTable(){
 		alert("날짜를 선택해주세요.");
 		return false;
 	}
-	
+
 	var html =  "<tr>";
 		html += "<td>"+date+"</td>";
 		html += "<td>"+hour+"시</td>";
