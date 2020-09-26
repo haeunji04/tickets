@@ -278,6 +278,7 @@ values (
 update location set location_name='대전/세종/충청/강원' where location_code='L3';
 update location set location_name='부산/대구/경상/울산' where location_code='L4';
 
+
 --category
 insert into 
     category
@@ -379,14 +380,15 @@ values(
 --    join theater t
 --        on p.theater_no = t.no;
 
---delete performance where per_no =21;
+--delete wishlist where per_no =24;
 
 --select * from performance order by per_register_date desc;
+--update performance set per_display='Y' where per_no=22;
 
 --======================================================
 
 --select * from theater;
-select * from location;
+--select * from location;
 --select * from category;
 --select * from member;
 --select * from category;
@@ -399,8 +401,8 @@ select * from location;
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
-select * from recently_per_list;
-select * from recently_per_list_view;
+--select * from recently_per_list;
+--select * from recently_per_list_view;
 
 
 commit;
