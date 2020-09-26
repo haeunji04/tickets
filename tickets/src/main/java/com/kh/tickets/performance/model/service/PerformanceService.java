@@ -53,5 +53,9 @@ public interface PerformanceService {
 	int recentlyPerListDelete(RecentlyPerList recentlyPerList2);
 
 	List<Schedule> selectPerSchedule(int perNo);
+
+	int addRecommendedPer(int perNo);
+
+	int turnOffRecommendedPer(int perNo);
 	
 }

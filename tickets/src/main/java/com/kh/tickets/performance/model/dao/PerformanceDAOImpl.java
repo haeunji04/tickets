@@ -117,4 +117,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.selectPerSchedule", perNo);
 	}
 
+	@Override
+	public int addRecommendedPer(int perNo) {
+		return sqlSession.update("performance.addRecommendedPer", perNo);
+	}
+
+	@Override
+	public int turnOffRecommendedPer(int perNo) {
+		return sqlSession.update("performance.turnOffRecommendedPer", perNo);
+	}
+
 }

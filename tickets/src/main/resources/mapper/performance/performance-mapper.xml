@@ -224,6 +224,25 @@
 			sch_date_time
 	</select>
 	
+	<update id="addRecommendedPer">
+		update 
+			performance
+		set 
+			per_display = 'Y'
+		where 
+			per_no = #{ perNo }
+	</update>
+	
+	<update id="turnOffRecommendedPer">
+		update 
+			performance
+		set 
+			per_display = 'N'
+		where 
+			per_no = #{ perNo }
+	</update>
+	
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

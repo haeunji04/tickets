@@ -119,14 +119,17 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do">내 정보</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜 목록</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 목록</a>
+			          		<hr />
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
 			          		<c:if test="${ loginMember.memberRole eq 'A' }">
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록</a>
+			          		<hr />
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록(관리자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록(관리자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminRecommendedList.do">공연 추천 목록(관리자)</a>
 			          		</c:if>
 			          		<c:if test="${ loginMember.memberRole ne 'A' }">
 			          		<div class="dropdown-divider"></div>

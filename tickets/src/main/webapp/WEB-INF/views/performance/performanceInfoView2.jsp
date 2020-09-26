@@ -55,20 +55,23 @@ li.on button{
 					  method="POST">
 					  
 					  <%int cnt1=0; %>
+					  <%int cnt2=0; %>
 					  <c:set var="doneLoop" value="false" />
-					  <c:forEach items="${ list }" var="wlist" varStatus="status">	
+					  <c:forEach items="${ list }" var="wlist" varStatus="status">					  	
+					  <if test="${ not doneLoop }">	
 					  	<c:choose>
 					  		<c:when test="${ performance.perNo ne wlist.perNo }">
 					  			<%cnt1=0; %>
 					  		</c:when>
 					  		<c:otherwise>
-					  			<% cnt1++;%>
-					  			<c:set var="doneLoop" value="false" />
+					  			<% cnt2=1;%>
+					  			<c:set var="doneLoop" value="true" />
 					  		</c:otherwise> 	
 					  	</c:choose>
+					  </if>
 					  </c:forEach>
 					  
-					  <%if(cnt1==0) {%>
+					  <%if(cnt1==0 && cnt2==0) {%>
 						<input type="submit" class="btn btn-primary" value="찜하기"/>	
 					  <%} %>
 				</form>
@@ -78,21 +81,24 @@ li.on button{
 					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
 					  method="POST">
 					  
-					  <%int cnt2=0; %>
+					  <%int cnt3=0; %>
+					  <%int cnt4=0; %>
 					  <c:set var="doneLoop" value="false" />
 					  <c:forEach items="${ list }" var="wlist" varStatus="status">	
+					  <if test="${ not doneLoop }">
 					  	<c:choose>
 					  		<c:when test="${ performance.perNo ne wlist.perNo }">
-					  			<%cnt2=0; %>
+					  			<%cnt3=0; %>
 					  		</c:when>
 					  		<c:otherwise>
-					  			<% cnt2++;%>
-					  			<c:set var="doneLoop" value="false" />
+					  			<% cnt4=1;%>
+					  			<c:set var="doneLoop" value="true" />
 					  		</c:otherwise> 	
 					  	</c:choose>
+					  </if>
 					  </c:forEach>
 					  
-					  <%if(cnt2>0) {%>
+					  <%if(cnt3==0 && cnt4==1) {%>
 						<input type="submit" class="btn btn-primary" value="찜 해제하기"/>	
 					  <%} %>			
 				</form>		

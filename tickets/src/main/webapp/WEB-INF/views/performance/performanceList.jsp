@@ -12,6 +12,15 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
+<div id="popup" style="display: none;">
+	<a href="javascript:closePopup();">닫기</a>
+	<a href="javascript:closePopupToday()">오늘하루닫기</a>
+</div>
+            
+<!--javascript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="cookie.js"></script>
+
 <br />
 <h2>공연등록 후 조회 테스트 페이지</h2>
 <br />
@@ -54,6 +63,8 @@
 	</c:forEach>    
   </tbody>
 </table>
+
+
 
 <div class="text-center">
 	<c:if test="${ empty list }"> 
