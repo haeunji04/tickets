@@ -117,6 +117,16 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectPerSchedule(perNo);
 	}
 
+	@Override
+	public int addRecommendedPer(int perNo) {
+		return performanceDAO.addRecommendedPer(perNo);
+	}
+
+	@Override
+	public int turnOffRecommendedPer(int perNo) {
+		return performanceDAO.turnOffRecommendedPer(perNo);
+	}
+
 	
 
 

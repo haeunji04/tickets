@@ -537,6 +537,44 @@ public class PerformanceController {
 		return "performance/recentlyPerList";
 	}
 	
+	@RequestMapping("/performance/adminRecommendedList.do")
+	public String adminRecommendedList(Model model) {		
+		
+		List<Performance> list = performanceService.selectPerformanceList();
+		log.debug("list@controller = {}", list);
+		Performance[] arr = list.toArray(new Performance[list.size()]);
+			
+		int recommendedCnt = 0;
+	    for(int i=0; i<arr.length; i++){
+	    	if("Y".equals(arr[i].getPerDisplay())){
+	    		
+	    		recommendedCnt++;
+	    		
+	    	}
+	    	
+	    }
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("list", list);
+		model.addAttribute("recommendedCnt", recommendedCnt);
+		
+		return "performance/adminRecommendedList";
+	}
+	
+	@PostMapping("/performance/addRecommendedPer.do")
+	public String addRecommendedPer(@RequestParam int perNo, RedirectAttributes redirectAttributes){
+		int result = performanceService.addRecommendedPer(perNo);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "추천목록에 추가성공" : "추천목록에 추가실패");
+		return "redirect:/performance/adminRecommendedList.do";
+	}
+	
+	@PostMapping("/performance/turnOffRecommendedPer.do")
+	public String turnOffRecommendedPer(@RequestParam int perNo, RedirectAttributes redirectAttributes){
+		int result = performanceService.turnOffRecommendedPer(perNo);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "추천목록에서 해제성공" : "추천목록에서 해제실패");
+		return "redirect:/performance/adminRecommendedList.do";
+	}
 	
 	
 }

@@ -52,5 +52,9 @@ public interface PerformanceDAO {
 
 	List<Schedule> selectPerSchedule(int perNo);
 
+	int addRecommendedPer(int perNo);
+
+	int turnOffRecommendedPer(int perNo);
+
 
 }
