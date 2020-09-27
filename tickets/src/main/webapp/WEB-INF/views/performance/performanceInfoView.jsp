@@ -30,7 +30,7 @@ $(function(){
 });
 function nwindow(){
     var url="${pageContext.request.contextPath}/performance/selectSeat.do";
-    window.open(url,"","width=1000,height=600,left=50,top=50");
+    window.open(url,"","width=1200,height=600,left=50,top=50");
 }
 </script>
 <style>
