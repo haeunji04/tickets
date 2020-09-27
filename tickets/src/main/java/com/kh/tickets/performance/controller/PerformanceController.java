@@ -341,7 +341,7 @@ public class PerformanceController {
 				//기존 파일 삭제
 				File fi = new File(saveDirectory, oldDetailImgOriginalFileName);
 				fi.delete();
-				System.out.println("[ " + oldPerImgRenamedFileName + " ] 파일 삭제!");
+				System.out.println("[ " + oldDetailImgRenamedFileName + " ] 파일 삭제!");
 				
 					if(f.isEmpty()==false && f.getSize() != 0) {
 						//1. 파일명 생성
