@@ -452,6 +452,27 @@ public class PerformanceController {
 		return mav;
 	}
 	
+	@GetMapping("/performance/salePerformance.do")
+	public ModelAndView salePerformance(ModelAndView mav) {
+		
+		mav.setViewName("performance/salePerformance");
+		return mav;
+	}
+	
+	@GetMapping("/performance/paySelect.do")
+	public ModelAndView paySelect(ModelAndView mav) {
+		
+		mav.setViewName("performance/paySelect");
+		return mav;
+	}
+	
+	@GetMapping("/performance/payComplete.do")
+	public ModelAndView payComplete(ModelAndView mav) {
+		
+		mav.setViewName("performance/payComplete");
+		return mav;
+	}
+	
 	//요거 질문: 아래 똑같은데 ModelAndView는 됬는데 Model은 왜 perNo를 못읽고 화면을 다시 못띄우는지? sql까진 wishlist 정상 들어감.
 //	@PostMapping("/performance/wishListInsert.do")
 //	public String wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,

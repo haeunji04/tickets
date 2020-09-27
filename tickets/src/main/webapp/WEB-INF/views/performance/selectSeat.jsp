@@ -248,7 +248,7 @@ span.seatCharts-legendDescription {
 			<div class="side-bar d-block text-left" style="padding-left:20px;">
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
-			<button id="complete-select" type="button" class="btn btn-secondary disabled d-block" style="float:left;">좌석 선택 완료</button>
+			<button id="complete-select" type="button" class="btn btn-secondary disabled d-block" style="float:left;" onclick="location.href='${pageContext.request.contextPath}/performance/salePerformance.do'">좌석 선택 완료</button>
 		</div>
 	</div>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
