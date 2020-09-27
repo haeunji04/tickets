@@ -67,22 +67,22 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    
 		    <div class="form-group">
 		      <label for="perImgFile">공연 이미지</label>
-		      <input type="file" class="form-control-file" id="perImgFile" name="perImgFile" >	
+		      <input type="file" class="form-control-file" id="perImgFile" name="perImgFile">	
 		      <span id="frame">${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }</span>	 
 		      <input type="hidden" name="oldPerImgOriginalFileName"
-		      		 value="${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : "" }"/>    
+		      		 value="${ performance.perImgOriginalFileName != null ? performance.perImgOriginalFileName : '' }"/>    
 		      <input type="hidden" name="oldPerImgRenamedFileName"
-		      		 value="${ performance.perImgRenamedFileName != null ? performance.perImgRenamedFileName : "" }"/>    
+		      		 value="${ performance.perImgRenamedFileName != null ? performance.perImgRenamedFileName : '' }"/>    
 		    </div>
 			
 			<div class="form-group">
 		      <label for="detailImgFile">작품설명 이미지</label>
 		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">		      
 		      <span id="frame">${ performance.detailImgOriginalFileName }</span>	 
-		      <input type="hidden" name="${ performance.detailImgOriginalFileName }"
-		      		 value="${ performance.detailImgOriginalFileName }"/>    
-		      <input type="hidden" name="${ performance.detailImgRenamedFileName }"
-		      		 value="${ performance.detailImgRenamedFileName }"/>    
+		      <input type="hidden" name="oldDetailImgOriginalFileName"
+		      		 value="${ performance.detailImgOriginalFileName != null ? performance.detailImgOriginalFileName : ''}"/>    
+		      <input type="hidden" name="oldDetailImgRenamedFileName"
+		      		 value="${ performance.detailImgRenamedFileName != null ? performance.detailImgOriginalFileName : ''}"/>    
 		    </div>  
 		    
 		    <tr>
