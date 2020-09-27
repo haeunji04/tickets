@@ -343,7 +343,7 @@ public class PerformanceController {
 				fi.delete();
 				System.out.println("[ " + oldPerImgRenamedFileName + " ] 파일 삭제!");
 				
-					if(f.isEmpty()==false && f.getSize() != 0) {
+					if(!f.isEmpty() && f.getSize() != 0) {
 						//1. 파일명 생성
 						String renamedFileName = Utils.getRenamedFileName(f.getOriginalFilename());
 						
@@ -355,6 +355,7 @@ public class PerformanceController {
 							e.printStackTrace();
 						}
 				log.debug("f.getOriginalFilename()={}",f.getOriginalFilename());
+				log.debug("f.getOriginalFilename()={}",renamedFileName);
 				performance.setDetailImgOriginalFileName(f.getOriginalFilename());
 				performance.setDetailImgRenamedFileName(renamedFileName);
 			}
