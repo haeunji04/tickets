@@ -39,6 +39,7 @@
 --DROP TABLE "SEAT" CASCADE CONSTRAINTS;
 --DROP TABLE "TICKET" CASCADE CONSTRAINTS;
 --DROP TABLE "PAY" CASCADE CONSTRAINTS;
+--DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
 --DROP SEQUENCE "PERFORMANCE_SEQ";
@@ -212,10 +213,41 @@ create table ticket(
     constraints fk_pay_no foreign key(pay_no) references pay(pay_no),
     constraints fk_sch_no2 foreign key(sch_no) references schedule(sch_no),
     constraints fk_member_id4 foreign key(member_id) references member(member_id),
-    constraints fk_per_no3 foreign key(per_no) references performance(per_no)
+    constraints fk_per_no3 foreign key(per_no) references performance(per_no)    
 );
+
+--DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
+
+CREATE TABLE comment_board (
+	board_comment_no number null,
+	board_comment_level	number DEFAULT 1,
+    board_comment_writer varchar2(15),
+	board_comment_content varchar(2000),
+	per_no number,
+    board_comment_ref number, 
+	board_comment_date date DEFAULT sysdate,
+    constraints pk_board_comment primary key(board_comment_no),
+    constraints fk_board_comment_writer foreign key (board_comment_writer) 
+                                                        references member(member_id)
+                                                        on delete set null,
+    constraints fk_per_no_ foreign key(per_no)
+                                      references performance(per_no)
+                                      on delete cascade            
+--    constraints fk_board_comment_ref foreign key(board_comment_ref)
+--                                                    references comment_board(board_comment_no)
+--                                                    on delete cascade   
+);
+
+--select * from comment_board;
 --=============== tickets계정으로 시퀀스 생성 ===============
 create sequence performance_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 10000
+cycle;
+
+create sequence comment_board_seq
 increment by 1
 start with 1
 minvalue 1

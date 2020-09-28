@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardComment">
+
+	<insert id="boardCommentInsert">
+		insert into
+			comment_board
+		values (
+			comment_board_seq.nextval,
+			#{ boardCommentLevel },
+			#{ boardCommentWriter },
+			#{ boardCommentContent },
+			#{ perNo },
+			#{ boardCommentRef },
+			default
+		)		
+		
+	</insert>
+	
+	<select id="selectCommentList" resultMap="commentListMap">
+		select
+			*
+		from
+			comment_board	
+		where 
+			per_no = #{ perNo }	
+		order by
+			board_comment_date
+			desc
+	</select>
+	
+	<delete id="boardCommentDelete">
+		delete from 
+			comment_board
+		where 
+			board_comment_no = #{ boardCommentNo } 
+	</delete>
+	
+	<resultMap type="boardComment" id="commentListMap">
+	</resultMap>
+	
+	
+	
+	
+</mapper>
