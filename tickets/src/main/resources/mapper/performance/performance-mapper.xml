@@ -242,6 +242,10 @@
 			per_no = #{ perNo }
 	</update>
 	
+	<delete id="deleteDate">
+		delete from schedule
+			where sch_no = #{ schNo }
+	</delete>
 	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>

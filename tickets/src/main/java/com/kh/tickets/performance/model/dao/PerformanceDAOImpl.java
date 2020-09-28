@@ -126,5 +126,10 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int turnOffRecommendedPer(int perNo) {
 		return sqlSession.update("performance.turnOffRecommendedPer", perNo);
 	}
+	
+	@Override
+	public int deleteDate(int schNo) {
+		return sqlSession.delete("performance.deleteDate", schNo);
+	}
 
 }

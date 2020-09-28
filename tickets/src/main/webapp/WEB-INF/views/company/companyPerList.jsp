@@ -53,8 +53,10 @@
 				<td>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</td>
 				<td>${ per.adminApproval eq 'Y' ? '승인' : '미승인'}</td>
 				<td>
-					<button type="button" class="btn btn-outline-primary"
+					<button type="button" class="btn btn-outline-primary px-4"
 						onclick="perUpdate('${ per.perNo }')">수정</button>
+					<button type="button" class="btn btn-outline-primary px-2"
+						onclick="perDateUpdate('${ per.perNo }')">공연일정</button>
 				</td>
 				<%-- <td>
 			<img src="<c:url value='/resources/upload/performance/${ per.detailImgRenamedFileName}' />" 
@@ -72,11 +74,17 @@
 </div>
 
 
-
+<!-- 공연정보수정 -->
 <form
 	action="${ pageContext.request.contextPath }/company/perUpdateForm.do"
 	id="perUpdateFrm" method="POST">
 	<input type="hidden" name="perNo" />
+</form>
+
+<!-- 공연일정수정 -->
+<form action="${ pageContext.request.contextPath }/company/perDateUpdate.do"
+	  method="post" id="perDateUpdate" >
+	  <input type="hidden" name="perNo"/>
 </form>
 
 <script>
@@ -87,6 +95,12 @@
 		/* if(confirm("해당 공연 수정페이지로 가시겠습니까?") == false)
 			return; */
 		var $frm = $("#perUpdateFrm");
+		$frm.find("[name=perNo]").val(perNo);
+		$frm.submit();
+	}
+
+	function perDateUpdate(perNo){
+		var $frm = $("#perDateUpdate");
 		$frm.find("[name=perNo]").val(perNo);
 		$frm.submit();
 	}

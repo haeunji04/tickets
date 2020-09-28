@@ -56,5 +56,7 @@ public interface PerformanceDAO {
 
 	int turnOffRecommendedPer(int perNo);
 
+	int deleteDate(int schNo);
+
 
 }

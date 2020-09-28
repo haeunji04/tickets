@@ -354,53 +354,106 @@ public class PerformanceController {
 						} catch (IllegalStateException | IOException e) {
 							e.printStackTrace();
 						}
-				log.debug("f.getOriginalFilename()={}",f.getOriginalFilename());
-				log.debug("f.getOriginalFilename()={}",renamedFileName);
-				performance.setDetailImgOriginalFileName(f.getOriginalFilename());
-				performance.setDetailImgRenamedFileName(renamedFileName);
-			}
+					log.debug("f.getOriginalFilename()={}",f.getOriginalFilename());
+					log.debug("f.getOriginalFilename()={}",renamedFileName);
+					performance.setDetailImgOriginalFileName(f.getOriginalFilename());
+					performance.setDetailImgRenamedFileName(renamedFileName);
+					}
 						
 			}	
 		}
 		int result = performanceService.perUpdate(performance);
+		
 		mav.addObject("msg", result>0 ? "공연정보 수정성공" : "공연정보 수정실패");
 		
-		// 스케쥴 가져오기!!
-		List<Schedule> list = performanceService.selectPerSchedule(performance.getPerNo());
+		mav.setViewName("redirect:/company/companyPerList.do");
+		
+		return mav;
+	}
+		
+	@PostMapping("/company/perDateUpdate.do")
+	public ModelAndView perDateUpdate(ModelAndView mav,
+									  @RequestParam int perNo){
+		log.debug("perNo = {}", perNo);
+		
+		List<Schedule> list = performanceService.selectPerSchedule(perNo);
 		log.debug("List = {}", list);
 		
 		List<SchDate> schList = new ArrayList<>();
-		String schedule = null;
-		String date = "";
-		String hour = "";
-		String min = "";
-
+		
 		if(list != null) {
 			for(Schedule sch: list) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				schedule = sdf.format(sch.getSchDateTime());
-				
-				date = schedule.substring(0, 11);
-				hour = schedule.substring(11, 13);
-				min = schedule.substring(14, 16);
+				String schedule = sdf.format(sch.getSchDateTime());
 
-				SchDate sd = new SchDate(date, hour, min);
+				int schNo = sch.getSchNo();
+				String date = schedule.substring(0, 11);
+				String hour = schedule.substring(11, 13);
+				String min = schedule.substring(14, 16);
+				
+				SchDate sd = new SchDate(schNo, date, hour, min);
 				log.debug("SchDate = {}", sd);
 				
 				schList.add(sd);
 			}
-
 		}
+		
 		log.debug("schList = {}", schList);
 		
 		mav.addObject("schList", schList);
-		mav.addObject("perNo", performance.getPerNo());
+		mav.addObject("perNo", perNo);
 		mav.setViewName("company/perDateUpdateForm");
 		
 		return mav;
+	}	
+	
+	@RequestMapping("/company/perDateDelete")
+	public ModelAndView deleteSchForm(ModelAndView mav,
+									  @RequestParam int perNo) {
+		log.debug("perNo = {}", perNo);
 		
+		List<Schedule> list = performanceService.selectPerSchedule(perNo);
+		log.debug("List = {}", list);
+		
+		List<SchDate> schList = new ArrayList<>();
+		
+		if(list != null) {
+			for(Schedule sch: list) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String schedule = sdf.format(sch.getSchDateTime());
 
+				int schNo = sch.getSchNo();
+				String date = schedule.substring(0, 11);
+				String hour = schedule.substring(11, 13);
+				String min = schedule.substring(14, 16);
+				
+				SchDate sd = new SchDate(schNo, date, hour, min);
+				log.debug("SchDate = {}", sd);
+				
+				schList.add(sd);
+			}
+		}
+		
+		log.debug("schList = {}", schList);
+		
+		mav.addObject("perNo", perNo);
+		mav.addObject("schList", schList);
+		mav.setViewName("company/perDateDeleteForm");
+		return mav;
 	}
+	
+	@ResponseBody
+	@PostMapping("/company/deleteDate.do")
+	public String deleteDate(@RequestParam int schNo) {
+		log.debug("schNo = {}", schNo);
+		int result = performanceService.deleteDate(schNo);
+
+		String msg = result > 0 ? "일정 삭제 완료" : "일정 삭제 실패";
+		log.error(msg);
+		
+		return msg;
+	}
+	
 	
 	@RequestMapping("/company/perUpdateEnd")
 	public String perUpdateEnd() {

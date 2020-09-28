@@ -148,7 +148,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    </div>
 			
 			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="다음"/>
+				<input type="submit" class="btn btn-primary" value="완료"/>
 			</div>
 		</div>
 	</form>

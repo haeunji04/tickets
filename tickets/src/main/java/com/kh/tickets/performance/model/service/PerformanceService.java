@@ -57,5 +57,7 @@ public interface PerformanceService {
 	int addRecommendedPer(int perNo);
 
 	int turnOffRecommendedPer(int perNo);
+
+	int deleteDate(int schNo);
 	
 }
