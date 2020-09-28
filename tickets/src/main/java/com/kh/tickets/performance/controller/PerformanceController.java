@@ -27,6 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.tickets.boardComment.model.service.BoardCommentService;
+import com.kh.tickets.boardComment.model.vo.BoardComment;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
@@ -48,6 +50,9 @@ public class PerformanceController {
 	
 	@Autowired
 	private PerformanceService performanceService; 
+	
+	@Autowired
+	private BoardCommentService boardCommentService;
 	
 //	@Autowired
 //	private WishList wishList;
@@ -341,7 +346,7 @@ public class PerformanceController {
 				//기존 파일 삭제
 				File fi = new File(saveDirectory, oldDetailImgOriginalFileName);
 				fi.delete();
-				System.out.println("[ " + oldPerImgRenamedFileName + " ] 파일 삭제!");
+				System.out.println("[ " + oldDetailImgRenamedFileName + " ] 파일 삭제!");
 				
 					if(!f.isEmpty() && f.getSize() != 0) {
 						//1. 파일명 생성
@@ -502,11 +507,20 @@ public class PerformanceController {
 		int result = performanceService.recentlyPerListInsert(recentlyPerList);		
 		log.debug("recentlyPerListInsert@controller = {}", result);
 		
+		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
+		int commntListSize = commentList.size();
+		
+		log.debug("commentList@controller@@ = {}", commentList);
+		log.debug("commntListSize@@ = {}", commntListSize);
+		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("performance", performance);		
 		mav.addObject("list", list);		
+		mav.addObject("commentList", commentList);		
+		mav.addObject("commntListSize", commntListSize);		
+//		mav.addObject("loginMember", loginMember);		
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}

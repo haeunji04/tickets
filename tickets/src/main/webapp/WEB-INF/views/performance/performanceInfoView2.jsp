@@ -218,7 +218,7 @@ li.on button{
 	    <a class="nav-link active" data-toggle="tab" href="#info"><h5 class="m-10 px-4">상세정보</h5></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평<span class="badge badge-primary badge-pill">1</span></h5></a>
+	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평<span class="badge badge-primary badge-pill">${ commntListSize  }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기<span class="badge badge-primary badge-pill">1</span></h5></a>
@@ -249,46 +249,98 @@ li.on button{
 	  <div class="tab-pane fade" id="before">
 		  <div class="comment-editor" style="margin-left:30px;padding-left:30px;">
 					<div class="form-group bmd-form-group">
+					<div>
+			       <!-- 기대평 -->
+					<form action="${pageContext.request.contextPath }/boardComment/boardCommentInsert.do"
+			    		  method="post"
+			    		  name="boardCommentFrm">
 					<table>
 						<tr>
 							<td>
 							<img src="${pageContext.request.contextPath }/resources/images/etc/girl.png" style="width:64px;height:70px;display:inline-block;" />
 							</td>
 							<td>
-				 			<textarea class="form-control ml-3" name="beforeComment" id="beforeComment"
-							 	  cols="80" rows="3"
-							 	  placeholder="기대평을 적어주세요."></textarea>
-							
+			     				<input type="hidden" name="perNo" 
+							   	       value="${ performance.perNo} " /> <!--댓글란: performance의  per_no  -->
+						  	    <input type="hidden" name="boardCommentWriter" 
+							   		   value="${ loginMember.memberId ne null ? loginMember.memberId : " " }" />
+							    <input type="hidden" name="boardCommentLevel" value="1" /> <!--댓글란: 댓글이니까 1  -->
+								  <!-- 대댓글인 경우, 참조하는 댓글번호 -->			      		 
+								<input type="hidden" name="boardCommentRef" value="0" />		<!--댓글란: 대댓글없으니까 0  -->	
+							 	<textarea class="form-control ml-3" name="boardCommentContent" id="boardCommentContent"
+										  cols="80" rows="3"
+										  placeholder="기대평을 적어주세요."></textarea>
+								
 							</td>
 							<td>
-							<button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button>
+							<!-- <button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button> -->
+							<input type="submit" style="height:50px; margin:12px 10px 12px 30px" class="btn btn-primary" value="등록"/>
 							</td>
 						</tr>
 					</table>
+					</form>	
+					</div>
 					<div class="mt-3">
 					<table id="comment-tbl" class="text-center">
+						<c:if test="${ commentList ne null && not empty commentList }">
+						<c:forEach items="${ commentList }" var="comment">
+						<c:choose>
+						<c:when test="${ comment.boardCommentLevel eq '1'}">						
 						<tr id="comment-tr">
 							<td id="img" class="px-3">
 							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
 							</td>
 							<td id="user-id" class="px-3">
-								<p class="text-secondary">honggd</p>
+								<p class="text-secondary">${ comment.boardCommentWriter }</p>
 							</td>	
 							<td>
 							</td>			
 							<td id="user-comment" class="px-3">
-								<p class="text-secondary">기대기대</p>
+								<p class="text-secondary">${ comment.boardCommentContent } (${ comment.boardCommentDate })</p>
 							</td>
-							
-							<!-- <td id="hidden-btn">
-								<button class="btn btn-info btn-update"
-										value="">수정</button>
-								<button class="btn btn-info btn-delete"
-										value="">삭제</button>				
-							</td> -->
-							<!-- 버튼 보여주기 -->
-							
-						</tr>
+							<td>
+								<c:if test="${ loginMember ne null &&
+											  (loginMember.memberId eq performance.memberId ||
+											   loginMember.memberRole eq 'A')  }">	
+									<button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
+											value="${ comment.boardCommentNo }">답글</button>								
+								</c:if>							
+								<c:if test="${ loginMember ne null &&
+											  (loginMember.memberId eq comment.boardCommentWriter ||
+											   loginMember.memberRole eq 'A')  }">	
+									<%-- <button  class="btn btn-outline-primary btn-sm" id ="btn-delete"
+											value="${ comment.boardCommentNo }">삭제</button>	 --%>							
+									<button type="button" class="btn btn-outline-primary btn-sm"
+											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 								
+								</c:if>	
+								<!-- padding-left:100px;	 -->					
+							</td>		
+						</tr>						
+						</c:when>
+						
+						<c:otherwise>
+							<td id="user-id" class="px-3">
+								<p class="text-secondary">${ comment.boardCommentWriter }</p>
+							</td>	
+							<td>
+							</td>			
+							<td id="user-comment" class="px-3">
+								<p class="text-secondary">${ comment.boardCommentContent } (${ comment.boardCommentDate })</p>
+							</td>
+							<td>											
+								<c:if test="${ loginMember ne null &&
+											  (loginMember.memberId eq comment.boardCommentWriter ||
+											   loginMember.memberRole eq 'A')  }">	
+									<button type="button" class="btn btn-outline-primary btn-sm"
+											onclick="perUpdate('${ per.perNo }')">삭제</button>								
+								</c:if>	
+								<!-- padding-left:100px;	 -->					
+							</td>	
+						</c:otherwise>
+						
+						</c:choose>
+						</c:forEach>
+						</c:if>						
 					</table>
 					</div>
 					</div>
@@ -343,6 +395,10 @@ li.on button{
 					</div>
 					
 			</div>
+			<form name="deleteCommentFrm">
+			<input type="hidden" name="boardCommentNo" value=""/>
+			<input type="hidden" name="perNo" value="${ performance.perNo }"/>
+		</form>
 	  </div>
 	  <div class="tab-pane fade" id="theater">
 	     <div id="map" style="width:100%;height:500px;">
@@ -418,6 +474,110 @@ li.on button{
 	    content: content,
 	    yAnchor: 1 
 	});
+</script>
+
+<form action="${ pageContext.request.contextPath }/boardComment/boardCommentDelete.do?perNo=${ performance.perNo}" 
+	  id="boardCommentDeleteFrm" 
+	  method="POST">
+	<input type="hidden" name="boardCommentNo" />
+</form>
+
+<script>
+/**
+ * POST 요청 처리할 것
+ **/
+function boardCommentDelete(boardCommentNo){
+	if(confirm("정말 삭제하시겠습니까?") == false)
+		return;
+	var $frm = $("#boardCommentDeleteFrm");
+	$frm.find("[name=boardCommentNo]").val(boardCommentNo);
+	$frm.submit();
+	
+}
+
+</script>
+
+<script>
+$(function(){
+	
+	/* $("#btn-delete").click(function(){
+		if(!confirm('댓글을 정말 삭제하시겠습니까?')) return;
+		
+		//삭제:post 방식 요청
+		//삭제할 번호 가져오기
+		let boardCommentNo = $(this).val();
+		//alert(boardCommentNo);
+		
+		let $frm = $("[name=deleteCommentFrm]");
+		$frm.children("[name=boardCommentNo]").val(boardCommentNo);
+		$frm.attr('action', '${pageContext.request.contextPath }/boardComment/boardCommentDelete.do')
+			.attr('method','POST')
+			.submit();		
+		
+	}); */
+	
+	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 딜리버리에서는 loginAlert()이거를 로그인창으로 이동하는거로 바꿔야 할듯
+	$("#boardCommentContent").click(function(){
+		if(${loginMember} == null)
+			loginAlert();
+	});
+	
+	$("[name=boardCommentFrm]").submit(function(){
+		
+		//로그인 여부 검사
+		if(${loginMember} == null){
+			loginAlert();
+			return false;			
+		}
+		
+		//댓글 검사
+		let $boardContent = $("#boardCommentContent");
+		if(!/^.{1,}$/.test($boardContent.val())){
+			alert("댓글 내용을 작성해 주세요.");
+			return false;
+		}
+		
+		
+	});
+	
+	$(".btn-reply").click(function(){
+		if(${loginMember} == null)
+			loginAlert();
+		else {
+			let $tr = $("<tr></tr>");
+			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
+			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
+			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
+			<%-- $frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />"); --%>
+			$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
+			$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
+			$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
+			$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
+			$frm.append("<button type='submit' class='btn-insert2'>등록</button>");
+			
+			$td.append($frm);
+			$tr.append($td);
+			let $boardCommentTr = $(this).parent().parent();
+			$tr.insertAfter($boardCommentTr)
+			   .children("td").slideDown(800)
+			   .children("form").submit(function(){
+				   let $textarea = $(this).find("textarea");
+				   if($textarea.val().length == 0)
+					   return false;
+			   })
+			   .children("textarea").focus();
+		}
+		
+		//1회만 작동하도록 함.
+		$(this).off("click");
+	});
+	
+});
+
+function loginAlert(){
+	alert("로그인 후 이용하실 수 있습니다.");
+	return;
+}
 </script>
 	 
 	 
