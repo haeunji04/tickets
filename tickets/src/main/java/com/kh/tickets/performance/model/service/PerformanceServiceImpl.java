@@ -127,6 +127,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.turnOffRecommendedPer(perNo);
 	}
 
+	@Override
+	public int deleteDate(int schNo) {
+		return performanceDAO.deleteDate(schNo);
+	}
+
 	
 
 

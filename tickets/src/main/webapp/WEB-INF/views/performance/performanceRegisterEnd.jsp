@@ -14,13 +14,13 @@
 	<div class="d-inline">
 		<div class="date_choice text-center d-inline align-middle" >
 			<div class="text-center">
-			<h2 class="mx-auto mt-3 text-center">공연등록이 완료되었습니다.</h2>
+			<h2 class="mx-auto mt-3 text-center">공연 등록이 완료되었습니다.</h2>
 			<br /><br />
 				<div class="progress mx-auto" style="width:80%;">
 				  	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 				</div>
 		    <br /><br />
-		    <input type="button" class="btn btn-primary" value="공연목록 보기" onclick="location.href='${pageContext.request.contextPath }/performance/performanceList.do'"/>
+		    <input type="button" class="btn btn-primary" value="공연목록 보기" onclick="location.href='${pageContext.request.contextPath }/company/companyPerList.do'"/>
 		    </div>
 		</div>
 	</div>

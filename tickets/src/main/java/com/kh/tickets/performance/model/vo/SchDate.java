@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class SchDate implements Serializable {
 
+	private int schNo;
 	private String date;
 	private String hour;
 	private String min;

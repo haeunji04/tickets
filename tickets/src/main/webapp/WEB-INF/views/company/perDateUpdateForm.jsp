@@ -46,11 +46,8 @@ $(document).ready(function(){
 	<div class="d-inline">
 		<div class="date_choice text-center d-inline align-middle" >
 			<div class="tit_process tit_date_choice">
-			<h2 class="mx-auto mt-3 text-center"><small class="text-muted">공연 등록 &gt;</small> 공연일정</h2>
-			<br /><br />
-			<div class="progress mx-auto" style="width:80%;">
-			  	<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 70%"></div>
-			</div>
+			<h2 class="mx-auto mt-3 text-center">공연일정 추가</h2>
+
 		    <br /><br />
 
 				<div class="cont_process d-inline-block align-middle mx-3">
@@ -58,14 +55,14 @@ $(document).ready(function(){
 				</div>
 				<div class="d-inline-block align-middle" >
 					<form action="" method="post" class="form-group" id="scheduleFrm">
+						<input type="hidden" name="perNo" value="${ perNo }"/>
 					
-						<input type="hidden" name="perNo" id="perNo" value="${ perNo }" />
 						<div class="input-group my-2">
 							<div class="input-group-prepend" style="height:40px;">
 								<label for="inputDate" class="input-group-text"> 날짜 </label>
 							</div>
 							<input type="text" id="inputDate" name="inputDate" class="form-control"
-									aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required/>
+									aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"/>
 						</div>
 						<div class="input-group my-3 float-right text-right">
 							<div class="input-group-prepend" style="height:40px;">
@@ -149,30 +146,43 @@ $(document).ready(function(){
 					</tr>
 				</c:forEach>
 			</c:if>
-			
 			<c:if test="${ empty schList }">
-			없다없어
+				일정이 존재하지 않습니다.
 			</c:if>
 		</table>
 	</div>
 	
 	<div class="mx-auto text-center">
-		<input type="button" class="btn btn-primary" value="공연 수정 완료" onclick="location.href='${pageContext.request.contextPath}/company/perUpdateEnd'"/>
+							<button type="button" class="btn btn-outline-primary px-2"
+						onclick="perDateDelete('${ perNo }')">공연 일정 삭제</button>
+		<input type="button" class="btn btn-primary" value="완료" onclick="location.href='${pageContext.request.contextPath}/company/companyPerList.do'"/>
 	</div>
 
 </div>
 </div>
 
+<form action="${ pageContext.request.contextPath }/company/perDateDelete"
+	  method="post" id="perDateDelete" >
+	  <input type="hidden" name="perNo"/>
+</form>
+
 <script>
+function perDateDelete(perNo){
+
+ 	var $frm = $("#perDateDelete");
+	$frm.find("[name=perNo]").val(perNo);
+	$frm.submit(); 
+}
+
 
 $("#btn-addSchedule").click(function(){
 	var $frm = $("#scheduleFrm");
 
 	var schedule = {
+		perNo : $frm.find("[name=perNo]").val(),
 		date : $frm.find("[name=inputDate]").val(),
 		hour : $frm.find("[name=timeHour]").val(),
-		min : $frm.find("[name=timeMin]").val(),
-		perNo : $frm.find("[name=perNo]").val()
+		min : $frm.find("[name=timeMin]").val()
 	};
 
 	console.log("schedule="+schedule);
@@ -216,7 +226,7 @@ function displayResultTable(){
 		alert("날짜를 선택해주세요.");
 		return false;
 	}
-
+	
 	var html =  "<tr>";
 		html += "<td>"+date+"</td>";
 		html += "<td>"+hour+"시</td>";
@@ -225,8 +235,6 @@ function displayResultTable(){
 
 		$container.append(html);
 }
-
-		
 
 
 </script>
