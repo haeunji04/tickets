@@ -17,34 +17,68 @@ html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 footer{ margin-top: 2100px; }
 </style>
 
+
 <div id="index-container site-content" >
 	<div id="main-container">
 		
 		<!-- 슬라이드 시작 -->
-		<div id="carousel3d" class="d-block flex">
-			<carousel-3d :perspective="0" :space="200" :display="5" :controls-visible="true" :controls-prev-html="'❬'" :controls-next-html="'❭'" :controls-width="30" :controls-height="100" :clickable="true" :autoplay="true" :autoplay-timeout="5000">
-				<slide :index="0">
-					<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/></a>
-				</slide>
-				<slide :index="1">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG"/></a>
-				</slide>
-				<slide :index="2">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG"/></a>
-				</slide>
-				<slide :index="3">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG"/></a>
-				</slide>
-				<slide :index="4">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG"/></a>
-				</slide>
-				<slide :index="5">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG"/></a>
-				</slide>
-				<slide :index="6">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG"/></a>
-				</slide>			
-			</carousel-3d>
+		<div id="main-header" class="my-4 text-center" >
+		
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+				    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+				    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+				</ol>
+			  	<div class="carousel-inner">
+				    <div class="carousel-item active" data-interval="2000">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/그랜드민트페스티벌2020.jpg" class="d-block w-100" alt="...">
+						      <div class="carousel-caption d-none d-md-block float-left">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div>
+				    </div>
+				    <div class="carousel-item" data-interval="2000">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/연극이퀄.jpg" class="d-block w-100" alt="...">
+						      <div class="carousel-caption d-none d-md-block float-left">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div>				    
+				    </div>
+				    <div class="carousel-item" data-interval="2000">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬호프.jpg" class="d-block w-100" alt="...">
+						      <div class="carousel-caption d-none d-md-block float-left">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div>
+				    </div>
+				    <div class="carousel-item" data-interval="2000">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬베르테르.jpg" class="d-block w-100" alt="...">
+						      <div class="carousel-caption d-none d-md-block float-left">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div>
+				    </div>
+				    <div class="carousel-item" data-interval="2000">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬블랙메리포핀스.jpg" class="d-block w-100" alt="...">
+						      <div class="carousel-caption d-none d-md-block float-left">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div>
+				    </div>
+			  	</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					</a>
+			  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    	<span class="sr-only">Next</span>
+			  	</a>
+			</div>
+			
 		</div>
 		<!-- 슬라이드 끝 -->
 		
@@ -387,7 +421,7 @@ footer{ margin-top: 2100px; }
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
-<script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.7/vue.js'></script><script src='https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js'></script>
+<!-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.7/vue.js'></script><script src='https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js'></script>
 <script >new Vue({
   el: '#carousel3d',
   data: {
@@ -398,6 +432,14 @@ footer{ margin-top: 2100px; }
     'slide': Carousel3d.Slide
   }
 })
+</script> -->
+
+<script>
+
+$('.carousel').carousel({
+	  interval: 2000;
+	})
+
 </script>
 	
 	
