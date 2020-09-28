@@ -9,7 +9,9 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="" name="pageTitle"/>
 </jsp:include>
-
+	<link type="text/css" href="${pageContext.request.contextPath }/resources/css/styles.css" rel="stylesheet" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/waltzerjs.min.js"></script>
 
 <div id="category-container" class="mx-auto pb-5">
 
@@ -17,43 +19,43 @@
 		<h2 class="text-primary my-4"> ${ categoryName }</h2>	
 			
 		<!-- 추천 뮤지컬 반복문 블록 시작(4번 돌리기) -->
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3">
+	<div id="carousel" class='outerWrapper'>
+		<div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3">
 			<a href="" class="none">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
 			</a>
 				<h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5>
-				<p>기념비적인 40주년 내한 공연!</p>
+				<small>기념비적인 40주년 내한 공연!</small>
 		</div>
 		<!-- 추천 뮤지컬 반복문 블록 끝 -->
 		
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3 pt-0">
+		<div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3 pt-0">
 			<a href="">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
 			</a>
-			<div style="height: 250px">
 				<h5>어쩌면 해피엔딩</h5>
-				<p>우리가 어쩌면, <br /> 해피엔딩</p>
-			</div>
+				<small>우리가 어쩌면, <br /> 해피엔딩</small>
 		</div>
 		
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3">
+		<div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3">
 			<a href="">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/소믈리에.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
 			</a>
 			<h5>뮤지컬 소믈리에</h5>
-			<p>당신이 절대 후회하지 않을 공연!</p>
+			<small>당신이 절대 후회하지 않을 공연!</small>
 		</div>
 		
-		<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3">
+		<div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3">
 			<a href="">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/무인도탈출기.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
 			</a>
 			<h5>뮤지컬 [무인도 탈출기]</h5>
-			<p>청춘을 대변하는 우리들의 '극중극'</p>
+			<small>청춘을 대변하는 우리들의 '극중극'</small>
+		</div>
 		</div>
 	</div>
 	
@@ -87,6 +89,9 @@
 
 
 </div>
+<script>
+$('#carousel').waltzer({scroll:1});
+</script>
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
