@@ -131,8 +131,8 @@ footer{ margin-top: 2100px; }
 						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption></a>
 					</div>
 					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">캣츠</h5></figcaption></a>
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" style="width:150px;height:200px;"/></a>
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">캣츠</h5></figcaption></a>
 					</div>
 					<div class="d-inline-block px-3">
 						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" style="width:150px;height:200px;"/></a>
