@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -281,7 +282,7 @@ li.on button{
 					</form>	
 					</div>
 					<div class="mt-3">
-					<table id="comment-tbl" class="text-center">
+					<table id="comment-tbl1" class="text-center">
 						<c:if test="${ commentList ne null && not empty commentList }">
 						<c:forEach items="${ commentList }" var="comment">
 						<c:choose>
@@ -311,7 +312,7 @@ li.on button{
 											   
 								<!-- 답글시도중 -->
 								   <button id="btn-reply" class="btn btn-outline-primary btn-sm"
-										   value="${ comment.boardCommentNo }">답글</button>
+										   value="${ comment.boardCommentNo }" onclick="test();">답글</button>
 										   
 									<%-- <button type="button" class="btn btn-outline-primary btn-sm"
 											onclick="boardCommentReply('${ comment.boardCommentNo }')">답글</button>	 --%>
@@ -321,7 +322,7 @@ li.on button{
 										   class="btn btn-outline-primary btn-sm"
 										   id="btn-reply" 
 										   value="추가"/> -->
-								   
+								
 								
 								</c:if>							
 								<c:if test="${ loginMember ne null &&
@@ -331,8 +332,11 @@ li.on button{
 											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 	
 								</c:if>	
 								<!-- padding-left:100px;	 -->					
-							</td>		
-						</tr>						
+							</td>
+								
+						</tr>
+							<tr id="reply-tr">
+							</tr>						
 						</c:when>
 						
 						
@@ -358,7 +362,8 @@ li.on button{
 						
 						</c:choose>
 						</c:forEach>
-						</c:if>						
+						</c:if>
+												
 					</table>
 					</div>
 					</div>
@@ -385,7 +390,7 @@ li.on button{
 						</tr>
 					</table>
 					<div class="mt-3">
-					<table id="comment-tbl" class="text-center">
+					<table id="comment-tbl2" class="text-center">
 						<tr id="comment-tr">
 							<td id="img" class="px-3">
 							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
@@ -550,6 +555,7 @@ function boardCommentReply(boardCommentNo){
 
 <!-- 답글시도중 -->
 <script>
+
 $(function(){
 	
 	
@@ -577,10 +583,10 @@ $(function(){
 		
 	});
 	
-	$("#btn-reply").click(function(){
-		if(${loginMember} == null)
+/* 	$("#btn-reply").click(function(){
+		if(${loginMember} == null){
 			loginAlert();
-		else {
+		}else {
 			let $tr = $("<tr></tr>");
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
 			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
@@ -606,14 +612,44 @@ $(function(){
 		
 		//1회만 작동하도록 함.
 		$(this).off("click");
-	});
+	}); */
 	
 });
 
 function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
-	return;
 }
+
+</script>
+<script>
+	function test(){
+		alert('test');
+		var $tr = $("#reply-tr");
+		var html ="<td id='reply-td' style='text-align:left;padding-left:150px;' colspan=2></td>";
+		$tr.append(html);
+		var $frm = $('#reply-td');
+		 html ="<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'>";
+		 html+="<input type='hidden' name='perNo' value='${performance.perNo}' />";			
+		 html+="<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />";
+		 html+="<input type='hidden' name='boardCommentLevel' value='2' />";
+		 html+="<input type='hidden' name='boardCommentRef' value='' />";
+		 html+="<textarea name='boardCommentContent' cols=60 rows=1></textarea>";
+		 html+="<input type='submit' style='height:50px; margin:12px 10px 12px 30px' class='btn btn-primary' value='등록'/>";
+		 html+="</form>";
+		 $frm.append(html);
+		 $tr.append($frm);
+		/* let $boardCommentTr = $(this).parent().parent();
+		$tr.insertAfter($boardCommentTr)
+		   .children("td").slideDown(800) */
+		   /* .children("form").submit(function(){
+			   let $textarea = $(this).find("textarea");
+			   if($textarea.val().length == 0)
+				   return false;
+		   })
+		   .children("textarea").focus(); */
+
+		
+};
 </script>
 	 
 	 
