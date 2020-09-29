@@ -257,7 +257,7 @@ li.on button{
 					<table>
 						<tr>
 							<td>
-							<img src="${pageContext.request.contextPath }/resources/images/etc/girl.png" style="width:64px;height:70px;display:inline-block;" />
+							<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-edit.png" style="width:64px;display:inline-block;" />
 							</td>
 							<td>
 			     				<input type="hidden" name="perNo" 
@@ -285,38 +285,56 @@ li.on button{
 						<c:if test="${ commentList ne null && not empty commentList }">
 						<c:forEach items="${ commentList }" var="comment">
 						<c:choose>
+						
 						<c:when test="${ comment.boardCommentLevel eq '1'}">						
 						<tr id="comment-tr">
 							<td id="img" class="px-3">
-							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
+							<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-1.png" style="width:55px;display:inline-block;" />
 							</td>
 							<td id="user-id" class="px-3">
+								<%-- <sub class="text-secondary" style="font-size:10px">
+									(${ comment.boardCommentDate })
+								</sub> --%>
 								<p class="text-secondary">${ comment.boardCommentWriter }</p>
 							</td>	
 							<td>
 							</td>			
 							<td id="user-comment" class="px-3">
-								<p class="text-secondary">${ comment.boardCommentContent } (${ comment.boardCommentDate })</p>
+								<p class="text-secondary">${ comment.boardCommentContent } 
+									<span class="text-secondary" style="font-size:10px">(${ comment.boardCommentDate })</span>
+								</p>
 							</td>
 							<td>
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq performance.memberId ||
-											   loginMember.memberRole eq 'A')  }">	
-									<button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
-											value="${ comment.boardCommentNo }">답글</button>								
+											   loginMember.memberRole eq 'A')  }">
+											   
+								<!-- 답글시도중 -->
+								   <button id="btn-reply" class="btn btn-outline-primary btn-sm"
+										   value="${ comment.boardCommentNo }">답글</button>
+										   
+									<%-- <button type="button" class="btn btn-outline-primary btn-sm"
+											onclick="boardCommentReply('${ comment.boardCommentNo }')">답글</button>	 --%>
+									<%-- <button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
+											value="${ comment.boardCommentNo }">답글</button> --%>
+									<!-- <input type="button" 
+										   class="btn btn-outline-primary btn-sm"
+										   id="btn-reply" 
+										   value="추가"/> -->
+								   
+								
 								</c:if>							
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq comment.boardCommentWriter ||
 											   loginMember.memberRole eq 'A')  }">	
-									<%-- <button  class="btn btn-outline-primary btn-sm" id ="btn-delete"
-											value="${ comment.boardCommentNo }">삭제</button>	 --%>							
 									<button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 								
+											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 	
 								</c:if>	
 								<!-- padding-left:100px;	 -->					
 							</td>		
 						</tr>						
 						</c:when>
+						
 						
 						<c:otherwise>
 							<td id="user-id" class="px-3">
@@ -332,7 +350,7 @@ li.on button{
 											  (loginMember.memberId eq comment.boardCommentWriter ||
 											   loginMember.memberRole eq 'A')  }">	
 									<button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="perUpdate('${ per.perNo }')">삭제</button>								
+											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button>								
 								</c:if>	
 								<!-- padding-left:100px;	 -->					
 							</td>	
@@ -494,29 +512,48 @@ function boardCommentDelete(boardCommentNo){
 	$frm.submit();
 	
 }
-
 </script>
 
+<%-- <script>
+function boardCommentReply(boardCommentNo){
+	if(confirm("답글을 다시겠습니까?") == false)
+		return;
+	if(${loginMember} == null)
+		loginAlert();
+	else {
+		let $tr = $("<tr></tr>");
+		let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
+		let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
+		$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
+		$frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />");
+		$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
+		$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
+		$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
+		$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
+		$frm.append("<button type='submit' class='btn-insert2'>등록</button>");
+		
+		$td.append($frm);
+		$tr.append($td);
+		let $boardCommentTr = $(this).parent().parent();
+		$tr.insertAfter($boardCommentTr)
+		   .children("td").slideDown(800)
+		   .children("form").submit(function(){
+			   let $textarea = $(this).find("textarea");
+			   if($textarea.val().length == 0)
+				   return false;
+		   }
+	}
+	
+	//1회만 작동하도록 함.
+	$(this).off("click");
+</script> --%>
+
+<!-- 답글시도중 -->
 <script>
 $(function(){
 	
-	/* $("#btn-delete").click(function(){
-		if(!confirm('댓글을 정말 삭제하시겠습니까?')) return;
-		
-		//삭제:post 방식 요청
-		//삭제할 번호 가져오기
-		let boardCommentNo = $(this).val();
-		//alert(boardCommentNo);
-		
-		let $frm = $("[name=deleteCommentFrm]");
-		$frm.children("[name=boardCommentNo]").val(boardCommentNo);
-		$frm.attr('action', '${pageContext.request.contextPath }/boardComment/boardCommentDelete.do')
-			.attr('method','POST')
-			.submit();		
-		
-	}); */
 	
-	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 딜리버리에서는 loginAlert()이거를 로그인창으로 이동하는거로 바꿔야 할듯
+	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 
 	$("#boardCommentContent").click(function(){
 		if(${loginMember} == null)
 			loginAlert();
@@ -540,20 +577,19 @@ $(function(){
 		
 	});
 	
-	$(".btn-reply").click(function(){
+	$("#btn-reply").click(function(){
 		if(${loginMember} == null)
 			loginAlert();
 		else {
 			let $tr = $("<tr></tr>");
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
 			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
-			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
-			<%-- $frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />"); --%>
+			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");			
 			$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
 			$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
 			$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
 			$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
-			$frm.append("<button type='submit' class='btn-insert2'>등록</button>");
+			$frm.append("<input type='submit' style='height:50px; margin:12px 10px 12px 30px' class='btn btn-primary' value='등록'/>");
 			
 			$td.append($frm);
 			$tr.append($td);
