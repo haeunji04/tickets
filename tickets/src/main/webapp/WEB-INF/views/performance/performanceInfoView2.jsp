@@ -549,6 +549,7 @@ function boardCommentReply(boardCommentNo){
 </script> --%>
 
 <!-- 답글시도중 -->
+
 <script>
 $(function(){
 	
@@ -578,6 +579,10 @@ $(function(){
 	});
 	
 	$("#btn-reply").click(function(){
+		var a = "test입니다@@@@"
+
+			console.log(a);
+		
 		if(${loginMember} == null)
 			loginAlert();
 		else {
