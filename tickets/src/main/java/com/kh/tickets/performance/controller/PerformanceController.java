@@ -69,6 +69,9 @@ public class PerformanceController {
 		String categoryName = performanceService.getCategoryName(category); 
 		
 		log.debug("list = {}", list);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("dateformat", dateformat);		
 		mav.addObject("list", list);
 		mav.addObject("categoryName", categoryName);
 		mav.setViewName("/performance/performanceCategoryView");
