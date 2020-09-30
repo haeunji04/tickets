@@ -554,6 +554,7 @@ function boardCommentReply(boardCommentNo){
 </script> --%>
 
 <!-- 답글시도중 -->
+
 <script>
 
 $(function(){
@@ -583,8 +584,17 @@ $(function(){
 		
 	});
 	
+
+	$("#btn-reply").click(function(){
+		var a = "test입니다@@@@"
+
+			console.log(a);
+		
+		if(${loginMember} == null)
+
 /* 	$("#btn-reply").click(function(){
 		if(${loginMember} == null){
+>>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 			loginAlert();
 		}else {
 			let $tr = $("<tr></tr>");
@@ -638,6 +648,7 @@ function loginAlert(){
 		 html+="</form>";
 		 $frm.append(html);
 		 $tr.append($frm);
+		 
 		/* let $boardCommentTr = $(this).parent().parent();
 		$tr.insertAfter($boardCommentTr)
 		   .children("td").slideDown(800) */

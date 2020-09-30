@@ -129,6 +129,8 @@ create table performance(
     --    per_sale varchar2(20),
 );
 
+alter table performance add sale_cnt int default 0;
+
 --Review
 create table review(
     review_no number,
