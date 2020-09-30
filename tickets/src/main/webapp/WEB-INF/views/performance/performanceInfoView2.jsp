@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,24 +7,13 @@
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<link href="${pageContext.request.contextPath }/resources/css/jsRapCalendar.css" rel="stylesheet" type="text/css">
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="${pageContext.request.contextPath }/resources/js/jsRapCalendar.js"></script>
-	
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/calendar.css">
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/calendar.js"></script>
 <script>
-$(document).ready(function(){
-$('#demo').jsRapCalendar({
-  week:6,
-	onClick:function(y,m,d){
-		alert(y + '-' + m + '-' + d);
-	}
-});
-
-});
 $(function(){
-	$('li').click(function(){
-		$('li').removeClass();
+	$('#list').click(function(){
+		$('#list').removeClass();
 		$(this).addClass('on');	
 	});
 });
@@ -152,18 +140,18 @@ li.on button{
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">
                         <dt class="tit_process tit_date_choice text-center"><span class="img">날짜 선택</span></dt>
-                        <dd class="cont_process">
-               				<div id="demo" class="d-inline"></div>
-        				</dd>
+               				<div id="demo">
+        						<div id="one"></div>
+        					</div>
         			</dl>
                     <dl class="time_choice" style="display:inline-grid;margin:30px;">
                         <dt class="tit_process tit_time_choice text-center"><span class="img">시간 선택</span></dt>
                         <dd class="cont_process" id="section_time">
                             <div class="box_type_comment"><!-- 날짜 선택전 show  -->
                                 <ul class="list-unstyled">
-                                	<li><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
-                                	<li><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 4시 30분</button></li>
-                                	<li><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li>
+                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
+                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 4시 30분</button></li>
+                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li>
                                 </ul>				
                             </div>
                         </dd>
@@ -258,7 +246,7 @@ li.on button{
 					<table>
 						<tr>
 							<td>
-							<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-edit.png" style="width:64px;display:inline-block;" />
+							<img src="${pageContext.request.contextPath }/resources/images/etc/girl.png" style="width:64px;height:70px;display:inline-block;" />
 							</td>
 							<td>
 			     				<input type="hidden" name="perNo" 
@@ -282,63 +270,42 @@ li.on button{
 					</form>	
 					</div>
 					<div class="mt-3">
-					<table id="comment-tbl1" class="text-center">
+					<table id="comment-tbl" class="text-center">
 						<c:if test="${ commentList ne null && not empty commentList }">
 						<c:forEach items="${ commentList }" var="comment">
 						<c:choose>
-						
 						<c:when test="${ comment.boardCommentLevel eq '1'}">						
 						<tr id="comment-tr">
 							<td id="img" class="px-3">
-							<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-1.png" style="width:55px;display:inline-block;" />
+							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
 							</td>
 							<td id="user-id" class="px-3">
-								<%-- <sub class="text-secondary" style="font-size:10px">
-									(${ comment.boardCommentDate })
-								</sub> --%>
 								<p class="text-secondary">${ comment.boardCommentWriter }</p>
 							</td>	
 							<td>
 							</td>			
 							<td id="user-comment" class="px-3">
-								<p class="text-secondary">${ comment.boardCommentContent } 
-									<span class="text-secondary" style="font-size:10px">(${ comment.boardCommentDate })</span>
-								</p>
+								<p class="text-secondary">${ comment.boardCommentContent } (${ comment.boardCommentDate })</p>
 							</td>
 							<td>
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq performance.memberId ||
-											   loginMember.memberRole eq 'A')  }">
-											   
-								<!-- 답글시도중 -->
-								   <button id="btn-reply" class="btn btn-outline-primary btn-sm"
-										   value="${ comment.boardCommentNo }" onclick="test();">답글</button>
-										   
-									<%-- <button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="boardCommentReply('${ comment.boardCommentNo }')">답글</button>	 --%>
-									<%-- <button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
-											value="${ comment.boardCommentNo }">답글</button> --%>
-									<!-- <input type="button" 
-										   class="btn btn-outline-primary btn-sm"
-										   id="btn-reply" 
-										   value="추가"/> -->
-								
-								
+											   loginMember.memberRole eq 'A')  }">	
+									<button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
+											value="${ comment.boardCommentNo }">답글</button>								
 								</c:if>							
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq comment.boardCommentWriter ||
 											   loginMember.memberRole eq 'A')  }">	
+									<%-- <button  class="btn btn-outline-primary btn-sm" id ="btn-delete"
+											value="${ comment.boardCommentNo }">삭제</button>	 --%>							
 									<button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 	
+											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button> 								
 								</c:if>	
 								<!-- padding-left:100px;	 -->					
-							</td>
-								
-						</tr>
-							<tr id="reply-tr">
-							</tr>						
+							</td>		
+						</tr>						
 						</c:when>
-						
 						
 						<c:otherwise>
 							<td id="user-id" class="px-3">
@@ -354,7 +321,7 @@ li.on button{
 											  (loginMember.memberId eq comment.boardCommentWriter ||
 											   loginMember.memberRole eq 'A')  }">	
 									<button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="boardCommentDelete('${ comment.boardCommentNo }')">삭제</button>								
+											onclick="perUpdate('${ per.perNo }')">삭제</button>								
 								</c:if>	
 								<!-- padding-left:100px;	 -->					
 							</td>	
@@ -362,8 +329,7 @@ li.on button{
 						
 						</c:choose>
 						</c:forEach>
-						</c:if>
-												
+						</c:if>						
 					</table>
 					</div>
 					</div>
@@ -390,7 +356,7 @@ li.on button{
 						</tr>
 					</table>
 					<div class="mt-3">
-					<table id="comment-tbl2" class="text-center">
+					<table id="comment-tbl" class="text-center">
 						<tr id="comment-tr">
 							<td id="img" class="px-3">
 							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
@@ -517,50 +483,29 @@ function boardCommentDelete(boardCommentNo){
 	$frm.submit();
 	
 }
+
 </script>
 
-<%-- <script>
-function boardCommentReply(boardCommentNo){
-	if(confirm("답글을 다시겠습니까?") == false)
-		return;
-	if(${loginMember} == null)
-		loginAlert();
-	else {
-		let $tr = $("<tr></tr>");
-		let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
-		let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
-		$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
-		$frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />");
-		$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
-		$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
-		$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
-		$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
-		$frm.append("<button type='submit' class='btn-insert2'>등록</button>");
-		
-		$td.append($frm);
-		$tr.append($td);
-		let $boardCommentTr = $(this).parent().parent();
-		$tr.insertAfter($boardCommentTr)
-		   .children("td").slideDown(800)
-		   .children("form").submit(function(){
-			   let $textarea = $(this).find("textarea");
-			   if($textarea.val().length == 0)
-				   return false;
-		   }
-	}
-	
-	//1회만 작동하도록 함.
-	$(this).off("click");
-</script> --%>
-
-<!-- 답글시도중 -->
-
 <script>
-
 $(function(){
 	
+	/* $("#btn-delete").click(function(){
+		if(!confirm('댓글을 정말 삭제하시겠습니까?')) return;
+		
+		//삭제:post 방식 요청
+		//삭제할 번호 가져오기
+		let boardCommentNo = $(this).val();
+		//alert(boardCommentNo);
+		
+		let $frm = $("[name=deleteCommentFrm]");
+		$frm.children("[name=boardCommentNo]").val(boardCommentNo);
+		$frm.attr('action', '${pageContext.request.contextPath }/boardComment/boardCommentDelete.do')
+			.attr('method','POST')
+			.submit();		
+		
+	}); */
 	
-	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 
+	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 딜리버리에서는 loginAlert()이거를 로그인창으로 이동하는거로 바꿔야 할듯
 	$("#boardCommentContent").click(function(){
 		if(${loginMember} == null)
 			loginAlert();
@@ -584,28 +529,20 @@ $(function(){
 		
 	});
 	
-
-	$("#btn-reply").click(function(){
-		var a = "test입니다@@@@"
-
-			console.log(a);
-		
+	$(".btn-reply").click(function(){
 		if(${loginMember} == null)
-
-/* 	$("#btn-reply").click(function(){
-		if(${loginMember} == null){
->>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 			loginAlert();
-		}else {
+		else {
 			let $tr = $("<tr></tr>");
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
 			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
-			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");			
+			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
+			<%-- $frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />"); --%>
 			$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
 			$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
 			$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
 			$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
-			$frm.append("<input type='submit' style='height:50px; margin:12px 10px 12px 30px' class='btn btn-primary' value='등록'/>");
+			$frm.append("<button type='submit' class='btn-insert2'>등록</button>");
 			
 			$td.append($frm);
 			$tr.append($td);
@@ -622,46 +559,51 @@ $(function(){
 		
 		//1회만 작동하도록 함.
 		$(this).off("click");
-	}); */
+	});
 	
 });
 
 function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
+	return;
 }
-
 </script>
 <script>
-	function test(){
-		alert('test');
-		var $tr = $("#reply-tr");
-		var html ="<td id='reply-td' style='text-align:left;padding-left:150px;' colspan=2></td>";
-		$tr.append(html);
-		var $frm = $('#reply-td');
-		 html ="<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'>";
-		 html+="<input type='hidden' name='perNo' value='${performance.perNo}' />";			
-		 html+="<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />";
-		 html+="<input type='hidden' name='boardCommentLevel' value='2' />";
-		 html+="<input type='hidden' name='boardCommentRef' value='' />";
-		 html+="<textarea name='boardCommentContent' cols=60 rows=1></textarea>";
-		 html+="<input type='submit' style='height:50px; margin:12px 10px 12px 30px' class='btn btn-primary' value='등록'/>";
-		 html+="</form>";
-		 $frm.append(html);
-		 $tr.append($frm);
-		 
-		/* let $boardCommentTr = $(this).parent().parent();
-		$tr.insertAfter($boardCommentTr)
-		   .children("td").slideDown(800) */
-		   /* .children("form").submit(function(){
-			   let $textarea = $(this).find("textarea");
-			   if($textarea.val().length == 0)
-				   return false;
-		   })
-		   .children("textarea").focus(); */
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
 
-		
-};
-</script>
+
+        var data = [{
+            date: year + '/' + month + '/' + date,
+            value: 'today'
+        }];
+
+        // inline
+        var $ca = $('#one').calendar({
+            // view: 'month',
+            width: 320,
+            height: 320,
+            // startWeek: 0,
+            // selectedRang: [new Date(), null],
+            data: data,
+            //monthArray: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            date: new Date(),
+            onSelected: function (view, date, data) {
+                console.log('view:' + view);
+                alert('date:' + date);
+                console.log(date);
+                console.log('data:' + (data));
+            },
+            viewChange: function (view, y, m) {
+                console.log(view, y, m)
+
+            }
+        });
+
+
+    </script>
 	 
 	 
 	<!-- footer -->
