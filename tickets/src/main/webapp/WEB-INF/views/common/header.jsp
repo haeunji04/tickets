@@ -125,12 +125,12 @@
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
-			          		<c:if test="${ loginMember.memberRole eq 'A' }">
+			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminRecommendedList.do">공연 추천 목록(관리자)</a>
-			          		</c:if>
+			          		<%-- </c:if> --%>
 			          		<c:if test="${ loginMember.memberRole ne 'A' }">
 			          		<div class="dropdown-divider"></div>
 			          			<a class="dropdown-item" href="#">회원 탈퇴</a>
