@@ -34,6 +34,7 @@ import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
@@ -63,7 +64,7 @@ public class PerformanceController {
 							@RequestParam("category") String category) {
 		log.debug("category = {}", category);
 		
-		List<Performance> list = performanceService.categoryListView(category);
+		List<PerJoin> list = performanceService.categoryListView(category);
 		
 		String categoryName = performanceService.getCategoryName(category); 
 		
@@ -74,15 +75,24 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	
 	@GetMapping("/search")
 	public ModelAndView searchView(ModelAndView mav,
 								   @RequestParam("keyword") String keyword) {
 		log.debug("keyword = {}", keyword);
+		
+		List<PerJoin> perList = performanceService.searchPerformance(keyword);
+		List<PerformanceHall> hallList = performanceService.searchHallName(keyword);
+		
+		log.debug("perList = {}", perList);
+		log.debug("hallList = {}", hallList);
+		
+		mav.addObject("perList", perList);
+		mav.addObject("hallList", hallList);
 		mav.addObject("keyword", keyword);
 		mav.setViewName("/performance/performanceSearchResult");
 		return mav;
 	}
+	
 	@GetMapping("/performance/performanceRegisterForm.do")
 	public ModelAndView performaceRegisterForm(ModelAndView mav) {
 		mav.setViewName("/performance/performanceRegisterForm");

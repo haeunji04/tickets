@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tickets.performance.model.dao.PerformanceDAO;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
@@ -32,7 +33,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public List<Performance> categoryListView(String category) {
+	public List<PerJoin> categoryListView(String category) {
 		return performanceDAO.categoryListView(category);
 	}
 
@@ -130,6 +131,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int deleteDate(int schNo) {
 		return performanceDAO.deleteDate(schNo);
+	}
+
+	@Override
+	public List<PerJoin> searchPerformance(String keyword) {
+		return performanceDAO.searchPerformance(keyword);
 	}
 
 	

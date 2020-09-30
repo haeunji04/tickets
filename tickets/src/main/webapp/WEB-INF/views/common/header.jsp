@@ -73,7 +73,7 @@
 		<div class="m-3 text-center">
 			<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>
 			<form class="mx-2 d-inline-block form-inline my-3 text-center align-bottom" style="width:50%;"
-				  action="${pageContext.request.contextPath}/search">
+				  action="${pageContext.request.contextPath}/search"  id="search-frm">
 			    <input class="form-control mr-sm-2" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
 			    <button class="btn btn-primary" type="submit">						  		 
 			    	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
