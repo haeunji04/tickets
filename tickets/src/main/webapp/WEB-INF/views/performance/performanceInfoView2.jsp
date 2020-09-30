@@ -648,6 +648,7 @@ function loginAlert(){
 		 html+="</form>";
 		 $frm.append(html);
 		 $tr.append($frm);
+		 
 		/* let $boardCommentTr = $(this).parent().parent();
 		$tr.insertAfter($boardCommentTr)
 		   .children("td").slideDown(800) */
