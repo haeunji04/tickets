@@ -74,7 +74,7 @@
 						style="width: 200px" />
 					</a>
 			<h6>${ per.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.theaterNo }</p>
+			<p style="font-size:13px;" class="mb-0">${ per.perStartDate }-${ per.perEndDate }<br />${ per.theaterName }</p>
 		</div>
 		</c:forEach>
 		</c:if>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
@@ -17,7 +18,7 @@ public interface PerformanceService {
 
 	List<Performance> selectPerformanceList();
 
-	List<Performance> categoryListView(String category);
+	List<PerJoin> categoryListView(String category);
 
 	String getCategoryName(String category);
 
@@ -59,5 +60,7 @@ public interface PerformanceService {
 	int turnOffRecommendedPer(int perNo);
 
 	int deleteDate(int schNo);
+
+	List<PerJoin> searchPerformance(String keyword);
 	
 }

@@ -419,6 +419,58 @@ values(
 --select * from performance order by per_register_date desc;
 --update performance set per_display='Y' where per_no=22;
 
+--==================0930은지추가================
+--theater테이블 컬럼명 변경!!!!!!!!!
+alter table theater rename column no to theater_no;
+alter table theater rename column location to theater_location;
+alter table theater rename column city to theater_city;
+alter table theater rename column address to theater_address;
+alter table theater rename column name to theater_name;
+
+--중복 공연장 데이터 삭제
+delete from theater where theater_no = 174;
+
+--view생성
+create view performance_join_view as
+select 
+    P.per_no,
+    P.member_id,
+    P.category_code,
+    C.category_name,
+    P.location_code,
+    L.location_name,
+    P.per_title,
+    P.per_director,
+    P.per_actor,
+    P.theater_no,
+    T.theater_location,
+    T.theater_city,
+    T.theater_address,
+    T.theater_name,
+    T.total_seat,
+    P.per_time,
+    P.per_content,
+    P.per_img_original_filename,
+    P.per_img_renamed_filename,
+    P.detail_img_original_filename,
+    P.detail_img_renamed_filename,
+    P.per_rating,
+    P.per_display,
+    P.admin_approval,
+    P.per_register_date,
+    P.per_start_date,
+    P.per_end_date,
+    P.sale_cnt
+from 
+    performance P  
+        left join theater T 
+            on P.theater_no = t.theater_no
+        left join location L
+            on P.location_code = L.location_code
+        left join category C
+            on P.category_code = C.category_code;
+
+
 --======================================================
 
 --select * from theater;
