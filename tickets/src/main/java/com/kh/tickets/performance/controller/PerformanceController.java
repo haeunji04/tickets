@@ -537,6 +537,32 @@ public class PerformanceController {
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}
+	
+	@GetMapping("/performance/performanceInfoView2_notLogin.do")
+	public ModelAndView performanceInfoView2_notLogin(ModelAndView mav, @RequestParam int perNo) {
+		
+		log.debug("perNo@@ = {}", perNo);		
+		
+		//공연상세페이지에 들어갈 공연객체
+		Performance performance = performanceService.selectOnePerformance(perNo);		
+		
+		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
+		int commntListSize = commentList.size();
+		
+		log.debug("commentList@controller@@ = {}", commentList);
+		log.debug("commntListSize@@ = {}", commntListSize);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		
+		mav.addObject("dateformat", dateformat);
+		mav.addObject("performance", performance);
+		mav.addObject("commentList", commentList);		
+		mav.addObject("commntListSize", commntListSize);		
+//		mav.addObject("loginMember", loginMember);		
+		mav.setViewName("/performance/performanceInfoView2_notLogin");
+		return mav;
+	}
+	
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav) {
 		

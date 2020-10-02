@@ -68,11 +68,24 @@
 		<c:if test="${ not empty list }">
 		<c:forEach items="${ list }" var="per">
 		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
-						<img
-						src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
-						style="width: 200px" />
-					</a>
+			<c:choose>
+				<c:when test="${ loginMember ne null }">
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+								<img
+								src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
+								style="width: 200px" />
+					</a>				
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2_notLogin.do?perNo=${ per.perNo }">					
+								<img
+								src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
+								style="width: 200px" />
+					</a>				
+				
+				</c:otherwise>
+			
+			</c:choose>
 			<h6>${ per.perTitle }</h6>
 			<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
 		<%-- 	<td>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</td> --%>
