@@ -34,6 +34,7 @@ import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
@@ -63,26 +64,38 @@ public class PerformanceController {
 							@RequestParam("category") String category) {
 		log.debug("category = {}", category);
 		
-		List<Performance> list = performanceService.categoryListView(category);
+		List<PerJoin> list = performanceService.categoryListView(category);
 		
 		String categoryName = performanceService.getCategoryName(category); 
 		
 		log.debug("list = {}", list);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		mav.addObject("dateformat", dateformat);		
 		mav.addObject("list", list);
 		mav.addObject("categoryName", categoryName);
 		mav.setViewName("/performance/performanceCategoryView");
 		return mav;
 	}
 	
-	
 	@GetMapping("/search")
 	public ModelAndView searchView(ModelAndView mav,
 								   @RequestParam("keyword") String keyword) {
 		log.debug("keyword = {}", keyword);
+		
+		List<PerJoin> perList = performanceService.searchPerformance(keyword);
+		List<PerformanceHall> hallList = performanceService.searchHallName(keyword);
+		
+		log.debug("perList = {}", perList);
+		log.debug("hallList = {}", hallList);
+		
+		mav.addObject("perList", perList);
+		mav.addObject("hallList", hallList);
 		mav.addObject("keyword", keyword);
 		mav.setViewName("/performance/performanceSearchResult");
 		return mav;
 	}
+	
 	@GetMapping("/performance/performanceRegisterForm.do")
 	public ModelAndView performaceRegisterForm(ModelAndView mav) {
 		mav.setViewName("/performance/performanceRegisterForm");
@@ -468,15 +481,17 @@ public class PerformanceController {
 	
 	@GetMapping("/performance/performanceInfoView2.do")
 	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,
-											@ModelAttribute("loginMember") Member loginMember) {
+											@RequestParam(value="loginMember",required=false) Member loginMember) {
 		
 		log.debug("perNo@@ = {}", perNo);
+		Performance performance = performanceService.selectOnePerformance(perNo);
+		
+		if(loginMember!=null) {
+			
 		String memberId = loginMember.getMemberId();
 		log.debug("memberId@@ = {}", memberId);
 		
 		//공연상세페이지에 들어갈 공연객체
-		Performance performance = performanceService.selectOnePerformance(perNo);
-		
 		//찜하기 여부 확인할 찜 list				
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
@@ -507,6 +522,8 @@ public class PerformanceController {
 		int result = performanceService.recentlyPerListInsert(recentlyPerList);		
 		log.debug("recentlyPerListInsert@controller = {}", result);
 		
+		mav.addObject("list", list);		
+		}
 		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
 		int commntListSize = commentList.size();
 		
@@ -517,7 +534,6 @@ public class PerformanceController {
 		
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("performance", performance);		
-		mav.addObject("list", list);		
 		mav.addObject("commentList", commentList);		
 		mav.addObject("commntListSize", commntListSize);		
 //		mav.addObject("loginMember", loginMember);		
@@ -676,6 +692,7 @@ public class PerformanceController {
 		return "redirect:/performance/adminRecommendedList.do";
 	}
 	
+	//한나님 오류 확인용 주석
 	
 }
 

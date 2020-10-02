@@ -44,11 +44,11 @@
 			desc
 	</select>
 	
-	<select id="categoryListView" resultMap="performanceMap">
+	<select id="categoryListView" resultMap="perJoinMap">
 		select
 			*
 		from
-			performance
+			performance_join_view
 		where 
 			category_code = #{ category }
 	</select>
@@ -110,8 +110,8 @@
 		from
 			theater
 		where
-			upper(name) like '%'||upper(#{ keyword })||'%'
-	</select>		
+			upper(theater_name) like '%'||upper(#{ keyword })||'%'
+	</select>			
 	
 	<update id="perUpdate">
 		update 
@@ -248,6 +248,15 @@
 			where sch_no = #{ schNo }
 	</delete>
 	
+	<select id="searchPerformance" resultMap="perJoinMap">
+		select 
+			*
+		from
+			performance_join_view
+		where
+			upper(per_title) like '%'||upper(#{ keyword })||'%'
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -259,6 +268,8 @@
 	<resultMap type="myRecentlyPerList" id="MyRecentlyPerListMap">
 	</resultMap>		
 	<resultMap type="schedule" id="perSchedule">
+	</resultMap>
+	<resultMap type="perJoin" id="perJoinMap">
 	</resultMap>
 	
 </mapper>

@@ -83,12 +83,12 @@
 				var hall = data[i];
 				html += "<tr>";
 				/* html += "<td>"+ hall.no +"</td>"; */
-				html += "<td>"+ hall.location +"</td>";
-				html += "<td>"+ hall.city +"</td>";
-				html += "<td>"+ hall.address +"</td>";
-				html += "<td>"+ hall.name +"</td>";
+				html += "<td>"+ hall.theaterLocation +"</td>";
+				html += "<td>"+ hall.theaterCity +"</td>";
+				html += "<td>"+ hall.theaterAddress +"</td>";
+				html += "<td>"+ hall.theaterName +"</td>";
 				html += "<td>"+ hall.totalSeat +"</td>";
-				html += "<td><input type='button' class='btn btn-outline-primary' value='선택' onclick='sendData("+hall.no+",\""+hall.name+"\")'/></td>";
+				html += "<td><input type='button' class='btn btn-outline-primary' value='선택' onclick='sendData("+hall.theaterNo+",\""+hall.theaterName+"\")'/></td>";
 				//html += "<td><input type='button' class='btn btn-outline-primary' value='선택' onclick='sendData("+hall.no+")'/></td>";
 				html += "</tr>";
 

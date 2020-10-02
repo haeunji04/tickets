@@ -15,11 +15,11 @@ import lombok.ToString;
 @ToString
 public class PerformanceHall implements Serializable {
 
-	private int no;
-	private String location;
-	private String city;
-	private String address;
-	private String name;
+	private int theaterNo;
+	private String theaterLocation;
+	private String theaterCity;
+	private String theaterAddress;
+	private String theaterName;
 	private int totalSeat;
 	private String locationCode;
 	

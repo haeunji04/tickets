@@ -15,9 +15,11 @@
 
 	<div id="search-result-header" class="my-4 text-center" >
 	
-		<div class="py-3" style="font-size:40px;">
-			<span style="font-size:40px;" class="text-primary">' ${keyword} ' </span>
-			검색 결과
+		<div style="padding:80px; margin-bottom:20px; background-color:#F4F4F4;">
+		  <div class="container align-middle" style="font-size:30px;">
+		    <span style="font-size:30px;" class="text-primary font-weight-bold">' ${keyword} ' </span>
+		    에 대한 검색 결과입니다.
+		  </div>
 		</div>
 	
 		<!-- 검색 결과 여러 항목으로 나눠서 볼 거 아니면 탭형식 필요없어짐! 기능 구현하면서 고민해볼 것  -->
@@ -39,38 +41,51 @@
 			<div class="tab-pane fade active show" id="all">
 
 				<table class="table table-hover">
+				<h4 class="text-left">공연</h4>
 				<!-- 반복될 블록(존재하는 만큼 반복) 시작 -->
+				<c:if test="${ not empty perList }">
+				<c:forEach items="${ perList }" var="per">
+					<tr>
+						<th>
+							<img src="${ pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" alt="포스터"
+								 width="150px;" class="img-thumbnail" />
+						</th>
+						<td class="align-middle"><h6>${ per.perTitle }</h6></td>
+						<td class="align-middle">${ per.perStartDate } <br /> - ${ per.perEndDate }</td>
+						<td class="align-middle">${ per.theaterName }</td>
+					</tr>
+				</c:forEach>
+				</c:if>
+				<c:if test="${ empty perList }">
 				<tr>
-					<th>
-						<img src="${ pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" alt="포스터"
-							 width="150px;" class="img-thumbnail" />
-					</th>
-					<td class="align-middle"><h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6></td>
-					<td class="align-middle">2020.11.13 <br /> - 2020.12.20</td>
-					<td class="align-middle">롯데아트홀</td>
+					<td>검색된 공연이 존재하지 않습니다.</td>
 				</tr>
+				</c:if>
 				<!-- 반복문 블록 끝 -->
+				</table>
 				
+				<br />
+				<br />
+				<br />
+				
+				<table class="table table-hover">
+				<h4 class="text-left">공연장</h4>
+				<!-- 반복문 블록 시작 -->
+				<c:if test="${ not empty hallList }">
+				<c:forEach items="${ hallList }" var="hall">
+					<tr class="my-3 align-middle">
+						<td class="align-middle"><h6>${ hall.theaterName }</h6></td>
+						<td colspan="3" class="align-middle">${ hall.theaterLocation }&nbsp;${ hall.theaterCity }&nbsp;${ hall.theaterAddress }</td>
+					</tr>
+				</c:forEach>
+				</c:if>
+				<c:if test="${ empty hallList }">
 				<tr>
-					<th>
-						<img src="${ pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" alt="포스터"
-							 width="150px;" class="img-thumbnail" />
-					</th>
-					<td class="align-middle"><h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6></td>
-					<td class="align-middle">2020.11.13 <br /> - 2020.12.20</td>
-					<td class="align-middle">롯데아트홀</td>
+					<td>검색된 공연장이 존재하지 않습니다.</td>
 				</tr>
-				
-				<tr>
-					<th>
-						<img src="${ pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" alt="포스터"
-							 width="150px;" class="img-thumbnail" />
-					</th>
-					<td class="align-middle"><h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6></td>
-					<td class="align-middle">2020.11.13 <br /> - 2020.12.20</td>
-					<td class="align-middle">롯데아트홀</td>
-				</tr>
-				
+				</c:if>
+				<!-- 반복문 블록 끝 -->
+	
 				
 				</table>
 				
@@ -79,17 +94,27 @@
 			<div class="tab-pane fade" id="performance-name">
 
 				<table class="table table-hover">
-
+				<!-- 반복될 블록(존재하는 만큼 반복) 시작 -->
+				<c:if test="${ not empty perList }">
+				<h4 class="text-left">공연</h4>
+				<c:forEach items="${ perList }" var="per">
+					<tr>
+						<th>
+							<img src="${ pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" alt="포스터"
+								 width="150px;" class="img-thumbnail" />
+						</th>
+						<td class="align-middle"><h6>${ per.perTitle }</h6></td>
+						<td class="align-middle">${ per.perStartDate } <br /> - ${ per.perEndDate }</td>
+						<td class="align-middle">${ per.theaterName }</td>
+					</tr>
+				</c:forEach>
+				</c:if>
+				<c:if test="${ empty perList }">
 				<tr>
-					<th>
-						<img src="${ pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" alt="포스터"
-							 width="150px;" class="img-thumbnail" />
-					</th>
-					<td class="align-middle"><h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6></td>
-					<td class="align-middle">2020.11.13 <br /> - 2020.12.20</td>
-					<td class="align-middle">롯데아트홀</td>
+					<td>검색된 공연이 존재하지 않습니다.</td>
 				</tr>
-
+				</c:if>
+				<!-- 반복문 블록 끝 -->
 				</table>
 
 			</div>
@@ -98,16 +123,21 @@
 			<div class="tab-pane fade" id="performance-hall">
 
 				<table class="table table-hover">
-
+				
+				<c:if test="${ not empty hallList }">
+				<h4 class="text-left">공연장</h4>
+				<c:forEach items="${ hallList }" var="hall">
+					<tr>
+						<td class="align-middle"><h6>${ hall.theaterName }</h6></td>
+						<td colspan="3" class="align-middle">${ hall.theaterLocation }&nbsp;${ hall.theaterCity }&nbsp;${ hall.theaterAddress }</td>
+					</tr>
+				</c:forEach>
+				</c:if>
+				<c:if test="${ empty hallList }">
 				<tr>
-					<th>
-						<img src="${ pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" alt="포스터"
-							 width="150px;" class="img-thumbnail" />
-					</th>
-					<td class="align-middle"><h6>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h6></td>
-					<td class="align-middle">2020.11.13 <br /> - 2020.12.20</td>
-					<td class="align-middle">롯데아트홀</td>
+					<td>검색된 공연장이 존재하지 않습니다.</td>
 				</tr>
+				</c:if>
 
 				</table>
 
@@ -118,5 +148,10 @@
 
 </div>
 
+<script>
+<c:if test="${ not empty keyword }">
+	$("#keyword").val('${ keyword }');
+</c:if>
+</script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
    

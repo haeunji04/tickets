@@ -74,7 +74,8 @@
 						style="width: 200px" />
 					</a>
 			<h6>${ per.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ per.theaterNo }</p>
+			<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
+		<%-- 	<td>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</td> --%>
 		</div>
 		</c:forEach>
 		</c:if>
