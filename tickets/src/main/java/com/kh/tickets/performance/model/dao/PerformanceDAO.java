@@ -61,5 +61,9 @@ public interface PerformanceDAO {
 	
 	List<PerJoin> searchPerformance(String keyword);
 
+	List<Performance> searchPerformanceList(Map<String, Object> map);
+
+	int selectTotalPerformanceList(Map<String, Object> map);
+
 
 }

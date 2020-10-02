@@ -71,8 +71,23 @@
 <br />
 
 <div id="nonRecommenedPerList">
-	<h3 class="text-primary my-4">공연 목록</h3>
+	<h3 class="text-primary my-2">공연 목록</h3>
 	<br />
+	
+	<div class="text-center align-middle">
+		<!-- 검색 -->
+		<form action="${pageContext.request.contextPath }/performance/adminSearchList" method="get" class="mb-3">
+			<select name="searchType" style="width:130px;" class="form-control d-inline-block">
+				<option value="companyId" ${ "companyId" eq searchType ? "selected" : "" }>판매자</option>
+				<option value="perTitle" ${ "perTitle" eq searchType ? "selected" : "" }>공연제목</option>
+			</select>
+			<input type="text" class="form-control d-inline-block" name="keyword" id="keyword" 
+				   value="${ keyword != null ? keyword : '' }" style="width:200px;"/>
+			<input type="submit" class="mb-1 btn btn-outline-primary d-inline-block align-middle" value="검색" />
+		</form>
+	</div>
+	
+	
 	<table class="table table-hover">
 	  <thead>
 	  	<tr class="table-primary">
@@ -120,11 +135,21 @@
 	  </tbody>
 	</table>	
 	
-	<div class="text-center">
+<%-- 	<div class="text-center">
 		<c:if test="${recommendedCnt ne 0}">
 			<p>현재 등록된 공연이 없습니다.</p>
 		</c:if>  
-	</div>
+	</div> --%>
+	
+	<div class="align-center">
+    	<ul class="pagination justify-content-center">
+	    	<li class="page-item">
+		            ${ pageBar }     
+	        </li>
+    	</ul>
+	</div>	
+	
+	
 </div>
 
 <%-- <div class="text-center">

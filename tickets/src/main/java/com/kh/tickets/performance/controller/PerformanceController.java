@@ -692,7 +692,57 @@ public class PerformanceController {
 		return "redirect:/performance/adminRecommendedList.do";
 	}
 	
+	
+	@GetMapping("/performance/adminSearchList")
+	public ModelAndView searchPerformance(ModelAndView mav,
+										  HttpServletRequest request,
+										  @RequestParam("searchType") String searchType,
+										  @RequestParam("keyword") String keyword) {
+		
+//		log.debug("keyword = {}", keyword);
+//		log.debug("searchType = {}", searchType);
+		
+		int numPerPage = 10;
+		int cPage = 1;
+		
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+		
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
+		
+		List<Performance> list = performanceService.selectPerformanceList(map);
+		log.debug("list = {}", list);
+		
+		String url = request.getRequestURI() + "?searchType=" + searchType + "&keyword=" + keyword + "&";
+		
+		int totalContents = performanceService.selectTotalPerformanceList(map);
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
+		
+		mav.addObject("list", list);
+		mav.addObject("searchType", searchType);
+		mav.addObject("cPage", cPage);
+		mav.addObject("pageBar", pageBar);
+		mav.addObject("keyword", keyword);
+		mav.setViewName("performance/adminRecommendedList");
+		return mav;
+	}	
+	
+
 	//한나님 오류 확인용 주석
+	
+	
+	
+	
+	
 	
 }
 

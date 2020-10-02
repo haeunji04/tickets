@@ -138,4 +138,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.searchPerformance", keyword);
 	}
 
+	@Override
+	public List<Performance> searchPerformanceList(Map<String, Object> map) {
+		return sqlSession.selectList("performance.searchPerformanceList", map);
+	}
+
+	@Override
+	public int selectTotalPerformanceList(Map<String, Object> map) {
+		return sqlSession.selectOne("performance.selectTotalPerformanceList", map);
+	}
+
 }

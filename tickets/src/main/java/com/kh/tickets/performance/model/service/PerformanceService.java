@@ -62,5 +62,9 @@ public interface PerformanceService {
 	int deleteDate(int schNo);
 
 	List<PerJoin> searchPerformance(String keyword);
+
+	List<Performance> selectPerformanceList(Map<String, Object> map);
 	
+	int selectTotalPerformanceList(Map<String, Object> map);
+
 }
