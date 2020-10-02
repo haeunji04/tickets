@@ -64,7 +64,7 @@
 			<c:if test="${ empty loginMember }">
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberEnrollForm.do">회원가입</a><span class="text-secondary">&nbsp;|</span>
 			</c:if>
-			<a class="text-secondary" href="#">고객센터 </a>
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
 			<c:if test="${ not empty loginMember }">
 			<div><span class="text-danger">${ loginMember.name }</span>님, 어서오세요!</div>
 			</c:if>
