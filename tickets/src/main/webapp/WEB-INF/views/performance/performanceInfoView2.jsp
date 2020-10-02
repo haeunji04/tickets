@@ -258,7 +258,7 @@ li.on button{
 								<input type="hidden" name="boardCommentRef" value="0" />		<!--댓글란: 대댓글없으니까 0  -->	
 							 	<textarea class="form-control ml-3" name="boardCommentContent" id="boardCommentContent"
 										  cols="80" rows="3"
-										  placeholder="기대평을 적어주세요."></textarea>
+										  placeholder="기대평을 적어주세요." onclick="test();"></textarea>
 								
 							</td>
 							<td>
@@ -487,6 +487,7 @@ function boardCommentDelete(boardCommentNo){
 </script>
 
 <script>
+
 $(function(){
 	
 	/* $("#btn-delete").click(function(){
@@ -506,18 +507,7 @@ $(function(){
 	}); */
 	
 	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 딜리버리에서는 loginAlert()이거를 로그인창으로 이동하는거로 바꿔야 할듯
-	$("#boardCommentContent").click(function(){
-		if(${loginMember} == null)
-			loginAlert();
-	});
 	
-	$("[name=boardCommentFrm]").submit(function(){
-		
-		//로그인 여부 검사
-		if(${loginMember} == null){
-			loginAlert();
-			return false;			
-		}
 		
 		//댓글 검사
 		let $boardContent = $("#boardCommentContent");
@@ -563,10 +553,28 @@ $(function(){
 	
 });
 
+</script>
+
+<script>
+function test(){
+	<c:if test="${ empty loginMember }">
+		loginAlert();
+	</c:if>
+}
 function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
 	return;
 }
+$(function(){
+	
+$("[type=submit]").click(function(){
+	//로그인 여부 검사
+	<c:if test="${ empty loginMember }">
+		loginAlert();
+		return false;	
+	</c:if>		
+	});
+});
 </script>
 <script>
         var now = new Date();
