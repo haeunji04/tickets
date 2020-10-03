@@ -183,7 +183,7 @@ footer{ margin-top: 2100px; }
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico">
+						<a href="#" class="inner inner_ico text-decoration-none">
 							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span>
 							<br />
 							<span>
@@ -194,7 +194,7 @@ footer{ margin-top: 2100px; }
 						</a>
 					</li>
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico">
+						<a href="#" class="inner inner_ico text-decoration-none">
 							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span>
 							<br />
 							<span>
@@ -205,7 +205,7 @@ footer{ margin-top: 2100px; }
 						</a>
 					</li>
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico">
+						<a href="#" class="inner inner_ico text-decoration-none">
 							<span>
 								젠틀레인 6집 발매 기념 공연 티켓 오픈 안내
 								<br />
@@ -214,7 +214,7 @@ footer{ margin-top: 2100px; }
 						</a>
 					</li>
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico">
+						<a href="#" class="inner inner_ico text-decoration-none">
 							<span>
 								뮤지컬 〈작은 아씨들〉티켓 오픈 안내
 								<br />
@@ -223,7 +223,7 @@ footer{ margin-top: 2100px; }
 						</a>
 					</li>
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico">
+						<a href="#" class="inner inner_ico text-decoration-none">
 							<span class="badge badge-primary mx-auto" style="float:left;"><span class="ico1">단독판매</span></span>
 							<span>
 								서울숲재즈페스티벌 2020 공식티켓 오픈 안내

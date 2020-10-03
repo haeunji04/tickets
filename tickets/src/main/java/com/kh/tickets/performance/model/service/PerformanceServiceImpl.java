@@ -138,6 +138,16 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.searchPerformance(keyword);
 	}
 
+	@Override
+	public List<Performance> selectPerformanceList(Map<String, Object> map) {
+		return performanceDAO.searchPerformanceList(map);
+	}
+
+	@Override
+	public int selectTotalPerformanceList(Map<String, Object> map) {
+		return performanceDAO.selectTotalPerformanceList(map);
+	}
+
 	
 
 

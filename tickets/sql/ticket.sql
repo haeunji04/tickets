@@ -420,6 +420,7 @@ values(
 --update performance set per_display='Y' where per_no=22;
 
 --==================0930은지추가================
+
 --theater테이블 컬럼명 변경!!!!!!!!!
 alter table theater rename column no to theater_no;
 alter table theater rename column location to theater_location;
