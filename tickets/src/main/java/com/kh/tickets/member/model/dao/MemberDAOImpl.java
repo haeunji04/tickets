@@ -2,6 +2,7 @@ package com.kh.tickets.member.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,17 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int updateMember(Member member) {
 		return sqlSession.update("member.updateMember", member);
+	}
+
+	@Override
+	public List<Member> selectMemberList(int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("member.selectMemberList", null, rowBounds);
+	}
+
+	@Override
+	public int selectBoardTotalContents() {
+		return sqlSession.selectOne("member.selectBoardTotalContents");
 	}
 
 

@@ -68,6 +68,20 @@
 		<!-- 공연 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
 		<c:if test="${ not empty list }">
 		<c:forEach items="${ list }" var="per">
+		
+			<%-- <c:choose>
+				<c:when test="${ loginMember ne null }">
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2_notLogin.do?perNo=${ per.perNo }">					
+								<img
+								src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
+								style="width: 200px" />
+					</a>				
+				
+				</c:otherwise>
+			
+			</c:choose> --%>
 		<div style="width: 235px" class="text-center d-inline-block p-3">
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
 						<img
@@ -86,6 +100,19 @@
 		<!-- 뮤지컬 반복문 블록 끝 -->
 	
 	</div>
+	
+	<nav id="pageNumber" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+            	 <li class="page-item">
+	            	${ pageBar }       
+	            	<style>
+	            		.page-link {
+	            			color: #428bca;
+	            		}
+	            	</style>  	 
+            	 </li>
+                </ul>
+	</nav>
 
 
 

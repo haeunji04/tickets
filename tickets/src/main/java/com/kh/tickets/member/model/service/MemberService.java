@@ -18,4 +18,8 @@ public interface MemberService {
 
 	int updateMember(Member member);
 
+	List<Member> selectMemberList(int limit, int offset);
+
+	int selectBoardTotalContents();
+
 }

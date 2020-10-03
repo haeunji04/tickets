@@ -11,7 +11,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 
-
+<p>총 <span class="text-primary">${ totalContents }</span> 명의 회원이 있습니다.</p>
 <table class="table table-hover">
   <thead>
   	<tr class="table-primary">
@@ -40,9 +40,22 @@
 					onclick="deleteMember('${ member.memberId }')">삭제</button>
 		</td>
 	</tr>
-	</c:forEach>    *
+	</c:forEach>    
   </tbody>
 </table>
+
+<nav id="pageNumber" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+            	 <li class="page-item">
+	            	${ pageBar }       
+	            	<style>
+	            		.page-link {
+	            			color: #428bca;
+	            		}
+	            	</style>  	 
+            	 </li>
+                </ul>
+</nav>
 
 <form action="${ pageContext.request.contextPath }/member/deleteMember.do" 
 	  id="memberDeleteFrm" 

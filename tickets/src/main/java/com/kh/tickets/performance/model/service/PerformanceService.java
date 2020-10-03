@@ -63,6 +63,11 @@ public interface PerformanceService {
 
 	List<PerJoin> searchPerformance(String keyword);
 
+
+	List<PerJoin> categoryListView(String category, int limit, int offset);
+
+	int selectCategoryListTotalContents(String category);
+
 	List<Performance> selectPerformanceList(Map<String, Object> map);
 	
 	int selectTotalPerformanceList(Map<String, Object> map);

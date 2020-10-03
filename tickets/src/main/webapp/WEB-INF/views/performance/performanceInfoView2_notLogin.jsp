@@ -37,60 +37,7 @@ li.on button{
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
-			<div align="right">	
-				<!-- 찜하기 -->
-				<form id="wishListInsertFrm" 
-					  action="${pageContext.request.contextPath }/performance/wishListInsert.do?perNo=${ performance.perNo }" 
-					  method="POST">
-					  
-					  <%int cnt1=0; %>
-					  <%int cnt2=0; %>
-					  <c:set var="doneLoop" value="false" />
-					  <c:forEach items="${ list }" var="wlist" varStatus="status">					  	
-					  <if test="${ not doneLoop }">	
-					  	<c:choose>
-					  		<c:when test="${ performance.perNo ne wlist.perNo }">
-					  			<%cnt1=0; %>
-					  		</c:when>
-					  		<c:otherwise>
-					  			<% cnt2=1;%>
-					  			<c:set var="doneLoop" value="true" />
-					  		</c:otherwise> 	
-					  	</c:choose>
-					  </if>
-					  </c:forEach>
-					  
-					  <%if(cnt1==0 && cnt2==0) {%>
-						<input type="submit" class="btn btn-primary" value="찜하기"/>	
-					  <%} %>
-				</form>
-				
-				<!-- 찜 해제하기 -->
-				<form id="wishListInsertFrm" 
-					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
-					  method="POST">
-					  
-					  <%int cnt3=0; %>
-					  <%int cnt4=0; %>
-					  <c:set var="doneLoop" value="false" />
-					  <c:forEach items="${ list }" var="wlist" varStatus="status">	
-					  <if test="${ not doneLoop }">
-					  	<c:choose>
-					  		<c:when test="${ performance.perNo ne wlist.perNo }">
-					  			<%cnt3=0; %>
-					  		</c:when>
-					  		<c:otherwise>
-					  			<% cnt4=1;%>
-					  			<c:set var="doneLoop" value="true" />
-					  		</c:otherwise> 	
-					  	</c:choose>
-					  </if>
-					  </c:forEach>
-					  
-					  <%if(cnt3==0 && cnt4==1) {%>
-						<input type="submit" class="btn btn-primary" value="찜 해제하기"/>	
-					  <%} %>			
-				</form>		
+			<div align="right">					
 				
 			</div>
 			<table id="perform-info-tbl" >
@@ -198,7 +145,7 @@ li.on button{
                     
                 </div>
                <div class="box_type_comment">
-               <button type="button" class="btn btn-primary btn-lg btn-block">예매하기</button>
+               <button type="button" class="btn btn-primary btn-lg btn-block" onclick="loginCheck()">예매하기</button>
                </div>
               </div>
               <div class="d-block mx-auto mt-5">
@@ -258,12 +205,16 @@ li.on button{
 								<input type="hidden" name="boardCommentRef" value="0" />		<!--댓글란: 대댓글없으니까 0  -->	
 							 	<textarea class="form-control ml-3" name="boardCommentContent" id="boardCommentContent"
 										  cols="80" rows="3"
-										  placeholder="기대평을 적어주세요." onclick="test();"></textarea>
+										  placeholder="기대평을 적어주세요."  ></textarea>
+										  <!-- onclick="alert('로그인 후  입력할 수 있습니다.');" -->
 								
 							</td>
 							<td>
 							<!-- <button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button> -->
-							<input type="submit" style="height:50px; margin:12px 10px 12px 30px" class="btn btn-primary" value="등록"/>
+							<!-- <input type="submit" style="height:50px; margin:12px 10px 12px 30px" class="btn btn-primary"  value="등록"/> -->
+							<button type="button" style="height:50px; margin:12px 10px 12px 30px" class="btn btn-primary"
+											onclick="loginCheck()">등록</button> 	
+											<%-- onclick="loginCheck('${ loginMember }')">등록</button> 	 --%>
 							</td>
 						</tr>
 					</table>
@@ -486,9 +437,36 @@ function boardCommentDelete(boardCommentNo){
 
 </script>
 
+
+
 <script>
 
-$(function(){
+function loginCheck(){
+ 	//if(loginMember == null) 
+		alert("로그인 후 이용하실 수 있습니다.");
+		return;
+	
+}
+
+$("#boardCommentContent").click(function(){
+		//if(${loginMember} == null)
+			loginAlert();
+			return;
+});
+
+
+function loginAlert(){
+	alert("로그인 후 이용하실 수 있습니다.");
+	return;
+}
+
+
+
+
+</script>
+
+<script>
+$<%-- (function(){
 	
 	/* $("#btn-delete").click(function(){
 		if(!confirm('댓글을 정말 삭제하시겠습니까?')) return;
@@ -506,8 +484,19 @@ $(function(){
 		
 	}); */
 	
-	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 딜리버리에서는 loginAlert()이거를 로그인창으로 이동하는거로 바꿔야 할듯
+	//댓글달라고 빈 댓글란 클릭하는순간 로그인 여부 확인용. 
+	$("#boardCommentContent").click(function(){
+		if(${loginMember} == null)
+			loginAlert();
+	});
 	
+	$("[name=boardCommentFrm]").submit(function(){
+		
+		//로그인 여부 검사
+		if(${loginMember} == null){
+			loginAlert();
+			return false;			
+		}
 		
 		//댓글 검사
 		let $boardContent = $("#boardCommentContent");
@@ -527,7 +516,7 @@ $(function(){
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
 			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
 			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
-			<%-- $frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />"); --%>
+			$frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />");
 			$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
 			$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
 			$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
@@ -553,28 +542,10 @@ $(function(){
 	
 });
 
-</script>
-
-<script>
-function test(){
-	<c:if test="${ empty loginMember }">
-		loginAlert();
-	</c:if>
-}
 function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
 	return;
-}
-$(function(){
-	
-$("[type=submit]").click(function(){
-	//로그인 여부 검사
-	<c:if test="${ empty loginMember }">
-		loginAlert();
-		return false;	
-	</c:if>		
-	});
-});
+} --%>
 </script>
 <script>
         var now = new Date();

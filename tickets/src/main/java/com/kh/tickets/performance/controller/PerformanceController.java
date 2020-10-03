@@ -61,19 +61,35 @@ public class PerformanceController {
 
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav,
-							@RequestParam("category") String category) {
+							@RequestParam("category") String category,
+							HttpServletRequest request,
+							  @RequestParam(defaultValue = "1", 
+							  				value = "cPage") int cPage) {
 		log.debug("category = {}", category);
 		
-		List<PerJoin> list = performanceService.categoryListView(category);
+		//1.사용자 입력값 
+		final int limit = 2;
+		int offset = (cPage - 1) * limit;
+		
+//		List<PerJoin> list = performanceService.categoryListView(category);
+		List<PerJoin> list = performanceService.categoryListView(category, limit, offset);
 		
 		String categoryName = performanceService.getCategoryName(category); 
 		
 		log.debug("list = {}", list);
 		
+		//전체컨텐츠수 구하기
+		int totalContents = performanceService.selectCategoryListTotalContents(category);
+				
+		String url = request.getRequestURI() + "?";
+		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		mav.addObject("dateformat", dateformat);		
 		mav.addObject("list", list);
 		mav.addObject("categoryName", categoryName);
+		mav.addObject("totalContents", totalContents);
+		mav.addObject("pageBar", pageBar);
 		mav.setViewName("/performance/performanceCategoryView");
 		return mav;
 	}
@@ -540,6 +556,32 @@ public class PerformanceController {
 		mav.setViewName("/performance/performanceInfoView2");
 		return mav;
 	}
+	
+	@GetMapping("/performance/performanceInfoView2_notLogin.do")
+	public ModelAndView performanceInfoView2_notLogin(ModelAndView mav, @RequestParam int perNo) {
+		
+		log.debug("perNo@@ = {}", perNo);		
+		
+		//공연상세페이지에 들어갈 공연객체
+		Performance performance = performanceService.selectOnePerformance(perNo);		
+		
+		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
+		int commntListSize = commentList.size();
+		
+		log.debug("commentList@controller@@ = {}", commentList);
+		log.debug("commntListSize@@ = {}", commntListSize);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		
+		mav.addObject("dateformat", dateformat);
+		mav.addObject("performance", performance);
+		mav.addObject("commentList", commentList);		
+		mav.addObject("commntListSize", commntListSize);		
+//		mav.addObject("loginMember", loginMember);		
+		mav.setViewName("/performance/performanceInfoView2_notLogin");
+		return mav;
+	}
+	
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav) {
 		
