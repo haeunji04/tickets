@@ -1,6 +1,7 @@
 package com.kh.tickets.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,14 +52,31 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updateMember(member);
 	}
 
-	@Override
-	public List<Member> selectMemberList(int limit, int offset) {
-		return memberDAO.selectMemberList(limit, offset);
-	}
+//	@Override
+//	public List<Member> selectMemberList(int limit, int offset) {
+//		return memberDAO.selectMemberList(limit, offset);
+//	}
 
 	@Override
 	public int selectBoardTotalContents() {
 		return memberDAO.selectBoardTotalContents();
 	}
+
+	@Override
+	public List<Member> searchMemberList(Map<String, Object> map) {
+		return memberDAO.searchMemberList(map);
+	}
+
+	@Override
+	public int totalSearchMemberList(Map<String, Object> map) {
+		return memberDAO.totalSearchMemberList(map);
+	}
+
+	@Override
+	public List<Member> selectMemberList(Map<String, Object> map) {
+		return memberDAO.selectMemberList(map);
+	}
+	
+	
 	
 }

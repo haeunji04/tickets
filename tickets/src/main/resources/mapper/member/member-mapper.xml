@@ -31,14 +31,14 @@
 			member_id = #{ memberId }	
 	</select>
 	
-	<select id="selectMemberList" resultMap="memberMap">
+<!-- 	<select id="selectMemberList" resultMap="memberMap">
 		select
 			*
 		from
 			member
-		<!-- order by
-			no desc -->
-	</select>
+		order by
+			no desc
+	</select> -->
 	
 	<resultMap type="member" id="memberMap">
 	</resultMap>
@@ -80,5 +80,64 @@
 	    	member	
 	</select>
 	
+		<select id="searchMemberList" resultMap="memberMap">
+		select 
+			*
+		from(
+        	select
+                rownum as rnum,
+                M.*
+        	from 
+                (select
+                       *
+                from
+                    Member
+                <where>
+                    <if test='searchType.equals("memberId")'>
+                    upper(member_id) like '%'||upper(#{ keyword })||'%'
+                    </if>
+                    <if test='searchType.equals("memberName")'>
+                    upper(name) like '%'||upper(#{ keyword })||'%'
+                    </if>
+                </where>
+                order by enroll_date
+                )M
+		)
+		where rnum between #{ start } and #{ end } 
+	</select>
+	
+	
+	<select id="totalSearchMemberList" resultType="_int">
+		select 
+			count(*)
+		from
+			member
+		<where>
+			<if test='searchType.equals("memberId")'>
+			upper(member_id) like '%'||upper(#{ keyword })||'%'
+			</if>
+			<if test='searchType.equals("memberName")'>
+			upper(name) like '%'||upper(#{ keyword })||'%'
+			</if>
+		</where>
+	</select>	
+	
+	<select id="selectMemberList" resultMap="memberMap">
+        select 
+                *
+		from(
+        	select
+                rownum as rnum,
+                M.*
+        	from 
+                (select
+                       *
+                from
+                    member
+                order by enroll_date
+                )M
+		)
+		where rnum between #{ start } and #{ end }	
+	</select>
 	
 </mapper>
