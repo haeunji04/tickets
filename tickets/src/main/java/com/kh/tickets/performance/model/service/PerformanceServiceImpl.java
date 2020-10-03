@@ -138,6 +138,16 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.searchPerformance(keyword);
 	}
 
+	@Override
+	public List<PerJoin> categoryListView(String category, int limit, int offset) {
+		return performanceDAO.categoryListView(category, limit, offset);
+	}
+
+	@Override
+	public int selectCategoryListTotalContents(String category) {
+		return performanceDAO.selectCategoryListTotalContents(category);
+	}
+
 	
 
 

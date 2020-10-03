@@ -20,5 +20,53 @@ public class Utils {
 		
 		return rname;
 	}
+	
+	public static String getPageBarHtml(int cPage, int numPerPage, int totalContents, String url) {
+		String pageBar = "";
+		int pageBarSize = 5; //페이지바에 표시될 페이지번호수
+		//(공식2) 
+		int totalPage = (int)Math.ceil((double)totalContents/numPerPage);
+		//(공식3) pageStart 시작페이지번호 구하기
+		// 1 2 3 4 5 => pageStart = 1
+		// 6 7 8 9 10 => pageStart = 6
+		// 11 12 13 14 15 => pageStart = 11
+		//....
+		int pageStart = ((cPage-1) / pageBarSize) * pageBarSize + 1; //cPage, pageBarSize
+		int pageEnd = pageStart + pageBarSize - 1;
+		
+		// 증감변수
+		int pageNo = pageStart;
+		
+		//[이전] 영역
+		if(pageNo == 1) {
+			
+		}
+		else {
+			pageBar += "<a href='"+url+"cPage="+(pageNo-1)+"'>[이전]</a>";
+		
+		}
+		
+		//페이지번호 영역
+		while(pageNo <= pageEnd && pageNo <= totalPage) {
+			//현재페이지인 경우
+			if(pageNo == cPage) {
+				pageBar += "<span class='cPage'>"+pageNo+"</span>";
+			}
+			else {
+				pageBar += "<a href='"+url+"cPage="+pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		
+		//[다음] 영역
+		if(pageNo > totalPage) {
+			
+		}
+		else {
+			pageBar += "<a href='"+url+"cPage="+pageNo+"'>[다음]</a>";
+		}
+		
+		return pageBar;
+	}
 
 }

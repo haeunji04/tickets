@@ -68,13 +68,13 @@
 		<c:if test="${ not empty list }">
 		<c:forEach items="${ list }" var="per">
 		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<c:choose>
-				<c:when test="${ loginMember ne null }">
 					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
 								<img
 								src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 								style="width: 200px" />
 					</a>				
+			<%-- <c:choose>
+				<c:when test="${ loginMember ne null }">
 				</c:when>
 				<c:otherwise>
 					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2_notLogin.do?perNo=${ per.perNo }">					
@@ -85,7 +85,7 @@
 				
 				</c:otherwise>
 			
-			</c:choose>
+			</c:choose> --%>
 			<h6>${ per.perTitle }</h6>
 			<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
 		<%-- 	<td>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</td> --%>
@@ -99,6 +99,19 @@
 		<!-- 뮤지컬 반복문 블록 끝 -->
 	
 	</div>
+	
+	<nav id="pageNumber" aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+            	 <li class="page-item">
+	            	${ pageBar }       
+	            	<style>
+	            		.page-link {
+	            			color: #428bca;
+	            		}
+	            	</style>  	 
+            	 </li>
+                </ul>
+	</nav>
 
 
 

@@ -73,5 +73,12 @@
 			
 	</update>
 	
+	<select id="selectBoardTotalContents" resultType="_int">
+	    select 
+	    	count(*) 
+	    from 
+	    	member	
+	</select>
+	
 	
 </mapper>

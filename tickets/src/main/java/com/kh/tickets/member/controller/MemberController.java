@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
 
@@ -152,12 +153,51 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+//	@RequestMapping("/member/memberList.do")
+//	public String memberList(Model model) {
+//		List<Member> list = memberService.selectMemberList();
+//		log.debug("list@controller = {}", list);
+//		
+//		model.addAttribute("list", list);
+//		
+//		return "member/memberList";
+//	}
+	
+	
+	/**
+	 * 페이징의 컨텐츠영역에 대한 기능구현을 
+	 * mybatis에서 지원하는 rowbounds를 사용한다.
+	 * - offset : 건너뛸 게시물수 (cPage - 1) * numPerPage
+	 * 		- 1page : 1~10 (offset : 0)
+	 * 		- 2page : 11~20 (offset : 10)
+	 * 		- 3page : 21~30 (offset : 20)
+	 * - limit : 한페이지에 표시될 게시물 수 (numPerPage)
+	 * 
+	 * @param mav
+	 * @return
+	 */
 	@RequestMapping("/member/memberList.do")
-	public String memberList(Model model) {
-		List<Member> list = memberService.selectMemberList();
+	public String memberList(Model model,HttpServletRequest request,
+						 	@RequestParam(defaultValue = "1", 
+						 	value = "cPage") int cPage) {
+		
+		//1.사용자 입력값 
+		final int limit = 2;
+		int offset = (cPage - 1) * limit;
+		
+		List<Member> list = memberService.selectMemberList(limit, offset);
 		log.debug("list@controller = {}", list);
 		
+		//전체컨텐츠수 구하기
+		int totalContents = memberService.selectBoardTotalContents();
+		
+		String url = request.getRequestURI() + "?";
+		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+		
+		
 		model.addAttribute("list", list);
+		model.addAttribute("totalContents", totalContents);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "member/memberList";
 	}

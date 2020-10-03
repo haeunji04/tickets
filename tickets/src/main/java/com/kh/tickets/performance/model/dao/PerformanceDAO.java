@@ -61,5 +61,9 @@ public interface PerformanceDAO {
 	
 	List<PerJoin> searchPerformance(String keyword);
 
+	List<PerJoin> categoryListView(String category, int limit, int offset);
+
+	int selectCategoryListTotalContents(String category);
+
 
 }

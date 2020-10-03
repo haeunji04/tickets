@@ -257,6 +257,14 @@
 			upper(per_title) like '%'||upper(#{ keyword })||'%'
 	</select>
 	
+	<select id="selectCategoryListTotalContents" resultType="_int">
+	    select 
+	    	count(*) 
+	    from 
+	    	performance	
+	    where category_code = #{ category }
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

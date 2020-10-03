@@ -50,5 +50,15 @@ public class MemberServiceImpl implements MemberService {
 	public int updateMember(Member member) {
 		return memberDAO.updateMember(member);
 	}
+
+	@Override
+	public List<Member> selectMemberList(int limit, int offset) {
+		return memberDAO.selectMemberList(limit, offset);
+	}
+
+	@Override
+	public int selectBoardTotalContents() {
+		return memberDAO.selectBoardTotalContents();
+	}
 	
 }

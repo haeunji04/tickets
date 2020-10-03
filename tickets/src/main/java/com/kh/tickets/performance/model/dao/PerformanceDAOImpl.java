@@ -3,6 +3,7 @@ package com.kh.tickets.performance.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -136,6 +137,17 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public List<PerJoin> searchPerformance(String keyword) {
 		return sqlSession.selectList("performance.searchPerformance", keyword);
+	}
+
+	@Override
+	public List<PerJoin> categoryListView(String category, int limit, int offset) {
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return sqlSession.selectList("performance.categoryListView", category, rowBounds);
+	}
+
+	@Override
+	public int selectCategoryListTotalContents(String category) {
+		return sqlSession.selectOne("performance.selectCategoryListTotalContents", category);
 	}
 
 }

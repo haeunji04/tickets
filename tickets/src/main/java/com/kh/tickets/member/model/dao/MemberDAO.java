@@ -18,6 +18,10 @@ public interface MemberDAO {
 
 	int updateMember(Member member);
 
+	List<Member> selectMemberList(int limit, int offset);
+
+	int selectBoardTotalContents();
+
 	
 
 }
