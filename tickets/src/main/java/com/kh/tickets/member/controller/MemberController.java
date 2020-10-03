@@ -292,5 +292,8 @@ public class MemberController {
 			return mav;
 		}
 	
-	
+		@RequestMapping("/member/customerService.do")
+		public String customerService() {
+			return "member/customerService";
+		}
 }

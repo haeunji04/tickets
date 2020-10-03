@@ -257,6 +257,7 @@
 			upper(per_title) like '%'||upper(#{ keyword })||'%'
 	</select>
 	
+
 	<select id="selectCategoryListTotalContents" resultType="_int">
 	    select 
 	    	count(*) 
@@ -264,6 +265,49 @@
 	    	performance	
 	    where category_code = #{ category }
 	</select>
+	
+
+	
+	<select id="searchPerformanceList" resultMap="performanceMap">
+		select 
+			*
+		from(
+        	select
+                rownum as rnum,
+                P.*
+        	from 
+                (select
+                       *
+                from
+                    performance
+                <where>
+                    <if test='searchType.equals("companyId")'>
+                    upper(member_id) like '%'||upper(#{ keyword })||'%'
+                    </if>
+                    <if test='searchType.equals("perTitle")'>
+                    upper(per_title) like '%'||upper(#{ keyword })||'%'
+                    </if>
+                </where>
+                order by per_no
+                )P
+		)
+		where rnum between #{ start } and #{ end } 
+	</select>
+	
+	<select id="selectTotalPerformanceList" resultType="_int">
+		select 
+			count(*)
+		from
+			performance
+		<where>
+			<if test='searchType.equals("companyId")'>
+			upper(member_id) like '%'||upper(#{ keyword })||'%'
+			</if>
+			<if test='searchType.equals("perTitle")'>
+			upper(per_title) like '%'||upper(#{ keyword })||'%'
+			</if>
+		</where>
+	</select>	
 	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>

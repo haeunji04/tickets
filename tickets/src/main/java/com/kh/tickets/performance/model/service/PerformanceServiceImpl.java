@@ -146,6 +146,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int selectCategoryListTotalContents(String category) {
 		return performanceDAO.selectCategoryListTotalContents(category);
+	}	
+	
+	public List<Performance> selectPerformanceList(Map<String, Object> map) {
+		return performanceDAO.searchPerformanceList(map);
+	}
+
+	@Override
+	public int selectTotalPerformanceList(Map<String, Object> map) {
+		return performanceDAO.selectTotalPerformanceList(map);
 	}
 
 	
