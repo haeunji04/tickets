@@ -71,5 +71,10 @@ public interface PerformanceService {
 	List<Performance> selectPerformanceList(Map<String, Object> map);
 	
 	int selectTotalPerformanceList(Map<String, Object> map);
+	// 추천공연 페이징 시작
+	List<Performance> allPerformanceList(Map<String, Object> map);
+
+	int totalAllPerformanceList();
+	// 추천공연 페이징 끝
 
 }

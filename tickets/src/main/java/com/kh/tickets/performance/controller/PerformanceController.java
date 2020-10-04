@@ -695,30 +695,85 @@ public class PerformanceController {
 		return "performance/recentlyPerList";
 	}
 	
-	@RequestMapping("/performance/adminRecommendedList.do")
-	public String adminRecommendedList(Model model) {		
+//	@RequestMapping("/performance/adminRecommendedList.do")
+//	public String adminRecommendedList(Model model) {		
+//		
+//		List<Performance> list = performanceService.selectPerformanceList();
+//		log.debug("list@controller = {}", list);
+//		Performance[] arr = list.toArray(new Performance[list.size()]);
+//			
+//		int recommendedCnt = 0;
+//	    for(int i=0; i<arr.length; i++){
+//	    	if("Y".equals(arr[i].getPerDisplay())){
+//	    		
+//	    		recommendedCnt++;
+//	    		
+//	    	}
+//	    	
+//	    }
+//		
+//		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+//		model.addAttribute("dateformat", dateformat);
+//		model.addAttribute("list", list);
+//		model.addAttribute("recommendedCnt", recommendedCnt);
+//		
+//		return "performance/adminRecommendedList";
+//	}
+//	
+	
+	@GetMapping("/performance/adminRecommendedList.do")
+	public String adminRecommendedList(Model model,
+									   HttpServletRequest request) {		
 		
-		List<Performance> list = performanceService.selectPerformanceList();
+		int numPerPage = 10;
+		int cPage = 1;
+		
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<Performance> list = performanceService.allPerformanceList(map);
 		log.debug("list@controller = {}", list);
+		
+		String url = request.getRequestURI() + "?";
+		
+		int totalContents = performanceService.totalAllPerformanceList();
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
+		
 		Performance[] arr = list.toArray(new Performance[list.size()]);
 			
 		int recommendedCnt = 0;
+//		List<Performance> recommendedList = new ArrayList<>();
+		
 	    for(int i=0; i<arr.length; i++){
 	    	if("Y".equals(arr[i].getPerDisplay())){
 	    		
 	    		recommendedCnt++;
-	    		
+//	    		recommendedList.add(arr[i]);
 	    	}
-	    	
 	    }
+//	    log.debug("recommendedList = {}", recommendedList);
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("dateformat", dateformat);
 		model.addAttribute("list", list);
+//		model.addAttribute("recommendedList", recommendedList);
 		model.addAttribute("recommendedCnt", recommendedCnt);
+		model.addAttribute("cPage", cPage);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "performance/adminRecommendedList";
 	}
+	
+	
 	
 	@PostMapping("/performance/addRecommendedPer.do")
 	public String addRecommendedPer(@RequestParam int perNo, RedirectAttributes redirectAttributes){
@@ -793,5 +848,3 @@ public class PerformanceController {
 	
 	
 }
-
-	
