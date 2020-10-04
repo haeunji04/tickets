@@ -83,7 +83,7 @@
 			
 			</c:choose> --%>
 		<div style="width: 235px" class="text-center d-inline-block p-3">
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 						style="width: 200px" class=" mb-2"/>

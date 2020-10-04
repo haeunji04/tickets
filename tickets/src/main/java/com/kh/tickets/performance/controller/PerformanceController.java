@@ -497,14 +497,13 @@ public class PerformanceController {
 	
 	@GetMapping("/performance/performanceInfoView2.do")
 	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,
-											@RequestParam(value="loginMember",required=false) Member loginMember) {
+											@RequestParam(value="memberId",required=false) String memberId) {
 		
 		log.debug("perNo@@ = {}", perNo);
 		Performance performance = performanceService.selectOnePerformance(perNo);
-		
-		if(loginMember!=null) {
+		log.debug("loginMember={}",memberId);
+		if(memberId!=null) {
 			
-		String memberId = loginMember.getMemberId();
 		log.debug("memberId@@ = {}", memberId);
 		
 		//공연상세페이지에 들어갈 공연객체
@@ -532,7 +531,7 @@ public class PerformanceController {
 	    }
 	    
 	    RecentlyPerList recentlyPerList = new RecentlyPerList();
-		recentlyPerList.setMemberId(loginMember.getMemberId());
+		recentlyPerList.setMemberId(memberId);
 		recentlyPerList.setPerNo(perNo);
 		
 		

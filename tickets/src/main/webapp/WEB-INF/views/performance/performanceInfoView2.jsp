@@ -65,6 +65,7 @@ li.on button{
 					  <%} %>
 				</form>
 				
+				
 				<!-- 찜 해제하기 -->
 				<form id="wishListInsertFrm" 
 					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
@@ -612,7 +613,12 @@ $("[type=submit]").click(function(){
 
 
     </script>
-	 
+	 <script>
+		console.log("cnt1"+<%=cnt1%>);
+		console.log("cnt2"+<%=cnt2%>);
+		console.log("cnt3"+<%=cnt3%>);
+		console.log("cnt4"+<%=cnt4%>);
+	 </script>
 	 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
