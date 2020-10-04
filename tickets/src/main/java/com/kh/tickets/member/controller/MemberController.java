@@ -132,17 +132,18 @@ public class MemberController {
 		
 		
 		//--------
-		List<MyRecentlyPerList> loginRecentList = performanceService.recentlyPerList(memberId);
-		log.debug("loginRecentList@controlle@@r = {}", loginRecentList);
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("rList@controlle@@r = {}", rList);
 		
-		model.addAttribute("loginMember", member);
+		model.addAttribute("loginMember", member);			
+		model.addAttribute("rList", rList);
 		  
 		String location = "/";
 		// 로그인 성공
 		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
 			// 세션처리
 			model.addAttribute("loginMember", member);			
-			model.addAttribute("loginRecentList", loginRecentList);
+//			model.addAttribute("rList", rList);
 		
 			//세션에서 next값 가져오기
 			String next = (String) session.getAttribute("next");

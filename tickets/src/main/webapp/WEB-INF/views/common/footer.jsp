@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	</section>
 	
 	<style type="text/css"> 
@@ -21,15 +24,7 @@
 	<div id="floatdiv">
 		<p  >최근 본 공연</p>
 		<hr />
-		<c:forEach items="${ loginRecentList }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
-						<img
-						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
-						style="width: 100px" />
-			</a>	 
-			
-				
-			<a href="">
+		<%-- <a href="">
 					<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
 						 alt="포스터" height="90px" class="mb-2"/>
 				</a>
@@ -44,7 +39,16 @@
 					<img src="${pageContext.request.contextPath }/resources/images/poster/무인도탈출기.jpg" 
 						 alt="포스터" height="90px" class="mb-2"/>
 			<!-- <p style="font-size: 15px">캣츠</p> -->
-			</a> 
+			</a>  --%>
+		<c:forEach items="${ rList }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
+						<img
+						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
+						alt="포스터" height="90px" class="mb-2" />
+			</a>	 
+			<hr />
+				
+			
 		
 		</c:forEach>	
 		<p>. . .</p>

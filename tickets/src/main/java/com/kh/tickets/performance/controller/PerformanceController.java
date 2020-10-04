@@ -513,7 +513,7 @@ public class PerformanceController {
 		log.debug("list@controller = {}", list);
 		
 		
-		//내 최근목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
+		//내 최근공연목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
 		MyRecentlyPerList[] arr = rList.toArray(new MyRecentlyPerList[rList.size()]);
 		
@@ -526,6 +526,7 @@ public class PerformanceController {
 	    		recentlyPerList2.setPerNo(arr[i].getPerNo());
 	    		
 	    		int result = performanceService.recentlyPerListDelete(recentlyPerList2);
+	    		log.debug("recentInsert@controller## = {}", result);
 	    	}
 	    	
 	    }
@@ -678,6 +679,7 @@ public class PerformanceController {
 		return mav;
 	}
 	
+	//최근공연목록
 	@RequestMapping("/performance/recentlyPerList.do")
 	public String recentlyPerList(Model model, @ModelAttribute("loginMember") Member loginMember) {
 		
