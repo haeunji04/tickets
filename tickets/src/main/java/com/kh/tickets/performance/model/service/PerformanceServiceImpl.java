@@ -167,5 +167,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.totalAllPerformanceList();
 	}
 
+	@Override
+	public List<Performance> recommendList() {
+		return performanceDAO.recommendList();
+	}
+
 
 }

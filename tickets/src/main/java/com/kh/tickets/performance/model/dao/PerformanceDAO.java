@@ -74,5 +74,7 @@ public interface PerformanceDAO {
 
 	int totalAllPerformanceList();
 
+	List<Performance> recommendList();
+
 
 }
