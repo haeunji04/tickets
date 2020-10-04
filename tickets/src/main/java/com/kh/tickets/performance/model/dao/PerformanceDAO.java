@@ -69,5 +69,10 @@ public interface PerformanceDAO {
 	List<Performance> searchPerformanceList(Map<String, Object> map);
 
 	int selectTotalPerformanceList(Map<String, Object> map);
+	
+	List<Performance> allPerformanceList(Map<String, Object> map);
+
+	int totalAllPerformanceList();
+
 
 }

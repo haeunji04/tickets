@@ -157,7 +157,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectTotalPerformanceList(map);
 	}
 
-	
+	@Override
+	public List<Performance> allPerformanceList(Map<String, Object> map) {
+		return performanceDAO.allPerformanceList(map);
+	}
+
+	@Override
+	public int totalAllPerformanceList() {
+		return performanceDAO.totalAllPerformanceList();
+	}
 
 
 }
