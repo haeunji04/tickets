@@ -1,6 +1,7 @@
 package com.kh.tickets.member.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.tickets.member.model.vo.Member;
 
@@ -18,8 +19,13 @@ public interface MemberService {
 
 	int updateMember(Member member);
 
-	List<Member> selectMemberList(int limit, int offset);
+//	List<Member> selectMemberList(int limit, int offset);
 
 	int selectBoardTotalContents();
 
+	List<Member> searchMemberList(Map<String, Object> map);
+
+	int totalSearchMemberList(Map<String, Object> map);
+
+	List<Member> selectMemberList(Map<String, Object> map);
 }
