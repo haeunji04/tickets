@@ -168,5 +168,10 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int totalAllPerformanceList() {
 		return sqlSession.selectOne("performance.totalAllPerformanceList");
 	}
+
+	@Override
+	public List<Performance> recommendList() {
+		return sqlSession.selectList("performance.recommendList");
+	}
 	
 }

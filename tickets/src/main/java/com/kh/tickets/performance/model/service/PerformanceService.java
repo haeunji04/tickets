@@ -77,4 +77,6 @@ public interface PerformanceService {
 	int totalAllPerformanceList();
 	// 추천공연 페이징 끝
 
+	List<Performance> recommendList();
+
 }
