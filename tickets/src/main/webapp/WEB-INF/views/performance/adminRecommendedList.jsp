@@ -59,6 +59,7 @@
 		</c:if>		
 		</c:forEach>    
 	  </tbody>
+	 
 	</table>
 	
 	<div class="text-center">
