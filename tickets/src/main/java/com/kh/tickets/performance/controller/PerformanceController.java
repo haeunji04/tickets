@@ -725,7 +725,7 @@ public class PerformanceController {
 	public String adminRecommendedList(Model model,
 									   HttpServletRequest request) {		
 		
-		int numPerPage = 10;
+		int numPerPage = 2;
 		int cPage = 1;
 		
 		try {
@@ -741,6 +741,7 @@ public class PerformanceController {
 		map.put("end", end);
 		
 		List<Performance> list = performanceService.allPerformanceList(map);
+		List<Performance> recommendedList = performanceService.recommendList();
 		log.debug("list@controller = {}", list);
 		
 		String url = request.getRequestURI() + "?";
@@ -750,22 +751,26 @@ public class PerformanceController {
 		
 		Performance[] arr = list.toArray(new Performance[list.size()]);
 			
-		int recommendedCnt = 0;
-//		List<Performance> recommendedList = new ArrayList<>();
+		int recommendedCnt = recommendedList.size();
+//		List<Performance> list2 = new ArrayList<>();
 		
-	    for(int i=0; i<arr.length; i++){
-	    	if("Y".equals(arr[i].getPerDisplay())){
-	    		
-	    		recommendedCnt++;
+//	    for(int i=0; i<arr.length; i++){
+//	    	if("Y".equals(arr[i].getPerDisplay())){
+//	    		
+//	    		recommendedCnt++;
 //	    		recommendedList.add(arr[i]);
-	    	}
-	    }
-//	    log.debug("recommendedList = {}", recommendedList);
+//	    		log.debug("arr[i]={}",arr[i]);
+//	    	}
+//	    	else {
+//	    		list2.add(arr[i]);
+//	    	}
+//	    }
+	    log.debug("recommendedList = {}", recommendedList);
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("dateformat", dateformat);
 		model.addAttribute("list", list);
-//		model.addAttribute("recommendedList", recommendedList);
+		model.addAttribute("recommendedList", recommendedList);
 		model.addAttribute("recommendedCnt", recommendedCnt);
 		model.addAttribute("cPage", cPage);
 		model.addAttribute("pageBar", pageBar);
@@ -799,7 +804,7 @@ public class PerformanceController {
 //		log.debug("keyword = {}", keyword);
 //		log.debug("searchType = {}", searchType);
 		
-		int numPerPage = 10;
+		int numPerPage = 2;
 		int cPage = 1;
 		
 		try {
@@ -817,7 +822,9 @@ public class PerformanceController {
 		map.put("keyword", keyword);
 		
 		List<Performance> list = performanceService.selectPerformanceList(map);
+		List<Performance> recommendedList = performanceService.recommendList();
 		log.debug("list = {}", list);
+		int recommendedCnt = recommendedList.size();
 		
 		String url = request.getRequestURI() + "?searchType=" + searchType + "&keyword=" + keyword + "&";
 		
@@ -826,6 +833,8 @@ public class PerformanceController {
 		
 		mav.addObject("list", list);
 		mav.addObject("searchType", searchType);
+		mav.addObject("recommendedList", recommendedList);
+		mav.addObject("recommendedCnt", recommendedCnt);
 		mav.addObject("cPage", cPage);
 		mav.addObject("pageBar", pageBar);
 		mav.addObject("keyword", keyword);

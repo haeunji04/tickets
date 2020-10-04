@@ -321,7 +321,8 @@
                        *
                 from
                     performance
-                
+                where 
+                	per_display='N'
                 order by per_display
                 )P
 		)
@@ -334,6 +335,13 @@
 		from
 			performance
 		where per_display = 'N'
+	</select>
+	<select id="recommendList" resultMap="performanceMap">
+		select 
+			*
+		from
+			performance
+		where per_display = 'Y'
 	</select>		
 	
 	<resultMap type="performance" id="performanceMap">

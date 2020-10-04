@@ -29,8 +29,7 @@
 	      <th>추천 해제</th>
 	  </thead>
 	  <tbody>   
-	    <c:forEach items="${ list }" var="per">  
-	    <c:if test="${ per.perDisplay eq 'Y' }">  
+	    <c:forEach items="${ recommendedList }" var="per">  
 		<tr>		
 			<td>
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
@@ -56,7 +55,6 @@
 						onclick="turnOffRecommendedPer('${ per.perNo }')">OFF</button>
 			</td>							
 		</tr> 	
-		</c:if>		
 		</c:forEach>    
 	  </tbody>
 	 
