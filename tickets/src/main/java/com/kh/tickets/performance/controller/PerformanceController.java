@@ -685,12 +685,12 @@ public class PerformanceController {
 		String memberId = loginMember.getMemberId();
 		log.debug("memberId@@ = {}", memberId);
 		
-		List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
-		log.debug("list@controller = {}", list);
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("list@controller = {}", rList);
 				
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("dateformat", dateformat);
-		model.addAttribute("list", list);
+		model.addAttribute("list", rList);
 		
 		return "performance/recentlyPerList";
 	}

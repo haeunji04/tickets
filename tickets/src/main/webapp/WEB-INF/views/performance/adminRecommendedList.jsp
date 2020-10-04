@@ -29,31 +29,31 @@
 	      <th>추천 해제</th>
 	  </thead>
 	  <tbody>   
-	    <c:forEach items="${ list }" var="per">  
-	    <c:if test="${ per.perDisplay eq 'Y' }">  
+	    <c:forEach items="${ recommendedList }" var="rper">  
+	    <c:if test="${ rper.perDisplay eq 'Y' }">  
 		<tr>		
 			<td>
-				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ rper.perNo }">					
 							<img
-							src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
+							src="<c:url value='/resources/upload/performance/${ rper.perImgRenamedFileName}' />"
 							style="width: 100px" />
 				</a>	
 			</td>
-			<td>${ per.memberId }</td>
-			<td>${ per.perTitle }</td>
-			<td>${ dateformat.format(per.perStartDate) } <br />
-			  - ${ dateformat.format(per.perEndDate) }
+			<td>${ rper.memberId }</td>
+			<td>${ rper.perTitle }</td>
+			<td>${ dateformat.format(rper.perStartDate) } <br />
+			  - ${ dateformat.format(rper.perEndDate) }
 			</td> 
-			<td>${ per.perRating == 0 ? '전체관람가' : 
-				   per.perRating == 8 ? '8세이상 관람가':
-				   per.perRating == 15 ? '15세이상관람가': '18세이상관람가' }				
+			<td>${ rper.perRating == 0 ? '전체관람가' : 
+				   rper.perRating == 8 ? '8세이상 관람가':
+				   rper.perRating == 15 ? '15세이상관람가': '18세이상관람가' }				
 			</td>
-			<td>${ per.perTime }분</td>
-			<td>${ per.perDisplay eq 'Y' ? 'ON' : 'OFF'}</td>
+			<td>${ rper.perTime }분</td>
+			<td>${ rper.perDisplay eq 'Y' ? 'ON' : 'OFF'}</td>
 			<td>			
 				<button type="button" 
 						class="btn btn-outline-primary"
-						onclick="turnOffRecommendedPer('${ per.perNo }')">OFF</button>
+						onclick="turnOffRecommendedPer('${ rper.perNo }')">OFF</button>
 			</td>							
 		</tr> 	
 		</c:if>		

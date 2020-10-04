@@ -142,6 +142,7 @@ public class MemberController {
 		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
 			// 세션처리
 			model.addAttribute("loginMember", member);			
+			model.addAttribute("loginRecentList", loginRecentList);
 		
 			//세션에서 next값 가져오기
 			String next = (String) session.getAttribute("next");
@@ -149,12 +150,11 @@ public class MemberController {
 			session.removeAttribute("next");
 			
 			//----최근공연 세션 처리
-			model.addAttribute("loginRecentList", loginRecentList);
 			
 			//세션에서 next값 가져오기
-			String next2 = (String) session.getAttribute("next2");
-			location = next2 != null ? next2 : location;
-			session.removeAttribute("next2");	
+//			String next2 = (String) session.getAttribute("next2");
+//			location = next2 != null ? next2 : location;
+//			session.removeAttribute("next2");	
 			
 			
 		}
