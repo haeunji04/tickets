@@ -30,7 +30,7 @@
   </thead>
   <tbody>   
     <%-- <c:forEach items="${ list }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" > --%>
-    <c:forEach items="${ list }" var="recentPer"  >
+    <c:forEach items="${ rList }" var="recentPer"  >
    
 	<tr>		
 		<td>

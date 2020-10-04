@@ -690,7 +690,7 @@ public class PerformanceController {
 				
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("dateformat", dateformat);
-		model.addAttribute("list", rList);
+		model.addAttribute("rList", rList);
 		
 		return "performance/recentlyPerList";
 	}
