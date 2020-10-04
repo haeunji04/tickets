@@ -1,5 +1,6 @@
 package com.kh.tickets.member.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 
 
 
@@ -41,6 +44,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PerformanceService performanceService; 
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -134,11 +140,29 @@ public class MemberController {
 			String next = (String) session.getAttribute("next");
 			location = next != null ? next : location;
 			session.removeAttribute("next");
+			
+			//--------
+//			List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
+//			log.debug("rlist@controlle@@r = {}", list);
+//			
+//			model.addAttribute("loginMember", member);
+			
 		}
 		// 로그인 실패
 		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
+		
+//		log.debug("loginMember = {}", loginMember);		
+//		String memberId = loginMember.getMemberId();
+//		log.debug("memberId@@ = {}", memberId);
+		
+//		List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
+//		log.debug("rlist@controlle@@r = {}", list);
+				
+//		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+//		model.addAttribute("dateformat", dateformat);
+//		model.addAttribute("list", list);
 		
 		return "redirect:" + location;
 	}
