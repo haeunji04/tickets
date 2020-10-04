@@ -21,12 +21,12 @@
 	<div id="floatdiv">
 		<p  >최근 본 공연</p>
 		<hr />
-		<c:forEach items="${ list }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
-			<%-- <a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
+		<c:forEach items="${ loginRecentList }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						style="width: 100px" />
-			</a>	 --%>
+			</a>	 
 			
 				
 			<a href="">

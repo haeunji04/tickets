@@ -129,23 +129,33 @@ public class MemberController {
 		
 		Member member = memberService.selectOneMember(memberId);
 		log.debug("Member = {}", member);
+		
+		
+		//--------
+		List<MyRecentlyPerList> loginRecentList = performanceService.recentlyPerList(memberId);
+		log.debug("loginRecentList@controlle@@r = {}", loginRecentList);
+		
+		model.addAttribute("loginMember", member);
 		  
 		String location = "/";
 		// 로그인 성공
 		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
 			// 세션처리
-			model.addAttribute("loginMember", member);
+			model.addAttribute("loginMember", member);			
 		
 			//세션에서 next값 가져오기
 			String next = (String) session.getAttribute("next");
 			location = next != null ? next : location;
 			session.removeAttribute("next");
 			
-			//--------
-//			List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
-//			log.debug("rlist@controlle@@r = {}", list);
-//			
-//			model.addAttribute("loginMember", member);
+			//----최근공연 세션 처리
+			model.addAttribute("loginRecentList", loginRecentList);
+			
+			//세션에서 next값 가져오기
+			String next2 = (String) session.getAttribute("next2");
+			location = next2 != null ? next2 : location;
+			session.removeAttribute("next2");	
+			
 			
 		}
 		// 로그인 실패
@@ -160,9 +170,7 @@ public class MemberController {
 //		List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
 //		log.debug("rlist@controlle@@r = {}", list);
 				
-//		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
-//		model.addAttribute("dateformat", dateformat);
-//		model.addAttribute("list", list);
+
 		
 		return "redirect:" + location;
 	}
