@@ -778,8 +778,14 @@ public class PerformanceController {
 		return mav;
 	}	
 	
+	@GetMapping("/company/companySales.do")
+	public ModelAndView companySales(ModelAndView mav) {
+		
+		mav.setViewName("company/companySales");
+		return mav;
+		
+	}
 
-	//한나님 오류 확인용 주석
 	
 	
 	

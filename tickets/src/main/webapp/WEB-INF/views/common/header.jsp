@@ -125,6 +125,7 @@
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a>
 			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록(관리자)</a>
