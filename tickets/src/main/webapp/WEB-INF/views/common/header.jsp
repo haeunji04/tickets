@@ -52,6 +52,7 @@
 
 <div id="container" class="mx-auto" style="width: 75%;">
 	<header>
+	
 	<div class="" id="header-container" >
 		
 		<div class="text-right" id="member-menu">
@@ -69,6 +70,7 @@
 			<div><span class="text-danger">${ loginMember.name }</span>님, 어서오세요!</div>
 			</c:if>
 		</div>
+		
 		<div class="d-block dropdown-divider"></div>
 		<div class="m-3 text-center">
 			<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>

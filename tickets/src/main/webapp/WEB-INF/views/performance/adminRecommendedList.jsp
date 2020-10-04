@@ -29,7 +29,9 @@
 	      <th>추천 해제</th>
 	  </thead>
 	  <tbody>   
-	    <c:forEach items="${ recommendedList }" var="per">  
+
+	    <%-- <c:if test="${ per.perDisplay eq 'Y' }">   --%>
+	    <c:forEach items="${ recommendedList }" var="per">
 		<tr>		
 			<td>
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
@@ -56,6 +58,7 @@
 			</td>							
 		</tr> 	
 		</c:forEach>    
+	   <%--  </c:if> --%>
 	  </tbody>
 	 
 	</table>
@@ -101,7 +104,7 @@
 	  </thead>
 	  <tbody>   
 	    <c:forEach items="${ list }" var="per">  
-	    <c:if test="${ per.perDisplay eq 'N' }">  
+	   <%--  <c:if test="${ per.perDisplay eq 'N' }">   --%>
 		<tr>		
 			<td>
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
@@ -129,7 +132,7 @@
 								
 		</tr> 
 		
-		</c:if>		
+		<%-- </c:if>		 --%>
 		</c:forEach>    
 	  </tbody>
 	</table>	

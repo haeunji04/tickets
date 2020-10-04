@@ -202,7 +202,7 @@
 		from
 			recently_per_list_view
 		where
-			member_id = #{ memberId } 
+			member_id = #{ memberId }
 		order by
 			recently_date desc 
 	</select>

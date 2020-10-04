@@ -29,7 +29,9 @@
       <th>최근 본 날짜</th>
   </thead>
   <tbody>   
-    <c:forEach items="${ list }" var="recentPer">
+    <%-- <c:forEach items="${ list }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" > --%>
+    <c:forEach items="${ rList }" var="recentPer"  >
+   
 	<tr>		
 		<td>
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
@@ -38,7 +40,7 @@
 						style="width: 100px" />
 			</a>	
 		</td>
-		<td>${ recentPer.memberId }</td>
+		<td>${ recentPer.memberId } ${fn:length(list)}</td>
 		<td>${ recentPer.perTitle }</td>
 		<td>${ dateformat.format(recentPer.perStartDate) } <br />
 		  - ${ dateformat.format(recentPer.perEndDate) }

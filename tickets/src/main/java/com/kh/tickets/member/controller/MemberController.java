@@ -1,5 +1,6 @@
 package com.kh.tickets.member.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 
 
 
@@ -41,6 +44,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private PerformanceService performanceService; 
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
@@ -123,22 +129,48 @@ public class MemberController {
 		
 		Member member = memberService.selectOneMember(memberId);
 		log.debug("Member = {}", member);
+		
+		
+		//--------
+		List<MyRecentlyPerList> loginRecentList = performanceService.recentlyPerList(memberId);
+		log.debug("loginRecentList@controlle@@r = {}", loginRecentList);
+		
+		model.addAttribute("loginMember", member);
 		  
 		String location = "/";
 		// 로그인 성공
 		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
 			// 세션처리
-			model.addAttribute("loginMember", member);
+			model.addAttribute("loginMember", member);			
+			model.addAttribute("loginRecentList", loginRecentList);
 		
 			//세션에서 next값 가져오기
 			String next = (String) session.getAttribute("next");
 			location = next != null ? next : location;
 			session.removeAttribute("next");
+			
+			//----최근공연 세션 처리
+			
+			//세션에서 next값 가져오기
+//			String next2 = (String) session.getAttribute("next2");
+//			location = next2 != null ? next2 : location;
+//			session.removeAttribute("next2");	
+			
+			
 		}
 		// 로그인 실패
 		else {
 			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}
+		
+//		log.debug("loginMember = {}", loginMember);		
+//		String memberId = loginMember.getMemberId();
+//		log.debug("memberId@@ = {}", memberId);
+		
+//		List<MyRecentlyPerList> list = performanceService.recentlyPerList(memberId);
+//		log.debug("rlist@controlle@@r = {}", list);
+				
+
 		
 		return "redirect:" + location;
 	}

@@ -419,6 +419,15 @@ values(
 --select * from performance order by per_register_date desc;
 --update performance set per_display='Y' where per_no=22;
 
+-- select
+--			*
+--		from
+--			recently_per_list_view
+--		where
+--			member_id = 'honggd' and ROWNUM <= 3
+--		order by
+--			recently_date desc;
+
 --==================0930은지추가================
 
 --theater테이블 컬럼명 변경!!!!!!!!!
