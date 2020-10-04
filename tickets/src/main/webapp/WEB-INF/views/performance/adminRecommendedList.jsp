@@ -143,11 +143,11 @@
 	
 	<div class="align-center">
     	<ul class="pagination justify-content-center">
-	    	<li class="page-item">
+	    
 		            ${ pageBar }     
-	        </li>
+
     	</ul>
-	</div>	
+	</div>
 	
 	
 </div>

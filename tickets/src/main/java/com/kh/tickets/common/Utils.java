@@ -90,15 +90,16 @@ public class Utils {
 			//이전영역 없을 때
 		}
 		else {
-			pageBar += "<a class=\"page-link\" href='"+url+"cPage="+(pageNo-1)+"'>&laquo;</a>"; //6페이지면 5페이지로 가게 //11페이지면 10페이지로 가게
+			pageBar += "<li class='page-item disabled'><a class=\"page-link\" href='"+url+"cPage="+(pageNo-1)+"'>&laquo;</a></li>"; //6페이지면 5페이지로 가게 //11페이지면 10페이지로 가게
 		}
 		//페이지번호 영역
 		while(pageNo <= pageEnd && pageNo <= totalPage ) {
 			//현재페이지인 경우
 			if(pageNo == cPage) {
-				pageBar += "<span class='cPage'>"+pageNo+"</span>";
+//				pageBar += "<span class='cPage'>"+pageNo+"</span>";
+				pageBar += "<li class='page-item active'><a class='page-link'>"+pageNo+"</a></li>";
 			}else {
-				pageBar += "<a class='page-link' href='"+url+"cPage="+pageNo+"'>"+pageNo+"</a>";
+				pageBar += "<li class='page-item'><a class='page-link' href='"+url+"cPage="+pageNo+"'>"+pageNo+"</a></li>";
 			}
 			pageNo++;
 		}
@@ -108,7 +109,7 @@ public class Utils {
 		}
 		else {
 			//totalPage보다 큰경우
-			pageBar += "<a class='page-link' href='"+url+"cPage="+pageNo+"'>&raquo;</a>";
+			pageBar += "<li class='page-item disabled'><a class='page-link' href='"+url+"cPage="+pageNo+"'>&raquo;</a></li>";
 		}
 		
 //		System.out.println(pageBar);

@@ -101,18 +101,13 @@
 	
 	</div>
 	
-	<nav id="pageNumber" aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-            	 <li class="page-item">
-	            	${ pageBar }       
-	            	<style>
-	            		.page-link {
-	            			color: #428bca;
-	            		}
-	            	</style>  	 
-            	 </li>
-                </ul>
-	</nav>
+	<div class="align-center">
+    	<ul class="pagination justify-content-center">
+	    
+		            ${ pageBar }     
+
+    	</ul>
+	</div>	
 
 
 

@@ -200,30 +200,66 @@ public class MemberController {
 	 * @param mav
 	 * @return
 	 */
-	@RequestMapping("/member/memberList.do")
-	public String memberList(Model model,HttpServletRequest request,
-						 	@RequestParam(defaultValue = "1", 
-						 	value = "cPage") int cPage) {
+//	@RequestMapping("/member/memberList.do")
+//	public String memberList(Model model,HttpServletRequest request,
+//						 	@RequestParam(defaultValue = "1", 
+//						 	value = "cPage") int cPage) {
+//		
+//		//1.사용자 입력값 
+//		final int limit = 2;
+//		int offset = (cPage - 1) * limit;
+//		
+//		List<Member> list = memberService.selectMemberList(limit, offset);
+//		log.debug("list@controller = {}", list);
+//		
+//		//전체컨텐츠수 구하기
+//		int totalContents = memberService.selectBoardTotalContents();
+//		
+//		String url = request.getRequestURI() + "?";
+//		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+//		
+//		
+//		model.addAttribute("list", list);
+//		model.addAttribute("totalContents", totalContents);
+//		model.addAttribute("pageBar", pageBar);
+//		
+//		return "member/memberList";
+//	}
+	
+	// -------------------------페이징 처리 수정----------------
+	@GetMapping("/member/memberList")
+	public ModelAndView memberList(ModelAndView mav,
+								   HttpServletRequest request) {
+		int numPerPage = 10;
+		int cPage = 1;
 		
-		//1.사용자 입력값 
-		final int limit = 2;
-		int offset = (cPage - 1) * limit;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
 		
-		List<Member> list = memberService.selectMemberList(limit, offset);
-		log.debug("list@controller = {}", list);
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
 		
-		//전체컨텐츠수 구하기
-		int totalContents = memberService.selectBoardTotalContents();
+		List<Member> list = memberService.selectMemberList(map);
+		log.debug("list = {}", list);
 		
 		String url = request.getRequestURI() + "?";
-		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
 		
+		int totalContents = memberService.selectBoardTotalContents();
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
 		
-		model.addAttribute("list", list);
-		model.addAttribute("totalContents", totalContents);
-		model.addAttribute("pageBar", pageBar);
+		mav.addObject("list", list);
+		mav.addObject("cPage", cPage);
+		mav.addObject("pageBar", pageBar);
+		mav.addObject("totalContents", totalContents);
+		mav.setViewName("member/memberList");
 		
-		return "member/memberList";
+		return mav;
 	}
 	
 	@RequestMapping(value = "/member/deleteMember.do",
@@ -320,4 +356,52 @@ public class MemberController {
 		public String customerService() {
 			return "member/customerService";
 		}
+		
+		@GetMapping("/member/adminMemberSearchList")
+		public ModelAndView adminMemberSearchList(ModelAndView mav,
+												  HttpServletRequest request,
+												  @RequestParam("searchType") String searchType,
+												  @RequestParam("keyword") String keyword) {
+			log.debug("keyword = {}", keyword);
+			log.debug("searchType = {}", searchType);
+
+			int numPerPage = 10;
+			int cPage = 1;
+			
+			try {
+				cPage = Integer.parseInt(request.getParameter("cPage"));
+			} catch (NumberFormatException e) {
+				
+			}
+			
+			int start = (cPage-1) * numPerPage + 1;
+			int end = cPage * numPerPage;
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("start", start);
+			map.put("end", end);
+			map.put("searchType", searchType);
+			map.put("keyword", keyword);
+			
+			List<Member> list = memberService.searchMemberList(map);
+			log.debug("list = {}", list);
+			
+			String url = request.getRequestURI() + "?searchType=" + searchType + "&keyword=" + keyword + "&";
+			
+			int totalContents = memberService.totalSearchMemberList(map);
+			String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
+			
+			mav.addObject("list", list);
+			mav.addObject("searchType", searchType);
+			mav.addObject("cPage", cPage);
+			mav.addObject("pageBar", pageBar);
+			mav.addObject("keyword", keyword);
+			mav.addObject("totalContents", totalContents);
+			mav.setViewName("member/memberList");
+			
+			return mav;
+		}
+		
+		
+		
 }

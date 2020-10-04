@@ -1,6 +1,7 @@
 package com.kh.tickets.member.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -51,18 +52,31 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("member.updateMember", member);
 	}
 
-	@Override
-	public List<Member> selectMemberList(int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("member.selectMemberList", null, rowBounds);
-	}
+//	@Override
+//	public List<Member> selectMemberList(int limit, int offset) {
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//		return sqlSession.selectList("member.selectMemberList", null, rowBounds);
+//	}
 
 	@Override
 	public int selectBoardTotalContents() {
 		return sqlSession.selectOne("member.selectBoardTotalContents");
 	}
 
+	@Override
+	public List<Member> searchMemberList(Map<String, Object> map) {
+		return sqlSession.selectList("member.searchMemberList", map);
+	}
 
+	@Override
+	public int totalSearchMemberList(Map<String, Object> map) {
+		return sqlSession.selectOne("member.totalSearchMemberList", map);
+	}
+
+	@Override
+	public List<Member> selectMemberList(Map<String, Object> map) {
+		return sqlSession.selectList("member.selectMemberList", map);
+	}
 	
 	
 }
