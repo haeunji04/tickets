@@ -172,5 +172,9 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.recommendList();
 	}
 
+	@Override
+	public List<Schedule> selectDate(Map<String, Object> param) {
+		return performanceDAO.selectDate(param);
+	}
 
 }

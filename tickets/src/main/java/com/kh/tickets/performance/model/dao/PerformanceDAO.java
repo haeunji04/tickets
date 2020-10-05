@@ -76,5 +76,7 @@ public interface PerformanceDAO {
 
 	List<Performance> recommendList();
 
+	List<Schedule> selectDate(Map<String, Object> param);
+
 
 }
