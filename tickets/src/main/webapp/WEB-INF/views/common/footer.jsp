@@ -41,7 +41,7 @@
 			<!-- <p style="font-size: 15px">캣츠</p> -->
 			</a>  --%>
 		<c:forEach items="${ rList }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }&memberId=${loginMember.memberId}">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						alt="포스터" height="90px" class="mb-2" />

@@ -638,6 +638,9 @@ public class PerformanceController {
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜하기 성공" : "찜하기 실패");
 		
 			
+		String memberId = loginMember.getMemberId();
+		
+		mav.addObject("memberId", memberId);		
 		mav.addObject("perNo", perNo);		
 		mav.setViewName("redirect:/performance/performanceInfoView2.do");
 		return mav;
