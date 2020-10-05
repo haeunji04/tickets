@@ -2,6 +2,7 @@ package com.kh.tickets.performance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -855,7 +856,61 @@ public class PerformanceController {
 	}
 
 	
-	
+	@PostMapping("/performance/selectDate")
+	@ResponseBody
+	public List<SchDate> selectDate(@RequestBody Map<String, Object> param){
+		
+		String date = String.valueOf(param.get("date"));
+		String perNo = String.valueOf(param.get("perNo"));
+		
+		log.debug("date = {}", date);
+		log.debug("perNo = {}", perNo);
+		
+		SimpleDateFormat beforeSdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss");
+		SimpleDateFormat afterSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		List<SchDate> schList = new ArrayList<>();
+		
+		try {
+			Date beforeDate = beforeSdf.parse(date);
+			String newFormatDate = afterSdf.format(beforeDate);
+			
+			log.debug("beforeDate = {}", beforeDate);
+			log.debug("newFormatDate = {}", newFormatDate);
+			
+			param.put("newFormatDate", newFormatDate);
+			
+			List<Schedule> list = performanceService.selectDate(param);
+			
+			log.debug("scheduleList = {}", list);
+			
+			
+			if(list != null) {
+				for(Schedule sch: list) {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					
+					String schedule = sdf.format(sch.getSchDateTime());
+					
+					int schNo = sch.getSchNo();
+					String perDate = schedule.substring(0, 11);
+					String hour = schedule.substring(11, 13);
+					String min = schedule.substring(14, 16);
+					
+					SchDate sd = new SchDate(schNo, perDate, hour, min);
+					log.debug("schDate = {}", sd);
+					
+					schList.add(sd);
+				}
+			}
+			
+			log.debug("schList = {}", schList);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return schList;
+	}
 	
 	
 	

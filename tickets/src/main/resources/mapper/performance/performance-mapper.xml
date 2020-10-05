@@ -344,6 +344,18 @@
 		where per_display = 'Y'
 	</select>		
 	
+	<select id="selectDate" resultMap="perSchedule">
+		select
+        	*
+		from
+        	schedule
+		where
+        	per_no = #{ perNo }
+    		and extract(year from sch_date_time) = extract(year from to_timestamp(#{ newFormatDate }, 'yyyy-MM-dd HH24:mi:ss'))
+    		and extract(month from sch_date_time) = extract(month from to_timestamp(#{ newFormatDate }, 'yyyy-MM-dd HH24:mi:ss'))
+    		and extract(day from sch_date_time) = extract(day from to_timestamp(#{ newFormatDate }, 'yyyy-MM-dd HH24:mi:ss'))
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
