@@ -34,7 +34,8 @@
 	    <c:forEach items="${ recommendedList }" var="per">
 		<tr>		
 			<td>
-				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }
+												 <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
 							<img
 							src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 							style="width: 100px" />
@@ -107,7 +108,8 @@
 	   <%--  <c:if test="${ per.perDisplay eq 'N' }">   --%>
 		<tr>		
 			<td>
-				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">					
+				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }
+															<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
 							<img
 							src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 							style="width: 100px" />

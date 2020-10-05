@@ -34,13 +34,15 @@
    
 	<tr>		
 		<td>
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
+		<!-- 상세페이지에서 memberId불러올떄 -->
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						style="width: 100px" />
 			</a>	
 		</td>
-		<td>${ recentPer.memberId } ${fn:length(list)}</td>
+		<%-- ${fn:length(list)} --%>
+		<td>${ recentPer.memberId } </td>
 		<td>${ recentPer.perTitle }</td>
 		<td>${ dateformat.format(recentPer.perStartDate) } <br />
 		  - ${ dateformat.format(recentPer.perEndDate) }
