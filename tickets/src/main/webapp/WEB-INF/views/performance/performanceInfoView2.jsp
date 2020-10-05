@@ -148,11 +148,11 @@ li.on button{
                     <dl class="time_choice" style="display:inline-grid;margin:30px;">
                         <dt class="tit_process tit_time_choice text-center"><span class="img">시간 선택</span></dt>
                         <dd class="cont_process" id="section_time">
-                            <div class="box_type_comment"><!-- 날짜 선택전 show  -->
-                                <ul class="list-unstyled">
-                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
+                            <div class="box_type_comment" style="width:240px;"><!-- 날짜 선택전 show  -->
+                                <ul class="list-unstyled" id="result-list">
+<!--                                 	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
                                 	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 4시 30분</button></li>
-                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li>
+                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li> -->
                                 </ul>				
                             </div>
                         </dd>
@@ -577,6 +577,12 @@ $("[type=submit]").click(function(){
 	});
 });
 </script>
+
+<form action="" method="post" id="selectDateFrm">
+<input type="hidden" name="perNo" value="${ performance.perNo }"/>
+<input type="hidden" name="inputDate" id="inputDate"/>
+</form>
+
 <script>
         var now = new Date();
         var year = now.getFullYear();
@@ -602,14 +608,76 @@ $("[type=submit]").click(function(){
             onSelected: function (view, date, data) {
                 console.log('view:' + view);
                 alert('date:' + date);
+                document.getElementById("inputDate").value = date;
                 console.log(date);
-                console.log('data:' + (data));
+                //console.log('data:' + (data));
+
+				selectDate();
+                
             },
             viewChange: function (view, y, m) {
-                console.log(view, y, m)
+                console.log(view, y, m);
 
             }
         });
+
+
+        function selectDate(){
+
+    		var $frm = $("#selectDateFrm");
+
+			var perNo = $frm.find("[name=perNo]").val();
+    		
+    		var select = {
+				date : $frm.find("[name=inputDate]").val(),
+				perNo : perNo
+    	    };
+
+			console.log("select : "+select);
+
+			var jsonStr = JSON.stringify(select);
+			console.log("jsonStr = "+jsonStr);
+			
+				$.ajax({
+					url : "${ pageContext.request.contextPath }/performance/selectDate",
+					data : jsonStr,
+					method : "POST",
+					contentType : "application/json; charset=utf-8",
+					success : function(data){
+						displayResultTable(data);
+					},
+					error : function(xhr, status, err){
+						console.log("처리실패", xhr, status, err);
+					},
+					complete : function(){
+						
+					}
+				});
+
+
+			function displayResultTable(data){
+				var $container = $("#result-list");
+				var html = "";
+	
+				if(data.length > 0){
+					for(var i in data){
+						var sch = data[i];
+						html += "<li id='list'><button type='button' id='schedule-btn' class='btn btn-outline-primary mt-3' style='width:240px;'>";
+						html += sch.hour + "시 ";
+						html += sch.min + "분";
+						html += "</button></li>";
+					}
+				}
+				else{
+					html += "";
+				}
+	
+				$container.html(html);
+					
+			}
+
+			
+        }
 
 
     </script>

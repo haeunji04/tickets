@@ -174,4 +174,8 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.recommendList");
 	}
 	
+	@Override
+	public List<Schedule> selectDate(Map<String, Object> param) {
+		return sqlSession.selectList("performance.selectDate", param);
+	}
 }

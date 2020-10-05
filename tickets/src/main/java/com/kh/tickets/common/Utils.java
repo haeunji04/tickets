@@ -90,7 +90,7 @@ public class Utils {
 			//이전영역 없을 때
 		}
 		else {
-			pageBar += "<li class='page-item disabled'><a class=\"page-link\" href='"+url+"cPage="+(pageNo-1)+"'>&laquo;</a></li>"; //6페이지면 5페이지로 가게 //11페이지면 10페이지로 가게
+			pageBar += "<li class='page-item'><a class=\"page-link\" href='"+url+"cPage="+(pageNo-1)+"'>&laquo;</a></li>"; //6페이지면 5페이지로 가게 //11페이지면 10페이지로 가게
 		}
 		//페이지번호 영역
 		while(pageNo <= pageEnd && pageNo <= totalPage ) {
@@ -109,7 +109,7 @@ public class Utils {
 		}
 		else {
 			//totalPage보다 큰경우
-			pageBar += "<li class='page-item disabled'><a class='page-link' href='"+url+"cPage="+pageNo+"'>&raquo;</a></li>";
+			pageBar += "<li class='page-item'><a class='page-link' href='"+url+"cPage="+pageNo+"'>&raquo;</a></li>";
 		}
 		
 //		System.out.println(pageBar);
