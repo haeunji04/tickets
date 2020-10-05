@@ -97,22 +97,22 @@
 		  	<div class="collapse navbar-collapse" id="navbarColor01">
 		    	<ul class="navbar-nav mr-auto">
 		     		<li class="nav-item active">
-		        		<a class="nav-link" href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">memberId=${loginMember.memberId}</c:if>"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1">뮤지컬 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">뮤지컬 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2">연극 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">연극 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3">콘서트 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">콘서트 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4">클래식 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">클래식 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5">전시 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">전시 &nbsp;</a>
 		      		</li>
 		      		<c:if test="${ not empty loginMember }">
 			      	<li class="nav-item dropdown" style="right: 0px !important">

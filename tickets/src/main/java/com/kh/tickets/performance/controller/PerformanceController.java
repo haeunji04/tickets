@@ -60,15 +60,17 @@ public class PerformanceController {
 	
 
 	@GetMapping("/list")
-	public ModelAndView categoryListView(ModelAndView mav,
+	public ModelAndView categoryListView(ModelAndView mav, @RequestParam(value="memberId",required=false) String memberId,
 							@RequestParam("category") String category,
 							HttpServletRequest request,
 							  @RequestParam(defaultValue = "1", 
 							  				value = "cPage") int cPage) {
 		log.debug("category = {}", category);
 		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		
 		//1.사용자 입력값 
-		final int limit = 2;
+		final int limit = 10;
 		int offset = (cPage - 1) * limit;
 		
 //		List<PerJoin> list = performanceService.categoryListView(category);
@@ -90,6 +92,7 @@ public class PerformanceController {
 		mav.addObject("categoryName", categoryName);
 		mav.addObject("totalContents", totalContents);
 		mav.addObject("pageBar", pageBar);
+		mav.addObject("rList", rList);
 		mav.setViewName("/performance/performanceCategoryView");
 		return mav;
 	}
