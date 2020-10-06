@@ -32,10 +32,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectPerformanceList();
 	}
 
-	@Override
-	public List<PerJoin> categoryListView(String category) {
-		return performanceDAO.categoryListView(category);
-	}
+//	@Override
+//	public List<PerJoin> categoryListView(String category) {
+//		return performanceDAO.categoryListView(category);
+//	}
 
 	@Override
 	public String getCategoryName(String category) {
@@ -63,7 +63,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectOnePerformance(perNo);
 	}
 
-	
+	@Override
+	public PerJoin selectOnePerJoin(int perNo) {
+		return performanceDAO.selectOnePerJoin(perNo);
+	}
 
 	public List<PerformanceHall> searchHallName(String keyword) {
 		return performanceDAO.searchHallName(keyword);
@@ -138,16 +141,21 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.searchPerformance(keyword);
 	}
 
+//	@Override
+//	public List<PerJoin> categoryListView(String category, int limit, int offset) {
+//		return performanceDAO.categoryListView(category, limit, offset);
+//	}
+	
 	@Override
-	public List<PerJoin> categoryListView(String category, int limit, int offset) {
-		return performanceDAO.categoryListView(category, limit, offset);
+	public List<PerJoin> categoryListView(Map<String, Object> map) {
+		return performanceDAO.categoryListView(map);
 	}
-
+	
 	@Override
 	public int selectCategoryListTotalContents(String category) {
 		return performanceDAO.selectCategoryListTotalContents(category);
 	}	
-	
+
 	public List<Performance> selectPerformanceList(Map<String, Object> map) {
 		return performanceDAO.searchPerformanceList(map);
 	}

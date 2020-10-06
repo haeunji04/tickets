@@ -18,7 +18,7 @@ public interface PerformanceDAO {
 
 	List<Performance> selectPerformanceList();
 
-	List<PerJoin> categoryListView(String category);
+//	List<PerJoin> categoryListView(String category);
 
 	String getCategoryName(String category);
 
@@ -30,6 +30,8 @@ public interface PerformanceDAO {
 	List<Performance> companyPerList(String memberId);
 
 	Performance selectOnePerformance(int perNo);
+	
+	PerJoin selectOnePerJoin(int perNo);
 
 	List<PerformanceHall> searchHallName(String keyword);
 
@@ -61,8 +63,8 @@ public interface PerformanceDAO {
 	
 	List<PerJoin> searchPerformance(String keyword);
 
-
-	List<PerJoin> categoryListView(String category, int limit, int offset);
+//	List<PerJoin> categoryListView(String category, int limit, int offset);
+	List<PerJoin> categoryListView(Map<String, Object> map);
 
 	int selectCategoryListTotalContents(String category);
 	

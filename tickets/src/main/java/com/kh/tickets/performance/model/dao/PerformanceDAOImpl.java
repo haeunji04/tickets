@@ -33,10 +33,10 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.selectPerformanceList");
 	}
 
-	@Override
-	public List<PerJoin> categoryListView(String category) {
-		return sqlSession.selectList("performance.categoryListView", category);
-	}
+//	@Override
+//	public List<PerJoin> categoryListView(String category) {
+//		return sqlSession.selectList("performance.categoryListView", category);
+//	}
 
 	@Override
 	public String getCategoryName(String category) {
@@ -64,9 +64,13 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.selectOnePerformance", perNo);
 	}
 
+	@Override
+	public PerJoin selectOnePerJoin(int perNo) {
+		return sqlSession.selectOne("performance.selectOnePerJoin", perNo);
+	}
+	
 	public List<PerformanceHall> searchHallName(String keyword) {
 		return sqlSession.selectList("performance.searchHallName", keyword);
-
 	}
 
 	@Override
@@ -139,10 +143,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.searchPerformance", keyword);
 	}
 
+//	@Override
+//	public List<PerJoin> categoryListView(String category, int limit, int offset) {
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//		return sqlSession.selectList("performance.categoryListView", category, rowBounds);
+//	}
 	@Override
-	public List<PerJoin> categoryListView(String category, int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("performance.categoryListView", category, rowBounds);
+	public List<PerJoin> categoryListView(Map<String, Object> map) {
+		return sqlSession.selectList("performance.categoryListView", map);
 	}
 
 	@Override
@@ -150,6 +158,7 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.selectCategoryListTotalContents", category);
 	}	
 	
+
 	public List<Performance> searchPerformanceList(Map<String, Object> map) {
 		return sqlSession.selectList("performance.searchPerformanceList", map);
 	}

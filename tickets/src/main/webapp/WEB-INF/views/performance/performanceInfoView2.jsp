@@ -17,22 +17,27 @@ $(function(){
 		$(this).addClass('on');	
 	});
 });
-</script>
-<style>
-.table td{
-	border:0;
-}
-li.on button{
-	color: #fff;
-    background-color: #eb6864;
-    border-color: #eb6864;
-}
 
-.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
-.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
-.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+
+</script>
+
+<style>
+
+	.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+	.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+	.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+	.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+	.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+
+	.table td{
+		border:0;
+	}
+	
+	li.on button{
+		color: #fff;
+	    background-color: #eb6864;
+	    border-color: #eb6864;
+	}
 </style>
 
 		<div class="border">
@@ -67,7 +72,7 @@ li.on button{
 				
 				
 				<!-- 찜 해제하기 -->
-				<form id="wishListInsertFrm" 
+				<form id="wishListDeleteFrm" 
 					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
 					  method="POST">
 					  
@@ -148,11 +153,11 @@ li.on button{
                     <dl class="time_choice" style="display:inline-grid;margin:30px;">
                         <dt class="tit_process tit_time_choice text-center"><span class="img">시간 선택</span></dt>
                         <dd class="cont_process" id="section_time">
-                            <div class="box_type_comment"><!-- 날짜 선택전 show  -->
-                                <ul class="list-unstyled">
-                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
+                            <div class="box_type_comment" style="width:240px;"><!-- 날짜 선택전 show  -->
+                                <ul class="list-unstyled" id="result-list">
+<!--                                 	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 1시 00분</button></li>
                                 	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 4시 30분</button></li>
-                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li>
+                                	<li id="list"><button type="button" class="btn btn-outline-primary mt-3" style="width:240px;">오후 8시 00분</button></li> -->
                                 </ul>				
                             </div>
                         </dd>
@@ -203,7 +208,7 @@ li.on button{
                </div>
               </div>
               <div class="d-block mx-auto mt-5">
-	<ul class="nav nav-tabs justify-content-center">
+	<ul class="nav nav-tabs justify-content-center" id="tabMenu">
 	  <li class="nav-item">
 	    <a class="nav-link active" data-toggle="tab" href="#info"><h5 class="m-10 px-4">상세정보</h5></a>
 	  </li>
@@ -214,7 +219,7 @@ li.on button{
 	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기<span class="badge badge-primary badge-pill">1</span></h5></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link link" data-toggle="tab" href="#theater"><h5 class="m-10 px-4">공연장정보</h5></a>
+	    <a class="nav-link link" data-toggle="tab" href="#theater" id="theater-tab"><h5 class="m-10 px-4">공연장정보</h5></a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#reserv"><h5 class="m-10 px-4">예매안내</h5></a>
@@ -386,11 +391,30 @@ li.on button{
 					
 			</div>
 			<form name="deleteCommentFrm">
-			<input type="hidden" name="boardCommentNo" value=""/>
-			<input type="hidden" name="perNo" value="${ performance.perNo }"/>
-		</form>
+				<input type="hidden" name="boardCommentNo" value=""/>
+				<input type="hidden" name="perNo" value="${ performance.perNo }"/>
+			</form>
 	  </div>
+	  
+	  <input type="hidden" name="" />
+	  
 	  <div class="tab-pane fade" id="theater">
+		  <h3 class="text-center">
+			  <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-geo-alt mb-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				  <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+				  <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+			  </svg>
+		  	  ${ performance.theaterName }
+		  </h3>
+	  	 <div class="mb-5">
+		  	 <p class="text-center">
+		  	 	${ performance.theaterLocation }
+		  	 	${ performance.theaterCity }
+		  	 	${ performance.theaterAddress }
+		  	 	${ performance.theaterName }
+		  	 </p>
+	  	 </div>
+		 <hr />
 	     <div id="map" style="width:100%;height:500px;">
 	     
 	     </div>
@@ -420,51 +444,94 @@ li.on button{
 	  </div>
 	</div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6d8fdaa58f0a1c4fb7cfa958eddc3fe"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f6d8fdaa58f0a1c4fb7cfa958eddc3fe&libraries=services"></script>
 <script>
+
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	  mapOption = { 
-	        center: new kakao.maps.LatLng(37.58753968425043, 126.99147438862954), // 지도의 중심좌표
+	        //center: new kakao.maps.LatLng(37.582742149145645, 127.00359456560295), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	        level: 4 // 지도의 확대 레벨
 	    };
 	
-	var map = new kakao.maps.Map(mapContainer, mapOption);
+	var map = new kakao.maps.Map(mapContainer, mapOption); //지도생성
 	
-	var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
-	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	
-	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-	    markerPosition = new kakao.maps.LatLng(37.582742149145645, 127.00359456560295); // 마커가 표시될 위치입니다
-	
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-	  position: markerPosition,
-	  image: markerImage // 마커이미지 설정 
-	});
-	
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);  
-	
-	// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	var content = '<div class="customoverlay">' +
-	    '  <a href="https://map.kakao.com/link/map/17358384" target="_blank">' +
-	    '    <span class="title">대학로자유극장</span>' +
-	    '  </a>' +
-	    '</div>';
-	
-	// 커스텀 오버레이가 표시될 위치입니다 
-	var position = new kakao.maps.LatLng(37.582742149145645, 127.00359456560295);  
-	
-	// 커스텀 오버레이를 생성합니다
-	var customOverlay = new kakao.maps.CustomOverlay({
-	    map: map,
-	    position: position,
-	    content: content,
-	    yAnchor: 1 
-	});
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	var coords = null;
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${ performance.theaterAddress }', function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	    	var imageSrc = '${pageContext.request.contextPath}/resources/images/marker_red.png', // 마커이미지의 주소입니다    
+		    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+		    
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords,
+	            image: markerImage
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+/* 	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+	        });
+	        infowindow.open(map, marker); */
+
+	    	// 마커가 지도 위에 표시되도록 설정합니다
+	    	marker.setMap(map);
+	        
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			map.setCenter(coords);
+			
+	    	// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    	var content = '<div class="customoverlay">' +
+	    	    '  <a href="https://map.kakao.com/link/search/'+ "${ performance.theaterName }" +'" target="_blank">' +
+	    	    '    <span class="title">${ performance.theaterName }</span>' +
+	    	    '  </a>' +
+	    	    '</div>';
+	    	
+	    	// 커스텀 오버레이가 표시될 위치입니다 
+	    	//var position = new kakao.maps.LatLng(37.582742149145645, 127.00359456560295);  
+	    	
+	    	// 커스텀 오버레이를 생성합니다
+	    	var customOverlay = new kakao.maps.CustomOverlay({
+	    	    map: map,
+	    	    position: coords,
+	    	    content: content,
+	    	    yAnchor: 1
+
+	    	});
+
+	        map.setCenter(coords);
+
+	     } 
+	});    
+
+$("#theater-tab").click(function(){
+	setTimeout(function(){
+
+	map.relayout();
+	map.setCenter(coords);
+
+	}, 0);
+
+});
+
+
+			
+
 </script>
+
 
 <form action="${ pageContext.request.contextPath }/boardComment/boardCommentDelete.do?perNo=${ performance.perNo}" 
 	  id="boardCommentDeleteFrm" 
@@ -577,6 +644,12 @@ $("[type=submit]").click(function(){
 	});
 });
 </script>
+
+<form action="" method="post" id="selectDateFrm">
+<input type="hidden" name="perNo" value="${ performance.perNo }"/>
+<input type="hidden" name="inputDate" id="inputDate"/>
+</form>
+
 <script>
         var now = new Date();
         var year = now.getFullYear();
@@ -601,15 +674,77 @@ $("[type=submit]").click(function(){
             date: new Date(),
             onSelected: function (view, date, data) {
                 console.log('view:' + view);
-                alert('date:' + date);
+                //alert('date:' + date);
+                document.getElementById("inputDate").value = date;
                 console.log(date);
-                console.log('data:' + (data));
+                //console.log('data:' + (data));
+
+				selectDate();
             },
+            
             viewChange: function (view, y, m) {
-                console.log(view, y, m)
+                console.log(view, y, m);
 
             }
         });
+
+
+        function selectDate(){
+
+    		var $frm = $("#selectDateFrm");
+
+			var perNo = $frm.find("[name=perNo]").val();
+    		
+    		var select = {
+				date : $frm.find("[name=inputDate]").val(),
+				perNo : perNo
+    	    };
+
+			console.log("select : "+select);
+
+			var jsonStr = JSON.stringify(select);
+			console.log("jsonStr = "+jsonStr);
+			
+				$.ajax({
+					url : "${ pageContext.request.contextPath }/performance/selectDate",
+					data : jsonStr,
+					method : "POST",
+					contentType : "application/json; charset=utf-8",
+					success : function(data){
+						displayResultTable(data);
+					},
+					error : function(xhr, status, err){
+						console.log("처리실패", xhr, status, err);
+					},
+					complete : function(){
+						
+					}
+				});
+
+
+			function displayResultTable(data){
+				var $container = $("#result-list");
+				var html = "";
+	
+				if(data.length > 0){
+					for(var i in data){
+						var sch = data[i];
+						html += "<li id='list'><button type='button' id='schedule-btn' class='btn btn-outline-primary mt-3' style='width:240px;'>";
+						html += sch.hour + "시 ";
+						html += sch.min + "분";
+						html += "</button></li>";
+					}
+				}
+				else{
+					html += "";
+				}
+	
+				$container.html(html);
+					
+			}
+
+			
+        }
 
 
     </script>

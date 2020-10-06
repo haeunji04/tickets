@@ -61,21 +61,38 @@ public class PerformanceController {
 	
 
 	@GetMapping("/list")
-	public ModelAndView categoryListView(ModelAndView mav, @RequestParam(value="memberId",required=false) String memberId,
-							@RequestParam("category") String category,
-							HttpServletRequest request,
-							  @RequestParam(defaultValue = "1", 
-							  				value = "cPage") int cPage) {
+	public ModelAndView categoryListView(ModelAndView mav, 
+										@RequestParam(value="memberId",required=false) String memberId,
+										@RequestParam("category") String category,
+										HttpServletRequest request
+							  			) {
 		log.debug("category = {}", category);
 		
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
 		
 		//1.사용자 입력값 
-		final int limit = 10;
-		int offset = (cPage - 1) * limit;
+//		final int limit = 10;
+//		int offset = (cPage - 1) * limit;
+		
+		int numPerPage = 2;
+		int cPage = 1;
+		
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("category", category);
 		
 //		List<PerJoin> list = performanceService.categoryListView(category);
-		List<PerJoin> list = performanceService.categoryListView(category, limit, offset);
+//		List<PerJoin> list = performanceService.categoryListView(category, limit, offset);
+		List<PerJoin> list = performanceService.categoryListView(map);
 		
 		String categoryName = performanceService.getCategoryName(category); 
 		
@@ -84,8 +101,8 @@ public class PerformanceController {
 		//전체컨텐츠수 구하기
 		int totalContents = performanceService.selectCategoryListTotalContents(category);
 				
-		String url = request.getRequestURI() + "?";
-		String pageBar = Utils.getPageBarHtml(cPage, limit, totalContents, url);
+		String url = request.getRequestURI() + "?category="+category+"&";
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		mav.addObject("dateformat", dateformat);		
@@ -512,7 +529,7 @@ public class PerformanceController {
 											@RequestParam(value="memberId",required=false) String memberId) {
 		
 		log.debug("perNo@@ = {}", perNo);
-		Performance performance = performanceService.selectOnePerformance(perNo);
+		PerJoin performance = performanceService.selectOnePerJoin(perNo);
 		log.debug("loginMember={}",memberId);
 		if(memberId!=null) {
 			

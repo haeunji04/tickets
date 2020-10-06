@@ -45,12 +45,18 @@
 	</select>
 	
 	<select id="categoryListView" resultMap="perJoinMap">
-		select
-			*
-		from
-			performance_join_view
-		where 
-			category_code = #{ category }
+		select 
+		        *
+		from(
+		 	select
+		        rownum as rnum,
+				P.*
+			from
+				performance_join_view P
+			where 
+				category_code = #{ category }
+		    )P
+		where rnum between #{ start } and #{ end }
 	</select>
 	
 	<select id="getCategoryName" resultType="string">
@@ -102,6 +108,15 @@
 			per_no = #{ perNo }
 		<!-- order by
 			no desc -->
+	</select>	
+	
+	<select id="selectOnePerJoin" resultMap="perJoinMap">
+		select
+			*
+		from
+			performance_join_view
+		where
+			per_no = #{ perNo }
 	</select>	
 	
 	<select id="searchHallName" resultMap="performanceHallMap">
