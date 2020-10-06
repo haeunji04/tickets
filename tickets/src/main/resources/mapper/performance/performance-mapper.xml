@@ -356,6 +356,13 @@
     		and extract(day from sch_date_time) = extract(day from to_timestamp(#{ newFormatDate }, 'yyyy-MM-dd HH24:mi:ss'))
 	</select>
 	
+	<delete id="perDelete">
+		delete from 
+			performance
+		where 
+			per_no = #{ perNo }
+	</delete>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

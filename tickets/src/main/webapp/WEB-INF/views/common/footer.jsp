@@ -20,7 +20,7 @@
 		} 
 	</style>
 	
-	<c:if test="${ not empty loginMember }">	
+	<c:if test="${ not empty loginMember && not empty rList }">	
 	<div id="floatdiv">
 		<p  >최근 본 공연</p>
 		<hr />

@@ -177,4 +177,9 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectDate(param);
 	}
 
+	@Override
+	public int perDelete(int perNo) {
+		return performanceDAO.perDelete(perNo);
+	}
+
 }

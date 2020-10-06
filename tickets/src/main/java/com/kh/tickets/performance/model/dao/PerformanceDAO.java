@@ -78,5 +78,7 @@ public interface PerformanceDAO {
 
 	List<Schedule> selectDate(Map<String, Object> param);
 
+	int perDelete(int perNo);
+
 
 }

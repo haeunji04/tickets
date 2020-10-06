@@ -40,6 +40,7 @@
 --DROP TABLE "TICKET" CASCADE CONSTRAINTS;
 --DROP TABLE "PAY" CASCADE CONSTRAINTS;
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
+--DROP TABLE "RECENTLY_PER_LIST" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
 --DROP SEQUENCE "PERFORMANCE_SEQ";
@@ -151,6 +152,12 @@ create table wishlist(
     constraints fk_member_id2 foreign key(member_id) references member(member_id),
     constraints fk_per_no2 foreign key(per_no) references performance(per_no)
 );
+
+--삭제관련 수정사항(도현 20.10.06) Start
+-- 테이블 recently_per_list와 schedule에서 fk관련 alter 문만 돌려주기.
+
+--DROP TABLE "RECENTLY_PER_LIST" CASCADE CONSTRAINTS;
+
 --RecentlyPerList
 create table recently_per_list(
     member_id varchar2(15),
@@ -158,9 +165,16 @@ create table recently_per_list(
     recently_date date default sysdate,
     constraints pk_recently_per_list primary key(member_id,per_no),
     constraints fk_recently_member_id foreign key(member_id) references member(member_id),
-    constraints fk_recently_per_no foreign key(per_no) references performance(per_no)
+    constraints fk_recently_per_no foreign key(per_no) references performance(per_no) 
 );
---Schedule
+
+
+alter table recently_per_list drop constraints fk_recently_member_id cascade;
+alter table recently_per_list add constraint fk_recently_member_id foreign key(member_id) references member(member_id) on delete cascade;
+alter table recently_per_list drop constraints fk_recently_per_no cascade;
+alter table recently_per_list add constraint fk_recently_per_no foreign key(per_no) references performance(per_no) on delete cascade;
+
+--DROP TABLE "SCHEDULE" CASCADE CONSTRAINTS;
 create table schedule(
     sch_no number,
     per_no number,
@@ -169,8 +183,13 @@ create table schedule(
     constraints pk_sch_no primary key(sch_no),
     constraints fk_per_no4 foreign key(per_no) references performance(per_no)
 );
-
 ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
+
+alter table schedule drop constraints fk_per_no4 cascade;
+alter table schedule add constraint fk_per_no4 foreign key(per_no) references performance(per_no) on delete cascade;
+
+--삭제관련 수정사항(도현 20.10.06) End
+
 --schedule insert
 
 --Seat
@@ -489,7 +508,13 @@ from
 --select * from member;
 --select * from category;
 --select * from member;
---select * from performance;
+select * from performance;
+delete from 
+			performance
+		where 
+			per_no = 24 ;
+
+
 --select * from review;
 --select * from wishlist;
 --select * from schedule;
