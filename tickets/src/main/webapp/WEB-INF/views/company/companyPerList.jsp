@@ -57,6 +57,8 @@
 						onclick="perUpdate('${ per.perNo }')">수정</button>
 					<button type="button" class="btn btn-outline-primary px-2"
 						onclick="perDateUpdate('${ per.perNo }')">공연일정</button>
+					<button type="button" class="btn btn-outline-primary px-2"
+						onclick="perDelete('${ per.perNo }')">공연삭제</button>
 				</td>
 				<%-- <td>
 			<img src="<c:url value='/resources/upload/performance/${ per.detailImgRenamedFileName}' />" 
@@ -86,6 +88,11 @@
 	  method="post" id="perDateUpdate" >
 	  <input type="hidden" name="perNo"/>
 </form>
+<!-- 공연삭제 -->
+<form action="${ pageContext.request.contextPath }/company/perDelete.do"
+	  method="post" id="perDeleteFrm" >
+	  <input type="hidden" name="perNo"/>
+</form>
 
 <script>
 	/**
@@ -101,6 +108,11 @@
 
 	function perDateUpdate(perNo){
 		var $frm = $("#perDateUpdate");
+		$frm.find("[name=perNo]").val(perNo);
+		$frm.submit();
+	}
+	function perDelete(perNo){
+		var $frm = $("#perDeleteFrm");
 		$frm.find("[name=perNo]").val(perNo);
 		$frm.submit();
 	}

@@ -178,4 +178,9 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public List<Schedule> selectDate(Map<String, Object> param) {
 		return sqlSession.selectList("performance.selectDate", param);
 	}
+
+	@Override
+	public int perDelete(int perNo) {
+		return sqlSession.delete("performance.perDelete", perNo);
+	}
 }

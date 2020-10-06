@@ -80,5 +80,7 @@ public interface PerformanceService {
 	List<Performance> recommendList();
 
 	List<Schedule> selectDate(Map<String, Object> param);
+
+	int perDelete(int perNo);
 	
 }

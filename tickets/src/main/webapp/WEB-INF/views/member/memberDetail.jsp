@@ -74,7 +74,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 
 	<form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
 		<div class="mx-auto">
-		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>
+		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>		    
 		    <br /><br />
 			<div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
@@ -134,11 +134,39 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary" value="수정"/>
 			</div>
+				<hr />				
+			<button type="button" 
+						class="btn btn-outline-primary"
+						onclick="memberWithdraw('${ loginMember.memberId }')">회원 탈퇴</button>
+			<div style="float: right;">
+				
+			</div>
 		</div>
 	</form>
 	
 	
 </div>
+
+<form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
+	  id="memberWithdrawFrm" 
+	  method="POST">
+	<input type="hidden" name="memberId" />
+</form>
+
+<script>
+/**
+ * POST 요청 처리할 것
+ **/
+function memberWithdraw(memberId){
+	if(confirm("정말 탈퇴하시겠습니까?") == false)
+		return;
+	var $frm = $("#memberWithdrawFrm");
+	$frm.find("[name=memberId]").val(memberId);
+	$frm.submit();
+	
+}
+
+</script>
 
 <script>
 /* 선택 안 한 라디오 버튼 비활성화 */

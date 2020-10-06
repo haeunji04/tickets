@@ -130,14 +130,15 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a>
 			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
 			          		<hr />
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList.do">회원목록(관리자)</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList">회원목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminRecommendedList.do">공연 추천 목록(관리자)</a>
 			          		<%-- </c:if> --%>
-			          		<c:if test="${ loginMember.memberRole ne 'A' }">
-			          		<div class="dropdown-divider"></div>
-			          			<a class="dropdown-item" href="#">회원 탈퇴</a>
-			          		</c:if>
+			          		
+			          		<%-- <c:if test="${ loginMember.memberRole ne 'A' }">
+			          			<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberWithdraw.do">회원 탈퇴</a>
+			          		<!-- <div class="dropdown-divider"></div> -->
+			          		</c:if> --%>
 				        </div>
 			      	</li>
 			      	</c:if>

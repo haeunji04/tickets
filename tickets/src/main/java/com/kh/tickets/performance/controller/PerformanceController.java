@@ -498,6 +498,14 @@ public class PerformanceController {
 		return "company/perUpdateEnd";
 	}
 	
+	@PostMapping("/company/perDelete.do")
+	public String perDelete(@RequestParam int perNo, RedirectAttributes redirectAttributes){
+		int result = performanceService.perDelete(perNo);
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "공연 삭제성공" : "공연 삭제실패");		
+//		redirectAttributes.addFlashAttribute("perNo", perNo);	
+		return "redirect:/company/companyPerList.do";
+	}
+	
 	
 	@GetMapping("/performance/performanceInfoView2.do")
 	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,
