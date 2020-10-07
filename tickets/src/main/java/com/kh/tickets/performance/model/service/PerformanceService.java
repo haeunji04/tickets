@@ -18,7 +18,7 @@ public interface PerformanceService {
 
 	List<Performance> selectPerformanceList();
 
-	List<PerJoin> categoryListView(String category);
+	//List<PerJoin> categoryListView(String category);
 
 	String getCategoryName(String category);
 
@@ -30,8 +30,8 @@ public interface PerformanceService {
 	List<Performance> companyPerList(String memberId);
 
 	Performance selectOnePerformance(int perNo);
-
 	
+	PerJoin selectOnePerJoin(int perNo);
 
 	List<PerformanceHall> searchHallName(String keyword);
 
@@ -63,9 +63,9 @@ public interface PerformanceService {
 
 	List<PerJoin> searchPerformance(String keyword);
 
-
-	List<PerJoin> categoryListView(String category, int limit, int offset);
-
+	//List<PerJoin> categoryListView(String category, int limit, int offset);
+	List<PerJoin> categoryListView(Map<String, Object> map);
+	
 	int selectCategoryListTotalContents(String category);
 
 	List<Performance> selectPerformanceList(Map<String, Object> map);
@@ -82,5 +82,9 @@ public interface PerformanceService {
 	List<Schedule> selectDate(Map<String, Object> param);
 
 	int perDelete(int perNo);
+
+
+
+
 	
 }
