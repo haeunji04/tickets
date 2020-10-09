@@ -8,10 +8,10 @@
 --default tablespace users;
 --
 --grant connect, resource to tickets;
---show user;
+show user;
 
 --view 생성 권한
---grant create view to tickets;
+--grant create view to final;
 
 
 --==================================================
@@ -507,14 +507,7 @@ from
 --select * from category;
 --select * from member;
 --select * from category;
---select * from member;
 select * from performance;
-delete from 
-			performance
-		where 
-			per_no = 24 ;
-
-
 --select * from review;
 --select * from wishlist;
 --select * from schedule;
