@@ -29,4 +29,9 @@ public interface MemberDAO {
 
 	List<Member> selectMemberList(Map<String, Object> map);
 
+	Member findId(Map<String, Object> param);
+
+	Member findPwd(Map<String, Object> param);
+
+	int updatePwd(Map<String, Object> param);
 }

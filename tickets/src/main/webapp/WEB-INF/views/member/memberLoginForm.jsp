@@ -32,7 +32,7 @@ $(function(){
 			<div class="modal-content">
 					    	
 				<div class="modal-header">
-					<h5 class="modal-title" id="loginModalLabel">회원가입</h5>
+					<h5 class="modal-title" id="loginModalLabel">로그인</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
@@ -56,7 +56,19 @@ $(function(){
 								name="password" id="password" 
 								placeholder="비밀번호" required/>
 								</td>
-							</tr>									        			
+							</tr>		
+							
+							<tr height="50px;">
+								<td valign="bottom" align="left">
+									<input type="checkbox" name="saveId" id="saveId"/>
+									<label for="saveId" class="mb-0"><small>아이디 저장</small></label>
+								</td>				
+								<td valign="bottom" align="right">
+									<a href="${ pageContext.request.contextPath }/member/searchIdFrm" class="text-reset"><small>아이디 찾기</small></a>
+									<span class="text-secondary">|</span>
+									<a href="${ pageContext.request.contextPath }/member/searchPwdFrm" class="text-reset"><small>비밀번호 찾기</small></a> 
+								</td>			
+							</tr>							        			
 										        		
 						</table>
 				</div>
