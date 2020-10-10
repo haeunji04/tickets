@@ -20,7 +20,8 @@
 		} 
 	</style>
 	
-	<c:if test="${ not empty loginMember && not empty rList }">	
+	<sec:authorize access="isAuthenticated()">
+	<%-- <c:if test="${ not empty loginMember && not empty rList }">	 --%>
 	<div id="floatdiv">
 		<p  >최근 본 공연</p>
 		<hr />
@@ -41,11 +42,11 @@
 			<!-- <p style="font-size: 15px">캣츠</p> -->
 			</a>  --%>
 		<c:forEach items="${ rList }" var="recentPer" begin="0" end= "2" step="1" varStatus="status" >
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }&memberId=${loginMember.memberId}">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						alt="포스터" height="90px" class="mb-2" />
-			</a>	 
+			<%-- <a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }&memberId=${loginMember.memberId}">					
+			</a> --%>	 
 			<hr />
 				
 			
@@ -55,7 +56,9 @@
 		<!-- <p>더보기</p> -->
 		<a class="dropdown-item" style="text-align:center;" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">더보기</a>
 	</div>
-	</c:if>
+	
+	</sec:authorize>
+	<%-- </c:if> --%>
 	
 	<footer>
 		<div class="text-center mt-auto bg-primary text-light clearfix d-block mx-auto">
