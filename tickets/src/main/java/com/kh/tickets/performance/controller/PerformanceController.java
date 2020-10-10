@@ -319,9 +319,9 @@ public class PerformanceController {
 	
 	@GetMapping("/company/companyPerList.do")
 	public ModelAndView companyPerList(ModelAndView mav,
-									  @ModelAttribute("loginMember") Member loginMember) {
-		log.debug("loginMember = {}", loginMember);		
-		String memberId = loginMember.getMemberId();
+										Principal principal) {
+		log.debug("Principal = {}", principal);		
+		String memberId = principal.getName();
 		log.debug("memberId@@ = {}", memberId);
 		List<Performance> list = performanceService.companyPerList(memberId);
 		log.debug("list@controller = {}", list);

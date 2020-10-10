@@ -42,7 +42,7 @@ function passwordValidate(){
                      
                         <tbody>
                             <form name="updatePasswordFrm" action="${pageContext.request.contextPath }/member/updatePassword.do" method="post" encType="multiplart/form-data ">
-                                <input type="hidden" name="memberId" value="${loginMember.memberId}" /> 
+                                <input type="hidden" name="memberId" value="<sec:authentication property="principal.username"/>" /> 
                                 <tr class="text_pwd">
                                     <td class="#" rowspan="4" style="vertical-align: middle;">
                                         	<h4>비밀번호 변경</h4>

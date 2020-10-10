@@ -23,10 +23,10 @@
 		<result column="phone" property="phone"/>
 		<result column="addr" property="addr"/>
 		<result column="addr_detail" property="addrDetail"/>
-		<result column="post_code" property="postCode"/>
-		<result column="member_role" property="memberRole"/>
-		<result column="enroll_date" property="enrollDate"/>
-		<result column="quit_yn" property="quitYn"/>
+        <result column="post_code" property="postCode"/>
+        <result column="member_role" property="memberRole"/>
+        <result column="enroll_date" property="enrollDate"/>
+        <result column="quit_yn" property="quitYn"/>
 		<result column="enabled" property="enabled"/>
 		<collection property="authorities"
 					column="member_id" 
