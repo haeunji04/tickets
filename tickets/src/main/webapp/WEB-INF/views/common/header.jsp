@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +50,12 @@
 </c:if>
 
 </script>
+<script>
+    function formSubmit()
+    {
+    document.getElementById("frm1").submit();
+    }
+</script>
 </head>
 <body>
 
@@ -56,7 +65,34 @@
 	<div class="" id="header-container" >
 		
 		<div class="text-right" id="member-menu">
-			<c:if test="${ empty loginMember }">
+			<sec:authorize access="isAnonymous()">
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberLoginForm.do">로그인</a><span class="text-secondary">&nbsp;|</span>
+			</sec:authorize>
+			
+			<sec:authorize access="isAuthenticated()">	
+			<form:form 
+				id="frm1"
+				method="POST"
+				action="${pageContext.request.contextPath }/member/memberLogout.do">
+			<a class="text-secondary" href=# onclick="formSubmit(); return false;">로그아웃</a><span class="text-secondary">&nbsp;|</span>
+			</form:form> 
+			</sec:authorize>
+			
+			<sec:authorize access="isAnonymous()">
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberEnrollForm.do">회원가입</a><span class="text-secondary">&nbsp;|</span>
+			</sec:authorize>
+			
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
+			
+			<sec:authorize access="isAuthenticated()">
+			<div><span class="text-danger">
+					<sec:authentication property="principal.username"/>
+				    <sec:authentication property="principal.authorities"/>
+				</span>님, 어서오세요!</div>
+			</sec:authorize>
+		
+		
+			<%-- <c:if test="${ empty loginMember }">
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberLoginForm.do">로그인</a><span class="text-secondary">&nbsp;|</span>
 			</c:if>
 			<c:if test="${ not empty loginMember }">
@@ -68,7 +104,7 @@
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
 			<c:if test="${ not empty loginMember }">
 			<div><span class="text-danger">${ loginMember.name }</span>님, 어서오세요!</div>
-			</c:if>
+			</c:if> --%>
 		</div>
 		
 		<div class="d-block dropdown-divider"></div>
@@ -114,7 +150,8 @@
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">전시 &nbsp;</a>
 		      		</li>
-		      		<c:if test="${ not empty loginMember }">
+		      		<%-- <c:if test="${ not empty loginMember }"> --%>
+		      		<sec:authorize access="isAuthenticated()">				
 			      	<li class="nav-item dropdown" style="right: 0px !important">
 			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page </a>
 			        	<div class="dropdown-menu">
@@ -129,10 +166,12 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a>
 			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
+			          		<sec:authorize access="hasRole('ADMIN')">
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList">회원목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminRecommendedList.do">공연 추천 목록(관리자)</a>
+				   			</sec:authorize>
 			          		<%-- </c:if> --%>
 			          		
 			          		<%-- <c:if test="${ loginMember.memberRole ne 'A' }">
@@ -141,7 +180,8 @@
 			          		</c:if> --%>
 				        </div>
 			      	</li>
-			      	</c:if>
+			      	</sec:authorize>
+			      	<%-- </c:if> --%>
 		    	</ul>
 
 

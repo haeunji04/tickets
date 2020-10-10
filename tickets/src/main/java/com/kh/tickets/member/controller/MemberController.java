@@ -1,5 +1,6 @@
 package com.kh.tickets.member.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -159,6 +161,13 @@ public class MemberController {
 
 		redirectAttr.addFlashAttribute("memberId", memberId);	
 		return "redirect:" + location;
+	}
+	
+	//Security 관련
+	@PostMapping("/member/memberLoginFailure.do")
+	public String memberLoginFailure(RedirectAttributes redirectAttr) {
+		redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+		return "redirect:/member/memberLoginForm.do";
 	}
 	
 	@RequestMapping("/member/memberLogout.do")
@@ -314,13 +323,27 @@ public class MemberController {
 		}			
 	}
 	 
+	 
 	
-	
-		@RequestMapping("/member/memberDetail.do")
-		public String memberDetail(ModelAndView mav,
-								   @ModelAttribute("loginMember") Member loginMember) {
-			log.debug("loginMember = {}", loginMember);
-			return "member/memberDetail";
+	 	
+//		@RequestMapping("/member/memberDetail.do")
+//		public String memberDetail(ModelAndView mav,
+//								   @ModelAttribute("loginMember") Member loginMember) {
+//			log.debug("loginMember = {}", loginMember);
+//			return "member/memberDetail";
+//		}
+	 
+	 
+	 	//security 관련
+	 	@RequestMapping("member/memberDetail.do")
+		public String memberDetail(Principal principal, Model model) {
+			log.debug("principal = {}", principal);
+			model.addAttribute("loginMember", principal);
+			
+			String userId = principal.getName();
+			log.debug("userId@@  = {}", userId );
+			
+			return "member/userDetail";
 		}
 		
 		@RequestMapping("/member/memberUpdate.do")

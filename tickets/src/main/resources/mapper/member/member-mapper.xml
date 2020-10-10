@@ -18,6 +18,7 @@
 			#{ postCode },
 			#{ memberRole },
 			default,
+			default,
 			default
 		)
 	</insert>

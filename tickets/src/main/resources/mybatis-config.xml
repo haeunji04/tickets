@@ -10,8 +10,12 @@
   </settings>
   
    <typeAliases>
-  	<package name="com.kh.tickets"/> 
-  </typeAliases>
+  	<typeAlias type="com.kh.tickets.common.typehandler.StringArrayTypeHandler"
+  			   alias="strArrTypeHandler"/>
+   <typeAlias type="org.springframework.security.core.authority.SimpleGrantedAuthority"
+  			   alias="simpleGrantedAuthority"/>
+  	<package name="com.kh.tickets"/>   	
+  </typeAliases>  
   
   <typeHandlers>
   	<typeHandler handler="com.kh.tickets.common.typehandler.StringArrayTypeHandler" />

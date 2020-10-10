@@ -8,10 +8,10 @@
 --default tablespace users;
 --
 --grant connect, resource to tickets;
---show user;
+show user;
 
 --view 생성 권한
---grant create view to tickets;
+--grant create view to final;
 
 
 --==================================================
@@ -93,6 +93,57 @@ create table member(
     constraints ck_member_role check(member_role in ('U','A','C')),
     constraints ck_quit_yn check(quit_yn in ('N','Y'))
 );
+
+--2020.10.10 security 관련 start
+select * from member;
+alter table member add enabled number default 1;
+
+
+--권한 테이블 생성
+create table auth (
+    member_id varchar2(20),
+    authority varchar2(20),
+    constraint pk_auth primary key(member_id, authority),
+    constraint fk_auth_member_id foreign key(member_id) references member(member_id)
+);
+
+insert into 
+    auth
+values(
+    'honggd',
+    'ROLE_USER'
+);
+insert into 
+    auth
+values(
+    'admin',
+    'ROLE_USER'
+);
+insert into 
+    auth
+values(
+    'admin',
+    'ROLE_ADMIN'
+);
+   
+select 
+    *
+from
+    auth;
+
+--commit;
+
+select
+    *
+from 
+    member M
+  left join auth A
+    on M.member_id = A.member_id
+where 
+    M.member_id = 'admin';
+
+--2020.10.10 security 관련 end
+
 SELECT * FROM PERFORMANCE;
 --Performance
 create table performance(
@@ -505,16 +556,9 @@ from
 --select * from theater;
 --select * from location;
 --select * from category;
---select * from member;
+select * from member;
 --select * from category;
---select * from member;
 select * from performance;
-delete from 
-			performance
-		where 
-			per_no = 24 ;
-
-
 --select * from review;
 --select * from wishlist;
 --select * from schedule;
@@ -532,7 +576,7 @@ commit;
 
 
 
-
+--select * from dba_users where username ='final';
 
 
 

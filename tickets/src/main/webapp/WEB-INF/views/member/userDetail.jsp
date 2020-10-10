@@ -3,12 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
-<jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="회원가입" name="pageTitle"/>
-</jsp:include>
+<%-- <jsp:include page="/WEB-INF/views/common/header.jsp">
+	<jsp:param value="내 정보" name="pageTitle"/>
+</jsp:include> --%>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -72,142 +73,106 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form:form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberEnroll.do" method="POST">
+	<form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
 		<div class="mx-auto">
-		    <h2 class="mx-auto mt-3 text-center">회원가입</h2>
+		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>		    
 		    <br /><br />
-			<div class="form-group d-flex mx-auto">
+			<%-- <div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input" value="U" checked="">
+				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input"
+				    	   value="U" ${loginMember.memberRole=='U'? 'checked':'' } readonly>
 				    <label class="custom-control-label" for="memberRole1">일반 회원</label>
 				 </div>
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole2" name="memberRole" class="custom-control-input" value="C">
+				    <input type="radio" id="memberRole2" name="memberRole" class="custom-control-input" 
+				    	   value="C" ${loginMember.memberRole=='C'? 'checked':'' } readonly>
 				    <label class="custom-control-label" for="memberRole2">기획사</label>
 				 </div>
-			</div>
+			</div> --%>
 	
 			<div class="form-group" id="memberId-container">
 			  <label class="col-form-label" for="memberId">아이디</label>
-			  <input type="text" class="form-control" id="memberId" name="memberId" required>
-			  <span class="guide ok">이 아이디는 사용 가능합니다.</span>
-			  <span class="guide error">이 아이디는 사용할 수 없습니다.</span>
-			  <input type="hidden" id="idValid" value="0" />
+			  <input type="text" class="form-control" id="memberId" name="memberId" 
+			  		 value="<sec:authentication property="principal.username"/>" readonly>
 			</div>
 			<div class="form-group">
-			  <label class="col-form-label" for="password">비밀번호</label>
-			  <input type="password" class="form-control" id="password" name="password" required>
-			</div>
-			<div class="form-group">
-			  <label class="col-form-label" for="passwordChk">비밀번호 확인</label>
-			  <input type="password" class="form-control" id="passwordChk" name="passwordChk" required>
+			  <p>비밀번호</p>
+			  <button type="button" class="btn btn-primary"
+			  		  onclick="location.href='${pageContext.request.contextPath }/member/updatePasswordForm.do'">
+			    비밀번호 변경하기		  
+			  </button>
 			</div>
 			
 			<div class="form-group">
 			  <label class="col-form-label" for="name">이름</label>
-			  <input type="text" class="form-control" id="name" name="name" required>
+			  <input type="text" class="form-control" id="name" name="name" 
+			  		 value="<sec:authentication property="principal.name"/>" required>
 			</div>
 			<div class="form-group">
 			  <label class="col-form-label" for="email">이메일</label>
-			  <input type="email" class="form-control" id="email" name="email" required>
+			  <input type="email" class="form-control" id="email" name="email" 
+			  		 value="<sec:authentication property="principal.email"/>" required>
 			</div>
 			<div class="form-group">
 			  <label class="col-form-label" for="phone">전화번호</label>
-			  <input type="tel" class="form-control" id="phone" name="phone" required>
+			  <input type="tel" class="form-control" id="phone" name="phone" 
+			  		 value="<sec:authentication property="principal.phone"/>" required>
 			</div>
-			<div class="form-group">
+			<%-- <div class="form-group">
 				<label for="sample4_datailAddress">주소</label>
 				<div class="align-middle">
-					<input class="form-control d-inline-block" style="width:40%;" type="text" id="sample4_postcode" name="postCode" placeholder="우편번호" readonly>
+					<input class="form-control d-inline-block" style="width:40%;" type="text" id="sample4_postcode" name="postCode"
+						   value="${loginMember.postCode }" readonly>
 					<input type="button" class="d-inline-block mx-3 btn btn-outline-primary" style="width:30%;" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				</div>
-				<input class="form-control my-1" type="text" id="sample4_roadAddress" name="addr" placeholder="도로명주소" readonly>
+				<input class="form-control my-1" type="text" id="sample4_roadAddress" name="addr" 
+					   value="${loginMember.addr }" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
-				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDatail" placeholder="상세주소">
-			</div>
+				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail"
+					   placeholder="${loginMember.addrDetail==null? '상세주소':''}"
+					   value="${ loginMember.addrDetail }">
+			</div> --%>
 			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="가입"/>
+				<input type="submit" class="btn btn-primary" value="수정"/>
+			</div>
+				<hr />				
+			<%-- <button type="button" 
+						class="btn btn-outline-primary"
+						onclick="memberWithdraw('${ loginMember.memberId }')">회원 탈퇴</button> --%>
+			<div style="float: right;">
+				
 			</div>
 		</div>
-	</form:form>
+	</form>
 	
 	
 </div>
 
+<%-- <form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
+	  id="memberWithdrawFrm" 
+	  method="POST">
+	<input type="hidden" name="memberId" />
+</form> --%>
+
 <script>
-$("#memberId").keyup(function(){
-
-	// 중복 검사 후 아이디 재작성하는 경우
-	if(/^\w{4,}$/.test($(this).val()) == false){
-		$(".guide").hide();
-		$("#idValid").val(0);
+/**
+ * POST 요청 처리할 것
+ **/
+/* function memberWithdraw(memberId){
+	if(confirm("정말 탈퇴하시겠습니까?") == false)
 		return;
-	}
+	var $frm = $("#memberWithdrawFrm");
+	$frm.find("[name=memberId]").val(memberId);
+	$frm.submit();
 	
-	$.ajax({
-		url : "${ pageContext.request.contextPath }/member/checkIdDuplicate1.do",
-		data :	{
-				memberId : $(this).val()
-			},
-			dataType : "json",
-			success : function(data){
-				console.log(data);
-
-				if(data.isUsable == true) {
-					$(".guide.error").hide();
-					$(".guide.ok").show();
-					$("#idValid").val(1);	
-				}
-				else {
-					$(".guide.error").show();
-					$(".guide.ok").hide();
-					$("#idValid").val(0);	
-				}
-				
-					
-			},
-			error : function(xhr, status, err){
-				console.log("처리실패", xhr, status, err);
-			}
-	});
-});
-
-$("#passwordChk").blur(function(){
-	var $p1 = $("#password"), $p2 = $("#passwordChk");
-	if($p1.val() != $p2.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		$p1.focus();
-	}
-});
-
-
-$("#memberEnrollFrm").submit(function(){
-	var $memberId = $("#memberId");
-	if(/^\w{4,}$/.test($memberId.val()) == false){
-		alert("아이디는 최소 4자리이상이어야 합니다.");
-		$memberId.focus();
-		return false;
-	}
-
-	//중복검사
-	var $idValid = $("#idValid");
-	if($idValid.val() == 0){
-		alert("아이디 중복검사를 해주세요.");
-		return false;
-	}
-
-	var $address = $("#sample4_postcode");
-	if($address.val().trim().length == 0){
-		alert("주소를 입력해주세요.");
-		return false;
-	}
-
-	return true;
-});
-
+} */
 
 </script>
 
+<script>
+/* 선택 안 한 라디오 버튼 비활성화 */
+$(':radio:not(:checked)').attr('disabled', true);
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
    
