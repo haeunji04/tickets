@@ -22,6 +22,7 @@
 		<intercept-url pattern="/performance/adminRecommendedList" access="hasRole('ADMIN')"/>
 		<intercept-url pattern="/member/**" access="permitAll"/>
 		<intercept-url pattern="/performance/**" access="permitAll"/>
+		<intercept-url pattern="/list/**" access="permitAll"/>
 		
 		
 	
