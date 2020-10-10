@@ -2,6 +2,7 @@ package com.kh.tickets.performance.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -313,9 +314,9 @@ public class PerformanceController {
 	
 	@GetMapping("/company/companyPerList.do")
 	public ModelAndView companyPerList(ModelAndView mav,
-									  @ModelAttribute("loginMember") Member loginMember) {
-		log.debug("loginMember = {}", loginMember);		
-		String memberId = loginMember.getMemberId();
+										Principal principal) {
+		log.debug("Principal = {}", principal);		
+		String memberId = principal.getName();
 		log.debug("memberId@@ = {}", memberId);
 		List<Performance> list = performanceService.companyPerList(memberId);
 		log.debug("list@controller = {}", list);

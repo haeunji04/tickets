@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -72,7 +74,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
+	<form:form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
 		<div class="mx-auto">
 		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>		    
 		    <br /><br />
@@ -142,7 +144,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				
 			</div>
 		</div>
-	</form>
+	</form:form>
 	
 	
 </div>

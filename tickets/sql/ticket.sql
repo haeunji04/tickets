@@ -125,6 +125,13 @@ values(
     'admin',
     'ROLE_ADMIN'
 );
+
+insert into 
+    auth
+values(
+    'company1',
+    'ROLE_COMPANY'
+);
    
 select 
     *
@@ -484,7 +491,9 @@ values(
 --    join theater t
 --        on p.theater_no = t.no;
 
---delete wishlist where per_no =24;
+--delete member where member_id ='popo';
+--select * from member;
+--commit;
 
 --select * from performance order by per_register_date desc;
 --update performance set per_display='Y' where per_no=22;
