@@ -364,7 +364,7 @@ public class MemberController {
 		@RequestMapping("/member/memberUpdate.do")
 		public ModelAndView memberUpdate(ModelAndView mav,
 								   		 Member member, 
-								   		HttpServletRequest request) {
+								   		HttpServletRequest request, RedirectAttributes redirectAttr) {
 			log.debug("updateMember = {}", member);
 			
 			int result = memberService.updateMember(member);
@@ -374,15 +374,16 @@ public class MemberController {
 				msg = "회원 정보 수정 성공!";
 				Member updateMember = memberService.selectOneMember(member.getMemberId());
 				mav.addObject("loginMember", updateMember);
+				
 			}	
 			else {
 				msg = "회원정보 수정 실패";
 			}
 			
-			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
-			flashMap.put("msg", msg);
+//			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
+//			flashMap.put("msg", msg);
 			
-			
+			mav.addObject("msg", msg);
 			mav.setViewName("member/memberDetail");
 			return mav;
 		}
