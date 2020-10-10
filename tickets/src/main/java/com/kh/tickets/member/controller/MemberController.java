@@ -5,7 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -429,6 +437,243 @@ public class MemberController {
 			mav.addObject("keyword", keyword);
 			mav.addObject("totalContents", totalContents);
 			mav.setViewName("member/memberList");
+			
+			return mav;
+		}
+		
+		@RequestMapping("/member/searchIdFrm")
+		public String searchIdFrm() {
+			return "member/memberSearchId";
+		}
+		
+		@PostMapping("/member/findId.do")
+		public ModelAndView findId(ModelAndView mav,
+								   @RequestParam("memberName") String memberName,
+								   @RequestParam("memberEmail") String memberEmail) {
+		
+			log.debug("memberName = {}", memberName);
+			log.debug("memberEmail = {}", memberEmail);
+			
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberName", memberName);
+			param.put("memberEmail", memberEmail);
+			
+			Member m = memberService.findId(param);
+					
+			if(m != null) {
+		        char[] charArr = new char[m.getMemberId().length()];
+		        
+		        for(int i=0; i<charArr.length; i++){
+		            charArr[i] = m.getMemberId().charAt(i);
+		        }
+		        
+		        for(int i=2; i<charArr.length; i++){
+		            charArr[i] = '*';
+		        }
+
+		        String encryptedId = new String(charArr);
+		        log.debug("encryptedId = {}", encryptedId);
+		        
+		        String result = sendEmail(m, 1);
+		        
+		        mav.addObject("encryptedId", encryptedId);
+		        mav.setViewName("member/memberIdResult");
+			} else {
+				mav.addObject("msg", "입력하신 정보와 일치하는 회원이 없습니다.");
+				mav.setViewName("member/memberSearchId");
+			}
+
+			return mav;
+		}
+		
+		@RequestMapping("/member/searchPwdFrm")
+		public String searchPwdFrm() {
+			return "member/memberSearchPwd";
+		}
+		
+		@PostMapping("/member/findPwd.do")
+		public String findPwd(HttpServletRequest request,
+							  		RedirectAttributes redirectAttr,
+							  		@RequestParam("memberId") String memberId,
+									@RequestParam("memberName") String memberName,
+									@RequestParam("memberEmail") String memberEmail) {
+			
+			Map<String, Object> param = new HashMap<>();
+			
+			param.put("memberId", memberId);
+			param.put("memberName", memberName);
+			param.put("memberEmail", memberEmail);
+			
+			Member m = memberService.findPwd(param);
+			
+			String loc = "";
+			
+			if(m != null) {
+				//log.debug("Member : {}", m);
+				
+				//이메일 보내기
+				String key = sendEmail(m, 2);
+				log.debug("key = {}", key);
+				
+				HttpSession saveKeySession = request.getSession();
+				saveKeySession.setAttribute("key", key);
+				
+				redirectAttr.addFlashAttribute("member", m);
+				
+				loc = "/member/findPwdResult.do";
+			} else {
+				redirectAttr.addFlashAttribute("msg", "입력하신 정보와 일치하는 회원이 없습니다.");
+				loc = "/member/searchPwdFrm";
+			}
+			
+			return "redirect:"+loc;
+		}
+		
+		@RequestMapping("/member/findPwdResult.do")
+		public String findPwdResult() {
+			return "member/memberPwdResult";
+		}
+		
+		
+		// 인증번호 생성, 이메일 보내기
+		public String sendEmail(Member m, int num) {
+			// 인증코드
+			String key = "";
+
+			//mail server 설정
+			String host = "smtp.gmail.com";
+			String user = "ticket.ticats.a";
+			String password = "ticats!a12";
+			
+			//메일 받을 주소
+			String to_email = m.getEmail();
+			
+			//SMTP 서버 정보 설정
+			Properties prop = new Properties();
+			prop.put("mail.smtp.host", host);
+			prop.put("mail.smtp.port", 465);
+			prop.put("mail.smtp.auth", "true");
+			prop.put("mail.smtp.ssl.enable", "true");
+			
+			Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(user, password);
+				}
+			});
+			
+			try {
+				MimeMessage msg = new MimeMessage(session);
+				msg.setFrom(new InternetAddress(user, "Ticats"));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
+				
+				String mailSubject = "";
+				String mailMsg1 = "";
+				String mailMsg2 = "";
+				String mailMsg3 = "";
+				
+				// num == 1 : 아이디 메일 보내기
+				if(num == 1) {
+					mailSubject = "고객님의 아이디를 알려드립니다.";
+					mailMsg1 = "아이디를 잊으셨나요?";
+					mailMsg2 = "회원님의 아이디를 알려드립니다.";
+					mailMsg3 = m.getMemberId();
+					
+				} else {
+				// num == 2 : 비밀번호 인증번호 보내기
+					
+					//인증 번호 생성
+					Random rnd = new Random();
+					
+					for(int i=0; i<6; i++) {
+						
+						String rndNum = Integer.toString(rnd.nextInt(10));
+						key += rndNum;
+					}
+					log.debug("key = {}", key);
+					
+					mailSubject = "비밀번호 변경 인증번호 메일입니다.";
+					mailMsg1 = "비밀번호를 잊으셨나요?";
+					mailMsg2 = "아래의 인증번호를 입력해주세요.";
+					mailMsg3 = key;
+				}
+				
+
+				//메일 제목
+				msg.setSubject("Ticats - "+mailSubject);
+				
+				//메일 내용
+				msg.setHeader("content-type", "text/html; charset=utf-8");
+				msg.setContent("<div style=\"background: #F7F8F9; margin: 0; padding: 15px; cursor: default; letter-spacing: -.03em; font-family: 'Apple SD Gothic Neo', Helvetica, arial, '나눔고딕', 'Nanum Gothic', '돋움', Dotum, Tahoma, Geneva, sans-serif;\">\r\n" + 
+						"    <table cellspacing=\"0\" cellpadding=\"0\" style=\"max-width: 680px; width: 100%; margin: 0 auto; border-collapse: collapse;\">\r\n" + 
+						"      <tbody><tr><td style=\"padding: 0 0 16px 0; vertical-align: top;\">\r\n" + 
+						"            <span>티캣츠</span>          </td><td style=\"text-align: right; padding: 10px 0 0 0; vertical-align: top; color: #626d75;\">\r\n" + 
+						"          </td></tr><tr><td colspan=\"2\" style=\"padding: 40px 10px; background: white; border: 1px solid #E5E8EB;\">\r\n" + 
+						"            <div style=\"max-width: 490px; width: 100%; margin: 0 auto; font-size: 13px; color: #373a3c; line-height: 1.8em;\">\r\n" + 
+						"                <h1 style=\"padding: 10px 0 35px 0; margin: 0 0 35px 0; font-size: 28px; font-weight: 600; color: #2b2f33; text-align: center; line-height: 1.4em; border-bottom: 1px solid #e5e8eb;\">\r\n" + 
+						"    "+mailMsg1+"\r\n" + 
+						"  </h1>\r\n" + 
+						"  <p style=\"font-size: 13px; color: #373a3c; line-height: 1.8em; margin: 10px 0 0 0; padding: 0; text-align: center;\">\r\n" + 
+						"    <strong style=\"font-size: 16px;\">"+m.getName()+"회원님, 안녕하세요!</strong><br>\r\n" + 
+						"    "+mailMsg2+"\r\n" + 
+						"  </p>\r\n" + 
+						"  <ul style=\"background: #f8fafb; border: 1px solid #e5e8eb; text-align: center; padding: 20px 0 32px 0; margin: 20px 0;\">"+
+						"<li style=\"margin: 12px 0 0 0; padding: 0; font-size: 18px; font-weight: 600; color: #373a3c; text-align: center; list-style: none;\">"+
+						mailMsg3+"</li></ul>\r\n" + 
+						"  <p style=\"font-size: 13px; color: #373a3c; line-height: 1.8em; margin: 10px 0 0 0; padding: 0; text-align: center;\">\r\n" + 
+						"    <strong style=\"font-size: 16px;\">\r\n" + 
+						"      항상 티캣츠를 사랑해주시는 고객님께 감사드리며,<br>\r\n" + 
+						"      보다 나은 티캣츠가 되기 위해 최선을 다하겠습니다.\r\n" + 
+						"    </strong>\r\n" + 
+						"  </p>\r\n" + 
+						"  <p style=\"font-size: 13px; color: #373a3c; line-height: 1.8em; margin: 10px 0 0 0; padding: 0; text-align: center;\">\r\n" + 
+						"    <strong style=\"font-size: 16px; color: #1f8ee6;\">\r\n" + 
+						"      티캣츠 드림 <img src=\"https://store.ridicdn.net/books/dist/images/dm_template/global/smile.png\" alt=\":-)\" style=\"border: none; width: 16px; vertical-align: top; margin-top: 2px;\">\r\n" + 
+						"    </strong>\r\n" + 
+						"  </p>\r\n" + 
+						"            </div>\r\n" + 
+						"          </td></tr><tr><td colspan=\"2\" style=\"text-align: left; padding: 29px 0 50px 0;\">\r\n" + 
+						"            <p style=\"padding: 14px 0 0; margin: 0; line-height: 1.8em; color: #808991; font-size: 11px;\">\r\n" + 
+						"              서울시 강남구 역삼동 702-28 어반벤치빌딩 10층(테헤란로 325)<br>\r\n" + 
+						"              리디(주) 대표 배기식 사업자등록번호 120-87-27435 통신판매업신고 제 2009-서울강남 35-02139호 | <a href=\"https://email.ridibooks.com/c/eJxVjUsOgyAUAE8jO8njI-KChSblGg3yiS9FMUra65d012RWs5gJxoFcNUHDgQMDmJgeFABlVD9gEkzCsoAFa4dOwoUB11JeN_VlJ5vxbtTRS-WdEk5FLtdxSCxJH5jQfowkm63W8-7E3HHb2GI-6V-lSXKZsN-f_JRtcbh3vH75ahIeocfQx91h7pvHhN5VLMcXlVc4hQ\" target=\"_blank\" style=\"display: inline-block; text-decoration: none; color: inherit;\" rel=\"noreferrer noopener\">고객센터</a>\r\n" + 
+						"            </p>\r\n" + 
+						"            <p style=\"padding: 8px 0 0; margin: 0; color: #808991; font-size: 14px; font-family: Tahoma, helvetica; \">Ticats Corp.</p>\r\n" + 
+						"          </td></tr></tbody>\r\n" + 
+						"    </table>\r\n" + 
+						"  </div>", "text/html;charset=euc-kr");
+
+				Transport.send(msg);
+				log.debug("이메일 전송 완료!");
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return key;
+		}
+		
+		
+		@PostMapping("/member/updatePwd.do")
+		public ModelAndView updatePwd(@RequestParam("memberId") String memberId,
+									  @RequestParam("password") String password,
+									  ModelAndView mav) {
+
+			String encryptPassword = bcryptPasswordEncoder.encode(password);
+			log.debug("encryptPassword = {}", encryptPassword);
+
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberId", memberId);
+			param.put("password", encryptPassword);
+			
+			int result = memberService.updatePwd(param);
+			log.debug("result = {}", result);
+			
+			if(result>0) {
+				mav.addObject("msg", "비밀번호가 변경되었습니다.");
+				mav.setViewName("../../index");
+			} else {
+				mav.addObject("msg", "비밀번호 변경에 실패했습니다.");
+				mav.setViewName("member/memberSearchPwd");
+			}
 			
 			return mav;
 		}
