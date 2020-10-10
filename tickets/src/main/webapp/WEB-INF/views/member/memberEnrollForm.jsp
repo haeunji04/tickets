@@ -125,7 +125,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				</div>
 				<input class="form-control my-1" type="text" id="sample4_roadAddress" name="addr" placeholder="도로명주소" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
-				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDatail" placeholder="상세주소">
+				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail" placeholder="상세주소">
 			</div>
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary" value="가입"/>
