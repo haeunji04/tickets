@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 
 @Repository
@@ -91,6 +92,11 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int updatePwd(Map<String, Object> param) {
 		return sqlSession.update("member.updatePwd", param);
+	}
+
+	@Override
+	public int authEnroll(Auth auth) {
+		return sqlSession.insert("member.authEnroll", auth);
 	}
 	
 	

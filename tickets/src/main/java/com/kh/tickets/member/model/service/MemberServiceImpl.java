@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.member.model.dao.MemberDAO;
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 
 @Service
@@ -91,5 +92,12 @@ public class MemberServiceImpl implements MemberService {
 	public int updatePwd(Map<String, Object> param) {
 		return memberDAO.updatePwd(param);
 	}
+
+	@Override
+	public int authEnroll(Auth auth) {
+		return memberDAO.authEnroll(auth);
+	}
+
+	
 	
 }

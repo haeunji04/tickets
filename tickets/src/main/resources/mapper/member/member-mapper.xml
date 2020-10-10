@@ -16,10 +16,19 @@
 			#{ addr },
 			#{ addrDetail },
 			#{ postCode },
-			#{ memberRole },
+			default,
 			default,
 			default,
 			default
+		)
+	</insert>
+	
+	<insert id="authEnroll">
+		insert into
+			auth
+		values (
+			#{ memberId },
+			#{ authority }
 		)
 	</insert>
 	

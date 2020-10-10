@@ -1,7 +1,6 @@
 package com.kh.tickets.member.controller;
 
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,9 +37,9 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
-import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 
 
 
@@ -99,7 +97,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/memberEnroll.do",
 					method=RequestMethod.POST)
-	public String memberEnroll(Member member,
+	public String memberEnroll(Member member, Auth auth,
 								RedirectAttributes redirectAttr) {
 		
 		String rawPassword = member.getPassword();
@@ -110,13 +108,18 @@ public class MemberController {
 		log.debug("rawPassword = {}", rawPassword);
 		log.debug("encryptPassword = {}", encryptPassword);
 		log.debug("Member = {}", member);
+		log.debug("Auth = {}", auth);
 		
 		// 1. 로직 실행
 		int result = memberService.memberEnroll(member);
 		log.debug("result = {}", result);
 		
+		int result2 = memberService.authEnroll(auth);
+		
+		int sumResult = result + result2; 
+		
 		// 2. 사용자 알림
-		redirectAttr.addFlashAttribute("msg", result > 0? "회원가입 성공!" : "회원가입 실패");
+		redirectAttr.addFlashAttribute("msg", sumResult > 1? "회원가입 성공!" : "회원가입 실패");
 		
 		return "redirect:/";
 	}

@@ -71,6 +71,12 @@ div#memberId-container span.ok{color:green; font-weight:bold;}
 div#memberId-container span.error{color:red; font-weight:bold;}
 </style>
 
+<h4>principal 테스트 확인용</h4>
+${ loginMember }
+<hr />
+${ loginMember.principal }
+<hr />
+${ loginMember.principal.addrDetail }
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
@@ -119,20 +125,20 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			  <input type="tel" class="form-control" id="phone" name="phone" 
 			  		 value="<sec:authentication property="principal.phone"/>" required>
 			</div>
-			<%-- <div class="form-group">
+			<div class="form-group">
 				<label for="sample4_datailAddress">주소</label>
 				<div class="align-middle">
 					<input class="form-control d-inline-block" style="width:40%;" type="text" id="sample4_postcode" name="postCode"
-						   value="${loginMember.postCode }" readonly>
+						   value="<sec:authentication property="principal.postCode"/>" readonly>
 					<input type="button" class="d-inline-block mx-3 btn btn-outline-primary" style="width:30%;" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				</div>
 				<input class="form-control my-1" type="text" id="sample4_roadAddress" name="addr" 
-					   value="${loginMember.addr }" readonly>
+					   value="<sec:authentication property="principal.addr"/>" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail"
-					   placeholder="${loginMember.addrDetail==null? '상세주소':''}"
-					   value="${ loginMember.addrDetail }">
-			</div> --%>
+					   placeholder="${loginMember.principal.addrDetail==null? '상세주소':''}"
+					   value="<sec:authentication property="principal.addrDetail"/>">
+			</div>
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary" value="수정"/>
 			</div>
