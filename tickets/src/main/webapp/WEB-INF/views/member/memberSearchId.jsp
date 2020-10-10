@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -124,7 +126,7 @@ function validate(){
 		
 		<section id="content" class="mx-auto border p-5 text-center" style="width:45%; background-color:white;" >
 				<p>회원정보에 등록된 이메일과 입력하신 이메일이 같아야 <br />전체 아이디를 받으실 수 있습니다.</p>
-			<form action="${ pageContext.request.contextPath }/member/findId.do" method="POST" id="findIdFrm">
+			<form:form action="${ pageContext.request.contextPath }/member/findId.do" method="POST" id="findIdFrm">
 				<table class="mt-5 mx-auto">
 				<tr>
 					<th>이름</th>
@@ -145,7 +147,7 @@ function validate(){
 				</table>
 				<br />
 				<input type="submit" class="btn btn-primary" onclick="return validate();" value="다음 단계" />
-			</form>
+			</form:form>
 		</section>
 		
 		

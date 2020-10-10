@@ -103,6 +103,9 @@ public class MemberController {
 		String rawPassword = member.getPassword();
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		
+		String addrDe = member.getAddrDetail();
+		log.debug("addrDe = {}", addrDe);
+		
 		member.setPassword(encryptPassword);
 		
 		log.debug("rawPassword = {}", rawPassword);
@@ -196,13 +199,13 @@ public class MemberController {
 	public String memberWithdraw(@RequestParam String memberId, RedirectAttributes redirectAttributes,
 								SessionStatus sessionStatus){
 		//@SessionAttribute를 통해 등록된 객체 무효화
-		if(sessionStatus.isComplete() == false)
-			sessionStatus.setComplete();
+//		if(sessionStatus.isComplete() == false)
+//			sessionStatus.setComplete();
 		
 		int result = memberService.deleteMember(memberId);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원 탈퇴성공" : "회원 탈퇴실패");
 		
-		return "redirect:/";
+		return "redirect:/member/memberLogout.do";
 	}
 	
 //	@RequestMapping("/member/memberList.do")
@@ -299,7 +302,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/updatePasswordForm.do")
-	public ModelAndView updatePasswordForm(ModelAndView mav) {
+	public ModelAndView updatePasswordForm(ModelAndView mav, @RequestParam("memberId") String memberId) {
+		log.debug("memberId@@ = {}", memberId);
+		mav.addObject("memberId", memberId);
 		mav.setViewName("/member/updatePasswordForm");
 		return mav;
 	}
