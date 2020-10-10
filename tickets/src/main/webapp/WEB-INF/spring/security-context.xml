@@ -17,9 +17,13 @@
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/index.jsp" access="permitAll"/>
 		<intercept-url pattern="/resources/**" access="permitAll"/>	
+		
 		<intercept-url pattern="/member/memberList" access="hasRole('ADMIN')"/>
 		<intercept-url pattern="/performance/adminApprovalPerList" access="hasRole('ADMIN')"/>
 		<intercept-url pattern="/performance/adminRecommendedList" access="hasRole('ADMIN')"/>
+		
+		<intercept-url pattern="/company/**" access="hasRole('COMPANY')"/>
+		
 		<intercept-url pattern="/member/**" access="permitAll"/>
 		<intercept-url pattern="/performance/**" access="permitAll"/>
 		

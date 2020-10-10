@@ -22,11 +22,11 @@
 		<result column="email" property="email"/>
 		<result column="phone" property="phone"/>
 		<result column="addr" property="addr"/>
-		<result column="addrDetail" property="addrDetail"/>
-		<result column="postCode" property="postCode"/>
-		<result column="memberRole" property="memberRole"/>
-		<result column="enrollDate" property="enrollDate"/>
-		<result column="quitYn" property="quitYn"/>
+		<result column="addr_detail" property="addrDetail"/>
+        <result column="post_code" property="postCode"/>
+        <result column="member_role" property="memberRole"/>
+        <result column="enroll_date" property="enrollDate"/>
+        <result column="quit_yn" property="quitYn"/>
 		<result column="enabled" property="enabled"/>
 		<collection property="authorities"
 					column="member_id" 

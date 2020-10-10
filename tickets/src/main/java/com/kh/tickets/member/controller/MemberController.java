@@ -336,30 +336,34 @@ public class MemberController {
 	 
 	 
 	
-	 	
-//		@RequestMapping("/member/memberDetail.do")
-//		public String memberDetail(ModelAndView mav,
-//								   @ModelAttribute("loginMember") Member loginMember) {
-//			log.debug("loginMember = {}", loginMember);
-//			return "member/memberDetail";
-//		}
+	 	//회원수정시도
+		@GetMapping("/member/memberDetail.do")
+		public ModelAndView memberDetail(ModelAndView mav,
+								 @RequestParam("memberId") String memberId) {
+			
+			Member member = memberService.selectOneMember(memberId);
+			log.debug("member = {}", member);
+			mav.addObject("loginMember", member);
+			mav.setViewName("member/memberDetail");
+			return mav;
+		}
 	 
 	 
 	 	//security 관련
-	 	@RequestMapping("member/memberDetail.do")
-		public String memberDetail(Principal principal, Model model) {
-			log.debug("principal = {}", principal);
-			model.addAttribute("loginMember", principal);
-			
-			String userId = principal.getName();
-			log.debug("userId@@  = {}", userId );
-			
-			return "member/userDetail";
-		}
-		
+//	 	@RequestMapping("member/memberDetail.do")
+//		public String memberDetail(Principal principal, Model model) {
+//			log.debug("principal = {}", principal);
+//			model.addAttribute("loginMember", principal);
+//			
+//			String userId = principal.getName();
+//			log.debug("userId@@  = {}", userId );
+//			
+//			return "member/userDetail";
+//		}
+		//회원수정시도
 		@RequestMapping("/member/memberUpdate.do")
 		public ModelAndView memberUpdate(ModelAndView mav,
-								   		 Member member,
+								   		 Member member, 
 								   		HttpServletRequest request) {
 			log.debug("updateMember = {}", member);
 			
@@ -377,6 +381,7 @@ public class MemberController {
 			
 			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 			flashMap.put("msg", msg);
+			
 			
 			mav.setViewName("member/memberDetail");
 			return mav;
