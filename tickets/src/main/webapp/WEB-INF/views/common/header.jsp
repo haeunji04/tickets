@@ -109,7 +109,8 @@
 		
 		<div class="d-block dropdown-divider"></div>
 		<div class="m-3 text-center">
-			<a href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>
+			<a href="${pageContext.request.contextPath}?<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>
+			<%-- <a href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a> --%>
 			<form class="mx-2 d-inline-block form-inline my-3 text-center align-bottom" style="width:50%;"
 				  action="${pageContext.request.contextPath}/search"  id="search-frm">
 			    <input class="form-control mr-sm-2" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
@@ -133,22 +134,22 @@
 		  	<div class="collapse navbar-collapse" id="navbarColor01">
 		    	<ul class="navbar-nav mr-auto">
 		     		<li class="nav-item active">
-		        		<a class="nav-link" href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">memberId=${loginMember.memberId}</c:if>"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath}?<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">뮤지컬 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">뮤지컬 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">연극 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">연극 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">콘서트 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">콘서트 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">클래식 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">클래식 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">전시 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">전시 &nbsp;</a>
 		      		</li>
 		      		<%-- <c:if test="${ not empty loginMember }"> --%>
 		      		<sec:authorize access="isAuthenticated()">				
