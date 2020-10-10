@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -23,14 +26,16 @@
 		<c:if test="${ not empty list }">
 		<c:forEach items="${ list }" var="wish">
 		<div style="width: 213px" class="text-center d-inline-block p-3">
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ wish.perNo }
-						<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ wish.perNo }">
+						<%-- <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"> --%>	
+										
+						<%-- <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>"> --%>
 						<img
 						src="<c:url value='/resources/upload/performance/${ wish.perImgRenamedFileName}' />"
 						style="width: 200px" />
 					</a>
 			<h6>${ wish.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23<br />${ wish.theaterNo }</p>
+			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23</p>
 		</div>
 		</c:forEach>
 		</c:if>

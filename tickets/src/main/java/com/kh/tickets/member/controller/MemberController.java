@@ -380,11 +380,13 @@ public class MemberController {
 				msg = "회원정보 수정 실패";
 			}
 			
+
 //			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 //			flashMap.put("msg", msg);
 			
 			mav.addObject("msg", msg);
 			mav.setViewName("member/memberDetail");
+
 			return mav;
 		}
 		@GetMapping("/member/memberBookingList.do")

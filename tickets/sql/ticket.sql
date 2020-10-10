@@ -129,7 +129,7 @@ values(
 insert into 
     auth
 values(
-    'company1',
+    'company4',
     'ROLE_COMPANY'
 );
    
