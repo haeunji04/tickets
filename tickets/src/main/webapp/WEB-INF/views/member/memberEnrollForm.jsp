@@ -80,12 +80,12 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    <br /><br />
 			<div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input" value="U" checked="">
-				    <label class="custom-control-label" for="memberRole1">일반 회원</label>
+				    <input type="radio" id="authority1" name="authority" class="custom-control-input" value="ROLE_USER" checked="">
+				    <label class="custom-control-label" for="authority1">일반 회원</label>
 				 </div>
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole2" name="memberRole" class="custom-control-input" value="C">
-				    <label class="custom-control-label" for="memberRole2">기획사</label>
+				    <input type="radio" id="authority2" name="authority" class="custom-control-input" value="ROLE_COMPANY">
+				    <label class="custom-control-label" for="authority2">기획사</label>
 				 </div>
 			</div>
 	

@@ -3,6 +3,7 @@ package com.kh.tickets.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 
 public interface MemberDAO {
@@ -34,4 +35,6 @@ public interface MemberDAO {
 	Member findPwd(Map<String, Object> param);
 
 	int updatePwd(Map<String, Object> param);
+
+	int authEnroll(Auth auth);
 }
