@@ -28,4 +28,10 @@ public interface MemberService {
 	int totalSearchMemberList(Map<String, Object> map);
 
 	List<Member> selectMemberList(Map<String, Object> map);
+
+	Member findId(Map<String, Object> param);
+
+	Member findPwd(Map<String, Object> param);
+
+	int updatePwd(Map<String, Object> param);
 }

@@ -78,5 +78,20 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("member.selectMemberList", map);
 	}
 	
+	@Override
+	public Member findId(Map<String, Object> param) {
+		return sqlSession.selectOne("member.findId", param);
+	}
+
+	@Override
+	public Member findPwd(Map<String, Object> param) {
+		return sqlSession.selectOne("member.findPwd", param);
+	}
+
+	@Override
+	public int updatePwd(Map<String, Object> param) {
+		return sqlSession.update("member.updatePwd", param);
+	}
+	
 	
 }

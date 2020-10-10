@@ -141,4 +141,37 @@
 		where rnum between #{ start } and #{ end }	
 	</select>
 	
+	<select id="findId" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		where
+				name = #{ memberName }
+			and
+				email = #{ memberEmail }
+	</select>
+	
+	<select id="findPwd" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		where
+				member_id = #{ memberId }
+			and
+				name = #{ memberName }
+			and
+				email = #{ memberEmail }
+	</select>
+	
+	<update id="updatePwd">
+		update
+			member
+		set
+			password = #{ password }
+		where 
+			member_id = #{ memberId }
+	</update>
+	
 </mapper>

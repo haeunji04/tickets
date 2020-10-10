@@ -113,8 +113,8 @@
 			<%-- <a href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a> --%>
 			<form class="mx-2 d-inline-block form-inline my-3 text-center align-bottom" style="width:50%;"
 				  action="${pageContext.request.contextPath}/search"  id="search-frm">
-			    <input class="form-control mr-sm-2" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
-			    <button class="btn btn-primary" type="submit">						  		 
+			    <input class="form-control mr-sm-2 rounded-pill" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
+			    <button class="btn btn-primary rounded-pill" type="submit">						  		 
 			    	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 					<path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
