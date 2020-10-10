@@ -63,13 +63,18 @@ public class PerformanceController {
 
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav, 
-										@RequestParam(value="memberId",required=false) String memberId,
+										@RequestParam(value="Principal", required=false) Principal principal,
 										@RequestParam("category") String category,
 										HttpServletRequest request
 							  			) {
 		log.debug("category = {}", category);
+		List<MyRecentlyPerList> rList = null;
 		
-		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		if(principal != null) {
+			log.debug("principal = {}", principal.getName());
+			rList = performanceService.recentlyPerList(principal.getName());
+			
+		}
 		
 		//1.사용자 입력값 
 //		final int limit = 10;
@@ -527,12 +532,13 @@ public class PerformanceController {
 	
 	@GetMapping("/performance/performanceInfoView2.do")
 	public ModelAndView performanceInfoView2(ModelAndView mav, @RequestParam int perNo,
-											@RequestParam(value="memberId",required=false) String memberId) {
+											Principal principal) {
 		
 		log.debug("perNo@@ = {}", perNo);
 		PerJoin performance = performanceService.selectOnePerJoin(perNo);
-		log.debug("loginMember={}",memberId);
-		if(memberId!=null) {
+		//log.debug("loginMember={}", principal.getName());
+		if(principal != null) {
+			String memberId = principal.getName();
 			
 		log.debug("memberId@@ = {}", memberId);
 		
@@ -541,7 +547,8 @@ public class PerformanceController {
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
 		
-		
+		mav.addObject("list", list);		
+		mav.addObject("memberId", memberId);
 		//내 최근공연목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
 		MyRecentlyPerList[] arr = rList.toArray(new MyRecentlyPerList[rList.size()]);
@@ -568,7 +575,6 @@ public class PerformanceController {
 		int result = performanceService.recentlyPerListInsert(recentlyPerList);		
 		log.debug("recentlyPerListInsert@controller = {}", result);
 		
-		mav.addObject("list", list);		
 		}
 		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
 		int commntListSize = commentList.size();
@@ -658,17 +664,19 @@ public class PerformanceController {
 	
 	@PostMapping("/performance/wishListInsert.do")
 	public ModelAndView wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,
-			 						   @ModelAttribute("loginMember") Member loginMember, ModelAndView mav){
+			 						   Principal principal, ModelAndView mav){
+		
+		log.debug("Principal.name={}", principal.getName());
 		
 		WishList wishList = new WishList();
-		wishList.setMemberId(loginMember.getMemberId());
+		wishList.setMemberId(principal.getName());
 		wishList.setPerNo(perNo);		
 		
 		int result = performanceService.wishListInsert(wishList);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜하기 성공" : "찜하기 실패");
 		
-			
-		String memberId = loginMember.getMemberId();
+		
+		String memberId = principal.getName();
 		
 		mav.addObject("memberId", memberId);		
 		mav.addObject("perNo", perNo);		
@@ -678,14 +686,14 @@ public class PerformanceController {
 	
 	@PostMapping("/performance/wishListDelete.do")
 	public ModelAndView wishListDelete(@RequestParam int perNo, RedirectAttributes redirectAttributes,
-			@ModelAttribute("loginMember") Member loginMember, ModelAndView mav){
+										Principal principal, ModelAndView mav){
 		
 		WishList wishList = new WishList();
-		wishList.setMemberId(loginMember.getMemberId());
+		wishList.setMemberId(principal.getName());
 		wishList.setPerNo(perNo);		
 		
 		int result = performanceService.wishListDelete(wishList);
-		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜 해체하기 성공" : "찜 해제하기 실패");
+		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜 해제하기 성공" : "찜 해제하기 실패");
 		
 		
 		mav.addObject("perNo", perNo);		
@@ -696,9 +704,9 @@ public class PerformanceController {
 //	/performance/wishListView.do
 	@GetMapping("/performance/wishListView.do")
 	public ModelAndView wishListView(ModelAndView mav,
-									  @ModelAttribute("loginMember") Member loginMember) {
-		log.debug("loginMember = {}", loginMember);		
-		String memberId = loginMember.getMemberId();
+									 Principal principal) {
+		log.debug("loginMember = {}", principal);		
+		String memberId = principal.getName();  //getMemberId();
 		log.debug("memberId@@ = {}", memberId);
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
