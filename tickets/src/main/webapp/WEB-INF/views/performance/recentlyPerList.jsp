@@ -35,7 +35,7 @@
 	<tr>		
 		<td>
 		<!-- 상세페이지에서 memberId불러올떄 -->
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						style="width: 100px" />

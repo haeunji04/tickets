@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 <!doctype html>
@@ -40,12 +43,12 @@
 <body>
 	<div class="text-center">
 		<h3 class="mt-3">공연장 검색</h3>
-		<form id="searchHallFrm" class="form-group">
+		<form:form id="searchHallFrm" class="form-group">
 			<input type="text" class="form-control mx-auto my-2 d-inline" id="searchHallKeyword"
 				   style="width:50%;" name="searchHallKeyword" placeholder="공연장 이름 검색"/>
 			<input type="button" id="btn-searchHall"
 				   class="btn btn-primary mt-0" value="검색" />
-		</form>
+		</form:form>
 
 	</div>
 <div class="result mx-3" id="hall-result"></div>
@@ -56,7 +59,10 @@
 		var $frm = $("#searchHallFrm");
 
 		var keyword = $frm.find("[name=searchHallKeyword]").val();
-
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+			});
+		
 		$.ajax({
 			url : "${ pageContext.request.contextPath }/searchHall/" + keyword,
 			dataType: "json",
