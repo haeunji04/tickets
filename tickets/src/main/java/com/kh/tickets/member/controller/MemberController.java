@@ -151,7 +151,7 @@ public class MemberController {
 //		model.addAttribute("loginMember", member);			
 //		model.addAttribute("rList", rList);
 		  
-		String location = "/";
+		String location = "";
 		// 로그인 성공
 		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
 			// 세션처리
@@ -167,11 +167,11 @@ public class MemberController {
 		}
 		// 로그인 실패
 		else {
-			redirectAttr.addFlashAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 		}			
 
-		redirectAttr.addFlashAttribute("memberId", memberId);	
-		return "redirect:" + location;
+		model.addAttribute("memberId", memberId);	
+		return "redirect:/" + location;
 	}
 	
 	//Security 관련

@@ -18,6 +18,20 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<!-- bootstrap css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" />	
+
+<style>
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+            
+*{
+	font-family: 'S-CoreDream-3Light' !important;
+	font-size: 17px;
+}
+</style>
 <script>
 $(function(){
 	$("#loginModal").modal()
@@ -26,6 +40,11 @@ $(function(){
 					});
 });
 
+<%-- RedirectAttributes에 등록된 msg값 존재여부 확인 후 출력 --%>
+<c:if test="${ not empty msg }">
+	alert('${ msg }');
+	console.log('${ msg }');
+</c:if>
 
 </script>
 
@@ -84,7 +103,7 @@ $(function(){
 								      
 				<div class="modal-footer">
 				<button type="submit" class="btn btn-primary">로그인</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">취소</button>
 				</div>
 				</form:form>
 			</div>

@@ -27,11 +27,9 @@
 		<intercept-url pattern="/member/**" access="permitAll"/>
 		<intercept-url pattern="/performance/**" access="permitAll"/>
 		<intercept-url pattern="/list/**" access="permitAll"/>
-		
-		
+		<intercept-url pattern="/search/**" access="permitAll"/>
 	
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
-		
 		
 		<!-- login-processing-url : 로그인폼 제출 url. 핸들러메소드 필요 없음. -->
 		<!-- authentication-success-forward-url : 인증 성공후 처리과정 작성. 쿠키관련 처리-->
