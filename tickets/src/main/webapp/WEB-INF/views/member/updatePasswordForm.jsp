@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -41,8 +43,8 @@ function passwordValidate(){
                     <table class="table table-hover">
                      
                         <tbody>
-                            <form name="updatePasswordFrm" action="${pageContext.request.contextPath }/member/updatePassword.do" method="post" encType="multiplart/form-data ">
-                                <input type="hidden" name="memberId" value="<sec:authentication property="principal.username"/>" /> 
+                            <form:form name="updatePasswordFrm" action="${pageContext.request.contextPath }/member/updatePassword.do" method="post" encType="multiplart/form-data ">
+                                <input type="hidden" name="memberId" value="${ memberId  }" /> 
                                 <tr class="text_pwd">
                                     <td class="#" rowspan="4" style="vertical-align: middle;">
                                         	<h4>비밀번호 변경</h4>
@@ -83,7 +85,7 @@ function passwordValidate(){
                                     </div>
                                     </td>
                                 </tr>
-                            </form>
+                            </form:form>
                         </tbody>
                     </table>
                     </div>

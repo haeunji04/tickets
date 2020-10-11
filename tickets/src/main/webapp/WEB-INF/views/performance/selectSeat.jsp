@@ -151,7 +151,7 @@ span.seatCharts-legendDescription {
 </head>
 <body>
 	<div class="fixed-top" style="height:50px;padding:10px 50px 50px 50px;background-color:white;">
-		<h3 style="float:left;">좌석선택 : 캣츠<40주년> 내한공연</h3>
+		<h3 style="float:left;">좌석선택 : ${performance.perTitle }</h3>
 		<div class="select-date" style="float:left;width:250px;padding-left:50px;">
 		<select class="custom-select">
 	      <option selected="">2020.09.30 17:00</option>

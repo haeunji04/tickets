@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <!-- 한글 인코딩 처리  -->
@@ -35,7 +37,8 @@
 		<tr>		
 			<td>
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }
-												 <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
+												 <%-- <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"> --%>	
+												 <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">			
 							<img
 							src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 							style="width: 100px" />
@@ -109,7 +112,8 @@
 		<tr>		
 			<td>
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }
-															<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
+															<%-- <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if> --%>
+																											 <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">								
 							<img
 							src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
 							style="width: 100px" />
@@ -162,16 +166,16 @@
 	</c:if>
 </div> --%>
 
-<form action="${ pageContext.request.contextPath }/performance/addRecommendedPer.do" 
+<form:form action="${ pageContext.request.contextPath }/performance/addRecommendedPer.do" 
 	  id="addRecommendedPerFrm" 
 	  method="POST">
 	<input type="hidden" name="perNo" />
-</form>
-<form action="${ pageContext.request.contextPath }/performance/turnOffRecommendedPer.do" 
+</form:form>
+<form:form action="${ pageContext.request.contextPath }/performance/turnOffRecommendedPer.do" 
 	  id="turnOffRecommendedPerFrm" 
 	  method="POST">
 	<input type="hidden" name="perNo" />
-</form>
+</form:form>
 
 <script>
 /**

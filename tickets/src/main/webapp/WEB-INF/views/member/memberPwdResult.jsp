@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -147,7 +150,7 @@ function validate(){
 		
 		<section id="content" class="mx-auto border p-5 text-center" style="width:45%; background-color:white;" >
 				<p>인증번호 입력 후, 비밀번호를 변경해주세요.</p>
-			<form action="${ pageContext.request.contextPath }/member/updatePwd.do" method="POST">
+			<form:form action="${ pageContext.request.contextPath }/member/updatePwd.do" method="POST">
 				<input type="hidden" name="key" id="key" value="${ key }"/>
 				<table class="mt-5 mx-auto" id="form-table">
 				<tr>
@@ -181,7 +184,7 @@ function validate(){
 				</table>
 				<br /><br />
 						<input type="submit" class="btn btn-primary" onclick="return validate();" value="비밀번호 변경"/>
-			</form>
+			</form:form>
 		</section>
 		
 		

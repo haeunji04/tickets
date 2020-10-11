@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -25,8 +28,8 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form id="performanceRegisterFrm" 
-		  action="${pageContext.request.contextPath }/performance/performanceRegister.do" 
+	<form:form id="performanceRegisterFrm" 
+		  action="${pageContext.request.contextPath }/performance/performanceRegister.do?${_csrf.parameterName}=${_csrf.token}" 
 		  method="POST"
 		  enctype="multipart/form-data">
 		<div class="mx-auto">
@@ -39,7 +42,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				
 			<div class="form-group" id="memberId-container">
 			  <label class="col-form-label" for="memberId">기획사 아이디</label>
-			  <input type="text" class="form-control" id="memberId" name="memberId" value="${ loginMember.memberId }" readonly required>
+			  <input type="text" class="form-control" id="memberId" name="memberId" value="<sec:authorize access="isAuthenticated()"><sec:authentication property="principal.username"/></sec:authorize>" readonly required>
 			</div>
 						
 			<div class="form-group">
@@ -59,6 +62,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				<input type="button" class="btn btn-outline-primary" value="공연장 검색" onclick="searchHall()"/>
 				<input type="text" class="form-control" id="searchHallNo" name="searchHallNo" placeholder="공연장번호" readonly/>
 				<input type="text" class="form-control" id="searchHallName" name="searchHallName" placeholder="공연장명" readonly/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</div>		
 			
 			<div class="form-group">
@@ -139,7 +143,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				<input type="submit" class="btn btn-primary d-inline" value="다음"/>
 			</div>
 		</div>
-	</form>
+	</form:form>
 	
 	
 </div>

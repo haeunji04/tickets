@@ -99,7 +99,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			<div class="form-group">
 			  <p>비밀번호</p>
 			  <button type="button" class="btn btn-primary"
-			  		  onclick="location.href='${pageContext.request.contextPath }/member/updatePasswordForm.do'">
+			  		  onclick="location.href='${pageContext.request.contextPath }/member/updatePasswordForm.do?memberId=${loginMember.memberId}'">
 			    비밀번호 변경하기		  
 			  </button>
 			</div>
@@ -149,11 +149,11 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 	
 </div>
 
-<form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
+<form:form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
 	  id="memberWithdrawFrm" 
 	  method="POST">
 	<input type="hidden" name="memberId" />
-</form>
+</form:form>
 
 <script>
 /**
