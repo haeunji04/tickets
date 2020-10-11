@@ -34,7 +34,7 @@
 	font-size: 17px;
 }
 
-#member-menu > a{
+#member-menu > a, #logout-link{
 	font-size:14px;
 }
 </style>
@@ -74,8 +74,8 @@
 				id="frm1"
 				method="POST"
 				action="${pageContext.request.contextPath }/member/memberLogout.do">
-			<a class="text-secondary" href=# onclick="formSubmit(); return false;">로그아웃</a><span class="text-secondary">&nbsp;|</span>
 			</form:form> 
+			<a class="text-secondary" id="logout-link" href="" onclick="formSubmit(); return false;">로그아웃</a><span class="text-secondary">&nbsp;&nbsp;|&nbsp;</span>
 			</sec:authorize>
 			
 			<sec:authorize access="isAnonymous()">
