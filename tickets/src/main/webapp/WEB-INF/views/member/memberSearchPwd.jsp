@@ -133,7 +133,8 @@ function validate(){
 		</header>
 		
 		<section id="content" class="mx-auto border p-5 text-center" style="width:45%; background-color:white;" >
-				<p>회원정보에 등록된 이메일과 입력하신 이메일이 같아야 <br />임시 비밀번호를 발급 받으실 수 있습니다.</p>
+				<p>회원정보에 등록된 이메일과 입력하신 이메일이 같아야 <br />인증 코드를 발급 받으실 수 있습니다.</p>
+
 			<form:form action="${ pageContext.request.contextPath }/member/findPwd.do" method="POST" id="findPwdFrm">
 				<table class="mt-5 mx-auto" id="form-table">
 				<tr>
