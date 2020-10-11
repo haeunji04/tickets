@@ -5,6 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <%
 	
 %>
@@ -77,22 +80,22 @@
 
 
 <!-- 공연정보수정 -->
-<form
+<form:form
 	action="${ pageContext.request.contextPath }/company/perUpdateForm.do"
 	id="perUpdateFrm" method="POST">
 	<input type="hidden" name="perNo" />
-</form>
+</form:form>
 
 <!-- 공연일정수정 -->
-<form action="${ pageContext.request.contextPath }/company/perDateUpdate.do"
+<form:form action="${ pageContext.request.contextPath }/company/perDateUpdate.do"
 	  method="post" id="perDateUpdate" >
 	  <input type="hidden" name="perNo"/>
-</form>
+</form:form>
 <!-- 공연삭제 -->
-<form action="${ pageContext.request.contextPath }/company/perDelete.do"
+<form:form action="${ pageContext.request.contextPath }/company/perDelete.do"
 	  method="post" id="perDeleteFrm" >
 	  <input type="hidden" name="perNo"/>
-</form>
+</form:form>
 
 <script>
 	/**

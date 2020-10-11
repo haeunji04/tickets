@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -54,7 +57,7 @@ $(document).ready(function(){
 					<div id="demo" class="d-inline-block"></div>
 				</div>
 				<div class="d-inline-block align-middle" >
-					<form action="" method="post" class="form-group" id="scheduleFrm">
+					<form:form action="" method="post" class="form-group" id="scheduleFrm">
 						<input type="hidden" name="perNo" value="${ perNo }"/>
 					
 						<div class="input-group my-2">
@@ -120,7 +123,7 @@ $(document).ready(function(){
 								   id="btn-addSchedule" 
 								   value="추가"/>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
@@ -161,10 +164,10 @@ $(document).ready(function(){
 </div>
 </div>
 
-<form action="${ pageContext.request.contextPath }/company/perDateDelete"
+<form:form action="${ pageContext.request.contextPath }/company/perDateDelete?${_csrf.parameterName}=${_csrf.token}"
 	  method="post" id="perDateDelete" >
 	  <input type="hidden" name="perNo"/>
-</form>
+</form:form>
 
 <script>
 function perDateDelete(perNo){
@@ -191,7 +194,7 @@ $("#btn-addSchedule").click(function(){
 	console.log("jsonStr="+jsonStr);
 	
 	$.ajax({
-		url : "${ pageContext.request.contextPath }/performance/dateRegister",
+		url : "${ pageContext.request.contextPath }/performance/dateRegister?${_csrf.parameterName}=${_csrf.token}",
 		data : jsonStr,
 		method : "POST",
 		contentType : "application/json; charset=utf-8",

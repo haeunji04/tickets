@@ -107,6 +107,9 @@ create table auth (
     constraint fk_auth_member_id foreign key(member_id) references member(member_id)
 );
 
+alter table auth drop constraints fk_auth_member_id cascade;
+alter table auth add constraint fk_auth_member_id foreign key(member_id) references member(member_id) on delete cascade;
+
 insert into 
     auth
 values(
@@ -129,8 +132,8 @@ values(
 insert into 
     auth
 values(
-    'company4',
-    'ROLE_COMPANY'
+    'company1',
+    'ROLE_USER'
 );
    
 select 
@@ -138,7 +141,7 @@ select
 from
     auth;
 
---commit;
+commit;
 
 select
     *

@@ -184,15 +184,15 @@ public class MemberController {
 		return "redirect:/member/memberLoginForm.do";
 	}
 	
-	@RequestMapping("/member/memberLogout.do")
-	public String memberLogout(SessionStatus sessionStatus) {
-		
-		//@SessionAttribute를 통해 등록된 객체 무효화
-		if(sessionStatus.isComplete() == false)
-			sessionStatus.setComplete();
-		
-		return "redirect:/";
-	}
+//	@RequestMapping("/member/memberLogout.do")
+//	public String memberLogout(SessionStatus sessionStatus) {
+//		
+//		//@SessionAttribute를 통해 등록된 객체 무효화
+//		if(sessionStatus.isComplete() == false)
+//			sessionStatus.setComplete();
+//		
+//		return "redirect:/";
+//	}
 	
 	@RequestMapping(value = "/member/memberWithdraw.do",
 			method = RequestMethod.POST)

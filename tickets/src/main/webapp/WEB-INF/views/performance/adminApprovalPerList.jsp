@@ -64,11 +64,11 @@
 </div>
 
 
-<form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
+<form:form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
 	  id="approvePerRegisterFrm" 
 	  method="POST">
 	<input type="hidden" name="perNo" />
-</form>
+</form:form>
 
 <script>
 /**

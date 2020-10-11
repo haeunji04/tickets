@@ -78,7 +78,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		<div class="mx-auto">
 		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>		    
 		    <br /><br />
-			<div class="form-group d-flex mx-auto">
+			<%-- <div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
 				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input"
 				    	   value="U" ${loginMember.memberRole=='U'? 'checked':'' } readonly>
@@ -89,7 +89,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				    	   value="C" ${loginMember.memberRole=='C'? 'checked':'' } readonly>
 				    <label class="custom-control-label" for="memberRole2">기획사</label>
 				 </div>
-			</div>
+			</div> --%>
 	
 			<div class="form-group" id="memberId-container">
 			  <label class="col-form-label" for="memberId">아이디</label>
