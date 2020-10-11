@@ -132,8 +132,8 @@ values(
 insert into 
     auth
 values(
-    'company4',
-    'ROLE_COMPANY'
+    'company1',
+    'ROLE_USER'
 );
    
 select 
@@ -141,7 +141,7 @@ select
 from
     auth;
 
---commit;
+commit;
 
 select
     *

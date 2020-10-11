@@ -31,7 +31,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 
 
 	<form:form id="perUpdateFrm" 
-		  action="${pageContext.request.contextPath }/company/perUpdate.do" 
+		  action="${pageContext.request.contextPath }/company/perUpdate.do?${_csrf.parameterName}=${_csrf.token}" 
 		  method="POST"
 		  enctype="multipart/form-data">
 		<div class="mx-auto">

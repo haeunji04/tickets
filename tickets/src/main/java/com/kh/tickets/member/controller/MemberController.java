@@ -184,15 +184,15 @@ public class MemberController {
 		return "redirect:/member/memberLoginForm.do";
 	}
 	
-	@RequestMapping("/member/memberLogout.do")
-	public String memberLogout(SessionStatus sessionStatus) {
-		
-		//@SessionAttribute를 통해 등록된 객체 무효화
-		if(sessionStatus.isComplete() == false)
-			sessionStatus.setComplete();
-		
-		return "redirect:/";
-	}
+//	@RequestMapping("/member/memberLogout.do")
+//	public String memberLogout(SessionStatus sessionStatus) {
+//		
+//		//@SessionAttribute를 통해 등록된 객체 무효화
+//		if(sessionStatus.isComplete() == false)
+//			sessionStatus.setComplete();
+//		
+//		return "redirect:/";
+//	}
 	
 	@RequestMapping(value = "/member/memberWithdraw.do",
 			method = RequestMethod.POST)
@@ -205,7 +205,7 @@ public class MemberController {
 		int result = memberService.deleteMember(memberId);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원 탈퇴성공" : "회원 탈퇴실패");
 		
-		return "redirect:/";
+		return "redirect:/member/memberLogout.do";
 	}
 	
 //	@RequestMapping("/member/memberList.do")
