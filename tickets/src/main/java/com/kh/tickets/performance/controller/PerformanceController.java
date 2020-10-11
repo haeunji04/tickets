@@ -721,10 +721,10 @@ public class PerformanceController {
 	
 	//최근공연목록
 	@RequestMapping("/performance/recentlyPerList.do")
-	public String recentlyPerList(Model model, @ModelAttribute("loginMember") Member loginMember) {
+	public String recentlyPerList(Model model, Principal principal) {
 		
-		log.debug("loginMember = {}", loginMember);		
-		String memberId = loginMember.getMemberId();
+		//log.debug("loginMember = {}", loginMember);		
+		String memberId = principal.getName();
 		log.debug("memberId@@ = {}", memberId);
 		
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
