@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -27,7 +30,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form id="perUpdateFrm" 
+	<form:form id="perUpdateFrm" 
 		  action="${pageContext.request.contextPath }/company/perUpdate.do" 
 		  method="POST"
 		  enctype="multipart/form-data">
@@ -151,7 +154,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				<input type="submit" class="btn btn-primary" value="완료"/>
 			</div>
 		</div>
-	</form>
+	</form:form>
 	
 	
 </div>
