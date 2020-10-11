@@ -137,7 +137,7 @@ ${ loginMember.principal.addrDetail } --%>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail"
 					   placeholder="${loginMember.principal.addrDetail==null? '상세주소':''}"
-					   value="${loginMember.principal.addrDetail}">
+					   value="${loginMember.principal.addrDetail==null? '${ loginMember.principal.addrDetail }':''}">
 			</div>
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary" value="수정"/>

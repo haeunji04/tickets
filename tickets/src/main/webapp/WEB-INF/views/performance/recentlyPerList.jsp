@@ -35,7 +35,7 @@
 	<tr>		
 		<td>
 		<!-- 상세페이지에서 memberId불러올떄 -->
-			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.username"/></sec:authorize>">					
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recentPer.perNo }">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ recentPer.perImgRenamedFileName}' />"
 						style="width: 100px" />
@@ -60,7 +60,7 @@
 </table>
 
 <div class="text-center">
-	<c:if test="${ empty list }"> 
+	<c:if test="${ empty rList }"> 
 		<p>최근 본 공연이 없습니다.</p>
 	</c:if>
 </div>
