@@ -12,14 +12,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,10 +101,6 @@ public class MemberController {
 		String rawPassword = member.getPassword();
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		
-		String role = auth.getAuthority().equals("ROLE_USER")? "U": (auth.getAuthority().equals("ROLE_COMPANY")? "C":"");
-		log.debug("Role={}", role);
-		member.setMemberRole(role);
-		
 		String addrDe = member.getAddrDetail();
 		log.debug("addrDe = {}", addrDe);
 		
@@ -136,64 +131,49 @@ public class MemberController {
 		return mav;
 	}
 	
-//	@RequestMapping(value="/member/memberLogin.do",
-//					method=RequestMethod.POST)
-//	public String memberLogin(@RequestParam String memberId,
-//							  @RequestParam String password,
-//							  @RequestParam String saveId,
-//							  HttpServletRequest request,
-//							  HttpServletResponse response,
-//							  Model model,
-//							  RedirectAttributes redirectAttr,
-//							  HttpSession session) {
+	@RequestMapping(value="/member/memberLogin.do",
+					method=RequestMethod.POST)
+	public String memberLogin(@RequestParam String memberId,
+							  @RequestParam String password,
+							  Model model,
+							  RedirectAttributes redirectAttr,
+							  HttpSession session) {
+		log.debug("memberId = {} , password = {}", memberId, password);
+		
+		
+		Member member = memberService.selectOneMember(memberId);
+		log.debug("Member = {}", member);
+		
+		
+//		//--------
+//		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+//		log.debug("rList@controlle@@r = {}", rList);
 //		
-//		log.debug("memberId = {}", memberId);
-//		log.debug("saveId = {}", saveId);
-//		
-//		Member member = memberService.selectOneMember(memberId);
-//		log.debug("Member = {}", member);
-//		
-//		
-////		//--------
-////		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
-////		log.debug("rList@controlle@@r = {}", rList);
-////		
-////		model.addAttribute("loginMember", member);			
-////		model.addAttribute("rList", rList);
-//		  
-//		String location = "";
-//		// 로그인 성공
-//		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
-//			// 세션처리
-//			model.addAttribute("loginMember", member);			
-////			model.addAttribute("memberId", memberId);			
-////			model.addAttribute("rList", rList);
-//		
-//			//세션에서 next값 가져오기
-//			String next = (String) session.getAttribute("next");
-//			location = next != null ? next : location;
-//			session.removeAttribute("next");
-//			
-//			Cookie c = new Cookie("saveId", memberId);
-//			c.setPath(request.getContextPath());
-//			
-//			if(saveId != null) {
-//				c.setMaxAge(60*60*24*7);
-//			}
-//			else {
-//				c.setMaxAge(0);
-//			}
-//			
-//			model.addAttribute("saveId", c);
-//		}
-//		// 로그인 실패
-//		else {
-//			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
-//		}			
-//
-//		model.addAttribute("memberId", memberId);	
-//		return "redirect:/" + location;
-//	}
+//		model.addAttribute("loginMember", member);			
+//		model.addAttribute("rList", rList);
+		  
+		String location = "";
+		// 로그인 성공
+		if(member != null && bcryptPasswordEncoder.matches(password, member.getPassword())) {
+			// 세션처리
+			model.addAttribute("loginMember", member);			
+//			model.addAttribute("memberId", memberId);			
+//			model.addAttribute("rList", rList);
+		
+			//세션에서 next값 가져오기
+			String next = (String) session.getAttribute("next");
+			location = next != null ? next : location;
+			session.removeAttribute("next");
+			
+		}
+		// 로그인 실패
+		else {
+			model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+		}			
+
+		model.addAttribute("memberId", memberId);	
+		return "redirect:/" + location;
+	}
 	
 	//Security 관련
 	@PostMapping("/member/memberLoginFailure.do")
@@ -214,8 +194,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/memberWithdraw.do",
 			method = RequestMethod.POST)
-	public String memberWithdraw(@RequestParam String memberId, 
-								RedirectAttributes redirectAttributes,
+	public String memberWithdraw(@RequestParam String memberId, RedirectAttributes redirectAttributes,
 								SessionStatus sessionStatus){
 		//@SessionAttribute를 통해 등록된 객체 무효화
 //		if(sessionStatus.isComplete() == false)
@@ -224,7 +203,9 @@ public class MemberController {
 		int result = memberService.deleteMember(memberId);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원 탈퇴성공" : "회원 탈퇴실패");
 		
+		SecurityContextHolder.clearContext();
 		return "redirect:/";
+//		return "redirect:/member/memberLogout.do";
 	}
 	
 //	@RequestMapping("/member/memberList.do")
