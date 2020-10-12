@@ -10,6 +10,13 @@
 	<jsp:param value="" name="pageTitle"/>
 </jsp:include>
 
+<style>
+th, td{
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+</style>
+
 <div id="search-result-container" class="mx-auto pb-5" style="width: 85%">
 
 
@@ -47,8 +54,10 @@
 				<c:forEach items="${ perList }" var="per">
 					<tr>
 						<th>
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">
 							<img src="${ pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" alt="포스터"
 								 width="150px;" class="img-thumbnail" />
+						</a>
 						</th>
 						<td class="align-middle"><h6>${ per.perTitle }</h6></td>
 						<td class="align-middle">${ per.perStartDate } <br /> - ${ per.perEndDate }</td>
