@@ -67,17 +67,22 @@ public class PerformanceController {
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav, 
 										@RequestParam(value="Principal", required=false) Principal principal,
-										@RequestParam("category") String category,
+//										@RequestParam(value="memberId", required=false) String memberId,
+										@RequestParam("category") String category, 
 										HttpServletRequest request
 							  			) {
 		log.debug("category = {}", category);
-		List<MyRecentlyPerList> rList = null;
+		log.debug("principal = {}", principal);
 		
+		String memberId = null;
 		if(principal != null) {
-			log.debug("principal = {}", principal.getName());
-			rList = performanceService.recentlyPerList(principal.getName());
+			memberId = principal.getName();
 			
 		}
+		log.debug("memberId@@  = {}", memberId );
+		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("rList@homecontroller## = {}", rList);		
 		
 		//1.사용자 입력값 
 //		final int limit = 10;
@@ -774,7 +779,7 @@ public class PerformanceController {
 	public String adminRecommendedList(Model model,
 									   HttpServletRequest request) {		
 		
-		int numPerPage = 2;
+		int numPerPage = 10;
 		int cPage = 1;
 		
 		try {
