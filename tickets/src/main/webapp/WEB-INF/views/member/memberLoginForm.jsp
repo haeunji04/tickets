@@ -88,8 +88,8 @@ $(function(){
 							
 							<tr height="50px;">
 								<td valign="bottom" align="left">
-									<input type="checkbox" name="saveId" id="saveId"/>
-									<label for="saveId" class="mb-0"><small>아이디 저장</small></label>
+									<input type="checkbox" name="remember-me-param" id="remember_me"/>
+									<label for="remember_me" class="mb-0"><small>자동 로그인</small></label>
 								</td>				
 								<td valign="bottom" align="right">
 									<a href="${ pageContext.request.contextPath }/member/searchIdFrm" class="text-reset"><small>아이디 찾기</small></a>

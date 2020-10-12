@@ -13,7 +13,14 @@
 
 	<!-- #8.3 사용자 요청 url 관련 설정 -->
 	<!-- intercept-url : 위에는 특별한 설정, 아래는 일반적인 설정을 배치  -->
-	<http auto-config="true">
+	<http auto-config="true" use-expressions="true">
+		<!-- 세션관리 -->
+		<session-management invalid-session-url="/">
+			<!-- 동일 ID의 세션 최대수가 한 개, 그 이상일 경우는 기존 세션 무효화 -->
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="false" />
+		</session-management>
+		
+		
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/index.jsp" access="permitAll"/>
 		<intercept-url pattern="/resources/**" access="permitAll"/>	
@@ -44,10 +51,14 @@
 			authentication-failure-forward-url="/member/memberLoginFailure.do"			
 		/>
 		
+		<remember-me key="remember-key" token-validity-seconds="604800" remember-me-parameter="remember-me-param"/>
+		
 		<!-- logout-url : 로그아웃 처리 url. 핸들러메소드 필요 없음 -->
 		<logout
 			logout-url="/member/memberLogout.do"
 			logout-success-url="/"
+			invalidate-session="true"
+			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"
 		/>
 		
 		<!-- 모든 POST요청에 csrf 토큰값 인증 사용 -->
