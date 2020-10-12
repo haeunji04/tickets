@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -33,19 +35,17 @@ function passwordValidate(){
 	return true;	
 }
 </script>
-<div class="#">
+<div>
     <div>
-         <div class="" >
-         		<!-- <h1>비밀번호 변경</h1> -->
-         		<hr /><br /><br />
-                    <table class="table table-hover">
-                     
+         <div class="mx-auto"  style="width:75%; text-align:center;">
+         		<h2 class="my-5">비밀번호 변경</h2> 
+                    <table class="table table-hover mb-4">
                         <tbody>
-                            <form name="updatePasswordFrm" action="${pageContext.request.contextPath }/member/updatePassword.do" method="post" encType="multiplart/form-data ">
-                                <input type="hidden" name="memberId" value="${loginMember.memberId}" /> 
+                            <form:form name="updatePasswordFrm" action="${pageContext.request.contextPath }/member/updatePassword.do" method="post" encType="multiplart/form-data ">
+                                <input type="hidden" name="memberId" value="${ memberId  }" /> 
                                 <tr class="text_pwd">
                                     <td class="#" rowspan="4" style="vertical-align: middle;">
-                                        	<h4>비밀번호 변경</h4>
+                                        	<h5>비밀번호 변경</h5>
                                     </td>
                                 </tr>
                                 <tr>
@@ -73,9 +73,9 @@ function passwordValidate(){
                                 </tr>
                                 
                                 
-                                <tr>
+                                <tr align="center" valign="middle">
                                     <td colspan="2" style="width:250px;">
-                                    <div>
+                                    <div class="my-3">
                                         <input type="submit" 
                                         	   value="비밀번호 변경" 
                                         	   onclick="return passwordValidate();" 
@@ -83,7 +83,7 @@ function passwordValidate(){
                                     </div>
                                     </td>
                                 </tr>
-                            </form>
+                            </form:form>
                         </tbody>
                     </table>
                     </div>

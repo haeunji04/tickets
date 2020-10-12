@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +34,7 @@
 	font-size: 17px;
 }
 
-#member-menu > a{
+#member-menu > a, #logout-link{
 	font-size:14px;
 }
 </style>
@@ -47,6 +50,12 @@
 </c:if>
 
 </script>
+<script>
+    function formSubmit()
+    {
+    document.getElementById("frm1").submit();
+    }
+</script>
 </head>
 <body>
 
@@ -56,7 +65,34 @@
 	<div class="" id="header-container" >
 		
 		<div class="text-right" id="member-menu">
-			<c:if test="${ empty loginMember }">
+			<sec:authorize access="isAnonymous()">
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberLoginForm.do">로그인</a><span class="text-secondary">&nbsp;|</span>
+			</sec:authorize>
+			
+			<sec:authorize access="isAuthenticated()">	
+			<form:form 
+				id="frm1"
+				method="POST"
+				action="${pageContext.request.contextPath }/member/memberLogout.do">
+			</form:form> 
+			<a class="text-secondary" id="logout-link" href="" onclick="formSubmit(); return false;">로그아웃</a><span class="text-secondary">&nbsp;&nbsp;|&nbsp;</span>
+			</sec:authorize>
+			
+			<sec:authorize access="isAnonymous()">
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberEnrollForm.do">회원가입</a><span class="text-secondary">&nbsp;|</span>
+			</sec:authorize>
+			
+			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
+			
+			<sec:authorize access="isAuthenticated()">
+			<div><span class="text-danger">
+					<sec:authentication property="principal.username"/>
+				    <%-- <sec:authentication property="principal.authorities"/> --%>
+				</span>님, 어서오세요!</div>
+			</sec:authorize>
+		
+		
+			<%-- <c:if test="${ empty loginMember }">
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberLoginForm.do">로그인</a><span class="text-secondary">&nbsp;|</span>
 			</c:if>
 			<c:if test="${ not empty loginMember }">
@@ -68,16 +104,17 @@
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
 			<c:if test="${ not empty loginMember }">
 			<div><span class="text-danger">${ loginMember.name }</span>님, 어서오세요!</div>
-			</c:if>
+			</c:if> --%>
 		</div>
 		
 		<div class="d-block dropdown-divider"></div>
 		<div class="m-3 text-center">
-			<a href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>
+			<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a>
+			<%-- <a href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"><img src="${pageContext.request.contextPath }/resources/images/도안6-4.png" style="height:130px;"/></a> --%>
 			<form class="mx-2 d-inline-block form-inline my-3 text-center align-bottom" style="width:50%;"
 				  action="${pageContext.request.contextPath}/search"  id="search-frm">
-			    <input class="form-control mr-sm-2" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
-			    <button class="btn btn-primary" type="submit">						  		 
+			    <input class="form-control mr-sm-2 rounded-pill" style="width:75%;" type="text" id="keyword" name="keyword" placeholder="Search">
+			    <button class="btn btn-primary rounded-pill" type="submit">						  		 
 			    	<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
 					<path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
@@ -97,42 +134,47 @@
 		  	<div class="collapse navbar-collapse" id="navbarColor01">
 		    	<ul class="navbar-nav mr-auto">
 		     		<li class="nav-item active">
-		        		<a class="nav-link" href="${pageContext.request.contextPath}?<c:if test="${not empty loginMember }">memberId=${loginMember.memberId}</c:if>"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath}"> Home &nbsp;&nbsp;<span class="sr-only">(current)</span></a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">뮤지컬 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C1">뮤지컬 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">연극 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C2">연극 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">콘서트 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C3">콘서트 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">클래식 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C4">클래식 &nbsp;</a>
 		      		</li>
 		      		<li class="nav-item">
-		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">전시 &nbsp;</a>
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5">전시 &nbsp;</a>
 		      		</li>
-		      		<c:if test="${ not empty loginMember }">
+		      		<%-- <c:if test="${ not empty loginMember }"> --%>
+		      		<sec:authorize access="isAuthenticated()">				
 			      	<li class="nav-item dropdown" style="right: 0px !important">
 			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page </a>
 			        	<div class="dropdown-menu">
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do">내 정보</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do?memberId=<sec:authentication property="principal.username"/>">내 정보</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜 목록</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 목록</a>
+			          		<sec:authorize access="hasRole('COMPANY')">
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a>
+			          		</sec:authorize>
 			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
+			          		<sec:authorize access="hasRole('ADMIN')">
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberList">회원목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminApprovalPerList.do">공연 미승인 목록(관리자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/adminRecommendedList.do">공연 추천 목록(관리자)</a>
+				   			</sec:authorize>
 			          		<%-- </c:if> --%>
 			          		
 			          		<%-- <c:if test="${ loginMember.memberRole ne 'A' }">
@@ -141,7 +183,8 @@
 			          		</c:if> --%>
 				        </div>
 			      	</li>
-			      	</c:if>
+			      	</sec:authorize>
+			      	<%-- </c:if> --%>
 		    	</ul>
 
 

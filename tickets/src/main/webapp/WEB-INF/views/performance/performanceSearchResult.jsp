@@ -74,7 +74,7 @@
 				<c:if test="${ not empty hallList }">
 				<c:forEach items="${ hallList }" var="hall">
 					<tr class="my-3 align-middle">
-						<td class="align-middle"><h6>${ hall.theaterName }</h6></td>
+						<td class="align-middle"><strong>${ hall.theaterName }</strong></td>
 						<td colspan="3" class="align-middle">${ hall.theaterLocation }&nbsp;${ hall.theaterCity }&nbsp;${ hall.theaterAddress }</td>
 					</tr>
 				</c:forEach>

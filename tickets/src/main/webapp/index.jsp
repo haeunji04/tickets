@@ -437,8 +437,8 @@ footer{ margin-top: 2100px; }
 <script>
 
 $('.carousel').carousel({
-	  interval: 2000;
-	})
+	  interval: 2000
+	});
 
 </script>
 	

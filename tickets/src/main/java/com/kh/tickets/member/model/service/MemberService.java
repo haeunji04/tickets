@@ -3,6 +3,7 @@ package com.kh.tickets.member.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 
 public interface MemberService {
@@ -28,4 +29,12 @@ public interface MemberService {
 	int totalSearchMemberList(Map<String, Object> map);
 
 	List<Member> selectMemberList(Map<String, Object> map);
+
+	Member findId(Map<String, Object> param);
+
+	Member findPwd(Map<String, Object> param);
+
+	int updatePwd(Map<String, Object> param);
+
+	int authEnroll(Auth auth);
 }

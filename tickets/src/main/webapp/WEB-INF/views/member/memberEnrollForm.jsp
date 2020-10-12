@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -72,18 +74,18 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberEnroll.do" method="POST">
+	<form:form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberEnroll.do" method="POST">
 		<div class="mx-auto">
 		    <h2 class="mx-auto mt-3 text-center">회원가입</h2>
 		    <br /><br />
 			<div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input" value="U" checked="">
-				    <label class="custom-control-label" for="memberRole1">일반 회원</label>
+				    <input type="radio" id="authority1" name="authority" class="custom-control-input" value="ROLE_USER" checked="">
+				    <label class="custom-control-label" for="authority1">일반 회원</label>
 				 </div>
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
-				    <input type="radio" id="memberRole2" name="memberRole" class="custom-control-input" value="C">
-				    <label class="custom-control-label" for="memberRole2">기획사</label>
+				    <input type="radio" id="authority2" name="authority" class="custom-control-input" value="ROLE_COMPANY">
+				    <label class="custom-control-label" for="authority2">기획사</label>
 				 </div>
 			</div>
 	
@@ -123,13 +125,13 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				</div>
 				<input class="form-control my-1" type="text" id="sample4_roadAddress" name="addr" placeholder="도로명주소" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
-				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDatail" placeholder="상세주소">
+				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail" placeholder="상세주소">
 			</div>
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary" value="가입"/>
 			</div>
 		</div>
-	</form>
+	</form:form>
 	
 	
 </div>

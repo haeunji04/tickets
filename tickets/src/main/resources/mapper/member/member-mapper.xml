@@ -16,9 +16,19 @@
 			#{ addr },
 			#{ addrDetail },
 			#{ postCode },
-			#{ memberRole },
+			default,
+			default,
 			default,
 			default
+		)
+	</insert>
+	
+	<insert id="authEnroll">
+		insert into
+			auth
+		values (
+			#{ memberId },
+			#{ authority }
 		)
 	</insert>
 	
@@ -63,6 +73,7 @@
 		update
 			member
 		set
+		 	name = #{ name },
 			email = #{ email },
 			phone = #{ phone },
 			addr = #{ addr },
@@ -139,5 +150,38 @@
 		)
 		where rnum between #{ start } and #{ end }	
 	</select>
+	
+	<select id="findId" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		where
+				name = #{ memberName }
+			and
+				email = #{ memberEmail }
+	</select>
+	
+	<select id="findPwd" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		where
+				member_id = #{ memberId }
+			and
+				name = #{ memberName }
+			and
+				email = #{ memberEmail }
+	</select>
+	
+	<update id="updatePwd">
+		update
+			member
+		set
+			password = #{ password }
+		where 
+			member_id = #{ memberId }
+	</update>
 	
 </mapper>

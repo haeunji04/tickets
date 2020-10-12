@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -72,11 +74,11 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 <div id="enroll-container" class="mx-auto py-3" style="width: 40%">
 
 
-	<form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
+	<form:form id="memberEnrollFrm" action="${pageContext.request.contextPath }/member/memberUpdate.do" method="POST">
 		<div class="mx-auto">
 		    <h2 class="mx-auto mt-3 text-center">내 정보</h2>		    
 		    <br /><br />
-			<div class="form-group d-flex mx-auto">
+			<%-- <div class="form-group d-flex mx-auto">
 				 <div class="custom-control custom-radio form-check form-check-inline" style="width:30%;">
 				    <input type="radio" id="memberRole1" name="memberRole" class="custom-control-input"
 				    	   value="U" ${loginMember.memberRole=='U'? 'checked':'' } readonly>
@@ -87,7 +89,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				    	   value="C" ${loginMember.memberRole=='C'? 'checked':'' } readonly>
 				    <label class="custom-control-label" for="memberRole2">기획사</label>
 				 </div>
-			</div>
+			</div> --%>
 	
 			<div class="form-group" id="memberId-container">
 			  <label class="col-form-label" for="memberId">아이디</label>
@@ -97,7 +99,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			<div class="form-group">
 			  <p>비밀번호</p>
 			  <button type="button" class="btn btn-primary"
-			  		  onclick="location.href='${pageContext.request.contextPath }/member/updatePasswordForm.do'">
+			  		  onclick="location.href='${pageContext.request.contextPath }/member/updatePasswordForm.do?memberId=${loginMember.memberId}'">
 			    비밀번호 변경하기		  
 			  </button>
 			</div>
@@ -142,16 +144,16 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 				
 			</div>
 		</div>
-	</form>
+	</form:form>
 	
 	
 </div>
 
-<form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
+<form:form action="${ pageContext.request.contextPath }/member/memberWithdraw.do" 
 	  id="memberWithdrawFrm" 
 	  method="POST">
 	<input type="hidden" name="memberId" />
-</form>
+</form:form>
 
 <script>
 /**

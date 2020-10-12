@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 한글 인코딩 처리  -->
 <fmt:requestEncoding value="utf-8"/>
 
@@ -15,7 +17,7 @@
 	<h3 class="my-4">회원조회</h3>
 	
 			<!-- 검색 -->
-		<form action="${pageContext.request.contextPath }/member/adminMemberSearchList" method="get" class="mb-3">
+		<form:form action="${pageContext.request.contextPath }/member/adminMemberSearchList" method="get" class="mb-3">
 			<select name="searchType" style="width:130px;" class="form-control d-inline-block">
 				<option value="memberId" ${ "memberId" eq searchType ? "selected" : "" }>아이디</option>
 				<option value="memberName" ${ "memberName" eq searchType ? "selected" : "" }>이름</option>
@@ -23,7 +25,7 @@
 			<input type="text" class="form-control d-inline-block" name="keyword" id="keyword" 
 				   value="${ keyword != null ? keyword : '' }" style="width:200px;"/>
 			<input type="submit" class="mb-1 btn btn-outline-primary d-inline-block align-middle" value="검색" />
-		</form>
+		</form:form>
 	
 	<p>* 총 <span class="text-primary"> ${ totalContents }</span> 명의 회원이 있습니다. *</p>
 	<table class="table table-hover">
@@ -68,11 +70,11 @@
 </div>
 
 
-<form action="${ pageContext.request.contextPath }/member/deleteMember.do" 
+<form:form action="${ pageContext.request.contextPath }/member/deleteMember.do" 
 	  id="memberDeleteFrm" 
 	  method="POST">
 	<input type="hidden" name="memberId" />
-</form>
+</form:form>
 
 <script>
 /**

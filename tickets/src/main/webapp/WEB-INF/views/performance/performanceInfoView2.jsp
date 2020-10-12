@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- param 한글 encoding 처리 -->
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
@@ -44,7 +47,7 @@ $(function(){
 			<div class="table" style="padding:30px 30px 20px;">
 			<div align="right">	
 				<!-- 찜하기 -->
-				<form id="wishListInsertFrm" 
+				<form:form id="wishListInsertFrm" 
 					  action="${pageContext.request.contextPath }/performance/wishListInsert.do?perNo=${ performance.perNo }" 
 					  method="POST">
 					  
@@ -68,14 +71,13 @@ $(function(){
 					  <%if(cnt1==0 && cnt2==0) {%>
 						<input type="submit" class="btn btn-primary" value="찜하기"/>	
 					  <%} %>
-				</form>
+				</form:form>
 				
 				
 				<!-- 찜 해제하기 -->
-				<form id="wishListDeleteFrm" 
+				<form:form id="wishListDeleteFrm" 
 					  action="${pageContext.request.contextPath }/performance/wishListDelete.do?perNo=${ performance.perNo }" 
 					  method="POST">
-					  
 					  <%int cnt3=0; %>
 					  <%int cnt4=0; %>
 					  <c:set var="doneLoop" value="false" />
@@ -96,7 +98,7 @@ $(function(){
 					  <%if(cnt3==0 && cnt4==1) {%>
 						<input type="submit" class="btn btn-primary" value="찜 해제하기"/>	
 					  <%} %>			
-				</form>		
+				</form:form>		
 				
 			</div>
 			<table id="perform-info-tbl" >
@@ -625,7 +627,7 @@ $(function(){
 
 <script>
 function test(){
-	<c:if test="${ empty loginMember }">
+	<c:if test="${ empty memberId }">
 		loginAlert();
 	</c:if>
 }
@@ -633,11 +635,12 @@ function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
 	return;
 }
+
 $(function(){
 	
 $("[type=submit]").click(function(){
 	//로그인 여부 검사
-	<c:if test="${ empty loginMember }">
+	<c:if test="${ empty memberId }">
 		loginAlert();
 		return false;	
 	</c:if>		
@@ -748,12 +751,12 @@ $("[type=submit]").click(function(){
 
 
     </script>
-	 <script>
+<%-- 	 <script>
 		console.log("cnt1"+<%=cnt1%>);
 		console.log("cnt2"+<%=cnt2%>);
 		console.log("cnt3"+<%=cnt3%>);
 		console.log("cnt4"+<%=cnt4%>);
-	 </script>
+	 </script> --%>
 	 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -1,12 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- #8.1 암호화 처리 BCryptPasswordEncoder 등록 -->
+	<beans:bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"
+	      id="bcryptPasswordEncoder"/>
 
-	<!-- 암호화 처리 BCryptPasswordEncoder 등록 -->
-	<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" 
-			id="bcryptPasswordEncoder"/>
-</beans>
+	<!-- #8.3 사용자 요청 url 관련 설정 -->
+	<!-- intercept-url : 위에는 특별한 설정, 아래는 일반적인 설정을 배치  -->
+	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll"/>
+		<intercept-url pattern="/index.jsp" access="permitAll"/>
+		<intercept-url pattern="/resources/**" access="permitAll"/>	
+		
+		<!-- <intercept-url pattern="/**" access="isAuthenticated()"/> -->
+		
+		<intercept-url pattern="/member/memberList" access="hasRole('ADMIN')"/>
+		<intercept-url pattern="/performance/adminApprovalPerList" access="hasRole('ADMIN')"/>
+		<intercept-url pattern="/performance/adminRecommendedList" access="hasRole('ADMIN')"/>
+		
+		<intercept-url pattern="/company/**" access="hasRole('COMPANY')"/> 
+		<!-- <intercept-url pattern="/company/**" access="permitAll"/> -->
+		
+		<intercept-url pattern="/member/**" access="permitAll"/>
+		<intercept-url pattern="/performance/**" access="permitAll"/>
+		<intercept-url pattern="/list/**" access="permitAll"/>
 
+		<!-- <intercept-url pattern="/**" access="hasRole('USER')"/> -->
+		
+		<!-- login-processing-url : 로그인폼 제출 url. 핸들러메소드 필요 없음. -->
+		<!-- authentication-success-forward-url : 인증 성공후 처리과정 작성. 쿠키관련 처리-->
+		<!-- authentication-failure-forward-url : 인증 실패후 처리. 사용자피드백 작성  -->
+		<form-login
+			login-page="/member/memberLoginForm.do"
+			login-processing-url="/member/memberLogin.do"
+			username-parameter="memberId"
+			password-parameter="password"
+			authentication-failure-forward-url="/member/memberLoginFailure.do"			
+		/>
+		
+		<!-- logout-url : 로그아웃 처리 url. 핸들러메소드 필요 없음 -->
+		<logout
+			logout-url="/member/memberLogout.do"
+			logout-success-url="/"
+		/>
+		
+		<!-- 모든 POST요청에 csrf 토큰값 인증 사용 -->
+		<!-- <csrf disabled="false"/> 기본값 -->
+		<!-- <csrf disabled="true"/> -->
+		
+	</http>
+	
+	<!-- #8.4 사용자 인증 -->
+	<authentication-manager>
+		<!-- 1. in-memory 사용자 인증 -->
+		<!-- <authentication-provider>
+			<password-encoder ref="bcryptPasswordEncoder"/>
+			<user-service>
+				<user name="honggd"
+					  password="$2a$10$Te9bO/6BuGCO3xY/Avis.emYCtKbYgZK3cM991zvKr2vWxo51jkd." 
+					  authorities="ROLE_USER"/>
+				<user name="admin"
+					  password="$2a$10$NtnZ2wyGQWt3akDFUfqTW.cUAsdZYDfshc1698R1zZlbTIZbMYMo2" 
+					  authorities="ROLE_USER,ROLE_ADMIN"/>
+			</user-service>
+		</authentication-provider> -->
+		
+		<!-- 2. UserDetails구현체를 통해 db에서 인증하기 -->
+		<authentication-provider user-service-ref="securityService">
+			<password-encoder ref="bcryptPasswordEncoder"/>		
+		</authentication-provider>
+		
+	</authentication-manager>
+	
+	<!-- Service, DAO 빈관리용 -->
+	<context:component-scan base-package="com.kh.security" />
+	
+</beans:beans>

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,6 +18,20 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<!-- bootstrap css -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" />	
+
+<style>
+@font-face {
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+            
+*{
+	font-family: 'S-CoreDream-3Light' !important;
+	font-size: 17px;
+}
+</style>
 <script>
 $(function(){
 	$("#loginModal").modal()
@@ -21,6 +40,11 @@ $(function(){
 					});
 });
 
+<%-- RedirectAttributes에 등록된 msg값 존재여부 확인 후 출력 --%>
+<c:if test="${ not empty msg }">
+	alert('${ msg }');
+	console.log('${ msg }');
+</c:if>
 
 </script>
 
@@ -32,13 +56,17 @@ $(function(){
 			<div class="modal-content">
 					    	
 				<div class="modal-header">
-					<h5 class="modal-title" id="loginModalLabel">회원가입</h5>
+					<h5 class="modal-title" id="loginModalLabel">로그인</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-								      
-				<form action="${pageContext.request.contextPath }/member/memberLogin.do" method="POST">
+							
+				<!-- _csrf인증 토큰 발행 -->
+				<!-- security 관련 -->	      
+				<form:form 
+					action="${pageContext.request.contextPath }/member/memberLogin.do" 
+					method="POST">
 				<div class="modal-body">
 						<table class="mx-auto">
 							<tr>
@@ -56,16 +84,28 @@ $(function(){
 								name="password" id="password" 
 								placeholder="비밀번호" required/>
 								</td>
-							</tr>									        			
+							</tr>		
+							
+							<tr height="50px;">
+								<td valign="bottom" align="left">
+									<input type="checkbox" name="saveId" id="saveId"/>
+									<label for="saveId" class="mb-0"><small>아이디 저장</small></label>
+								</td>				
+								<td valign="bottom" align="right">
+									<a href="${ pageContext.request.contextPath }/member/searchIdFrm" class="text-reset"><small>아이디 찾기</small></a>
+									<span class="text-secondary">|</span>
+									<a href="${ pageContext.request.contextPath }/member/searchPwdFrm" class="text-reset"><small>비밀번호 찾기</small></a> 
+								</td>			
+							</tr>							        			
 										        		
 						</table>
 				</div>
 								      
 				<div class="modal-footer">
 				<button type="submit" class="btn btn-primary">로그인</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">취소</button>
 				</div>
-				</form>
+				</form:form>
 			</div>
 		</div>
 	</div>

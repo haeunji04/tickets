@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 
 <!-- 한글 인코딩 처리  -->
@@ -62,11 +64,11 @@
 </div>
 
 
-<form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
+<form:form action="${ pageContext.request.contextPath }/performance/approvePerRegister.do" 
 	  id="approvePerRegisterFrm" 
 	  method="POST">
 	<input type="hidden" name="perNo" />
-</form>
+</form:form>
 
 <script>
 /**

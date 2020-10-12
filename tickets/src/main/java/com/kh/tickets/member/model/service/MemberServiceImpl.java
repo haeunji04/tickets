@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.member.model.dao.MemberDAO;
+import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 
 @Service
@@ -77,6 +78,26 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMemberList(map);
 	}
 	
+	@Override
+	public Member findId(Map<String, Object> param) {
+		return memberDAO.findId(param);
+	}
+
+	@Override
+	public Member findPwd(Map<String, Object> param) {
+		return memberDAO.findPwd(param);
+	}
+
+	@Override
+	public int updatePwd(Map<String, Object> param) {
+		return memberDAO.updatePwd(param);
+	}
+
+	@Override
+	public int authEnroll(Auth auth) {
+		return memberDAO.authEnroll(auth);
+	}
+
 	
 	
 }
