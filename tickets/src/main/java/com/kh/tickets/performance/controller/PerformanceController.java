@@ -74,7 +74,7 @@ public class PerformanceController {
 //		final int limit = 10;
 //		int offset = (cPage - 1) * limit;
 		
-		int numPerPage = 2;
+		int numPerPage = 10;
 		int cPage = 1;
 		
 		try {
