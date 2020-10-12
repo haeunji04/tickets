@@ -455,7 +455,9 @@ values(
     default
 );
 --admin 참고구문
---delete member where member_id = 'admin';
+delete member where member_id = 'jumju1';
+select * from member;
+commit;
 --update member set member_role = 'A' where member_id = 'admin'; 
 
 insert into 
@@ -477,15 +479,16 @@ values(
 insert into 
     member
 values(
-    'company1',
+    'company12',
     '$2a$10$3qCOl8BCyaloCmZQt4mGzuuf.XB2AtKov1slPxiZ0fPE7yoUhFKLa',
-    '판매자1',
+    '판매자12',
     'company1@naver.com',
     '01075695421',
     '서울특별시 종로구 ',
     '혜화동 115-2',
     '56789',
     'C',
+    default,
     default,
     default
 );
