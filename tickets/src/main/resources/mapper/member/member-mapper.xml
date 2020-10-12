@@ -16,7 +16,7 @@
 			#{ addr },
 			#{ addrDetail },
 			#{ postCode },
-			default,
+			#{ memberRole },
 			default,
 			default,
 			default
