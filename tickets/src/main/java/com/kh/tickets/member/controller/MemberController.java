@@ -214,7 +214,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/memberWithdraw.do",
 			method = RequestMethod.POST)
-	public String memberWithdraw(@RequestParam String memberId, RedirectAttributes redirectAttributes,
+	public String memberWithdraw(@RequestParam String memberId, 
+								RedirectAttributes redirectAttributes,
 								SessionStatus sessionStatus){
 		//@SessionAttribute를 통해 등록된 객체 무효화
 //		if(sessionStatus.isComplete() == false)
@@ -223,7 +224,7 @@ public class MemberController {
 		int result = memberService.deleteMember(memberId);
 		redirectAttributes.addFlashAttribute("msg", result>0 ? "회원 탈퇴성공" : "회원 탈퇴실패");
 		
-		return "redirect:/member/memberLogout.do";
+		return "redirect:/";
 	}
 	
 //	@RequestMapping("/member/memberList.do")

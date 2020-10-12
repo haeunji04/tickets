@@ -206,7 +206,7 @@ $(function(){
                     
                 </div>
                <div class="box_type_comment">
-               <button type="button" class="btn btn-primary btn-lg btn-block">예매하기</button>
+               <button type="submit" class="btn btn-primary btn-lg btn-block">예매하기</button>
                </div>
               </div>
               <div class="d-block mx-auto mt-5">
@@ -248,9 +248,10 @@ $(function(){
 					<div class="form-group bmd-form-group">
 					<div>
 			       <!-- 기대평 -->
-					<form action="${pageContext.request.contextPath }/boardComment/boardCommentInsert.do"
+					<form:form action="${pageContext.request.contextPath }/boardComment/boardCommentInsert.do"
 			    		  method="post"
 			    		  name="boardCommentFrm">
+			    		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<table>
 						<tr>
 							<td>
@@ -275,7 +276,7 @@ $(function(){
 							</td>
 						</tr>
 					</table>
-					</form>	
+					</form:form>	
 					</div>
 					<div class="mt-3">
 					<table id="comment-tbl" class="text-center">
@@ -392,13 +393,12 @@ $(function(){
 					</div>
 					
 			</div>
-			<form name="deleteCommentFrm">
+			<form:form name="deleteCommentFrm">
 				<input type="hidden" name="boardCommentNo" value=""/>
 				<input type="hidden" name="perNo" value="${ performance.perNo }"/>
-			</form>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form:form>
 	  </div>
-	  
-	  <input type="hidden" name="" />
 	  
 	  <div class="tab-pane fade" id="theater">
 		  <h3 class="text-center">
@@ -535,11 +535,12 @@ $("#theater-tab").click(function(){
 </script>
 
 
-<form action="${ pageContext.request.contextPath }/boardComment/boardCommentDelete.do?perNo=${ performance.perNo}" 
+<form:form action="${ pageContext.request.contextPath }/boardComment/boardCommentDelete.do?perNo=${ performance.perNo}" 
 	  id="boardCommentDeleteFrm" 
 	  method="POST">
 	<input type="hidden" name="boardCommentNo" />
-</form>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form:form>
 
 <script>
 /**
@@ -595,10 +596,11 @@ $(function(){
 		else {
 			let $tr = $("<tr></tr>");
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
-			let $frm = $("<form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form>");
+			let $frm = $("<form:form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form:form>");
 			$frm.append("<input type='hidden' name='perNo' value='${performance.perNo}' />");
 			<%-- $frm.append("<input type='hidden' name='boardCommentWriter' value='<%= memberLoggedIn != null ? memberLoggedIn.getMemberId() : "" %>' />"); --%>
 			$frm.append("<input type='hidden' name='boardCommentWriter' value='${ loginMember ne null ? loginMember.memberId : "" }' />");
+			$frm.append("<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}' />");
 			$frm.append("<input type='hidden' name='boardCommentLevel' value='2' />");
 			$frm.append("<input type='hidden' name='boardCommentRef' value='"+$(this).val()+"' />");
 			$frm.append("<textarea name='boardCommentContent' cols=60 rows=1></textarea>");
@@ -648,10 +650,11 @@ $("[type=submit]").click(function(){
 });
 </script>
 
-<form action="" method="post" id="selectDateFrm">
+<form:form action="" method="post" id="selectDateFrm">
 <input type="hidden" name="perNo" value="${ performance.perNo }"/>
 <input type="hidden" name="inputDate" id="inputDate"/>
-</form>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form:form>
 
 <script>
         var now = new Date();
@@ -707,6 +710,10 @@ $("[type=submit]").click(function(){
 
 			var jsonStr = JSON.stringify(select);
 			console.log("jsonStr = "+jsonStr);
+
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+				});
 			
 				$.ajax({
 					url : "${ pageContext.request.contextPath }/performance/selectDate",

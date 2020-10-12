@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tickets.boardComment.model.service.BoardCommentService;
 import com.kh.tickets.boardComment.model.vo.BoardComment;
 import com.kh.tickets.common.Utils;
+import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
@@ -53,6 +54,8 @@ public class PerformanceController {
 	
 	@Autowired
 	private PerformanceService performanceService; 
+	@Autowired
+	private MemberService memberService; 
 	
 	@Autowired
 	private BoardCommentService boardCommentService;
@@ -64,17 +67,22 @@ public class PerformanceController {
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav, 
 										@RequestParam(value="Principal", required=false) Principal principal,
-										@RequestParam("category") String category,
+//										@RequestParam(value="memberId", required=false) String memberId,
+										@RequestParam("category") String category, 
 										HttpServletRequest request
 							  			) {
 		log.debug("category = {}", category);
-		List<MyRecentlyPerList> rList = null;
+		log.debug("principal = {}", principal);
 		
+		String memberId = null;
 		if(principal != null) {
-			log.debug("principal = {}", principal.getName());
-			rList = performanceService.recentlyPerList(principal.getName());
+			memberId = principal.getName();
 			
 		}
+		log.debug("memberId@@  = {}", memberId );
+		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("rList@homecontroller## = {}", rList);		
 		
 		//1.사용자 입력값 
 //		final int limit = 10;
@@ -547,6 +555,10 @@ public class PerformanceController {
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
 		
+		Member member = memberService.selectOneMember(memberId);
+		log.debug("member = {}", member);
+		mav.addObject("loginMember", member);
+		
 		mav.addObject("list", list);		
 		mav.addObject("memberId", memberId);
 		//내 최근공연목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
@@ -767,7 +779,7 @@ public class PerformanceController {
 	public String adminRecommendedList(Model model,
 									   HttpServletRequest request) {		
 		
-		int numPerPage = 2;
+		int numPerPage = 10;
 		int cPage = 1;
 		
 		try {
