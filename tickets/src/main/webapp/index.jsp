@@ -9,12 +9,35 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css" />
-
+<script src="${pageContext.request.contextPath }/resources/js/dateFormat.js"></script>
 <style>
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
 footer{ margin-top: 2100px; }
+
+#best0 {
+  animation-name: best;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+#best1 {
+  animation-name: best;
+  animation-duration: 2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+#best2 {
+  animation-name: best;
+  animation-duration: 2s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes best {
+  from {color: #f8f9fa;}
+  to {color: #eb6864;}
+}
 </style>
 
 
@@ -256,26 +279,27 @@ footer{ margin-top: 2100px; }
 				<div class="d-block mx-auto mt-3">
 					<ul class="nav nav-tabs justify-content-center">
 						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#concert"><span>콘서트</span></a>
+							<a class="nav-link" data-toggle="tab" href="#concert" id="concert"><span>콘서트</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#music"><span>뮤지컬/페스티벌</span></a>
+							<a class="nav-link active" data-toggle="tab" href="#music" id="musical"><span>뮤지컬/연극</span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link link" data-toggle="tab" href="#classic"><span>클래식/재즈</span></a>
+							<a class="nav-link link" data-toggle="tab" href="#classic" id="classic"><span>클래식</span></a>
 						</li>
 					</ul>
 				</div>
 				<div id="rankContent" class="tab-content d-block mx-auto mt-5 text-left">
-					<ol class="tab-pane fade" id="concert">
-						<li class="px-3 mb-3">
+					<!-- <ol class="tab-pane fade" id="lankList"> -->
+						<!-- 반복문 블록 -->
+<%-- 						<li class="px-3 mb-3">
 							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:60px;height:90px;"/></a>
 							<a href="#">
-						<ul style="text-align:center;display:inline-block;list-style-type:none;">
-							<li>댕댕이 페스티벌</li>
-							<li>20.09.11(금)</li>
-						</ul>
-						</a>
+								<ul style="text-align:center;display:inline-block;list-style-type:none;" >
+									<li>댕댕이 페스티벌</li>
+									<li>20.09.11(금)</li>
+								</ul>
+							</a>
 						</li>
 						<li class="px-3 mb-3">
 							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:60px;height:90px;"/></a>
@@ -294,19 +318,24 @@ footer{ margin-top: 2100px; }
 									<li>20.09.11(금)</li>
 								</ul>
 							</a>
-						</li>
-					</ol>
-					<ol class="tab-pane fade active show" id="music">
+						</li> --%>
+					<!-- </ol> -->
+					<ol class="tab-pane fade active show" id="">
+  					<c:forEach items="${ muRank }" var="per">
 						<li class="px-3 mb-3">
-							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:60px;height:90px;"/></a>
-							<a href="#">
-								<ul style="text-align:center;display:inline-block;list-style-type:none;">
-									<li>옹성우 팬미팅</li>
-									<li>20.09.11(금)</li>
+							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
+								<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" style="width:75px;height:100px;"/>
+							</a>
+							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
+								<ul style="display:inline-block;list-style-type:none; width:250px; vertical-align:middle;"class="text-center" >
+									<li><span id="title"><strong>${ per.perTitle }</strong></span></li>
+									<li><small>${ dateformat.format(per.perStartDate) }-${ dateformat.format(per.perEndDate) }</small></li>
+									<%-- <li>${ dateformat.format(per.perStartDate) }</li> --%>
 								</ul>
 							</a>
 						</li>
-						<li class="px-3 mb-3">
+					</c:forEach>
+<%--   						<li class="px-3 mb-3">
 							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:60px;height:90px;"/></a>
 							<a href="#">
 								<ul style="text-align:center;display:inline-block;list-style-type:none;">
@@ -323,10 +352,10 @@ footer{ margin-top: 2100px; }
 									<li>20.09.11(금)</li>
 								</ul>
 							</a>
-						</li>
+						</li> --%>
 					</ol>
-					<ol class="tab-pane fade" id="classic">
-						<li class="px-3 mb-3">
+					<ol class="tab-pane fade" id="">
+<%--  						<li class="px-3 mb-3">
 							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:60px;height:90px;display:inline"/></a>
 							<a href="#">
 								<ul style="text-align:center;display:inline-block;list-style-type:none;">
@@ -334,7 +363,7 @@ footer{ margin-top: 2100px; }
 									<li>20.09.11(금)</li>
 								</ul>
 							</a>
-						</li>
+						</li> 
 						<li class="px-3 mb-3">
 							<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" style="width:60px;height:90px;"/></a>
 							<a href="#">
@@ -352,7 +381,7 @@ footer{ margin-top: 2100px; }
 									<li>20.09.11(금)</li>
 								</ul>
 							</a>
-						</li>
+						</li>  --%>
 					</ol>
 				</div>
 			</div>	
@@ -360,14 +389,16 @@ footer{ margin-top: 2100px; }
 		
 		
 		<div class="perform float-left d-block text-center">
-			<h1 class="my-4">〈&nbsp;티켓츠 PICK!&nbsp;〉</h1>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
+			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
+			<c:forEach items="${ pickList }" var="per">
+				<div class="figure mx-3 my-3" style="width:224px; height:304px;">
+					<figure class="figure img-thumbnail">
+						<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" class="mx-3" style="width:180px; height:250px;">
+						<figcaption class="figure-caption text-center" id="title"><strong>${ per.perTitle }</strong></figcaption>
+					</figure>
+				</div>
+			</c:forEach>
+			<%-- <div class="figure mx-3">
 				<figure class="figure img-thumbnail">
 					<img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" class="mx-3" style="width:180px;height:250px;">
 					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption>
@@ -408,7 +439,7 @@ footer{ margin-top: 2100px; }
 					<img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" class="mx-3" style="width:180px;height:250px;">
 					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption>
 				</figure>
-			</div>
+			</div> --%>
 				
 		</div>
 	</div>
@@ -439,6 +470,79 @@ footer{ margin-top: 2100px; }
 $('.carousel').carousel({
 	  interval: 2000
 	});
+
+</script>
+
+<script>
+
+$("#concert").click(function(){
+	var code = { code1 : "C1" };
+	selectPerLank(code)
+});
+
+$("#musical").click(function(){
+	var code = { code1 : "C2", code2 : "C3" };
+	selectPerLank(code)
+	
+});
+
+$("#classic").click(function(){
+	var code = { code1 : "C4" };
+	selectPerLank(code)
+});
+
+function selectPerLank(code){
+	console.log(code);
+	
+	var jsonStr = JSON.stringify(code);
+	console.log("jsonStr="+jsonStr);
+	
+ 	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+	}); 
+
+ 	$.ajax({
+		url: "${ pageContext.request.contextPath }/",
+		data: jsonStr,
+		method : "POST",
+		contentType : "application/json; charset=utf-8",
+		success : function(data){
+			displayLankList(data);
+		},
+		error : function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});	 
+}
+function displayLankList(data){
+	console.log(data);
+	var $container = $("#rankContent");
+
+	var html = "<ol class='tab-pane fade active show'>";
+	
+
+ 	if(data.list.length > 0){
+		for(var i in data.list){
+			var per = data.list[i];
+			
+			console.log(per);
+			console.log(per.perStartDate);
+			html += "<li class='px-3 mb-3' id='best"+i+"'>";
+			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
+			html += "<img src='${pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:75px;height:100px;' id='best"+i+"'/>";
+	        html += "</a>";
+	        html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
+			html += "<ul style='display:inline-block;list-style-type:none; width:250px; vertical-align:middle' class='text-center'>";
+			html += "<li><strong>"+per.perTitle+"</strong></li>";
+			html += "<li><small>"+per.perStartDate+"</small></li>";
+			html += "</ul></a></li>";
+			
+		}
+	} 
+
+	html += "</ol>";
+ 	$container.html(html);
+}
 
 </script>
 	

@@ -1,8 +1,11 @@
 package com.kh.tickets;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,13 +15,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
+import com.kh.tickets.performance.model.vo.Performance;
 
 /**
  * Handles requests for the application home page.
@@ -84,10 +90,44 @@ public class HomeController {
 		log.debug("rList@homecontroller## = {}", rList);		
 		
 		model.addAttribute("rList", rList);
+
 		
+		//랭킹
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
 		
+		Map<String, Object> param = new HashMap<>();
+		param.put("code1", "C2");
+		param.put("code2", "C3");
+		
+		List<Performance> mList = performanceService.selectPerRank(param);
+		List<Performance> pickList = performanceService.selectPickList();
+		
+		log.debug("pickList= {}", pickList);
+		
+		model.addAttribute("dateformat", dateformat);	
+		model.addAttribute("muRank", mList);
+		model.addAttribute("pickList", pickList);
 		
 		return "forward:/index.jsp";
 	}
+	
+	@PostMapping("/")
+	@ResponseBody
+	public Map<String, Object> selectPerRank(@RequestBody Map<String, Object> param){
+		
+		String code1 = (String)param.get("code1");
+		String code2 = (String)param.get("code2");
+		
+		List<Performance> list = performanceService.selectPerRank(param);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREA);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("dateFormat", dateformat);
+		
+		return map;
+	}
+	
 	
 }
