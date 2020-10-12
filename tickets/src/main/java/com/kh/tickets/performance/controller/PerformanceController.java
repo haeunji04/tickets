@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.tickets.boardComment.model.service.BoardCommentService;
 import com.kh.tickets.boardComment.model.vo.BoardComment;
 import com.kh.tickets.common.Utils;
+import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
@@ -53,6 +54,8 @@ public class PerformanceController {
 	
 	@Autowired
 	private PerformanceService performanceService; 
+	@Autowired
+	private MemberService memberService; 
 	
 	@Autowired
 	private BoardCommentService boardCommentService;
@@ -546,6 +549,10 @@ public class PerformanceController {
 		//찜하기 여부 확인할 찜 list				
 		List<MyWishList> list = performanceService.wishListView(memberId);
 		log.debug("list@controller = {}", list);
+		
+		Member member = memberService.selectOneMember(memberId);
+		log.debug("member = {}", member);
+		mav.addObject("loginMember", member);
 		
 		mav.addObject("list", list);		
 		mav.addObject("memberId", memberId);
