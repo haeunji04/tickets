@@ -101,6 +101,10 @@ public class MemberController {
 		String rawPassword = member.getPassword();
 		String encryptPassword = bcryptPasswordEncoder.encode(rawPassword);
 		
+		String role = auth.getAuthority().equals("ROLE_USER")? "U": (auth.getAuthority().equals("ROLE_COMPANY")? "C":"");
+	    log.debug("Role={}", role);
+	    member.setMemberRole(role);
+		
 		String addrDe = member.getAddrDetail();
 		log.debug("addrDe = {}", addrDe);
 		
