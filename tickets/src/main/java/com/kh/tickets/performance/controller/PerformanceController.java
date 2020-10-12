@@ -767,7 +767,7 @@ public class PerformanceController {
 	public String adminRecommendedList(Model model,
 									   HttpServletRequest request) {		
 		
-		int numPerPage = 2;
+		int numPerPage = 10;
 		int cPage = 1;
 		
 		try {

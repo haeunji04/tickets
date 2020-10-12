@@ -214,6 +214,9 @@ create table wishlist(
     constraints fk_per_no2 foreign key(per_no) references performance(per_no)
 );
 
+alter table wishlist drop constraints fk_member_id2 cascade;
+alter table wishlist add constraint fk_member_id2 foreign key(member_id) references member(member_id) on delete cascade;
+
 --삭제관련 수정사항(도현 20.10.06) Start
 -- 테이블 recently_per_list와 schedule에서 fk관련 alter 문만 돌려주기.
 
