@@ -21,6 +21,7 @@
 	</style>
 	
 	<sec:authorize access="isAuthenticated()">
+	<c:if test="${ not empty rList }">
 	<%-- <c:if test="${ not empty loginMember && not empty rList }">	 --%>
 	<div id="floatdiv">
 		<p  >최근 본 공연</p>
@@ -56,7 +57,7 @@
 		<!-- <p>더보기</p> -->
 		<a class="dropdown-item" style="text-align:center;" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">더보기</a>
 	</div>
-	
+	</c:if>
 	</sec:authorize>
 	<%-- </c:if> --%>
 	
