@@ -190,4 +190,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.perDelete(perNo);
 	}
 
+	@Override
+	public List<Performance> selectPerRank(Map<String, Object> param) {
+		return performanceDAO.selectPerRank(param);
+	}
+
+	@Override
+	public List<Performance> selectPickList() {
+		return performanceDAO.selectPickList();
+	}
+
+	
 }

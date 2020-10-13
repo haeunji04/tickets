@@ -378,6 +378,38 @@
 			per_no = #{ perNo }
 	</delete>
 	
+	<select id="selectPerRank" resultMap="performanceMap">
+		select 
+		        * 
+		from
+		        (select
+		                rownum as rnum,
+		                P.*
+		        from
+		                (select 
+		                        *
+		                from
+		                        performance P
+		                    <choose>
+		                    	<when test="code2 != null">
+		                    		where category_code in (#{ code1 }, #{ code2 })
+		                    	</when>
+		                    	<otherwise>
+		                    		where category_code = #{ code1 }
+		                    	</otherwise>
+		                    </choose>
+		                order by sale_cnt desc) P) P
+		where rnum between 1 and 3
+	</select>
+	
+	<select id="selectPickList" resultMap="performanceMap">
+		select 
+			* 
+		from 
+			performance 
+		where per_display='Y'
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

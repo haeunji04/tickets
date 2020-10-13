@@ -83,6 +83,10 @@ public interface PerformanceService {
 
 	int perDelete(int perNo);
 
+	List<Performance> selectPerRank(Map<String, Object> param);
+
+	List<Performance> selectPickList();
+
 
 
 
