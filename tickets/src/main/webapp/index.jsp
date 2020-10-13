@@ -393,8 +393,10 @@ footer{ margin-top: 2100px; }
 			<c:forEach items="${ pickList }" var="per">
 				<div class="figure mx-3 my-3" style="width:224px; height:304px;">
 					<figure class="figure img-thumbnail">
+				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 						<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" class="mx-3" style="width:180px; height:250px;">
 						<figcaption class="figure-caption text-center" id="title"><strong>${ per.perTitle }</strong></figcaption>
+				</a>
 					</figure>
 				</div>
 			</c:forEach>
