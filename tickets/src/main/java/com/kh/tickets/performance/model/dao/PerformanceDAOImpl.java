@@ -192,4 +192,19 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int perDelete(int perNo) {
 		return sqlSession.delete("performance.perDelete", perNo);
 	}
+
+	@Override
+	public List<Performance> selectPerRank(Map<String, Object> param) {
+		return sqlSession.selectList("performance.selectPerRank", param);
+	}
+
+	@Override
+	public List<Performance> selectPickList() {
+		return sqlSession.selectList("performance.selectPickList");
+	}
+	
+	
+	
+	
+	
 }
