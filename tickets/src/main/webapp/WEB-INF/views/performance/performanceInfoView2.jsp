@@ -739,10 +739,15 @@ $("[type=submit]").click(function(){
 				if(data.length > 0){
 					for(var i in data){
 						var sch = data[i];
-						html += "<li id='list'><button type='button' id='schedule-btn' class='btn btn-outline-primary mt-3' style='width:240px;'>";
+						html += "<li name='list'><button type='button' id='schedule-btn' class='btn btn-outline-primary mt-3' style='width:240px;'>";
 						html += sch.hour + "시 ";
 						html += sch.min + "분";
-						html += "</button></li>";
+						html += "</button>"
+						html += "<form:form action='${pageContext.request.contextPath}/performance/selectSeat.do' method='GET' name='selectSeat' target='selectSeat'>"
+						html +="<input type='hidden' name='schNo' value="+sch.schNo+" />";
+						html +="<input type='hidden' name='perNo' value='${performance.perNo}'/>";
+						html +="<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}' />";
+						html += "</form:form></li>";
 					}
 				}
 				else{
@@ -750,20 +755,29 @@ $("[type=submit]").click(function(){
 				}
 	
 				$container.html(html);
+				$('[name=list]').click(function(){
+					$('[name=list]').removeClass();
+					$(this).addClass('on');	
+				});
+			
 					
 			}
 
 			
         }
 
-
-    </script>
-<%-- 	 <script>
-		console.log("cnt1"+<%=cnt1%>);
-		console.log("cnt2"+<%=cnt2%>);
-		console.log("cnt3"+<%=cnt3%>);
-		console.log("cnt4"+<%=cnt4%>);
-	 </script> --%>
+        </script>
+      <script>
+		 function nwindow(){
+			var $li = $('.on');
+			var $frm = $li.find('form');
+			var name = $frm[0].getAttribute('name');
+			alert(name);
+		    var url="${pageContext.request.contextPath}/performance/selectSeat.do";
+		    window.open(url,name,"width=1200,height=600,left=50,top=50");
+		    $frm.submit();
+		}
+	 </script>
 	 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
