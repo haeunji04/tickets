@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.performance.model.dao.PerformanceDAO;
+import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.PerJoin;
@@ -198,6 +199,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public List<Performance> selectPickList() {
 		return performanceDAO.selectPickList();
+	}
+
+	@Override
+	public List<CommentPerList> commentPerList(String boardCommentWriter) {
+		return performanceDAO.commentPerList(boardCommentWriter);
 	}
 
 	

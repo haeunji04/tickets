@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +34,7 @@ import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.PerJoin;
@@ -66,7 +66,7 @@ public class PerformanceController {
 
 	@GetMapping("/list")
 	public ModelAndView categoryListView(ModelAndView mav, 
-										@RequestParam(value="Principal", required=false) Principal principal,
+			/* @RequestParam(value="Principal", required=false) */ Principal principal,
 //										@RequestParam(value="memberId", required=false) String memberId,
 										@RequestParam("category") String category, 
 										HttpServletRequest request
@@ -964,7 +964,44 @@ public class PerformanceController {
 		return schList;
 	}
 	
-	
+	//내가 기대평 단 공연목록
+	@RequestMapping("/performance/commentPerList.do")
+	public String commentPerList(Model model, Principal principal) {
+		
+		//log.debug("loginMember = {}", loginMember);		
+		String boardCommentWriter = principal.getName();
+		log.debug("boardCommentWriter@@ = {}",boardCommentWriter);
+		
+		List<CommentPerList> list = performanceService.commentPerList(boardCommentWriter);
+		log.debug("list@controller = {}", list);
+		
+		CommentPerList[] arr = list.toArray(new CommentPerList[list.size()]);
+		
+		//공연 중복제거용 리스트
+		List<CommentPerList> cList = new ArrayList<>(); 		
+		
+		abc:
+		for(int i=0; i<arr.length; i++) {
+			
+			for(int j=0; j<arr.length; j++) {
+				if(arr[i].getPerNo()==arr[j].getPerNo()) {
+					if(i>j) {
+						continue abc;
+					}					
+				}
+			}
+			
+			cList.add(arr[i]);
+		}		
+				
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("cList", cList);
+		model.addAttribute("list", list);
+		
+		return "performance/commentPerList";
+	}	
+
 	
 	
 }

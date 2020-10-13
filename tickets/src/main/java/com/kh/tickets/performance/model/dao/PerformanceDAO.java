@@ -3,6 +3,7 @@ package com.kh.tickets.performance.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.PerJoin;
@@ -85,6 +86,8 @@ public interface PerformanceDAO {
 	List<Performance> selectPerRank(Map<String, Object> param);
 
 	List<Performance> selectPickList();
+
+	List<CommentPerList> commentPerList(String boardCommentWriter);
 
 	
 
