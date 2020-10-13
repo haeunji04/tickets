@@ -631,8 +631,11 @@ public class PerformanceController {
 	}
 	
 	@GetMapping("/performance/selectSeat.do")
-	public ModelAndView selectSeat(ModelAndView mav) {
-		
+	public ModelAndView selectSeat(ModelAndView mav,
+								   @RequestParam int schNo,
+								   @RequestParam int perNo) {
+		Performance performance = performanceService.selectOnePerformance(perNo);		
+		mav.addObject("performance", performance);
 		mav.setViewName("performance/selectSeat");
 		return mav;
 	}
