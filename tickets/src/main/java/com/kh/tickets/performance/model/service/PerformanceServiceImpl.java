@@ -205,6 +205,16 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public List<CommentPerList> commentPerList(String boardCommentWriter) {
 		return performanceDAO.commentPerList(boardCommentWriter);
 	}
+	
+	@Override
+	public int selectScheduleHall(int schNo) {
+		return performanceDAO.selectScheduleHall(schNo);
+	}
+
+	@Override
+	public PerformanceHall selectOneTheater(int theaterNo) {
+		return performanceDAO.selectOneTheater(theaterNo);
+	}
 
 	
 }

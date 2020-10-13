@@ -20,5 +20,6 @@ public class Schedule implements Serializable {
 	private int perNo;
 	private int schRound;
 	private Date schDateTime;
+	private int theaterNo;
 		
 }

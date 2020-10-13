@@ -178,12 +178,12 @@ span.seatCharts-legendDescription {
 						background-color:#70D0EA;
 					<%}%>
 				"></div>
+				<input type="hidden" name="" />
 			<%} %>
 		</div>
 		<%
 		}
 			%>
-		
 	</div>
 	
 	<div id="test" class="seatCharts-container" tabindex="0">

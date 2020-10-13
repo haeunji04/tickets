@@ -89,6 +89,8 @@ public interface PerformanceDAO {
 
 	List<CommentPerList> commentPerList(String boardCommentWriter);
 
-	
+	int selectScheduleHall(int schNo);
+
+	PerformanceHall selectOneTheater(int theaterNo);
 
 }

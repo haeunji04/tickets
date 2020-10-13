@@ -13,16 +13,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/calendar.css">
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/calendar.js"></script>
-<script>
-$(function(){
-	$('#list').click(function(){
-		$('#list').removeClass();
-		$(this).addClass('on');	
-	});
-});
 
-
-</script>
 
 <style>
 
@@ -206,7 +197,7 @@ $(function(){
                     
                 </div>
                <div class="box_type_comment">
-               <button type="submit" class="btn btn-primary btn-lg btn-block">예매하기</button>
+               <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
                </div>
               </div>
               <div class="d-block mx-auto mt-5">
@@ -743,11 +734,11 @@ $("[type=submit]").click(function(){
 						html += sch.hour + "시 ";
 						html += sch.min + "분";
 						html += "</button>"
-						html += "<form:form action='${pageContext.request.contextPath}/performance/selectSeat.do' method='GET' name='selectSeat' target='selectSeat'>"
+						html += "<form action='${pageContext.request.contextPath}/performance/selectSeat.do' method='GET' name='selectSeat' target='selectSeat'>"
 						html +="<input type='hidden' name='schNo' value="+sch.schNo+" />";
 						html +="<input type='hidden' name='perNo' value='${performance.perNo}'/>";
-						html +="<input type='hidden' name='${_csrf.parameterName}' value='${_csrf.token}' />";
-						html += "</form:form></li>";
+						html +="<input type='hidden' name='memberId' value='${loginMember.memberId}'/>";
+						html += "</form></li>";
 					}
 				}
 				else{
@@ -769,6 +760,7 @@ $("[type=submit]").click(function(){
         </script>
       <script>
 		 function nwindow(){
+			 
 			var $li = $('.on');
 			var $frm = $li.find('form');
 			var name = $frm[0].getAttribute('name');
