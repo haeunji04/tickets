@@ -96,8 +96,8 @@ public class HomeController {
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
 		
 		Map<String, Object> param = new HashMap<>();
-		param.put("code1", "C2");
-		param.put("code2", "C3");
+		param.put("code1", "C1");
+		param.put("code2", "C2");
 		
 		List<Performance> mList = performanceService.selectPerRank(param);
 		List<Performance> pickList = performanceService.selectPickList();

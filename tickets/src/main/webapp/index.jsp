@@ -476,12 +476,12 @@ $('.carousel').carousel({
 <script>
 
 $("#concert").click(function(){
-	var code = { code1 : "C1" };
+	var code = { code1 : "C3" };
 	selectPerLank(code)
 });
 
 $("#musical").click(function(){
-	var code = { code1 : "C2", code2 : "C3" };
+	var code = { code1 : "C1", code2 : "C2" };
 	selectPerLank(code)
 	
 });
