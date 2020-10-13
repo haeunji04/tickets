@@ -455,7 +455,7 @@ values(
     default
 );
 --admin 참고구문
-delete member where member_id = 'jumju1';
+delete member where member_id = 'company12';
 select * from member;
 commit;
 --update member set member_role = 'A' where member_id = 'admin'; 
@@ -463,7 +463,7 @@ commit;
 insert into 
     member
 values(
-    'honggd',
+    'honggd5',
     '$2a$10$Te9bO/6BuGCO3xY/Avis.emYCtKbYgZK3cM991zvKr2vWxo51jkd.',
     '홍길동',
     'honggd@naver.com',
@@ -473,13 +473,14 @@ values(
     '23456',
     'U',
     default,
+    default,
     default
 );
 
 insert into 
     member
 values(
-    'company12',
+    'company13',
     '$2a$10$3qCOl8BCyaloCmZQt4mGzuuf.XB2AtKov1slPxiZ0fPE7yoUhFKLa',
     '판매자12',
     'company1@naver.com',
