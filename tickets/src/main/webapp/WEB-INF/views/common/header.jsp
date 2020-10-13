@@ -162,6 +162,7 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜 목록</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 목록</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/commentPerList.do">기대평 작성한 공연목록</a>
 			          		<sec:authorize access="hasRole('COMPANY')">
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>

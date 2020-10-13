@@ -410,6 +410,17 @@
 		where per_display='Y'
 	</select>
 	
+	<select id="commentPerList" resultMap="commentPerListMap">
+		select
+			*
+		from
+			comment_per_list_view
+		where
+			board_comment_writer = #{ boardCommentWriter }
+		order by
+			board_comment_date desc 
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -423,6 +434,8 @@
 	<resultMap type="schedule" id="perSchedule">
 	</resultMap>
 	<resultMap type="perJoin" id="perJoinMap">
+	</resultMap>
+	<resultMap type="commentPerList" id="commentPerListMap">
 	</resultMap>
 	
 </mapper>

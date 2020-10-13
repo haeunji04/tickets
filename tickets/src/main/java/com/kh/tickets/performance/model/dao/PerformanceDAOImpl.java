@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
 import com.kh.tickets.performance.model.vo.PerJoin;
@@ -201,6 +202,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public List<Performance> selectPickList() {
 		return sqlSession.selectList("performance.selectPickList");
+	}
+
+	@Override
+	public List<CommentPerList> commentPerList(String boardCommentWriter) {
+		return sqlSession.selectList("performance.commentPerList", boardCommentWriter);
 	}
 	
 	

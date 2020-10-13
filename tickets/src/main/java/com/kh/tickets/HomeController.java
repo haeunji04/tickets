@@ -84,6 +84,9 @@ public class HomeController {
 			memberId = principal.getName();
 			
 		}
+//		else {
+//			memberId = "nonlogin";
+//		}
 		log.debug("memberId@@  = {}", memberId );
 		
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);

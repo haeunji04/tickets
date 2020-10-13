@@ -231,7 +231,9 @@ create table recently_per_list(
     constraints fk_recently_member_id foreign key(member_id) references member(member_id),
     constraints fk_recently_per_no foreign key(per_no) references performance(per_no) 
 );
-
+select * from recently_per_list where member_id='honggd';
+--delete recently_per_list where member_id='honggd';
+--commit;
 
 alter table recently_per_list drop constraints fk_recently_member_id cascade;
 alter table recently_per_list add constraint fk_recently_member_id foreign key(member_id) references member(member_id) on delete cascade;
@@ -251,6 +253,8 @@ ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
 
 alter table schedule drop constraints fk_per_no4 cascade;
 alter table schedule add constraint fk_per_no4 foreign key(per_no) references performance(per_no) on delete cascade;
+
+select * from schedule;
 
 --삭제관련 수정사항(도현 20.10.06) End
 
@@ -302,7 +306,6 @@ create table ticket(
 );
 
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
-
 CREATE TABLE comment_board (
 	board_comment_no number null,
 	board_comment_level	number DEFAULT 1,
@@ -354,9 +357,24 @@ select W.member_id, per_no, W.recently_date,
        P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time
 from recently_per_list W
     join performance P using(per_no);
+
+create view comment_per_list_view as
+select P.member_id, per_no, 
+       P.per_title, P.per_img_original_filename, P. per_img_renamed_filename,
+       P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
+       C.board_comment_writer, C.board_comment_content, 
+       C.board_comment_date
+from performance P
+    join comment_board C using(per_no);    
     
+--commit;
+--댓글 단 공연
+select * 
+from performance
+join comment_board C using(per_no)
+where board_comment_writer = 'honggd';
     
-    
+select * from comment_board where board_comment_writer='honggd';    
 
 
 --=============== tickets계정으로 기본 insert 생성===============
@@ -578,6 +596,7 @@ from
 select * from member;
 --select * from category;
 select * from performance;
+select * from comment_board;
 --select * from review;
 --select * from wishlist;
 --select * from schedule;
@@ -585,7 +604,7 @@ select * from performance;
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
---select * from recently_per_list;
+select * from recently_per_list;
 --select * from recently_per_list_view;
 
 
