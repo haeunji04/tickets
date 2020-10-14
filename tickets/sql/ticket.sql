@@ -263,15 +263,14 @@ select * from schedule;
 --Seat
 create table seat(
     seat_no number,
-    seat_issue char(1) default 'N',
     seat_price number,
     seat_grade varchar2(10),
     floor number,
     x number,
     y number,
-    sch_no number,
+    theater_no number,
     constraints pk_seat_no primary key(seat_no),
-    constraints fk_sch_no1 foreign key(sch_no) references schedule(sch_no)
+    constraints fk_theater_no2 foreign key(theater_no) references theater(theater_no)
 );
 
 --Pay
@@ -600,9 +599,9 @@ select * from member;
 select * from performance;
 select * from comment_board;
 --select * from review;
---select * from wishlist;
+select * from wishlist;
 --select * from schedule;
---select * from seat;
+select * from seat;
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
