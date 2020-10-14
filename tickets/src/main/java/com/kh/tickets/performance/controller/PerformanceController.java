@@ -640,6 +640,7 @@ public class PerformanceController {
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
+		mav.addObject("memberId", memberId);
 		mav.setViewName("/performance/selectSeat");
 		return mav;
 	}

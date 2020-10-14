@@ -178,7 +178,6 @@ span.seatCharts-legendDescription {
 						background-color:#70D0EA;
 					<%}%>
 				"></div>
-				<input type="hidden" name="" />
 			<%} %>
 		</div>
 		<%
