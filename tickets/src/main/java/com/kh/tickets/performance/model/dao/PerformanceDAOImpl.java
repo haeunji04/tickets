@@ -210,7 +210,15 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 	
 	
-	
+	@Override
+	public int selectScheduleHall(int schNo) {
+		return sqlSession.selectOne("performance.selectScheduleHall",schNo);
+	}
+
+	@Override
+	public PerformanceHall selectOneTheater(int theaterNo) {
+		return sqlSession.selectOne("performance.selectOneTheater",theaterNo);
+	}
 	
 	
 }

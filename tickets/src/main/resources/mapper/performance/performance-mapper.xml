@@ -195,7 +195,8 @@
 			schedule_seq.nextval,
 			#{ perNo },
 			null,
-			#{ parseDate }
+			#{ parseDate },
+			null
 		)
 	
 	</insert>	
@@ -419,6 +420,16 @@
 			board_comment_writer = #{ boardCommentWriter }
 		order by
 			board_comment_date desc 
+	</select>
+		<select id="selectScheduleHall" resultMap="perSchedule">
+		select theater_no
+		from schedule
+		where sch_no = #{schNo}
+	</select>
+	<select id="selectOneTheater" resultMap="performanceHallMap">
+		select *
+		from theater
+		where theater_no = #{theaterNo}
 	</select>
 	
 	<resultMap type="performance" id="performanceMap">

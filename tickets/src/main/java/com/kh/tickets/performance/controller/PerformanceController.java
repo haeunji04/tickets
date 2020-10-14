@@ -633,10 +633,14 @@ public class PerformanceController {
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav,
 								   @RequestParam int schNo,
-								   @RequestParam int perNo) {
-		Performance performance = performanceService.selectOnePerformance(perNo);		
+								   @RequestParam int perNo,
+								   @RequestParam String memberId) {
+		Performance performance = performanceService.selectOnePerformance(perNo);	
+		int theaterNo = performanceService.selectScheduleHall(schNo);
+		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
+		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
-		mav.setViewName("performance/selectSeat");
+		mav.setViewName("/performance/selectSeat");
 		return mav;
 	}
 	
