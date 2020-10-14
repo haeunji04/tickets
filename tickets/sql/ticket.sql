@@ -358,15 +358,17 @@ select W.member_id, per_no, W.recently_date,
 from recently_per_list W
     join performance P using(per_no);
 
+--내가 기대평 단 공연목록
 create view comment_per_list_view as
 select P.member_id, per_no, 
        P.per_title, P.per_img_original_filename, P. per_img_renamed_filename,
-       P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
+       P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
        C.board_comment_writer, C.board_comment_content, 
        C.board_comment_date
 from performance P
     join comment_board C using(per_no);    
-    
+
+select * from comment_per_list_view where board_comment_writer = 'honggd';
 --commit;
 --댓글 단 공연
 select * 

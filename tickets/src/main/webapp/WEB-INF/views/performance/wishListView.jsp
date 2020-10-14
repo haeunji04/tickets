@@ -35,13 +35,13 @@
 						style="width: 200px" />
 					</a>
 			<h6>${ wish.perTitle }</h6>
-			<p style="font-size:13px;" class="mb-0">2020.11.01-2020.11.23</p>
+			<p style="font-size:13px;" class="mb-0">${ dateformat.format(wish.perStartDate) }-${ dateformat.format(wish.perEndDate) }</p>
 		</div>
 		</c:forEach>
 		</c:if>
 		
 		<c:if test="${ empty list }">
-			<div>공연이 존재하지 않습니다.</div>
+			<div>찜한 공연이 존재하지 않습니다.</div>
 		</c:if>
 		<!-- 뮤지컬 반복문 블록 끝 -->
 	
@@ -51,9 +51,31 @@
 	<div class="d-block dropdown-divider"></div>
 	<br />
 	
-	<p>아래는 추천도 뜨는식으로?</p>
-	<div style="width: 220px; height:400px;" class="text-center d-inline-block m-3 pt-0">
-			<a href="">
+	<h4 class="text-primary my-4"> 추천 공연</h4>
+	<div class="my-3 text-center">
+		<c:if test="${ not empty recommendedList }">
+		<c:forEach items="${ recommendedList }" var="recom" begin="0" end= "2" step="1" varStatus="status">
+		<div style="width: 213px" class="text-center d-inline-block p-3">
+			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recom.perNo }">
+						<%-- <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"> --%>	
+										
+						<%-- <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>"> --%>
+						<img
+						src="<c:url value='/resources/upload/performance/${ recom.perImgRenamedFileName}' />"
+						style="width: 200px" />
+					</a>
+			<h6>${ recom.perTitle }</h6>
+			<p style="font-size:13px;" class="mb-0">${ dateformat.format(recom.perStartDate) }-${ dateformat.format(recom.perEndDate) }</p>
+		</div>
+		</c:forEach>
+		</c:if>
+		
+		<c:if test="${ empty recommendedList }">
+			<div>추천 공연이 존재하지 않습니다.</div>
+		</c:if>
+	
+	
+			<%-- <a href="">
 				<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
 					 alt="포스터" height="300px" class="mb-2"/>
 			</a>
@@ -79,7 +101,7 @@
 			</a>
 			<h5>뮤지컬 [무인도 탈출기]</h5>
 			<p>청춘을 대변하는 우리들의 '극중극'</p>
-		</div>
+		</div> --%>
 	</div>
 
 

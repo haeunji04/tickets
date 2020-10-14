@@ -562,8 +562,8 @@ public class PerformanceController {
 		mav.addObject("list", list);		
 		mav.addObject("memberId", memberId);
 		//내 최근공연목록 list. for문과 if절에서 이미 최근목록에 있을시 이전거 지우고, 다시 최신날짜로 insert
-		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
-		MyRecentlyPerList[] arr = rList.toArray(new MyRecentlyPerList[rList.size()]);
+		List<MyRecentlyPerList> rrList = performanceService.recentlyPerList(memberId);
+		MyRecentlyPerList[] arr = rrList.toArray(new MyRecentlyPerList[rrList.size()]);
 		
 		
 	    for(int i=0; i<arr.length; i++){
@@ -587,7 +587,12 @@ public class PerformanceController {
 		int result = performanceService.recentlyPerListInsert(recentlyPerList);		
 		log.debug("recentlyPerListInsert@controller = {}", result);
 		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("list@controller = {}", rList);
+		mav.addObject("rList", rList);	
 		}
+		
+		
 		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
 		int commntListSize = commentList.size();
 		
@@ -729,12 +734,18 @@ public class PerformanceController {
 		String memberId = principal.getName();  //getMemberId();
 		log.debug("memberId@@ = {}", memberId);
 		List<MyWishList> list = performanceService.wishListView(memberId);
+		List<Performance> recommendedList = performanceService.recommendList();
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
 		log.debug("list@controller = {}", list);
+		log.debug("recommendedList@controller = {}", recommendedList);
+		log.debug("list@controller = {}", rList);
 		
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("list", list);
+		mav.addObject("recommendedList", recommendedList);
+		mav.addObject("rList", rList);
 		mav.setViewName("/performance/wishListView");
 		return mav;
 	}
@@ -998,11 +1009,15 @@ public class PerformanceController {
 			
 			cList.add(arr[i]);
 		}		
+		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(boardCommentWriter);
+		log.debug("list@controller = {}", rList);
 				
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		model.addAttribute("dateformat", dateformat);
 		model.addAttribute("cList", cList);
 		model.addAttribute("list", list);
+		model.addAttribute("rList", rList);
 		
 		return "performance/commentPerList";
 	}	
