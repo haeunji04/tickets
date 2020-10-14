@@ -432,6 +432,18 @@
 		where theater_no = #{theaterNo}
 	</select>
 	
+		<select id="allPerJoinList" resultMap="perJoinMap">
+		select
+			*
+		from
+			performance_join_view
+ 		<!-- <where>
+			<if test="param != null">
+				
+			</if>
+		</where> --> 
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

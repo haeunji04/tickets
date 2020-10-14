@@ -220,5 +220,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.selectOneTheater",theaterNo);
 	}
 	
+	@Override
+	public List<PerJoin> allPerformanceList() {
+		return sqlSession.selectList("performance.allPerJoinList");
+	}
+
+	
 	
 }

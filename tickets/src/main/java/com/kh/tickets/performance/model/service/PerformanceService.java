@@ -94,6 +94,8 @@ public interface PerformanceService {
 
 	PerformanceHall selectOneTheater(int theaterNo);
 
+	List<PerJoin> allPerformanceList();
+
 
 
 

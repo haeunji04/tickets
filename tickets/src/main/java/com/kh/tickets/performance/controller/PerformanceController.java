@@ -1021,6 +1021,21 @@ public class PerformanceController {
 		
 		return "performance/commentPerList";
 	}	
+	
+	@RequestMapping("/performance/searchOption")
+	public String searchOption(Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<PerJoin> list = performanceService.allPerformanceList();
+		int size = list.size();
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("listSize", size);
+		model.addAttribute("list", list);
+		return "performance/performanceSearchOpt";
+	}
 
 	
 	

@@ -93,4 +93,6 @@ public interface PerformanceDAO {
 
 	PerformanceHall selectOneTheater(int theaterNo);
 
+	List<PerJoin> allPerformanceList();
+
 }
