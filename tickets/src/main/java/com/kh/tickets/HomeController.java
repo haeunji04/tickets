@@ -107,9 +107,32 @@ public class HomeController {
 		
 		log.debug("pickList= {}", pickList);
 		
+		//슬라이드 아래 new 공연
+		List<Performance> newList = performanceService.selectPerformanceList();
+		log.debug("newList= {}", newList);
+		
+		//슬라이드 아래 콘서트&페스티벌 공연
+		String category = "C3";
+		List<Performance> concertList = performanceService.selectCategoryList(category);
+		log.debug("concertList= {}", concertList);
+		
+		//슬라이드 아래 뮤지컬 공연
+		category = "C1";
+		List<Performance> musicalList = performanceService.selectCategoryList(category);
+		log.debug("musicalList= {}", musicalList);
+		
+		//슬라이드 아래 연극 공연
+		category = "C2";
+		List<Performance> theatreList = performanceService.selectCategoryList(category);
+		log.debug("theatreList= {}", theatreList);
+		
 		model.addAttribute("dateformat", dateformat);	
 		model.addAttribute("muRank", mList);
 		model.addAttribute("pickList", pickList);
+		model.addAttribute("newList", newList);
+		model.addAttribute("concertList", concertList);
+		model.addAttribute("musicalList", musicalList);
+		model.addAttribute("theatreList", theatreList);
 		
 		return "forward:/index.jsp";
 	}

@@ -39,9 +39,22 @@
 		from
 			performance
 		
+		<!-- where member_id = 'company2' -->
 		order by
 			per_register_date
 			desc
+	</select>
+	
+	<select id="selectCategoryList" resultMap="performanceMap">
+		select
+			*
+		from
+			performance
+		
+		where category_code = #{ category }
+		order by
+			per_register_date
+			asc
 	</select>
 	
 	<select id="categoryListView" resultMap="perJoinMap">

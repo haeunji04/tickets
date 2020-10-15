@@ -54,7 +54,7 @@
 	<h4 class="text-primary my-4"> 추천 공연</h4>
 	<div class="my-3 text-center">
 		<c:if test="${ not empty recommendedList }">
-		<c:forEach items="${ recommendedList }" var="recom" begin="0" end= "2" step="1" varStatus="status">
+		<c:forEach items="${ recommendedList }" var="recom" begin="0" end= "3" step="1" varStatus="status">
 		<div style="width: 213px" class="text-center d-inline-block p-3">
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ recom.perNo }">
 						<%-- <c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>"> --%>	

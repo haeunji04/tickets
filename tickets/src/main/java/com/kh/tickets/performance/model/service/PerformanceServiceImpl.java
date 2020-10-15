@@ -221,6 +221,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.allPerJoinList(param);
 	}
 
+
+	@Override
+	public List<Performance> selectCategoryList(String category) {
+		return performanceDAO.selectCategoryList(category);
+	}
 	
 	
 

@@ -290,7 +290,8 @@
 							<td>
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq performance.memberId ||
-											   loginMember.memberRole eq 'A')  }">	
+											   loginMember.memberRole eq 'A')  }">
+										
 									<button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
 											value="${ comment.boardCommentNo }">답글</button>								
 								</c:if>							
@@ -581,10 +582,7 @@ $(function(){
 		
 	});
 	
-	$(".btn-reply").click(function(){
-		if(${loginMember} == null)
-			loginAlert();
-		else {
+	$("#btn-reply").click(function(){
 			let $tr = $("<tr></tr>");
 			let $td = $("<td style='display:none; text-align:left;' colspan=2></td>");
 			let $frm = $("<form:form action='${pageContext.request.contextPath }/boardComment/boardCommentInsert.do' method='POST'></form:form>");
@@ -608,7 +606,10 @@ $(function(){
 					   return false;
 			   })
 			   .children("textarea").focus();
-		}
+		/* if(${loginMember} == null)
+			loginAlert();
+		else {
+		} */
 		
 		//1회만 작동하도록 함.
 		$(this).off("click");

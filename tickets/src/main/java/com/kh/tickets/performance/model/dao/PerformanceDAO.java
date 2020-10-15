@@ -95,4 +95,6 @@ public interface PerformanceDAO {
 
 	List<PerJoin> allPerJoinList(Map<String, Object> param);
 
+	List<Performance> selectCategoryList(String category);
+
 }
