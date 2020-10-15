@@ -96,6 +96,8 @@ public interface PerformanceService {
 
 	List<PerJoin> allPerformanceList();
 
+	List<Performance> selectCategoryList(String category);
+
 
 
 

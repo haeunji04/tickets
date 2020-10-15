@@ -591,7 +591,7 @@ from
 
 --======================================================
 
---select * from theater;
+select * from theater;
 --select * from location;
 --select * from category;
 select * from member;

@@ -107,9 +107,20 @@ public class HomeController {
 		
 		log.debug("pickList= {}", pickList);
 		
+		//슬라이드 아래 new 공연
+		List<Performance> newList = performanceService.selectPerformanceList();
+		log.debug("newList= {}", newList);
+		
+		//슬라이드 아래 콘서트&페스티벌 공연
+		String category = "C3";
+		List<Performance> concertList = performanceService.selectCategoryList(category);
+		log.debug("concertList= {}", concertList);
+		
 		model.addAttribute("dateformat", dateformat);	
 		model.addAttribute("muRank", mList);
 		model.addAttribute("pickList", pickList);
+		model.addAttribute("newList", newList);
+		model.addAttribute("concertList", concertList);
 		
 		return "forward:/index.jsp";
 	}
