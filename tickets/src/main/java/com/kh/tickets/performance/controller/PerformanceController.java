@@ -332,7 +332,7 @@ public class PerformanceController {
 		String memberId = principal.getName();
 		log.debug("memberId@@ = {}", memberId);
 		List<Performance> list = performanceService.companyPerList(memberId);
-		log.debug("list@controller = {}", list);
+		//log.debug("list@controller = {}", list);
 		
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
@@ -346,7 +346,7 @@ public class PerformanceController {
 	public ModelAndView perUpdateForm(ModelAndView mav,
 			   						 @RequestParam int perNo, RedirectAttributes redirectAttributes) {		
 		
-		Performance performance = performanceService.selectOnePerformance(perNo);
+		PerJoin performance = performanceService.selectOnePerJoin(perNo);
 		mav.addObject("performance", performance);
 		mav.setViewName("/company/perUpdateForm");
 		return mav;
@@ -365,6 +365,8 @@ public class PerformanceController {
 		
 		String saveDirectory = request.getServletContext()
 				  .getRealPath("/resources/upload/performance");
+		
+		log.debug("performanceUpdate = {}", performance);
 		
 		// 기존 첨부 파일이 있는 경우 처리
 		//if(!"".equals(oldPerImgOriginalFileName)) {
@@ -1025,9 +1027,9 @@ public class PerformanceController {
 	@RequestMapping("/performance/searchOption")
 	public String searchOption(Model model) {
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> param = new HashMap<>();
 		
-		List<PerJoin> list = performanceService.allPerformanceList();
+		List<PerJoin> list = performanceService.allPerJoinList(param);
 		int size = list.size();
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
@@ -1035,6 +1037,24 @@ public class PerformanceController {
 		model.addAttribute("listSize", size);
 		model.addAttribute("list", list);
 		return "performance/performanceSearchOpt";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/performance/location")
+	public Map<String, Object> searchOption(@RequestBody Map<String, Object> param){
+		log.debug("locationCode = {}", param.get("locationCode"));
+		
+		List<PerJoin> list = performanceService.allPerJoinList(param);
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+		int size = list.size();
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("dateFormat", dateformat);
+		map.put("listSize", size);
+		
+		log.debug("list@locationCode = {}", list);
+		return map;
 	}
 
 	

@@ -60,12 +60,16 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			  <input type="text" class="form-control" id="perActor" name="perActor" value="${ performance.perActor }" required>
 			</div>	
 			 	
+			<div class="form-group">
+				<input type="button" class="btn btn-outline-primary" value="공연장 검색" onclick="searchHall()"/>
+				<input type="text" class="form-control" id="searchHallNo" name="theaterNo" placeholder="공연장번호" value="${ performance.theaterNo }" readonly/>
+				<input type="text" class="form-control" id="searchHallName" name="searchTheaterName" placeholder="공연장명" value="${ performance.theaterName }" readonly/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</div>	
 			
 			<div class="form-group">
 		      <label class="col-form-label" for="perContent">공연소개</label>
-		      <textarea class="form-control" name="perContent" id="perContent" rows="3" value="">
-		      		${ performance.perContent }
-		      </textarea>
+		      <textarea class="form-control" name="perContent" id="perContent" rows="3" value="">${ performance.perContent }</textarea>
 		    </div>
 		    
 		    <div class="form-group">
@@ -174,6 +178,14 @@ $(function(){
 	});
 
 
+function searchHall(){
+
+	window.open('${pageContext.request.contextPath}/searchPerformanceHall.do', '', 'width=800, height=600, left=200, top=200, resizable = yes');
+}
+function setValue(hallNo,hallName){
+	document.getElementById("searchHallNo").value= hallNo;
+	document.getElementById("searchHallName").value=hallName;
+}
 
 
 </script>
