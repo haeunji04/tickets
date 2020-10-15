@@ -112,7 +112,7 @@
 			no desc -->
 	</select>
 	
-	<select id="selectOnePerformance" resultMap="performanceMap">
+	<select id="selectOnePerformance" resultMap="perJoinMap">
 		select
 			*
 		from
@@ -150,6 +150,7 @@
 			per_title = #{ perTitle },
 			per_director = #{ perDirector },
 			per_actor = #{ perActor },
+			theater_no = #{ theaterNo },
 			per_time = #{ perTime },
 			per_content = #{ perContent },
 			per_img_original_filename =#{perImgOriginalFileName},
@@ -445,16 +446,16 @@
 		where theater_no = #{theaterNo}
 	</select>
 	
-		<select id="allPerJoinList" resultMap="perJoinMap">
+	<select id="allPerJoinList" resultMap="perJoinMap">
 		select
 			*
 		from
 			performance_join_view
- 		<!-- <where>
-			<if test="param != null">
-				
+ 		<where>
+			<if test='locationCode != null'>
+				location_code = #{ locationCode }
 			</if>
-		</where> --> 
+		</where> 
 	</select>
 	
 	<resultMap type="performance" id="performanceMap">

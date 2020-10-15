@@ -79,12 +79,12 @@ a {
 
 	<div class="tab_wrap mx-auto text-center">
 		  <div class="tab_menu_container">
-			    <a class="tab_menu_btn on">전체</a>
-			    <a class="tab_menu_btn">서울</a>
-			    <a class="tab_menu_btn">경기/인천</a>
-			    <a class="tab_menu_btn">대전/세종/충청/강원</a>
-			    <a class="tab_menu_btn">부산/대구/경상/울산</a>
-			    <a class="tab_menu_btn">광주/전라/제주</a>
+			    <a class="tab_menu_btn on" id="L">전체</a>
+			    <a class="tab_menu_btn" id="L1">서울</a>
+			    <a class="tab_menu_btn" id="L2">경기/인천</a>
+			    <a class="tab_menu_btn" id="L3">대전/세종/충청/강원</a>
+			    <a class="tab_menu_btn" id="L4">부산/대구/경상/울산</a>
+			    <a class="tab_menu_btn" id="L5">광주/전라/제주</a>
 		  </div>
 		  
 		  <!-- 카테고리 검색 -->
@@ -117,11 +117,11 @@ a {
 		  	</div>
 		  </div>
 		  
-		  <h5 class="my-3 pt-2 text-muted">
+		  <h5 class="my-3 pt-2 text-muted" id="listSize">
 		  		<span>- 총 <span class="text-primary">${ listSize }</span>건의 공연이 조회되었습니다. - </span>
 		  </h5>
 		  <div class="tab_box_container">
-			    <div class="tab_box on">
+			    <div class="tab_box on" id="tab_content">
 			    	<c:if test="${ not empty list }">
 						<c:forEach items="${ list }" var="per">
 				
@@ -139,7 +139,7 @@ a {
 			    
 			    </div>
 			    
-			    <div class="tab_box">서울</div>
+			    <div class="tab_box" id="">서울</div>
 			    
 			    <div class="tab_box">경기/인천</div>
 			    
@@ -161,14 +161,89 @@ $('.tab_menu_btn').on('click',function(){
 	  $(this).addClass('on')
 	  
 	  //컨텐츠 제거 후 인덱스에 맞는 컨텐츠 노출
-	  var idx = $('.tab_menu_btn').index(this);
+	  //var idx = $('.tab_menu_btn').index(this);
 	  
-	  $('.tab_box').hide();
-	  $('.tab_box').eq(idx).show();
+	  //$('.tab_box').hide();
+	  //$('.tab_box').eq(idx).show();
 
 	  
 });
 
+$("#L").click(function(){
+	var loc = {};
+	selectPerTab(loc);
+});
+$("#L1").click(function(){
+	var loc = { locationCode : "L1" };
+	selectPerTab(loc);
+});
+$("#L2").click(function(){
+	var loc = { locationCode : "L2" };
+	selectPerTab(loc);
+});
+$("#L3").click(function(){
+	var loc = { locationCode : "L3" };
+	selectPerTab(loc);
+});
+$("#L4").click(function(){
+	var loc = { locationCode : "L4" };
+	selectPerTab(loc);
+});
+$("#L5").click(function(){
+	var loc = { locationCode : "L5" };
+	selectPerTab(loc);
+});
+
+function selectPerTab(loc){
+	console.log("loc = " + loc);
+
+	var jsonStr = JSON.stringify(loc);
+	console.log("jsonStr = "+jsonStr);
+
+ 	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+	}); 
+	
+	$.ajax({
+		url: "${ pageContext.request.contextPath }/performance/location",
+		data: jsonStr,
+		method: "POST",
+		contentType : "application/json; charset=utf-8",
+		success: function(data){
+			displayPerTab(data);
+		},
+		error: function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+		}
+	});
+	
+}
+
+function displayPerTab(data){
+	//console.log("data = " +data);
+	var $container = $("#tab_content");
+	
+
+	var html = ""; 
+	if(data.list.length > 0){
+		for(var i in data.list){
+			var per = data.list[i];
+
+			console.log(per);
+			html += "<div style='width: 235px;' class='text-center d-inline-block p-3 my-2'>";
+			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"'>";
+			html += "<img src='${ pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:200px;' class='mb-2'/>";
+			html += "</a>";
+			html += "<h6>"+per.perTitle+"</h6>";
+			html += "<p style='font-size:13px;' class='mb-0'>"+per.perStartDate+"<br />"+per.theaterName+"</p>";
+			html += "</div>";
+		}
+	}
+
+	$container.html(html);
+	$("#listSize").html("<span>- 총 <span class='text-primary'>"+data.listSize+"</span>건의 공연이 조회되었습니다. - </span>");
+			
+}
 
 </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

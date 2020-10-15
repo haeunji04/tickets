@@ -2,12 +2,13 @@ drop table THEATER;
 
 CREATE TABLE THEATER ( 
   no NUMBER(38),
-  location VARCHAR2(50),
-  city VARCHAR2(50),
-  address VARCHAR2(100),
-  name VARCHAR2(100),
-  total_seat NUMBER(38)
+  location VARCHAR2(200),
+  city VARCHAR2(200),
+  address VARCHAR2(200),
+  name VARCHAR2(200),
+  total_seat NUMBER
   );
+  
 --행 1
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (1,'서울특별시','강남구','삼성로 154','강남 구민회관',512);
 --행 2
@@ -354,8 +355,6 @@ INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (171,
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (172,'서울특별시','종로구','대학로8길 7, 한국문예회관','아르코예술극장대극장',600);
 --행 174
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (173,'서울특별시','종로구','대학로12길 64','유니플렉스 1관',599);
---행 175
-INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (174,'서울특별시','종로구','동숭길 100 )','대학로뮤지컬센터 중극장',528);
 --행 176
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (175,'서울특별시','종로구','대학로10길 17','대학로예술극장 대극장',504);
 --행 177
@@ -2111,6 +2110,9 @@ INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (1050
 --행 1,052
 INSERT INTO THEATER (no, location, city, address, name, total_seat) VALUES (1051,'제주특별자치도','서귀포시','태평로 270','서귀포예술의전당',992);
 
+insert into theater values(
+1052, '광주광역시', '광산구', '광주여대길 6', '광주여대 시립유니버시아드 체육관', 1000, 'L5'
+);
 ----------------------------------------------------------------------------------------------
 
 -- location테이블 데이터 변경
@@ -2141,5 +2143,6 @@ UPDATE THEATER SET location_CODE = 'L5' WHERE location LIKE '%제주%';
 
 --SCHEDULE테이블에서 SCH_DATE_TIME 컬럼 데이터타입 TIMESTAMP로 변경(0924)
 ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
+
 
 commit;

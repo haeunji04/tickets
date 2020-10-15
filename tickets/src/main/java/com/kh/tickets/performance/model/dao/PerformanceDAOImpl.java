@@ -221,15 +221,14 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 	
 	@Override
-	public List<PerJoin> allPerformanceList() {
-		return sqlSession.selectList("performance.allPerJoinList");
+	public List<PerJoin> allPerJoinList(Map<String, Object> param) {
+		return sqlSession.selectList("performance.allPerJoinList", param);
 	}
 
 	@Override
 	public List<Performance> selectCategoryList(String category) {
 		return sqlSession.selectList("performance.selectCategoryList", category);
 	}
-
 	
 	
 }
