@@ -128,7 +128,7 @@ footer{ margin-top: 2100px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>
+						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption> --%>
 					</div>
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
@@ -180,7 +180,24 @@ footer{ margin-top: 2100px; }
 					</div> --%>
 				</div>
 				<div class="tab-pane fade" id="mu">
-					<div class="d-inline-block px-3">
+				
+					<c:forEach items="${ musicalList }" var="per" begin="0" end= "2" step="1" varStatus="status" >
+					<div class="d-inline-block px-3" >
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
+						</a>
+						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  --%>
+					</div>					
+					</c:forEach>
+					<c:forEach items="${ theatreList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
+					<div class="d-inline-block px-3" >
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
+						</a>
+						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  --%>
+					</div>					
+					</c:forEach>
+					<%-- <div class="d-inline-block px-3">
 						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:150px;height:200px;"/></a>
 						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption></a>
 					</div>
@@ -199,7 +216,7 @@ footer{ margin-top: 2100px; }
 					<div class="d-inline-block px-3">
 						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:150px;height:200px;"/></a>
 						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption></a>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 		</div>

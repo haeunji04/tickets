@@ -39,10 +39,10 @@
 		from
 			performance
 		
-		where member_id = 'company2'
+		<!-- where member_id = 'company2' -->
 		order by
 			per_register_date
-			asc
+			desc
 	</select>
 	
 	<select id="selectCategoryList" resultMap="performanceMap">
