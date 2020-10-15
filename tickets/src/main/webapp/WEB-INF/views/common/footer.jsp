@@ -9,21 +9,21 @@
 		#floatdiv { 
 		position:fixed; 
 		text-align:center;
-		width:70px; 
+		width: 100px; 
 		display:inline-block; 
-		right:50px; 
+		right:30px; 
 		/* 창에서 오른쪽 길이 */ 
 		top:19%; 
 		/* 창에서 위에서 부터의 높이 */ 
 		background-color: transparent; margin:0; 
-		
+		padding : 15px;
 		} 
 	</style>
 	
 	<sec:authorize access="isAuthenticated()">
 	<c:if test="${ not empty rList }">
 	<%-- <c:if test="${ not empty loginMember && not empty rList }">	 --%>
-	<div id="floatdiv">
+	<div id="floatdiv" class="border rounded">
 		<p  >최근 본 공연</p>
 		<hr />
 		<%-- <a href="">
@@ -55,9 +55,13 @@
 			
 		
 		</c:forEach>	
-		<p>. . .</p>
+		<p>
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  				<path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+			</svg>
+		</p>
 		<!-- <p>더보기</p> -->
-		<a class="dropdown-item" style="text-align:center;" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">더보기</a>
+		<a style="float:center;" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">더보기</a>
 	</div>
 	</c:if>
 	</sec:authorize>
