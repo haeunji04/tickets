@@ -216,5 +216,12 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectOneTheater(theaterNo);
 	}
 
+	@Override
+	public List<PerJoin> allPerformanceList() {
+		return performanceDAO.allPerformanceList();
+	}
+	
+	
+
 	
 }

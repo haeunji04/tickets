@@ -151,6 +151,9 @@
 		      		<li class="nav-item">
 		        		<a class="nav-link" href="${pageContext.request.contextPath }/list?category=C5">전시 &nbsp;</a>
 		      		</li>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="${pageContext.request.contextPath }/performance/searchOption">지역별 공연</a>
+		      		</li>
 		      		<%-- <c:if test="${ not empty loginMember }"> --%>
 		      		<sec:authorize access="isAuthenticated()">				
 			      	<li class="nav-item dropdown" style="right: 0px !important">
