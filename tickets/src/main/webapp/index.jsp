@@ -124,11 +124,11 @@ footer{ margin-top: 2100px; }
 			<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 				<div class="tab-pane fade" id="new">
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
-					<div class="d-inline-block px-3">
+					<div class="d-inline-block px-3" style="vertical-align: top;" >
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption> --%>
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>
 					</div>
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
@@ -150,11 +150,11 @@ footer{ margin-top: 2100px; }
 				</div>
 				<div class="tab-pane fade active show" id="con">
 					<c:forEach items="${ concertList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
-					<div class="d-inline-block px-3" >
+					<div class="d-inline-block px-3" style="vertical-align: top;" >
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  --%>
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>
 					
 					</c:forEach>
@@ -182,11 +182,11 @@ footer{ margin-top: 2100px; }
 				<div class="tab-pane fade" id="mu">
 				
 					<c:forEach items="${ musicalList }" var="per" begin="0" end= "2" step="1" varStatus="status" >
-					<div class="d-inline-block px-3" >
+					<div class="d-inline-block px-3" style="vertical-align: top;">
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  --%>
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>					
 					</c:forEach>
 					<c:forEach items="${ theatreList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
@@ -194,7 +194,7 @@ footer{ margin-top: 2100px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<%-- <figcaption class="figure-caption text-center"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  --%>
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>					
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
