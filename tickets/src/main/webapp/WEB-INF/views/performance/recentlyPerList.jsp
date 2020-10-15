@@ -13,7 +13,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <br />
-<h3 class="text-primary my-4">최근 본 공연들</h3>
+<h3 class="text-primary my-4">내가 최근 본 공연</h3>
 <br />
 <br />
 

@@ -17,7 +17,7 @@
 <div id="category-container" class="mx-auto pb-5">
 
 	<div id="category-header" class="my-4 text-center" >
-		<h2 class="text-primary my-4"> 내가 찜한 공연</h2>		
+		<h3 class="text-primary my-4"> 내가 찜한 공연</h3>		
 	
 	<div id="category-header" class="my-4 text-center" >		
 	
@@ -51,7 +51,7 @@
 	<div class="d-block dropdown-divider"></div>
 	<br />
 	
-	<h4 class="text-primary my-4"> 추천 공연</h4>
+	<h3 class="text-primary my-4"> 추천 공연</h3>
 	<div class="my-3 text-center">
 		<c:if test="${ not empty recommendedList }">
 		<c:forEach items="${ recommendedList }" var="recom" begin="0" end= "3" step="1" varStatus="status">
