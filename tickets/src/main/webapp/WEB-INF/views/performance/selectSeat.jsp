@@ -169,7 +169,7 @@ span.seatCharts-legendDescription {
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
+			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count++ %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
 				style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
@@ -178,7 +178,9 @@ span.seatCharts-legendDescription {
 					<%}else{%>
 						background-color:#70D0EA;
 					<%}%>
-				"></div>
+				">
+				<%-- <input type="hidden" name="seatNo" value="<%= count++ %>" /> --%>
+				</div>
 			<%} %>
 		</div>
 		<%
@@ -245,7 +247,8 @@ span.seatCharts-legendDescription {
               </tr>				
           </table>
 		</div>
-			<div class="side-bar d-block text-left" style="padding-left:20px;">
+		<div class="side-bar d-block text-left" style="padding-left:20px;">
+		
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
 			<button id="complete-select" type="button" class="btn btn-secondary disabled d-block" style="float:left;" onclick="location.href='${pageContext.request.contextPath}/performance/salePerformance.do'">좌석 선택 완료</button>
@@ -259,14 +262,76 @@ span.seatCharts-legendDescription {
 		function select(e){
 				$('#complete-select').removeClass('btn-primary');
 				$('#complete-select').addClass('btn-secondary');
+				var memberId = JSON.stringify("${ memberId }");
+			    	console.log("seatNo" + $(e).attr("value"));
+			    	console.log("schNo" + ${ schNo });
+			    	console.log("${ memberId }");
 			if($(e).hasClass('selected')==true){
-					$(e).removeClass('selected');
-					$("."+e.id).remove();
+					var select = {
+						seatNo : $(e).attr("value"),
+						schNo : ${ schNo },
+						memberId : memberId
+			    	 };
+
+					console.log("select : "+select);
+
+					var jsonStr = JSON.stringify(select);
+					console.log("jsonStr = "+jsonStr);
+
+					$(document).ajaxSend(function(e, xhr, options) {
+						xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+						});
+					$.ajax({
+						url : "${ pageContext.request.contextPath }/performance/removeSelect",
+						data : jsonStr,
+						method : "POST",
+						contentType : "application/json; charset=utf-8",
+						success : function(data){
+							$(e).removeClass('selected');
+							$("."+e.id).remove();
+						},
+						error : function(xhr, status, err){
+							console.log("처리실패", xhr, status, err);
+						},
+						complete : function(){
+							
+						}
+					});
 				}else{
 					$('#complete-select').removeClass('btn-secondary');
 					$('#complete-select').addClass('btn-primary');
-					$(e).addClass('selected');
-					$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
+
+					var memberId = JSON.stringify('${ memberId }');
+					var select = {
+						seatNo : $(e).attr("value"),
+						schNo : ${ schNo },
+						memberId : memberId
+			    	 };
+
+					console.log("select : "+select);
+
+					var jsonStr = JSON.stringify(select);
+					console.log("jsonStr = "+jsonStr);
+
+					$(document).ajaxSend(function(e, xhr, options) {
+						xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+						});
+					$.ajax({
+						url : "${ pageContext.request.contextPath }/performance/addSelect",
+						data : jsonStr,
+						method : "POST",
+						contentType : "application/json; charset=utf-8",
+						success : function(data){
+							$(e).addClass('selected');
+							$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
+						},
+						error : function(xhr, status, err){
+							console.log("처리실패", xhr, status, err);
+						},
+						complete : function(){
+							
+						}
+					});
 				
 				}
 			

@@ -62,7 +62,7 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	@Override
-	public Performance selectOnePerformance(int perNo) {
+	public PerJoin selectOnePerformance(int perNo) {
 		return sqlSession.selectOne("performance.selectOnePerformance", perNo);
 	}
 
@@ -233,7 +233,12 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 
 	@Override
 	public List<Seat> selectSeatList(int theaterNo) {
-		return sqlSession.selectList("performane.selectSeatList", theaterNo);
+		return sqlSession.selectList("performance.selectSeatList", theaterNo);
+	}
+
+	@Override
+	public int addSelect(Map<String, Object> param) {
+		return sqlSession.insert("performance.addSelect", param);
 	}
 	
 	
