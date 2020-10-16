@@ -44,6 +44,7 @@ import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.SchDate;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Seat;
+import com.kh.tickets.performance.model.vo.Selected;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -613,37 +614,13 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	@GetMapping("/performance/performanceInfoView2_notLogin.do")
-	public ModelAndView performanceInfoView2_notLogin(ModelAndView mav, @RequestParam int perNo) {
-		
-		log.debug("perNo@@ = {}", perNo);		
-		
-		//공연상세페이지에 들어갈 공연객체
-		Performance performance = performanceService.selectOnePerformance(perNo);		
-		
-		List<BoardComment> commentList = boardCommentService.selectCommentList(perNo);
-		int commntListSize = commentList.size();
-		
-		log.debug("commentList@controller@@ = {}", commentList);
-		log.debug("commntListSize@@ = {}", commntListSize);
-		
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
-		
-		mav.addObject("dateformat", dateformat);
-		mav.addObject("performance", performance);
-		mav.addObject("commentList", commentList);		
-		mav.addObject("commntListSize", commntListSize);		
-//		mav.addObject("loginMember", loginMember);		
-		mav.setViewName("/performance/performanceInfoView2_notLogin");
-		return mav;
-	}
 	
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav,
 								   @RequestParam int schNo,
 								   @RequestParam int perNo,
 								   @RequestParam String memberId) {
-		Performance performance = performanceService.selectOnePerformance(perNo);	
+		PerJoin performance = performanceService.selectOnePerformance(perNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		List<Seat> seatList = performanceService.selectSeatList(theaterNo);
@@ -651,6 +628,8 @@ public class PerformanceController {
 		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
 		mav.addObject("memberId", memberId);
+		log.debug("memberId={}",memberId);
+		mav.addObject("schNo", schNo);
 		mav.setViewName("/performance/selectSeat");
 		return mav;
 	}
@@ -1059,7 +1038,22 @@ public class PerformanceController {
 		log.debug("list@locationCode = {}", list);
 		return map;
 	}
+	
+	@PostMapping("/performance/addSelect")
+	@ResponseBody
+	public void addSelect(@RequestBody Map<String, Object> param) {
 
+		int seatNo = Integer.parseInt((String) param.get("seatNo"));
+		String memberId = String.valueOf(param.get("memberId"));
+		memberId = memberId.replaceAll("\"", "");
+		param.put("seatNo", seatNo);
+		param.put("memberId", memberId);
+		log.debug("memberId@@@={}",memberId);
+		int result = performanceService.addSelect(param);
+		log.debug("result@@={}",result);
+
+		
+	}
 	
 	
 }

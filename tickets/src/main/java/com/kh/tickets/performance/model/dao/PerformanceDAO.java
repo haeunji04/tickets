@@ -31,7 +31,7 @@ public interface PerformanceDAO {
 
 	List<Performance> companyPerList(String memberId);
 
-	Performance selectOnePerformance(int perNo);
+	PerJoin selectOnePerformance(int perNo);
 	
 	PerJoin selectOnePerJoin(int perNo);
 
@@ -99,5 +99,7 @@ public interface PerformanceDAO {
 	List<Performance> selectCategoryList(String category);
 
 	List<Seat> selectSeatList(int theaterNo);
+
+	int addSelect(Map<String, Object> param);
 
 }

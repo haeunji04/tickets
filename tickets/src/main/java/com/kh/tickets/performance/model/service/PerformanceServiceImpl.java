@@ -61,7 +61,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public Performance selectOnePerformance(int perNo) {
+	public PerJoin selectOnePerformance(int perNo) {
 		return performanceDAO.selectOnePerformance(perNo);
 	}
 
@@ -231,6 +231,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public List<Seat> selectSeatList(int theaterNo) {
 		return performanceDAO.selectSeatList(theaterNo);
+	}
+
+	@Override
+	public int addSelect(Map<String, Object> param) {
+		return performanceDAO.addSelect(param);
 	}
 	
 	
