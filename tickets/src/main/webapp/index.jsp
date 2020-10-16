@@ -582,7 +582,7 @@ function displayRankList(data){
 }
 
 function getFormatDate(date){
-	//var week = new Array('일', '월', '화', '수', '목', '금', '토');
+	var week = new Array('일', '월', '화', '수', '목', '금', '토');
 
 	var year = date.getFullYear();                                 //yyyy
 	var month = (1 + date.getMonth());                     //M
