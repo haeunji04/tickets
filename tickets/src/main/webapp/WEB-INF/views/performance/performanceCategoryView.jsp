@@ -84,7 +84,7 @@
 				</c:otherwise>
 			
 			</c:choose> --%>
-		<div style="width: 235px" class="text-center d-inline-block p-3">
+		<div style="width: 235px" class="text-center d-inline-block p-3 align-top">
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">
 				<%-- <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>"> --%>					
 						<img

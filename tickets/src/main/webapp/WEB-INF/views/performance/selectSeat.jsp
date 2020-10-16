@@ -163,6 +163,7 @@ span.seatCharts-legendDescription {
 	</div>
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:50px;">
 		  <div class="front-indicator">1F</div>
+
 		  <% int count=1;
 		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">

@@ -9,12 +9,12 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css" />
-<script src="${pageContext.request.contextPath }/resources/js/dateFormat.js"></script>
+
 <style>
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
-footer{ margin-top: 2100px; }
+footer{ margin-top: 2150px; }
 
 #best0 {
   animation-name: best;
@@ -421,7 +421,7 @@ footer{ margin-top: 2100px; }
 		<div class="perform float-left d-block text-center">
 			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
 			<c:forEach items="${ pickList }" var="per">
-				<div class="figure mx-3 my-3" style="width:224px; height:304px;">
+				<div class="figure mx-3 my-3 align-top" style="width:224px; height:304px;">
 					<figure class="figure img-thumbnail">
 				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 						<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" class="mx-3" style="width:180px; height:250px;">
@@ -505,21 +505,21 @@ $('.carousel').carousel({
 
 $("#concert").click(function(){
 	var code = { code1 : "C3" };
-	selectPerLank(code)
+	selectPerRank(code)
 });
 
 $("#musical").click(function(){
 	var code = { code1 : "C1", code2 : "C2" };
-	selectPerLank(code)
+	selectPerRank(code)
 	
 });
 
 $("#classic").click(function(){
 	var code = { code1 : "C4" };
-	selectPerLank(code)
+	selectPerRank(code)
 });
 
-function selectPerLank(code){
+function selectPerRank(code){
 	console.log(code);
 	
 	var jsonStr = JSON.stringify(code);
@@ -535,26 +535,32 @@ function selectPerLank(code){
 		method : "POST",
 		contentType : "application/json; charset=utf-8",
 		success : function(data){
-			displayLankList(data);
+			displayRankList(data);
 		},
 		error : function(xhr, status, err){
 			console.log("처리실패", xhr, status, err);
 		}
 	});	 
 }
-function displayLankList(data){
+function displayRankList(data){
 	console.log(data);
 	var $container = $("#rankContent");
 
 	var html = "<ol class='tab-pane fade active show'>";
+	var startDate;
+	var endDate;
 	
-
  	if(data.list.length > 0){
 		for(var i in data.list){
 			var per = data.list[i];
 			
 			console.log(per);
-			console.log(per.perStartDate);
+			startDate = new Date(per.perStartDate);
+			endDate = new Date(per.perEndDate);
+
+			var fmtStartDate = getFormatDate(startDate);
+			//var fmtEndDate = getFormatDate(endDate);
+
 			html += "<li class='px-3 mb-3' id='best"+i+"'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
 			html += "<img src='${pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:75px;height:100px;' id='best"+i+"'/>";
@@ -562,15 +568,36 @@ function displayLankList(data){
 	        html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
 			html += "<ul style='display:inline-block;list-style-type:none; width:250px; vertical-align:middle' class='text-center'>";
 			html += "<li><strong>"+per.perTitle+"</strong></li>";
-			html += "<li><small>"+per.perStartDate+"</small></li>";
+			//html += "<li><small>"+per.perStartDate+"</small></li>";
+			//html += "<li><small>"+fmtStartDate+"</small></li>";
+			html += "<li><small>"+fmtStartDate+"</small></li>";
 			html += "</ul></a></li>";
-			
+			//<fmt:formatDate pattern='yyyy-MM-dd HH:mm'  value='${boardVO.ntc_dt}' />
+
 		}
 	} 
 
 	html += "</ol>";
  	$container.html(html);
 }
+
+function getFormatDate(date){
+	//var week = new Array('일', '월', '화', '수', '목', '금', '토');
+
+	var year = date.getFullYear();                                 //yyyy
+	var month = (1 + date.getMonth());                     //M
+	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
+	var date = date.getDate();                                        //d
+	date = date >= 10 ? date : '0' + date;                            //day 두자리로 저장
+	console.log(date.getDay());
+	//var day = date.getDay();
+	//var today = week[day];
+	//console.log(year + '.' + month + '.' + date + "(" + today + ")");
+	return  year + '.' + month + '.' + date ;
+}
+
+
+
 
 </script>
 	

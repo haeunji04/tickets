@@ -125,11 +125,11 @@ a {
 			    	<c:if test="${ not empty list }">
 						<c:forEach items="${ list }" var="per">
 				
-						<div style="width: 235px" class="text-center d-inline-block p-3 my-2">
+						<div style="width: 235px;" class="text-center d-inline-block p-3 my-2 align-top">
 							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }<c:if test="${not empty loginMember }">&memberId=${loginMember.memberId}</c:if>">					
 										<img
 										src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
-										style="width: 200px" class=" mb-2"/>
+										style="width: 200px; height:260px;" class=" mb-2"/>
 									</a>
 							<h6>${ per.perTitle }</h6>
 							<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
@@ -230,9 +230,9 @@ function displayPerTab(data){
 			var per = data.list[i];
 
 			console.log(per);
-			html += "<div style='width: 235px;' class='text-center d-inline-block p-3 my-2'>";
+			html += "<div style='width: 235px;' class='text-center d-inline-block p-3 my-2 align-top'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"'>";
-			html += "<img src='${ pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:200px;' class='mb-2'/>";
+			html += "<img src='${ pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:200px; height:260px;' class='mb-2'/>";
 			html += "</a>";
 			html += "<h6>"+per.perTitle+"</h6>";
 			html += "<p style='font-size:13px;' class='mb-0'>"+per.perStartDate+"<br />"+per.theaterName+"</p>";
