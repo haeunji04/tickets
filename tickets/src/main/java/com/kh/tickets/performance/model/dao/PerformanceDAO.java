@@ -11,6 +11,7 @@ import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.Schedule;
+import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.WishList;
 
 public interface PerformanceDAO {
@@ -96,5 +97,7 @@ public interface PerformanceDAO {
 	List<PerJoin> allPerJoinList(Map<String, Object> param);
 
 	List<Performance> selectCategoryList(String category);
+
+	List<Seat> selectSeatList(int theaterNo);
 
 }
