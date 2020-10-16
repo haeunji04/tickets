@@ -457,7 +457,12 @@
 			</if>
 		</where> 
 	</select>
-	
+	<select id="selectSeatList" resultMap="seatMap">
+	select
+		*
+	from seat
+	where theater_no = #{theaterNo}
+	</select>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -473,6 +478,8 @@
 	<resultMap type="perJoin" id="perJoinMap">
 	</resultMap>
 	<resultMap type="commentPerList" id="commentPerListMap">
+	</resultMap>
+	<resultMap type="seat" id="seatMap">
 	</resultMap>
 	
 </mapper>

@@ -43,6 +43,7 @@ import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.SchDate;
 import com.kh.tickets.performance.model.vo.Schedule;
+import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -645,6 +646,8 @@ public class PerformanceController {
 		Performance performance = performanceService.selectOnePerformance(perNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
+		List<Seat> seatList = performanceService.selectSeatList(theaterNo);
+		mav.addObject("seatList", seatList);
 		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
 		mav.addObject("memberId", memberId);

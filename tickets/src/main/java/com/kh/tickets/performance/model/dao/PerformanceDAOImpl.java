@@ -16,6 +16,7 @@ import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.Schedule;
+import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Repository
@@ -228,6 +229,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public List<Performance> selectCategoryList(String category) {
 		return sqlSession.selectList("performance.selectCategoryList", category);
+	}
+
+	@Override
+	public List<Seat> selectSeatList(int theaterNo) {
+		return sqlSession.selectList("performane.selectSeatList", theaterNo);
 	}
 	
 	
