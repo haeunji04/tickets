@@ -3,6 +3,7 @@ package com.kh.tickets.performance.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
@@ -30,7 +31,7 @@ public interface PerformanceService {
 
 	List<Performance> companyPerList(String memberId);
 
-	Performance selectOnePerformance(int perNo);
+	PerJoin selectOnePerformance(int perNo);
 	
 	PerJoin selectOnePerJoin(int perNo);
 
@@ -97,6 +98,11 @@ public interface PerformanceService {
 	List<PerJoin> allPerJoinList(Map<String, Object> param);
 
 	List<Performance> selectCategoryList(String category);
+
+	List<Seat> selectSeatList(int theaterNo);
+
+	int addSelect(Map<String, Object> param);
+
 
 
 

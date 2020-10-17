@@ -784,7 +784,6 @@ $("[type=submit]").click(function(){
 			var $li = $('.on');
 			var $frm = $li.find('form');
 			var name = $frm[0].getAttribute('name');
-			alert(name);
 		    var url="${pageContext.request.contextPath}/performance/selectSeat.do";
 		    window.open(url,name,"width=1200,height=600,left=50,top=50");
 		    $frm.submit();
