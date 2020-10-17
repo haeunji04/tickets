@@ -237,6 +237,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int addSelect(Map<String, Object> param) {
 		return performanceDAO.addSelect(param);
 	}
+
+	@Override
+	public int removeSelect(Map<String, Object> param) {
+		return performanceDAO.removeSelect(param);
+	}
 	
 	
 

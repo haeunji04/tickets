@@ -103,6 +103,8 @@ public interface PerformanceService {
 
 	int addSelect(Map<String, Object> param);
 
+	int removeSelect(Map<String, Object> param);
+
 
 
 

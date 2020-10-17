@@ -240,6 +240,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int addSelect(Map<String, Object> param) {
 		return sqlSession.insert("performance.addSelect", param);
 	}
+
+	@Override
+	public int removeSelect(Map<String, Object> param) {
+		return sqlSession.insert("performance.removeSelect", param);
+	}
 	
 	
 }
