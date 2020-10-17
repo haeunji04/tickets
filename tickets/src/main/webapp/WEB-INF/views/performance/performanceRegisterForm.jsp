@@ -138,6 +138,8 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		        <option value="L5">광주/전라/제주</option>
 		      </select>
 		    </div>
+		    
+		    
 			
 			<div class="mx-auto" style="width:80px;">
 				<input type="submit" class="btn btn-primary d-inline" value="다음"/>

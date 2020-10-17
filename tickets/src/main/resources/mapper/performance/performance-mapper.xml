@@ -28,7 +28,8 @@
 			default,
 			#{ perStartDate },
 			#{ perEndDate },
-			default
+			default,
+			#{ aloneSale }
 			
 		)
 	</insert>
@@ -40,6 +41,7 @@
 			performance
 		
 		<!-- where member_id = 'company2' -->
+		where admin_approval = 'Y'
 		order by
 			per_register_date
 			desc
@@ -51,7 +53,7 @@
 		from
 			performance
 		
-		where category_code = #{ category }
+		where category_code = #{ category } and admin_approval = 'Y'
 		order by
 			per_register_date
 			asc
@@ -67,7 +69,7 @@
 			from
 				performance_join_view P
 			where 
-				category_code = #{ category }
+				category_code = #{ category } and admin_approval = 'Y'
 		    )P
 		where rnum between #{ start } and #{ end }
 	</select>
@@ -293,7 +295,7 @@
 	    	count(*) 
 	    from 
 	    	performance	
-	    where category_code = #{ category }
+	    where category_code = #{ category } and admin_approval = 'Y'
 	</select>
 	
 
@@ -350,9 +352,9 @@
                 (select
                        *
                 from
-                    performance
+                    performance 
                 where 
-                	per_display='N'
+                	per_display='N' and admin_approval = 'Y'
                 order by per_display
                 )P
 		)
@@ -364,14 +366,14 @@
 			count(*)
 		from
 			performance
-		where per_display = 'N'
+		where per_display = 'N' and admin_approval = 'Y'
 	</select>
 	<select id="recommendList" resultMap="performanceMap">
 		select 
 			*
 		from
 			performance
-		where per_display = 'Y'
+		where per_display = 'Y' and admin_approval = 'Y'
 	</select>		
 	
 	<select id="selectDate" resultMap="perSchedule">
@@ -407,10 +409,10 @@
 		                        performance P
 		                    <choose>
 		                    	<when test="code2 != null">
-		                    		where category_code in (#{ code1 }, #{ code2 })
+		                    		where category_code in (#{ code1 }, #{ code2 }) 
 		                    	</when>
 		                    	<otherwise>
-		                    		where category_code = #{ code1 }
+		                    		where category_code = #{ code1 } 
 		                    	</otherwise>
 		                    </choose>
 		                order by sale_cnt desc) P) P
@@ -422,7 +424,7 @@
 			* 
 		from 
 			performance 
-		where per_display='Y'
+		where per_display='Y' and admin_approval = 'Y'
 	</select>
 	
 	<select id="commentPerList" resultMap="commentPerListMap">
@@ -431,7 +433,7 @@
 		from
 			comment_per_list_view
 		where
-			board_comment_writer = #{ boardCommentWriter }
+			board_comment_writer = #{ boardCommentWriter } and admin_approval = 'Y'
 		order by
 			board_comment_date desc 
 	</select>
@@ -453,7 +455,7 @@
 			performance_join_view
  		<where>
 			<if test='locationCode != null'>
-				location_code = #{ locationCode }
+				location_code = #{ locationCode } and admin_approval = 'Y'
 			</if>
 		</where> 
 	</select>
