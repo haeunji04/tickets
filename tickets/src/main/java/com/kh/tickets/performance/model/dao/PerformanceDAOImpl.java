@@ -245,6 +245,21 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int removeSelect(Map<String, Object> param) {
 		return sqlSession.insert("performance.removeSelect", param);
 	}
+
+	@Override
+	public List<PerJoin> todayPerList() {
+		return sqlSession.selectList("performance.todayPerList");
+	}
+
+	@Override
+	public List<Performance> openNewsPerList(Map<String, Object> map) {
+		return sqlSession.selectList("performance.openNewsPerList", map);
+	}
+
+	@Override
+	public int totalOpenNewsPerList() {
+		return sqlSession.selectOne("performance.totalOpenNewsPerList");
+	}
 	
 	
 }

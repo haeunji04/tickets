@@ -242,6 +242,21 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int removeSelect(Map<String, Object> param) {
 		return performanceDAO.removeSelect(param);
 	}
+
+	@Override
+	public List<PerJoin> todayPerList() {
+		return performanceDAO.todayPerList();
+	}
+
+	@Override
+	public List<Performance> openNewsPerList(Map<String, Object> map) {
+		return performanceDAO.openNewsPerList(map);
+	}
+
+	@Override
+	public int totalOpenNewsPerList() {
+		return performanceDAO.totalOpenNewsPerList();
+	}
 	
 	
 

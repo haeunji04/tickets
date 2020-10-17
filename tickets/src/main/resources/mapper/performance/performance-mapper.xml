@@ -41,6 +41,7 @@
 			performance
 		
 		<!-- where member_id = 'company2' -->
+		where admin_approval = 'Y' 
 		order by
 			per_register_date
 			desc
@@ -52,7 +53,7 @@
 		from
 			performance
 		
-		where category_code = #{ category }
+		where category_code = #{ category } <!-- and admin_approval = 'Y' -->
 		order by
 			per_register_date
 			asc
@@ -68,7 +69,7 @@
 			from
 				performance_join_view P
 			where 
-				category_code = #{ category }
+				category_code = #{ category } and admin_approval = 'Y'
 		    )P
 		where rnum between #{ start } and #{ end }
 	</select>
@@ -160,7 +161,8 @@
 			detail_img_renamed_filename=#{detailImgRenamedFileName},
 			per_rating = #{ perRating },
 			per_start_date = #{ perStartDate },
-			per_end_date = #{ perEndDate }
+			per_end_date = #{ perEndDate },
+			alone_sale = #{ aloneSale }
 		where 
 			per_no = #{ perNo }
 	</update>	
@@ -481,6 +483,44 @@
 		and member_id = #{ memberId }
 		and sch_no = #{ schNo }
 	</delete>
+	
+	<select id="todayPerList" resultMap="perJoinMap">
+		select
+			*
+		from
+			performance_join_view
+ 		where to_char(per_end_date, 'YYMMDD') = to_char(sysdate, 'YYMMDD')
+	</select>	
+	
+	<select id="openNewsPerList" resultMap="performanceMap">
+		select 
+			*
+		from(
+        	select
+                rownum as rnum,
+                P.*
+        	from 
+                (select
+                       *
+                from
+                    performance
+                where 
+                	admin_approval = 'Y'
+                order by per_register_date desc
+                )P
+		)
+		where rnum between #{ start } and #{ end } 
+	</select>
+	
+	<select id="totalOpenNewsPerList" resultType="_int">
+		select 
+			count(*)
+		from
+			performance
+		where admin_approval = 'Y'
+       <!--  order by per_register_date desc -->
+	</select> 
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
