@@ -353,8 +353,9 @@ public class PerformanceController {
 			   						 @RequestParam int perNo, RedirectAttributes redirectAttributes) {		
 		
 		PerJoin performance = performanceService.selectOnePerJoin(perNo);
-		String aloneSale = performance.getAloneSale();
-		log.debug("aloneSale@@ = {}", aloneSale);
+//		String aloneSale = performance.getAloneSale();
+//		log.debug("aloneSale@@ = {}", aloneSale);
+		log.debug("aloneSale@@ = {}", performance.getAloneSale());
 		log.debug("perRating@@ = {}", performance.getPerRating());
 		
 		mav.addObject("performance", performance);

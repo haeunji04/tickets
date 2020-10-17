@@ -161,8 +161,8 @@
 			detail_img_renamed_filename=#{detailImgRenamedFileName},
 			per_rating = #{ perRating },
 			per_start_date = #{ perStartDate },
-			per_end_date = #{ perEndDate }
-			<!-- alone_sale = #{aloneSale} -->
+			per_end_date = #{ perEndDate },
+			alone_sale = #{aloneSale} 
 		where 
 			per_no = #{ perNo }
 	</update>	

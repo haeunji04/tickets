@@ -155,6 +155,7 @@ where
 --2020.10.10 security 관련 end
 
 SELECT * FROM PERFORMANCE;
+
 --Performance
 create table performance(
     per_no number,
@@ -585,7 +586,8 @@ select
     P.per_register_date,
     P.per_start_date,
     P.per_end_date,
-    P.sale_cnt
+    P.sale_cnt,
+    P.alone_sale
 from 
     performance P  
         left join theater T 
