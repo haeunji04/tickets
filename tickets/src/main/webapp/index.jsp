@@ -133,7 +133,7 @@ footer{ margin-top: 2300px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>
+						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>
 					</div>
 					
 					</c:if>
@@ -161,7 +161,7 @@ footer{ margin-top: 2300px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
 					</div>
 					
 					</c:forEach>
@@ -193,7 +193,7 @@ footer{ margin-top: 2300px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
 					</div>					
 					</c:forEach>
 					<c:forEach items="${ theatreList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
@@ -201,7 +201,7 @@ footer{ margin-top: 2300px; }
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
 					</div>					
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
@@ -542,7 +542,7 @@ function displayRankList(data){
 			endDate = new Date(per.perEndDate);
 
 			var fmtStartDate = getFormatDate(startDate);
-			//var fmtEndDate = getFormatDate(endDate);
+			var fmtEndDate = getFormatDate(endDate);
 
 			html += "<li class='px-3 mb-3' id='best"+i+"'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
@@ -551,9 +551,7 @@ function displayRankList(data){
 	        html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
 			html += "<ul style='display:inline-block;list-style-type:none; width:250px; vertical-align:middle' class='text-center'>";
 			html += "<li><strong>"+per.perTitle+"</strong></li>";
-			//html += "<li><small>"+per.perStartDate+"</small></li>";
-			//html += "<li><small>"+fmtStartDate+"</small></li>";
-			html += "<li><small>"+fmtStartDate+"</small></li>";
+			html += "<li><small>"+fmtStartDate+"-"+fmtEndDate+"</small></li>";
 			html += "</ul></a></li>";
 			//<fmt:formatDate pattern='yyyy-MM-dd HH:mm'  value='${boardVO.ntc_dt}' />
 
@@ -564,19 +562,17 @@ function displayRankList(data){
  	$container.html(html);
 }
 
-function getFormatDate(date){
+function getFormatDate(perDate){
 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
 
-	var year = date.getFullYear();                                 //yyyy
-	var month = (1 + date.getMonth());                     //M
+	var year = perDate.getFullYear();                                 //yyyy
+	var month = (1 + perDate.getMonth());                     //M
 	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
-	var date = date.getDate();                                        //d
+	var date = perDate.getDate();                                        //d
 	date = date >= 10 ? date : '0' + date;                            //day 두자리로 저장
-	console.log(date.getDay());
-	//var day = date.getDay();
-	//var today = week[day];
-	//console.log(year + '.' + month + '.' + date + "(" + today + ")");
-	return  year + '.' + month + '.' + date ;
+	var day = perDate.getDay();
+	var today = week[day];
+	return  year + '.' + month + '.' + date + " (" + today + ")" ;
 }
 
 
