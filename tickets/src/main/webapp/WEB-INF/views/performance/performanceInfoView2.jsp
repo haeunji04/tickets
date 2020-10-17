@@ -35,12 +35,12 @@
 </style>
 <!-- 공연 시작(오픈) 날짜비교 -->
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${ now }" pattern="yyyyMMddhhmm" var="nowDate" />             <%-- 오늘날짜 --%>
-<fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMddHHmm" var="openDate"/>     <%-- 시작날짜 --%>
+<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />             <%-- 오늘날짜 --%>
+<fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMdd" var="openDate"/>     <%-- 시작날짜 --%>
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
-			<c:if test="${openDate < nowDate }">
+			<c:if test="${openDate <= nowDate }">
 			<div align="right">	
 				<!-- 찜하기 -->
 				<form:form id="wishListInsertFrm" 
@@ -117,8 +117,15 @@
 						src="<c:url value='/resources/upload/performance/${ performance.perImgRenamedFileName}' />"
 						style="width: 200px" />				
 				</td>
-				<td colspan=3><h3>${ performance.perTitle } </h3></td>
+				<td colspan=3>
+					<h3>
+						${ performance.perTitle }
+						<c:if test="${openDate < nowDate }">
+							<span class="text-primary" style="font-size:25px">(마감일 오늘티켓 50%할인)</span>
+						</c:if> 
 				
+					</h3>
+				</td>				
 				<td>
 				
 				</td>
@@ -153,7 +160,7 @@
 			</div>	
 		</div>
 		
-		<c:if test="${openDate < nowDate }">		
+		<c:if test="${openDate <= nowDate }">		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">

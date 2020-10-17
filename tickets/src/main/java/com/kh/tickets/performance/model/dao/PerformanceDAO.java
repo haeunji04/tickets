@@ -104,4 +104,10 @@ public interface PerformanceDAO {
 
 	int removeSelect(Map<String, Object> param);
 
+	List<PerJoin> todayPerList();
+
+	List<Performance> openNewsPerList(Map<String, Object> map);
+
+	int totalOpenNewsPerList();
+
 }

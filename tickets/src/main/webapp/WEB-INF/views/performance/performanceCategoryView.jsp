@@ -89,7 +89,8 @@
 				</c:otherwise>
 			
 			</c:choose> --%>
-		<c:if test="${openDate < nowDate }">
+		<%-- <c:if test="${openDate < nowDate }">
+		</c:if> --%>
 		<div style="width: 235px" class="text-center d-inline-block p-3 align-top">
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">
 				<%-- <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>"> --%>					
@@ -100,7 +101,7 @@
 			<h6>${ per.perTitle }</h6>
 			<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
 		</div>
-		</c:if>
+		
 		</c:forEach>
 		</c:if>
 		

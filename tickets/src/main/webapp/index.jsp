@@ -14,7 +14,7 @@
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
-footer{ margin-top: 2150px; }
+footer{ margin-top: 2300px; }
 
 #best0 {
   animation-name: best;
@@ -124,12 +124,19 @@ footer{ margin-top: 2150px; }
 			<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 				<div class="tab-pane fade" id="new">
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
+					<jsp:useBean id="now" class="java.util.Date" />
+					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />               <%-- 오늘날짜 --%>
+					<fmt:formatDate value="${ per.perStartDate }" pattern="yyyyMMdd" var="startDate"/>     <%-- 시작날짜 --%>
+				    <c:if test="${startDate > nowDate }">   
+				     
 					<div class="d-inline-block px-3" style="vertical-align: top;" >
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
 						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>
 					</div>
+					
+					</c:if>
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
 						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:150px;height:200px;"/></a>
@@ -232,7 +239,7 @@ footer{ margin-top: 2150px; }
 			<div class="open-ticket mx-auto mt-5 float-left" style="width:35%; position:relative;">
 			<h4 class="card-title">티켓오픈소식</h4>
 				<div class="more" style="text-align:right;">
-				<a href="#">더보기 ❭</a>
+				<a href="${pageContext.request.contextPath}/performance/openNewsPerList.do">더보기 ❭</a>
 				</div>
 				<ul class="list-group list-group-flush">
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
@@ -250,36 +257,8 @@ footer{ margin-top: 2150px; }
 						</a>
 					</li>
 					</c:forEach>
+					
 					<!-- <li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico text-decoration-none">
-							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span>
-							<br />
-							<span>
-								스푸트니크 티켓 오픈 안내
-								<br />
-								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
-							</span>
-						</a>
-					</li>
-					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico text-decoration-none">
-							<span>
-								젠틀레인 6집 발매 기념 공연 티켓 오픈 안내
-								<br />
-								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
-							</span>
-						</a>
-					</li>
-					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico text-decoration-none">
-							<span>
-								뮤지컬 〈작은 아씨들〉티켓 오픈 안내
-								<br />
-								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
-							</span>
-						</a>
-					</li>
-					<li class="list-group-item" style="text-align:left;">
 						<a href="#" class="inner inner_ico text-decoration-none">
 							<span class="badge badge-primary mx-auto" style="float:left;"><span class="ico1">단독판매</span></span>
 							<span>
@@ -288,21 +267,21 @@ footer{ margin-top: 2150px; }
 								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
 							</span>
 						</a>
-					</li> -->
+					</li>  -->
 				</ul>
 			</div>
 			<div class="time-ticket mt-5" style="width:30%;float:left;position:relative;">
 				<h4 class="card-title">오늘 티켓</h4>
 				<div class="more" style="text-align:right;">
-					<a href="#">더보기 ❭</a>
+					<a href="${pageContext.request.contextPath}/performance/todayPerList.do">더보기 ❭</a>
 				</div>
 				<h5 class="mt-3">
 				<small class="text-muted">오늘 바로 저렴하게 이용할 수 있는</small><br />
-				<a href="#">마감임박 할인 오늘티켓</a>
+				<a href="${pageContext.request.contextPath}/performance/todayPerList.do" role="button">마감임박 할인 오늘티켓</a>
 				</h5>
 				<img src="${pageContext.request.contextPath }/resources/images/etc/ticket.PNG" style="width:200px;"/>
 				<p class="lead">
-					<a class="btn btn-primary btn-lg" href="#" role="button">목록보기</a>
+					<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/performance/todayPerList.do" role="button">목록보기</a>
 				</p>
 			</div>
 			<div class="rank-ticket mx-auto mt-5" style="width:35%;float:right;position:relative;">

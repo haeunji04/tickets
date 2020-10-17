@@ -154,7 +154,8 @@ where
 
 --2020.10.10 security 관련 end
 
-SELECT * FROM PERFORMANCE;
+SELECT * FROM PERFORMANCE where category_code='C3';
+--SELECT * FROM performance_join_view where to_char(per_end_date, 'YYMMDD') = to_char(sysdate, 'YYMMDD');
 
 --Performance
 create table performance(

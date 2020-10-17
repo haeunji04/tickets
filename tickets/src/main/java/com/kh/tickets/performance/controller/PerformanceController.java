@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -373,6 +374,8 @@ public class PerformanceController {
 			 				@RequestParam("oldDetailImgRenamedFileName") String oldDetailImgRenamedFileName,
 			 				HttpServletRequest request,
 			 				ModelAndView mav){
+		
+		log.debug("aloneSale@@ = {}", performance.getAloneSale());
 		
 		if(performance.getAloneSale() == null) {
 			performance.setAloneSale("N");
@@ -1081,6 +1084,90 @@ public class PerformanceController {
 		log.debug("result@@={}",result);
 		
 		
+	}
+	
+	//오늘티켓 공연목록
+	@RequestMapping("/performance/todayPerList.do")
+	public String todayPerList(Model model, Principal principal) {
+			
+		//log.debug("loginMember = {}", loginMember);		
+		log.debug("principal = {}", principal);
+		
+		String memberId = null;
+		if(principal != null) {
+			memberId = principal.getName();			
+		}
+		
+		log.debug("memberId@@  = {}", memberId );
+		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("list@controller = {}", rList);
+			
+
+		List<Performance> list = performanceService.selectPerformanceList();
+//		List<PerJoin> list = performanceService.todayPerList();
+		log.debug("list@controller = {}", list);
+					
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("rList", rList);
+		model.addAttribute("list", list);
+			
+		return "performance/todayPerList";
+	}
+	
+	//오픈소식 공연목록
+	@RequestMapping("/performance/openNewsPerList.do")
+	public String openNewsPerList(Model model, Principal principal, HttpServletRequest request) {
+		
+		//최근 공연바 과정	
+		log.debug("principal = {}", principal);
+		
+		String memberId = null;
+		if(principal != null) {
+			memberId = principal.getName();			
+		}
+		
+		log.debug("memberId@@  = {}", memberId );
+		
+		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+		log.debug("list@controller = {}", rList);
+		
+		//----------- 
+		
+		int numPerPage = 10;
+		int cPage = 1;
+		
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		
+		List<Performance> list = performanceService.openNewsPerList(map);
+//		List<PerJoin> list = performanceService.todayPerList();
+		log.debug("list@controller = {}", list);
+		
+		String url = request.getRequestURI() + "?";
+		
+		int totalContents = performanceService.totalOpenNewsPerList();
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
+		
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
+		model.addAttribute("dateformat", dateformat);
+		model.addAttribute("rList", rList);
+		model.addAttribute("list", list);
+		model.addAttribute("cPage", cPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "performance/openNewsPerList";
 	}
 	
 	
