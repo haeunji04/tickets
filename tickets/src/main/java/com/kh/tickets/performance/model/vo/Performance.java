@@ -37,6 +37,8 @@ public class Performance implements Serializable {
 	private Date perRegisterDate;
 	private Date perStartDate;
 	private Date perEndDate;
+	private int saleCnt;
+	private String aloneSale;
 	
 
 }

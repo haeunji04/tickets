@@ -33,9 +33,14 @@
 	    border-color: #eb6864;
 	}
 </style>
+<!-- 공연 시작(오픈) 날짜비교 -->
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${ now }" pattern="yyyyMMddhhmm" var="nowDate" />             <%-- 오늘날짜 --%>
+<fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMddHHmm" var="openDate"/>     <%-- 시작날짜 --%>
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
+			<c:if test="${openDate < nowDate }">
 			<div align="right">	
 				<!-- 찜하기 -->
 				<form:form id="wishListInsertFrm" 
@@ -103,6 +108,7 @@
 				</form:form>		
 				
 			</div>
+			</c:if>
 			<table id="perform-info-tbl" >
 			
 			<tr>
@@ -146,6 +152,8 @@
 			</table>
 			</div>	
 		</div>
+		
+		<c:if test="${openDate < nowDate }">		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">
@@ -207,9 +215,20 @@
                     </dl>
                     
                 </div>
-               <div class="box_type_comment">
+                </c:if>
+                <c:choose>
+					<c:when test="${ openDate < nowDate }">
+						<div class="box_type_comment">
+				            <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
+				        </div>
+					</c:when>
+			  		<c:otherwise>
+					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ dateformat.format(performance.perStartDate) }부터 티켓 오픈!-</h3>
+					</c:otherwise> 	
+				</c:choose>
+               <!-- <div class="box_type_comment">
                <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
-               </div>
+               </div> -->
               </div>
               <div class="d-block mx-auto mt-5">
 	<ul class="nav nav-tabs justify-content-center" id="tabMenu">

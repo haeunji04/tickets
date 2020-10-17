@@ -163,9 +163,9 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜 목록</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 목록</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/commentPerList.do">기대평 작성한 공연목록</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜한 공연</a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 </a>
+			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/commentPerList.do">기대평 남긴 공연</a>
 			          		<sec:authorize access="hasRole('COMPANY')">
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>

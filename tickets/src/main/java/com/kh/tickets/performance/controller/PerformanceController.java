@@ -166,6 +166,10 @@ public class PerformanceController {
 		String theaterNo = request.getParameter("searchHallNo");	
 		performance.setTheaterNo(theaterNo);	
 		
+		if(performance.getAloneSale() == null) {
+			performance.setAloneSale("N");
+		}
+		
 		String saveDirectory = request.getServletContext()
 				  .getRealPath("/resources/upload/performance");
 		
@@ -349,6 +353,10 @@ public class PerformanceController {
 			   						 @RequestParam int perNo, RedirectAttributes redirectAttributes) {		
 		
 		PerJoin performance = performanceService.selectOnePerJoin(perNo);
+		String aloneSale = performance.getAloneSale();
+		log.debug("aloneSale@@ = {}", aloneSale);
+		log.debug("perRating@@ = {}", performance.getPerRating());
+		
 		mav.addObject("performance", performance);
 		mav.setViewName("/company/perUpdateForm");
 		return mav;
@@ -364,6 +372,10 @@ public class PerformanceController {
 			 				@RequestParam("oldDetailImgRenamedFileName") String oldDetailImgRenamedFileName,
 			 				HttpServletRequest request,
 			 				ModelAndView mav){
+		
+		if(performance.getAloneSale() == null) {
+			performance.setAloneSale("N");
+		}
 		
 		String saveDirectory = request.getServletContext()
 				  .getRealPath("/resources/upload/performance");

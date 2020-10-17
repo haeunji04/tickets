@@ -235,18 +235,22 @@ footer{ margin-top: 2150px; }
 				<a href="#">더보기 ❭</a>
 				</div>
 				<ul class="list-group list-group-flush">
+					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
 					<li class="list-group-item" style="text-align:left;">
-						<a href="#" class="inner inner_ico text-decoration-none">
-							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span>
+						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}" class="inner inner_ico text-decoration-none">
+							<c:if test="${ per.aloneSale eq 'Y' }">
+							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span> 
+							</c:if>
 							<br />
 							<span>
-								크라잉넛 25주년 기념 공연 티켓 오픈 안내
+								${ per.perTitle} 티켓 오픈 안내
 								<br />
-								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
+								<small class="text-muted">[오픈]${ dateformat.format(per.perStartDate) }</small>
 							</span>
 						</a>
 					</li>
-					<li class="list-group-item" style="text-align:left;">
+					</c:forEach>
+					<!-- <li class="list-group-item" style="text-align:left;">
 						<a href="#" class="inner inner_ico text-decoration-none">
 							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span>
 							<br />
@@ -284,7 +288,7 @@ footer{ margin-top: 2150px; }
 								<small class="text-muted">[오픈]20.09.11(금) 14:00</small>
 							</span>
 						</a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 			<div class="time-ticket mt-5" style="width:30%;float:left;position:relative;">

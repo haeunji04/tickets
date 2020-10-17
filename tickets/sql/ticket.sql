@@ -191,7 +191,14 @@ create table performance(
     --    per_sale varchar2(20),
 );
 
+
 alter table performance add sale_cnt int default 0;
+--오픈 소식 추가 관련
+--alter table performance add open_date date default null;
+--alter table performance drop column open_date CASCADE CONSTRAINT;
+
+alter table performance add alone_sale char(1) default 'N';
+alter table performance add constraint ck_alone_sale check(alone_sale in ('N','Y'));
 
 --Review
 create table review(
