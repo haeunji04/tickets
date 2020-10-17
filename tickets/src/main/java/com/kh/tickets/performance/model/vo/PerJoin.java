@@ -43,10 +43,9 @@ public class PerJoin implements Serializable{
 	private Date perRegisterDate;
 	private Date perStartDate;
 	private Date perEndDate;
-	private int saleCnt;
+	private int saleCnt;	
 	//오픈관련
 	private String aloneSale;
-	private Date opneDate;
 	
 	
 	

@@ -238,7 +238,9 @@ footer{ margin-top: 2150px; }
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
 					<li class="list-group-item" style="text-align:left;">
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}" class="inner inner_ico text-decoration-none">
-							<!-- <span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span> -->
+							<c:if test="${ per.aloneSale eq 'Y' }">
+							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span> 
+							</c:if>
 							<br />
 							<span>
 								${ per.perTitle} 티켓 오픈 안내
