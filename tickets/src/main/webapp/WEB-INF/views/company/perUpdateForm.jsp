@@ -156,7 +156,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			
 			<div class="form-group">
 		      <label>※ 티켓츠 단독판매 유무: 
-		      	<input type="checkbox" name="aloneSale" id="aloneSale" value="Y"${ performance.aloneSale == 'N' ? 'checked':'' }>
+		      	<input type="checkbox" name="aloneSale" id="aloneSale" value="Y"${ performance.aloneSale == 'Y' ? 'checked':'' }>
 		      </label>
 		    </div>
 			
