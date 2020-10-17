@@ -102,4 +102,6 @@ public interface PerformanceDAO {
 
 	int addSelect(Map<String, Object> param);
 
+	int removeSelect(Map<String, Object> param);
+
 }

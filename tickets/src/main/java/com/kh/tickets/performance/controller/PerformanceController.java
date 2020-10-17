@@ -1067,6 +1067,21 @@ public class PerformanceController {
 
 		
 	}
+	@PostMapping("/performance/removeSelect")
+	@ResponseBody
+	public void removeSelect(@RequestBody Map<String, Object> param) {
+		
+		int seatNo = Integer.parseInt((String) param.get("seatNo"));
+		String memberId = String.valueOf(param.get("memberId"));
+		memberId = memberId.replaceAll("\"", "");
+		param.put("seatNo", seatNo);
+		param.put("memberId", memberId);
+		log.debug("memberId@@@={}",memberId);
+		int result = performanceService.removeSelect(param);
+		log.debug("result@@={}",result);
+		
+		
+	}
 	
 	
 }
