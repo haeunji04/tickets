@@ -12,6 +12,7 @@ import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Seat;
+import com.kh.tickets.performance.model.vo.Selected;
 import com.kh.tickets.performance.model.vo.WishList;
 
 public interface PerformanceDAO {
@@ -109,5 +110,7 @@ public interface PerformanceDAO {
 	List<Performance> openNewsPerList(Map<String, Object> map);
 
 	int totalOpenNewsPerList();
+
+	List<Selected> selectSelectedList(int schNo);
 
 }

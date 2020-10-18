@@ -640,6 +640,9 @@ public class PerformanceController {
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		List<Seat> seatList = performanceService.selectSeatList(theaterNo);
+		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
+		log.debug("selectedList@={}",selectedList);
+		mav.addObject("selectedList", selectedList);
 		mav.addObject("seatList", seatList);
 		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
@@ -650,9 +653,12 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	@GetMapping("/performance/salePerformance.do")
-	public ModelAndView salePerformance(ModelAndView mav) {
-		
+	@PostMapping("/performance/salePerformance.do")
+	public ModelAndView salePerformance(ModelAndView mav,
+										@RequestParam int[] seatNo,
+										@RequestParam int schNo,
+										@RequestParam String memberId) {
+		log.debug("seatNo={}",seatNo);
 		mav.setViewName("performance/salePerformance");
 		return mav;
 	}
