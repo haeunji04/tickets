@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
@@ -153,6 +154,13 @@ public class HomeController {
 		map.put("dateFormat", dateformat);
 		
 		return map;
+	}
+	
+	//오늘하루 그만보기 팝업창
+	@RequestMapping(value="/popup.do")
+	public ModelAndView memberLoginForm(ModelAndView mav) {
+		mav.setViewName("common/popup");
+		return mav;
 	}
 	
 	
