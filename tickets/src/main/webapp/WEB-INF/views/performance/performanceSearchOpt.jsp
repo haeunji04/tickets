@@ -95,19 +95,19 @@ a {
 				  	<strong>장르</strong> &nbsp;&nbsp;|&nbsp;&nbsp;
 			  		
 				    <div class="custom-control custom-checkbox d-inline-block mx-3">
-				      	<input type="checkbox" class="custom-control-input" id="musical" value="1">
+				      	<input type="checkbox" class="custom-control-input" name="category" id="musical" value="C1">
 				      	<label class="custom-control-label" for="musical">뮤지컬</label>
 				    </div>
 					<div class="custom-control custom-checkbox d-inline-block mx-3">
-						<input type="checkbox" class="custom-control-input" id="play" value="2">
+						<input type="checkbox" class="custom-control-input" name="category" id="play" value="C2">
 						<label class="custom-control-label" for="play">연극</label>
 					</div>
 					<div class="custom-control custom-checkbox d-inline-block mx-3">
-					  	<input type="checkbox" class="custom-control-input" id="concert" value="3">
+					  	<input type="checkbox" class="custom-control-input" name="category" id="concert" value="C3">
 					    <label class="custom-control-label" for="concert">콘서트</label>
 					</div>
 					<div class="custom-control custom-checkbox d-inline-block mx-3">
-					    <input type="checkbox" class="custom-control-input" id="classic" value="4">
+					    <input type="checkbox" class="custom-control-input" name="category" id="classic" value="C4">
 					    <label class="custom-control-label" for="classic">클래식</label>
 					</div>
 				</div>
@@ -169,32 +169,56 @@ $('.tab_menu_btn').on('click',function(){
 	  
 });
 
-$("#L").click(function(){
-	var loc = {};
-	selectPerTab(loc);
-});
-$("#L1").click(function(){
-	var loc = { locationCode : "L1" };
-	selectPerTab(loc);
-});
-$("#L2").click(function(){
-	var loc = { locationCode : "L2" };
-	selectPerTab(loc);
-});
-$("#L3").click(function(){
-	var loc = { locationCode : "L3" };
-	selectPerTab(loc);
-});
-$("#L4").click(function(){
-	var loc = { locationCode : "L4" };
-	selectPerTab(loc);
-});
-$("#L5").click(function(){
-	var loc = { locationCode : "L5" };
-	selectPerTab(loc);
+//지역 선택 후 카테고리 옵션 선택 및 조회 버튼 클릭시
+$("#opt-btn").click(function(){
+	
+	var categoryArr = new Array();
+
+	$("input[name=category]:checked").each(function(i){
+		categoryArr.push($(this).val());
+	});
+
+	var loc = $(".on").attr('id');
+	console.log("categoryArr = " + categoryArr);
+	console.log("locationCode = " + loc);
+	
+	var opt = {
+				locationCode: loc,
+				categoryArr: categoryArr
+				};
+
+	var jsonStr = JSON.stringify(opt);
+	console.log("jsonStr = "+jsonStr);
+
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+	}); 
+	
+ 	if(categoryArr.length == 0){
+	}
+	else {
+		$.ajax({
+			url: "${ pageContext.request.contextPath }/performance/option",
+			method: "POST",
+			data: jsonStr,
+			contentType: "application/json; charset=utf-8",
+			success: function(data){
+				displayPerTab(data);
+			},
+			error: function(xhr, status, err){
+				console.log("처리실패", xhr, status, err);
+			}
+		});
+	} 
 });
 
-function selectPerTab(loc){
+
+/* 지역 선택시 */
+$(".tab_menu_btn").click(function(){
+	 $("input[type=checkbox]").prop("checked", false);
+	 
+	var loc = { locationCode: $(".on").attr('id') };
+
 	console.log("loc = " + loc);
 
 	var jsonStr = JSON.stringify(loc);
@@ -205,7 +229,7 @@ function selectPerTab(loc){
 	}); 
 	
 	$.ajax({
-		url: "${ pageContext.request.contextPath }/performance/location",
+		url: "${ pageContext.request.contextPath }/performance/option",
 		data: jsonStr,
 		method: "POST",
 		contentType : "application/json; charset=utf-8",
@@ -216,8 +240,8 @@ function selectPerTab(loc){
 			console.log("처리실패", xhr, status, err);
 		}
 	});
-	
-}
+});
+
 
 function displayPerTab(data){
 	//console.log("data = " +data);
@@ -248,8 +272,7 @@ function displayPerTab(data){
 	}
 
 	$container.html(html);
-	$("#listSize").html("<span>- 총 <span class='text-primary'>"+data.listSize+"</span>건의 공연이 조회되었습니다. - </span>");
-			
+	$("#listSize").html("<span>- 총 <span class='text-primary'>"+data.listSize+"</span>건의 공연이 조회되었습니다. - </span>");	
 }
 
 function getFormatDate(perDate){

@@ -1038,20 +1038,19 @@ public class PerformanceController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/performance/location")
+	@RequestMapping("/performance/option")
 	public Map<String, Object> searchOption(@RequestBody Map<String, Object> param){
 		log.debug("locationCode = {}", param.get("locationCode"));
+		log.debug("categoryCode = {}", param.get("categoryArr"));
 		
 		List<PerJoin> list = performanceService.allPerJoinList(param);
-		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		int size = list.size();
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
-		map.put("dateFormat", dateformat);
 		map.put("listSize", size);
 		
-		log.debug("list@locationCode = {}", list);
+		//log.debug("list@locationCode = {}", list);
 		return map;
 	}
 	
