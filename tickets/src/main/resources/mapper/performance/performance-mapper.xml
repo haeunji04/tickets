@@ -458,6 +458,12 @@
 			<if test='locationCode != null'>
 				location_code = #{ locationCode }
 			</if>
+			<if test='categoryArr != null'>
+				and category_code in
+				<foreach collection="categoryArr" item="arr" open="(" close=")" separator=",">
+					#{ arr }
+				</foreach>
+			</if>
 		</where> 
 	</select>
 	<select id="selectSeatList" resultMap="seatMap">
