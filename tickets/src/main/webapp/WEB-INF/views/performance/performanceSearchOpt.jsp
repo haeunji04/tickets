@@ -178,14 +178,19 @@ $("#opt-btn").click(function(){
 		categoryArr.push($(this).val());
 	});
 
-	var loc = $(".on").attr('id');
 	console.log("categoryArr = " + categoryArr);
-	console.log("locationCode = " + loc);
-	
-	var opt = {
-				locationCode: loc,
-				categoryArr: categoryArr
+
+	if( $(".on").attr('id')=='L' ){
+		var opt = {
+					categoryArr: categoryArr
 				};
+	}
+	else {
+		var opt = {
+					locationCode: $(".on").attr('id'),
+					categoryArr: categoryArr
+					};
+	}
 
 	var jsonStr = JSON.stringify(opt);
 	console.log("jsonStr = "+jsonStr);
@@ -217,8 +222,14 @@ $("#opt-btn").click(function(){
 $(".tab_menu_btn").click(function(){
 	 $("input[type=checkbox]").prop("checked", false);
 	 
-	var loc = { locationCode: $(".on").attr('id') };
 
+	if( $(".on").attr('id')=='L' ){
+		var loc = {};
+	}
+	else {
+		var loc = { locationCode: $(".on").attr('id') };
+
+	}
 	console.log("loc = " + loc);
 
 	var jsonStr = JSON.stringify(loc);
