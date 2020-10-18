@@ -229,13 +229,20 @@ function displayPerTab(data){
 		for(var i in data.list){
 			var per = data.list[i];
 
+			startDate = new Date(per.perStartDate);
+			endDate = new Date(per.perEndDate);
+
+			var fmtStartDate = getFormatDate(startDate);
+			var fmtEndDate = getFormatDate(endDate);
+			
+
 			console.log(per);
 			html += "<div style='width: 235px;' class='text-center d-inline-block p-3 my-2 align-top'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"'>";
 			html += "<img src='${ pageContext.request.contextPath }/resources/upload/performance/"+per.perImgRenamedFileName+"' style='width:200px; height:260px;' class='mb-2'/>";
 			html += "</a>";
 			html += "<h6>"+per.perTitle+"</h6>";
-			html += "<p style='font-size:13px;' class='mb-0'>"+per.perStartDate+"<br />"+per.theaterName+"</p>";
+			html += "<p style='font-size:13px;' class='mb-0'>"+fmtStartDate+" - "+fmtEndDate+"<br />"+per.theaterName+"</p>";
 			html += "</div>";
 		}
 	}
@@ -243,6 +250,19 @@ function displayPerTab(data){
 	$container.html(html);
 	$("#listSize").html("<span>- 총 <span class='text-primary'>"+data.listSize+"</span>건의 공연이 조회되었습니다. - </span>");
 			
+}
+
+function getFormatDate(perDate){
+	var week = new Array('일', '월', '화', '수', '목', '금', '토');
+
+	var year = perDate.getFullYear();                                 //yyyy
+	var month = (1 + perDate.getMonth());                     //M
+	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
+	var date = perDate.getDate();                                        //d
+	date = date >= 10 ? date : '0' + date;                            //day 두자리로 저장
+	//var day = perDate.getDay();
+	//var today = week[day];
+	return  year + '.' + month + '.' + date;
 }
 
 </script>
