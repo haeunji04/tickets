@@ -66,6 +66,69 @@
 	</c:if>
 	</sec:authorize>
 	<%-- </c:if> --%>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/jquery.convform.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/demo.css">
+	<section id="demo">
+	    <div class="vertical-align">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
+	                    <div class="card no-border">
+	                        <div id="chat">
+	                            <form action="" method="GET" class="hidden">
+	                                <select data-conv-question="Hello! This is an example use of the plugin to dynamically generate questions (like using an API). This is the only question that was written on the initial HTML. To end the loop, select END." name="first-question">
+	                                    <option value="understood">Understood</option>
+	                                    <option value="okay">Okay, captain!</option>
+	                                </select>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/autosize.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.convform.js"></script>
+
+	<script>
+		jQuery(function($){
+			var count = 0;
+			var convForm = $('#chat').convform({eventList:{onInputSubmit: function(convState, ready) {
+				console.log('input is being submitted...');
+				//here you send the response to your API, get the results and build the next question
+				//when ready, call 'ready' callback (passed as the second parameter)
+		        if(convState.current.answer.value==='end') {
+		            convState.current.next = false;
+					//emulating random response time (100-600ms)
+					setTimeout(ready, Math.random()*500+100);
+		        } else {
+					if(Array.isArray(convState.current.answer)) var answer = convState.current.answer.join(', ');
+					else var answer = convState.current.answer.text;
+					convState.current.next = convState.newState({
+						type: 'select',
+						noAnswer: true,
+						name: 'dynamic-question-'+count,
+						questions: ['This question state was built on your previous answer (you answered: '+answer+') and doesnt expect an answer'],
+					});
+					convState.current.next.next = convState.newState({
+						type: 'select',
+						name: 'dynamic-question-'+count,
+						questions: ['This question state was built on your previous answer (you answered: '+answer+')'],
+						answers: [
+							{text: 'Answer 1', value: '1'},
+							{text: 'Answer 2', value: '2'},
+							{text: 'END', value: 'end'}
+						]
+					});
+					//emulating random response time (100-600ms)
+					setTimeout(ready, Math.random()*500+100);
+		        }
+		        count++;
+		    }}});
+		});
+	</script>
 	
 	<footer>
 		<div class="text-center mt-auto bg-primary text-light clearfix d-block mx-auto">

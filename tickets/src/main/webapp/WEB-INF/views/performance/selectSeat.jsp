@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,16 +175,34 @@ span.seatCharts-legendDescription {
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count++ %>" aria-checked="false" focusable="true" tabindex="-1" 
+			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
-				style="<% if(i<6 && (j>5 && j<25)){ %>
+				<c:forEach items="${ selectedList }" var="select">
+				<c:set var="count" value="<%=count %>"/>
+					<c:if test="${ select.seatNo eq count}">
+					style="pointer-events: none;
+						background-color:gray;"
+					</c:if>
+					<c:if test="${ select.seatNo ne count}">
+					style="<% if(i<6 && (j>5 && j<25)){ %>
+						background-color:#BEA886;
+					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+						background-color:#9076FF;
+					<%}else{%>
+						background-color:#70D0EA;
+					<%}%>"
+					</c:if>
+				</c:forEach>
+				<% count++; %>
+				<%--style= "<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
 					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
 						background-color:#9076FF;
 					<%}else{%>
 						background-color:#70D0EA;
 					<%}%>
-				">
+				"> --%>
+				>
 				<%-- <input type="hidden" name="seatNo" value="<%= count++ %>" /> --%>
 				</div>
 			<%} %>
@@ -247,12 +271,17 @@ span.seatCharts-legendDescription {
               </tr>				
           </table>
 		</div>
+		<form:form action="${pageContext.request.contextPath}/performance/salePerformance.do" method="POST">
+		<input type="hidden" name="schNo" value="${ schNo }" />
+		<input type="hidden" name="memberId" value="${ memberId }"/>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<div class="side-bar d-block text-left" style="padding-left:20px;">
 		
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
-			<button id="complete-select" type="button" class="btn btn-secondary disabled d-block" style="float:left;" onclick="location.href='${pageContext.request.contextPath}/performance/salePerformance.do'">좌석 선택 완료</button>
+			<button id="complete-select" type="submit" class="btn btn-secondary disabled d-block" style="float:left;">좌석 선택 완료</button>
 		</div>
+		</form:form>
 	</div>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
@@ -289,6 +318,7 @@ span.seatCharts-legendDescription {
 						success : function(data){
 							$(e).removeClass('selected');
 							$("."+e.id).remove();
+							console.log(data);
 						},
 						error : function(xhr, status, err){
 							console.log("처리실패", xhr, status, err);
@@ -308,7 +338,7 @@ span.seatCharts-legendDescription {
 						memberId : memberId
 			    	 };
 
-					console.log("select : "+select);
+					console.log("select : "+select.seatNo);
 
 					var jsonStr = JSON.stringify(select);
 					console.log("jsonStr = "+jsonStr);
@@ -324,6 +354,7 @@ span.seatCharts-legendDescription {
 						success : function(data){
 							$(e).addClass('selected');
 							$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
+							$('.side-bar').append("<input class="+e.id+" type='hidden' name='seatNo' value="+select.seatNo+" />");
 						},
 						error : function(xhr, status, err){
 							console.log("처리실패", xhr, status, err);

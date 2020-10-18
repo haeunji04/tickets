@@ -526,7 +526,11 @@
 		where admin_approval = 'Y'
        <!--  order by per_register_date desc -->
 	</select> 
-	
+	<select id="selectSelectedList" resultMap="selectedMap">
+		select *
+		from selected
+		where sch_no = #{ schNo }
+	</select>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -544,6 +548,8 @@
 	<resultMap type="commentPerList" id="commentPerListMap">
 	</resultMap>
 	<resultMap type="seat" id="seatMap">
+	</resultMap>
+	<resultMap type="selected" id="selectedMap">
 	</resultMap>
 	
 </mapper>
