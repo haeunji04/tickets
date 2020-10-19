@@ -455,8 +455,9 @@
 		from
 			performance_join_view
  		<where>
+ 			admin_approval = 'Y'
 			<if test='locationCode != null'>
-				location_code = #{ locationCode }
+				and location_code = #{ locationCode }
 			</if>
 			<if test='categoryArr != null'>
 				and category_code in

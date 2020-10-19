@@ -59,7 +59,7 @@
 </head>
 <body>
 
-<div id="container" class="mx-auto" style="width: 75%;">
+<div id="container" class="mx-auto" style="width: 80%;">
 	<header>
 	
 	<div class="" id="header-container" >

@@ -9,12 +9,14 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/set2.css" />
+<script src="${pageContext.request.contextPath }/resources/js/jquery-isystkSlider.js"></script>
 
 <style>
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
-footer{ margin-top: 2300px; }
+footer{ margin-top: 2200px; }
 
 #best0 {
   animation-name: best;
@@ -38,6 +40,7 @@ footer{ margin-top: 2300px; }
   from {color: #f8f9fa;}
   to {color: #eb6864;}
 }
+
 </style>
 
 <!-- 오늘하루 그만보기 팝업창 -->
@@ -151,21 +154,27 @@ if ( getCookie( "popup" ) != "done" ){
 		</div>
 			<!-- 탭 메뉴 내용 -->
 		<div>
-			<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
-				<div class="tab-pane fade" id="new">
+			<div id="myTabContent" class="tab-content d-block float-center mt-5 mb-5 ml-5">
+			
+				<div class="tab-pane fade grid mx-auto" id="new">
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />               <%-- 오늘날짜 --%>
 					<fmt:formatDate value="${ per.perStartDate }" pattern="yyyyMMdd" var="startDate"/>     <%-- 시작날짜 --%>
 				    <c:if test="${startDate > nowDate }">   
-				     
-					<div class="d-inline-block px-3" style="vertical-align: top;" >
-						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
-							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
-						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>
-					</div>
-					
+				     <li class="child">
+				        
+					    <figure class="effect-apollo mb-5 mt-0 pt-0">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }">
+							<figcaption>
+								<h5>${per.perTitle }</h5>
+								<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
+								<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
+							</figcaption>			
+						</figure>
+				        
+				      </li>
+
 					</c:if>
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
@@ -431,7 +440,7 @@ if ( getCookie( "popup" ) != "done" ){
 		</div>
 		
 		
-		<div class="perform float-left d-block text-center">
+<%-- 		<div class="perform float-left d-block text-center">
 			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
 			<c:forEach items="${ pickList }" var="per">
 				<div class="figure mx-3 my-3 align-top" style="width:224px; height:304px;">
@@ -442,7 +451,30 @@ if ( getCookie( "popup" ) != "done" ){
 					</figure>
 				</a>
 				</div>
-			</c:forEach>
+			</c:forEach> --%>
+			
+			<div class="d-block mx-auto mt-5 mb-5">
+				<div class="grid" id="new">
+			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
+					<c:forEach items="${ pickList }" var="per">
+
+					<figure class="effect-ming">
+						<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" 
+							 alt="${ per.perTitle }"
+							 style="width:295px;">
+						<figcaption>
+							<h5>${ per.perTitle }</h5>
+							<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
+							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
+						</figcaption>			
+					</figure>
+
+					</c:forEach>
+				</div>
+				
+			
+			
+			
 			<%-- <div class="figure mx-3">
 				<figure class="figure img-thumbnail">
 					<img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" class="mx-3" style="width:180px;height:250px;">
@@ -604,7 +636,6 @@ function getFormatDate(perDate){
 	var today = week[day];
 	return  year + '.' + month + '.' + date + " (" + today + ")" ;
 }
-
 
 
 
