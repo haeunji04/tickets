@@ -653,7 +653,7 @@ public class PerformanceController {
 		mav.addObject("memberId", memberId);
 		log.debug("memberId={}",memberId);
 		mav.addObject("schNo", schNo);
-		mav.setViewName("/performance/selectSeat");
+		mav.setViewName("/performance/selectSeat2");
 		return mav;
 	}
 	

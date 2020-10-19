@@ -177,33 +177,45 @@ span.seatCharts-legendDescription {
 			<%for(int j=1;j<31;j++){ %>
 			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
-				 <%int cnt1=0; %>
-				 <%int cnt2=0; %>
-				<c:set var="doneLoop" value="false"/>
-				<c:forEach items="${ selectedList }" var="select">
-				<c:if test="${not doneLoop}">
 				<c:set var="count" value="<%=count %>"/>
-					<c:if test="${ select.seatNo eq count}">
-						<% cnt1=1; %>					
-						<c:set var="doneLoop" value="true" />
-					</c:if>
-					<%-- <c:if test="${ select.seatNo ne count}">
+				<c:set var="doneLoop" value="false" />
+				<c:out value="${doneLoop}" />
+				<c:forEach items="${ selectedList }" var="select" varStatus="status">
+					<c:out value="${doneLoop}" />
+					<c:out value="${select.seatNo}" />
+					<c:if test="${ not doneLoop }">	
+					<c:choose>
+						<c:when test="${ select.seatNo eq count}">
+							style="pointer-events: none;
+							background-color:gray;"
+							<c:set var="doneLoop" value="true" />
+						</c:when>
+						<c:otherwise>
+							style="<% if(i<6 && (j>5 && j<25)){ %>
+							background-color:#BEA886;
+							<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+							background-color:#9076FF;
+							<%}else{%>
+							background-color:#70D0EA;
+							<%}%>"						
+						</c:otherwise> 
+					</c:choose> 
+					</c:if>						
 					
-					</c:if> --%>
-				</c:if>
-				</c:forEach>
-				 <%if(cnt1==1 && cnt2==0) {%>
-				 	style="pointer-events: none;
+					<%-- <c:if test="${ select.seatNo eq count}">
+					style="pointer-events: none;
 						background-color:gray;"
-				 <%} else{%>
-				 	style="<% if(i<6 && (j>5 && j<25)){ %>
+					</c:if>
+					<c:if test="${ select.seatNo ne count}">
+					style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
 					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
 						background-color:#9076FF;
 					<%}else{%>
 						background-color:#70D0EA;
 					<%}%>"
-				 <%} %>
+					</c:if> --%>
+				</c:forEach>
 				<% count++; %>
 				<%--style= "<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;

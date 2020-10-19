@@ -612,6 +612,7 @@ select * from comment_board;
 select * from wishlist;
 select * from schedule;
 select * from seat;
+select * from selected;
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
