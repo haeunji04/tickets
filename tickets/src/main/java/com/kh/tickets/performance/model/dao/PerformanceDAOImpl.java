@@ -266,6 +266,16 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public List<Selected> selectSelectedList(int schNo) {
 		return sqlSession.selectList("performance.selectSelectedList", schNo);
 	}
+
+	@Override
+	public int seatPrice(int i) {
+		return sqlSession.selectOne("performance.seatPrice", i);
+	}
+
+	@Override
+	public int seatLength(int schNo) {
+		return sqlSession.selectOne("performance.seatLength", schNo);
+	}
 	
 	
 }

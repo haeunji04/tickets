@@ -96,29 +96,21 @@ if ( getCookie( "popup" ) != "done" ){
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/연극이퀄.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>				    
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬호프.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬베르테르.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬블랙메리포핀스.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 			  	</div>
