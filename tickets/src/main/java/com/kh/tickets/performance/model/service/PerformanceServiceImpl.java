@@ -263,6 +263,16 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public List<Selected> selectSelectedList(int schNo) {
 		return performanceDAO.selectSelectedList(schNo);
 	}
+
+	@Override
+	public int seatPrice(int i) {
+		return performanceDAO.seatPrice(i);
+	}
+
+	@Override
+	public int seatLength(int schNo) {
+		return performanceDAO.seatLength(schNo);
+	}
 	
 	
 
