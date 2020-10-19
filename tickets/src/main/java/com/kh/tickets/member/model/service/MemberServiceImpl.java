@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.tickets.member.model.dao.MemberDAO;
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.member.model.vo.MemberPayList;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -96,6 +97,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int authEnroll(Auth auth) {
 		return memberDAO.authEnroll(auth);
+	}
+
+	@Override
+	public List<MemberPayList> selectMemberPayList(String memberId) {
+		return memberDAO.selectMemberPayList(memberId);
 	}
 
 	

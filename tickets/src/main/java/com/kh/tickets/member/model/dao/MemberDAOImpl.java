@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.member.model.vo.MemberPayList;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -97,6 +98,12 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int authEnroll(Auth auth) {
 		return sqlSession.insert("member.authEnroll", auth);
+	}
+
+	@Override
+	public List<MemberPayList> selectMemberPayList(String memberId) {
+		return sqlSession.selectList("member.selectMemberPayList", memberId);
+		
 	}
 	
 	
