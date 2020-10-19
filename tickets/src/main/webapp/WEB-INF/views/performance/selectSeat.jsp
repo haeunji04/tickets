@@ -1,3 +1,5 @@
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashSet"%>
 <%@page import="com.kh.tickets.performance.model.vo.Selected"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,6 +13,8 @@
 <!DOCTYPE html>
 <%
 	List<Selected> selectedList = (List<Selected>)request.getAttribute("selectedList");
+
+	Set<Selected> selectedList2 = new HashSet<>(selectedList);
 
 	System.out.println("@@@@@@"+selectedList);
 	Selected[] arr = selectedList.toArray(new Selected[selectedList.size()]);
@@ -187,7 +191,7 @@ span.seatCharts-legendDescription {
 		    for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
-			<%for(int j=1;j<31;j++){ 
+			<% for(int j=1;j<31;j++){ 
 				count++;
 				
 
@@ -196,13 +200,15 @@ span.seatCharts-legendDescription {
 			%>
 			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
-					<%for(int k=0;k<arr.length;k++){ 
+					<%-- <%for(Selected s : selectedList2){ --%>
+					<%for(int k=0;k<arr.length;k++){  
 						System.out.println("test="+arr[k].getSeatNo());
 						if(count == arr[k].getSeatNo()){
 					%>
 					style="pointer-events: none !important;
 						background-color:gray !important;"
-					<%break;}
+					<% 
+						break;}
 					  else{ %>
 						style="<% if(i<6 && (j>5 && j<25)){ %>
 							background-color:#BEA886;
