@@ -37,6 +37,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />             <%-- 오늘날짜 --%>
 <fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMdd" var="openDate"/>     <%-- 시작날짜 --%>
+<fmt:formatDate value="${ performance.perEndDate }" pattern="yyyyMMdd" var="endDate"/>     <%-- 마감날짜 --%>
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
@@ -120,7 +121,7 @@
 				<td colspan=3>
 					<h3>
 						${ performance.perTitle }
-						<c:if test="${openDate < nowDate }">
+						<c:if test="${endDate eq nowDate }">
 							<span class="text-primary" style="font-size:25px">(마감일 오늘티켓 50%할인)</span>
 						</c:if> 
 				
