@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.member.model.vo.MemberPayList;
 
 public interface MemberService {
 
@@ -37,4 +38,6 @@ public interface MemberService {
 	int updatePwd(Map<String, Object> param);
 
 	int authEnroll(Auth auth);
+
+	List<MemberPayList> selectMemberPayList(String memberId);
 }
