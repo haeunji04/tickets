@@ -597,6 +597,24 @@ from
             on P.location_code = L.location_code
         left join category C
             on P.category_code = C.category_code;
+--====================================
+--결제내역 테이블
+create view member_pay_list_view as
+select Y.pay_no, Y.tot_price, Y.pay_option, Y.pay_date, Y.member_id,
+       Y.pay_yn, Y.cancel_yn, Y.seat_no, Y.sch_no, Y.order_number,
+       S.sch_date_time, S.per_no,
+       P.per_title, P.per_img_original_filename, P.per_img_renamed_filename,
+       P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
+       T.theater_location, T.theater_city, T.theater_address, T.theater_name
+from pay Y
+    left join schedule S 
+        on Y.sch_no = S.sch_no 
+    left join performance P 
+        on S.per_no = P.per_no
+    left join theater T 
+        on P.theater_no = T.theater_no;
+
+select  * from member_pay_list_view; 
 
 
 --======================================================
@@ -613,6 +631,19 @@ select * from wishlist;
 select * from schedule;
 select * from seat;
 select * from selected;
+select * from pay;
+select * from ticket;
+--
+
+delete selected where seat_no='1';
+
+insert into 
+    selected
+values(
+3, 'qwer',29
+
+);
+commit;
 --select * from ticket;
 --select * from pay;
 --select * from wishlist_view;
