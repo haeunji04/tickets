@@ -14,7 +14,7 @@
 <style>
 .tab_menu_container a {
 	display: inline-block;
-    width: 208.9px;
+    width: 220.7px;
     height: 70px;
     line-height: 70px;
     box-sizing: border-box;
@@ -109,6 +109,10 @@ a {
 					<div class="custom-control custom-checkbox d-inline-block mx-3">
 					    <input type="checkbox" class="custom-control-input" name="category" id="classic" value="C4">
 					    <label class="custom-control-label" for="classic">클래식</label>
+					</div>
+					<div class="custom-control custom-checkbox d-inline-block mx-3">
+					    <input type="checkbox" class="custom-control-input" name="category" id="exhibition" value="C5">
+					    <label class="custom-control-label" for="exhibition">전시</label>
 					</div>
 				</div>
 		  	</div>
