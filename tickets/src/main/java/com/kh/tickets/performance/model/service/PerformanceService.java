@@ -114,6 +114,10 @@ public interface PerformanceService {
 
 	List<Selected> selectSelectedList(int schNo);
 
+	int seatPrice(int i);
+
+	int seatLength(int schNo);
+
 
 
 
