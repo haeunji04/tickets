@@ -99,29 +99,21 @@ if ( getCookie( "popup" ) != "done" ){
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/연극이퀄.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>				    
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬호프.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬베르테르.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬블랙메리포핀스.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 						      </div>
 				    </div>
 			  	</div>
@@ -162,7 +154,6 @@ if ( getCookie( "popup" ) != "done" ){
 					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />               <%-- 오늘날짜 --%>
 					<fmt:formatDate value="${ per.perStartDate }" pattern="yyyyMMdd" var="startDate"/>     <%-- 시작날짜 --%>
 				    <c:if test="${startDate > nowDate }">   
-				     <li class="child">
 				        
 					    <figure class="effect-apollo mb-5 mt-0 pt-0">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }">
@@ -172,8 +163,7 @@ if ( getCookie( "popup" ) != "done" ){
 								<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
 							</figcaption>			
 						</figure>
-				        
-				      </li>
+
 
 					</c:if>
 					</c:forEach>
@@ -200,7 +190,7 @@ if ( getCookie( "popup" ) != "done" ){
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>
 					
 					</c:forEach>
@@ -232,7 +222,7 @@ if ( getCookie( "popup" ) != "done" ){
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>					
 					</c:forEach>
 					<c:forEach items="${ theatreList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
@@ -240,7 +230,7 @@ if ( getCookie( "popup" ) != "done" ){
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h6 class="card-title mt-2">${ per.perTitle }</h6></figcaption>  
+						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
 					</div>					
 					</c:forEach>
 					<%-- <div class="d-inline-block px-3">
@@ -604,7 +594,7 @@ function displayRankList(data){
 			endDate = new Date(per.perEndDate);
 
 			var fmtStartDate = getFormatDate(startDate);
-			var fmtEndDate = getFormatDate(endDate);
+			//var fmtEndDate = getFormatDate(endDate);
 
 			html += "<li class='px-3 mb-3' id='best"+i+"'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
@@ -613,7 +603,9 @@ function displayRankList(data){
 	        html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
 			html += "<ul style='display:inline-block;list-style-type:none; width:250px; vertical-align:middle' class='text-center'>";
 			html += "<li><strong>"+per.perTitle+"</strong></li>";
-			html += "<li><small>"+fmtStartDate+"-"+fmtEndDate+"</small></li>";
+			//html += "<li><small>"+per.perStartDate+"</small></li>";
+			//html += "<li><small>"+fmtStartDate+"</small></li>";
+			html += "<li><small>"+fmtStartDate+"</small></li>";
 			html += "</ul></a></li>";
 			//<fmt:formatDate pattern='yyyy-MM-dd HH:mm'  value='${boardVO.ntc_dt}' />
 
@@ -624,17 +616,19 @@ function displayRankList(data){
  	$container.html(html);
 }
 
-function getFormatDate(perDate){
+function getFormatDate(date){
 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
 
-	var year = perDate.getFullYear();                                 //yyyy
-	var month = (1 + perDate.getMonth());                     //M
+	var year = date.getFullYear();                                 //yyyy
+	var month = (1 + date.getMonth());                     //M
 	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
-	var date = perDate.getDate();                                        //d
+	var date = date.getDate();                                        //d
 	date = date >= 10 ? date : '0' + date;                            //day 두자리로 저장
-	var day = perDate.getDay();
-	var today = week[day];
-	return  year + '.' + month + '.' + date + " (" + today + ")" ;
+	console.log(date.getDay());
+	//var day = date.getDay();
+	//var today = week[day];
+	//console.log(year + '.' + month + '.' + date + "(" + today + ")");
+	return  year + '.' + month + '.' + date ;
 }
 
 

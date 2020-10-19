@@ -1,7 +1,3 @@
-<%@page import="java.util.Set"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="com.kh.tickets.performance.model.vo.Selected"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,19 +7,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
-<%
-	List<Selected> selectedList = (List<Selected>)request.getAttribute("selectedList");
-
-	Set<Selected> selectedList2 = new HashSet<>(selectedList);
-
-	System.out.println("@@@@@@"+selectedList);
-	Selected[] arr = selectedList.toArray(new Selected[selectedList.size()]);
-	for(int i=0;i<arr.length;i++){
-	System.out.println("#########"+arr[i].getSeatNo());
-		
-		
-	}
-%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -187,40 +170,51 @@ span.seatCharts-legendDescription {
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:50px;">
 		  <div class="front-indicator">1F</div>
 
-		  <% int count=0;
-		    for(int i=1;i<11;i++){ %>
+		  <% int count=1;
+		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
-			<% for(int j=1;j<31;j++){ 
-				count++;
-				
-
-				System.out.println("j="+j);
-				System.out.println("count++="+count);
-			%>
+			<%for(int j=1;j<31;j++){ %>
 			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
-					<%-- <%for(Selected s : selectedList2){ --%>
-					<%for(int k=0;k<arr.length;k++){  
-						System.out.println("test="+arr[k].getSeatNo());
-						if(count == arr[k].getSeatNo()){
-					%>
-					style="pointer-events: none !important;
-						background-color:gray !important;"
-					<% 
-						break;}
-					  else{ %>
-						style="<% if(i<6 && (j>5 && j<25)){ %>
-							background-color:#BEA886;
-						<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
-							background-color:#9076FF;
-						<%}else{%>
-							background-color:#70D0EA;
-						<%}%>"
-						
-				<%}
-						} %>
+				 <%int cnt1=0; %>
+				 <%int cnt2=0; %>
+				<c:set var="doneLoop" value="false"/>
+				<c:forEach items="${ selectedList }" var="select">
+				<c:if test="${not doneLoop}">
+				<c:set var="count" value="<%=count %>"/>
+					<c:if test="${ select.seatNo eq count}">
+						<% cnt1=1; %>					
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+					<%-- <c:if test="${ select.seatNo ne count}">
+					
+					</c:if> --%>
+				</c:if>
+				</c:forEach>
+				 <%if(cnt1==1 && cnt2==0) {%>
+				 	style="pointer-events: none;
+						background-color:gray;"
+				 <%} else{%>
+				 	style="<% if(i<6 && (j>5 && j<25)){ %>
+						background-color:#BEA886;
+					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+						background-color:#9076FF;
+					<%}else{%>
+						background-color:#70D0EA;
+					<%}%>"
+				 <%} %>
+				<% count++; %>
+				<%--style= "<% if(i<6 && (j>5 && j<25)){ %>
+						background-color:#BEA886;
+					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+						background-color:#9076FF;
+					<%}else{%>
+						background-color:#70D0EA;
+					<%}%>
+				"> --%>
 				>
+				<%-- <input type="hidden" name="seatNo" value="<%= count++ %>" /> --%>
 				</div>
 			<%} %>
 		</div>
@@ -229,6 +223,28 @@ span.seatCharts-legendDescription {
 			%>
 	</div>
 	
+	<div id="test" class="seatCharts-container" tabindex="0">
+		  <div class="front-indicator">2F</div>
+		  <% 
+		  for(int i=1;i<11;i++){ %>
+		<div class="seatCharts-row">
+			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
+			<%for(int j=1;j<31;j++){ %>
+			<div id="2_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
+				class="seatCharts-seat seatCharts-cell first-class available" onclick="alert(this.id);"
+				style="<% if(i<6){ %>
+						background-color:#70D0EA;
+					<%}else{%>
+						background-color:#AADE48;
+					<%}%>
+				"></div>
+			<%} %>
+		</div>
+		<%
+		}
+			%>
+		
+	</div>
 	<div class="position-fixed text-center" style="top:60px;left:750px;width:400px;height:1000px;background-color:white;line-height:30px; ">
 	<div class="show-seat h-30">
 		

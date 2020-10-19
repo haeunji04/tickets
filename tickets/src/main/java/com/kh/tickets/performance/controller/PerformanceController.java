@@ -641,21 +641,25 @@ public class PerformanceController {
 	public ModelAndView selectSeat(ModelAndView mav,
 								   @RequestParam int schNo,
 								   @RequestParam int perNo,
-								   @RequestParam String memberId) {
+								   @RequestParam String memberId,
+								   HttpServletRequest request) {
 		PerJoin performance = performanceService.selectOnePerformance(perNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
-		List<Seat> seatList = performanceService.selectSeatList(theaterNo);
+		//List<Seat> seatList = performanceService.selectSeatList(theaterNo);
+		int seatLength = performanceService.seatLength(schNo);
 		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
 		log.debug("selectedList@={}",selectedList);
+		request.setAttribute("selectedList", selectedList);
 		mav.addObject("selectedList", selectedList);
-		mav.addObject("seatList", seatList);
+		mav.addObject("seatLength", seatLength);
+		//mav.addObject("seatList", seatList);
 		mav.addObject("performanceHall", performanceHall);
 		mav.addObject("performance", performance);
 		mav.addObject("memberId", memberId);
 		log.debug("memberId={}",memberId);
 		mav.addObject("schNo", schNo);
-		mav.setViewName("/performance/selectSeat");
+		mav.setViewName("/performance/selectSeat2");
 		return mav;
 	}
 	
@@ -665,6 +669,13 @@ public class PerformanceController {
 										@RequestParam int schNo,
 										@RequestParam String memberId) {
 		log.debug("seatNo={}",seatNo);
+		int total=0;
+		for(int i=0;i<seatNo.length;i++) {
+			total += performanceService.seatPrice(seatNo[i]);
+			
+		}
+		
+		mav.addObject("seatNoLength",seatNo.length);
 		mav.setViewName("performance/salePerformance");
 		return mav;
 	}

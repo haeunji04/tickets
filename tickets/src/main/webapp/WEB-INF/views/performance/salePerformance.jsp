@@ -107,7 +107,7 @@ a{
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="name mb-0 text-sm">할인유형1</span>
+                          <span class="name mb-0 text-sm">국가유공자(본인만)</span>
                         </div>
                       </div>
                     </th>
@@ -131,7 +131,7 @@ a{
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="name mb-0 text-sm">할인유형2</span>
+                          <span class="name mb-0 text-sm">재관람할인</span>
                         </div>
                       </div>
                     </th>
@@ -154,7 +154,7 @@ a{
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="name mb-0 text-sm">할인유형3</span>
+                          <span class="name mb-0 text-sm">50플러스할인(1971년이전출생자)</span>
                         </div>
                       </div>
                     </th>
@@ -177,7 +177,7 @@ a{
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="name mb-0 text-sm">할인유형4</span>
+                          <span class="name mb-0 text-sm">장애인할인</span>
                         </div>
                       </div>
                     </th>
@@ -201,50 +201,7 @@ a{
             </div>
 		
 	</div>
-	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
-		<h5>할인수단을 선택하세요.</h5>
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="name">쿠폰</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody class="list">
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                       
-                          <div class="form-group">
-						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
-						     <label class="custom-control-label" for="customRadio1">할인쿠폰1</label>
-						   </div>
-						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-						     <label class="custom-control-label" for="customRadio2">할인쿠폰2</label>
-						   </div>
-						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-						     <label class="custom-control-label" for="customRadio3">할인쿠폰3</label>
-						   </div>
-						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
-						     <label class="custom-control-label" for="customRadio4">할인쿠폰4</label>
-						   </div>
-						  
-						 </div>
-                      </div>
-                    </th>
-                    
-                  </tr>
-                  
-                </tbody>
-              </table>
-            </div>
 		
-	</div>
 
 	<div class="position-fixed text-center" style="top:60px;left:750px;width:400px;height:1000px;background-color:white;line-height:30px; ">
 	<div class="show-seat h-30">

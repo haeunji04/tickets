@@ -532,6 +532,12 @@
 		from selected
 		where sch_no = #{ schNo }
 	</select>
+	<select id="seatPrice"></select>
+	<select id="seatLength" resultType="_int">
+	select count(*)
+	from selected
+	where sch_no = #{ schNo }
+	</select>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
