@@ -660,6 +660,7 @@ public class PerformanceController {
 	@PostMapping("/performance/salePerformance.do")
 	public ModelAndView salePerformance(ModelAndView mav,
 										@RequestParam int[] seatNo,
+										@RequestParam String[] seatName,
 										@RequestParam int schNo,
 										@RequestParam String memberId) {
 		log.debug("seatNo={}",seatNo);
@@ -668,8 +669,10 @@ public class PerformanceController {
 			total += performanceService.seatPrice(seatNo[i]);
 			
 		}
-		
+		mav.addObject("total", total);
 		mav.addObject("seatNoLength",seatNo.length);
+		mav.addObject("seatName", seatName);
+		mav.addObject("memberId", memberId);
 		mav.setViewName("performance/salePerformance");
 		return mav;
 	}

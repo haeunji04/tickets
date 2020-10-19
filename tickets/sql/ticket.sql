@@ -41,6 +41,7 @@ show user;
 --DROP TABLE "PAY" CASCADE CONSTRAINTS;
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 --DROP TABLE "RECENTLY_PER_LIST" CASCADE CONSTRAINTS;
+--DROP TABLE "SELECTED" CASCADE CONSTRAINTS;
 
 -- 시퀀스 삭제
 --DROP SEQUENCE "PERFORMANCE_SEQ";
@@ -312,7 +313,17 @@ create table ticket(
     constraints fk_member_id4 foreign key(member_id) references member(member_id),
     constraints fk_per_no3 foreign key(per_no) references performance(per_no)    
 );
-
+--selected
+create table selected(
+    seat_no number,
+    member_id varchar2(15),
+    sch_no number,
+    constraints pk_selected primary key(seat_no,member_id,sch_no),
+    constraints fk_seat_no3 foreign key(seat_no) references seat(seat_no),
+    constraints fk_member_id5 foreign key(member_id) references member(member_id),
+    constraints fk_sch_no3 foreign key(sch_no) references schedule(sch_no)
+    
+);
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 CREATE TABLE comment_board (
 	board_comment_no number null,
@@ -617,6 +628,8 @@ select * from seat;
 --select * from wishlist_view;
 select * from recently_per_list;
 --select * from recently_per_list_view;
+select * from selected;
+
 
 
 commit;

@@ -344,6 +344,7 @@ span.seatCharts-legendDescription {
 							$(e).addClass('selected');
 							$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
 							$('.side-bar').append("<input class="+e.id+" type='hidden' name='seatNo' value="+select.seatNo+" />");
+							$('.side-bar').append("<input class="+e.id+" type='hidden' name='seatName' value="+e.id+" />");
 						},
 						error : function(xhr, status, err){
 							console.log("처리실패", xhr, status, err);

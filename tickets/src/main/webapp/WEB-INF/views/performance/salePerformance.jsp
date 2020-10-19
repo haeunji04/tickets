@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,15 +94,14 @@ a{
                       </div>
                     </th>
                     <td class="budget">
-                      160,000원
                     </td>
                     <td>
                       <div class="form-group" style="width:100px;height:20px;">
 					    <select class="custom-select">
 					      <option selected="">0</option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
+					    <c:forEach begin="1" end="${seatNoLength }" step="1" var="i">
+					      <option value="0">${i}</option>
+					      </c:forEach>
 					    </select>
 					  </div>
                     </td>
@@ -112,15 +117,15 @@ a{
                       </div>
                     </th>
                     <td class="budget">
-                      150,000원
+                      	할인 10000원
                     </td>
                      <td>
                       <div class="form-group" style="width:100px;height:20px;">
 					    <select class="custom-select">
 					      <option selected="">0</option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
+					    <c:forEach begin="1" end="${seatNoLength }" step="1" var="i">
+					      <option value="10000">${i}</option>
+					      </c:forEach>
 					    </select>
 					  </div>
                     </td>
@@ -136,15 +141,15 @@ a{
                       </div>
                     </th>
                     <td class="budget">
-                      140,000원
+                      	할인 3000원
                     </td>
                      <td>
                       <div class="form-group" style="width:100px;height:20px;">
 					    <select class="custom-select">
 					      <option selected="">0</option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
+					    <c:forEach begin="1" end="${seatNoLength }" step="1" var="i">
+					      <option value="3000">${i}</option>
+					      </c:forEach>
 					    </select>
 					  </div>
                     </td>
@@ -159,15 +164,15 @@ a{
                       </div>
                     </th>
                     <td class="budget">
-                      130,000원
+                      	할인 5000원
                     </td>
                      <td>
                       <div class="form-group" style="width:100px;height:20px;">
 					    <select class="custom-select">
 					      <option selected="">0</option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
+					    <c:forEach begin="1" end="${seatNoLength }" step="1" var="i">
+					      <option value="5000">${i}</option>
+					      </c:forEach>
 					    </select>
 					  </div>
                     </td>
@@ -182,15 +187,15 @@ a{
                       </div>
                     </th>
                     <td class="budget">
-                      120,000원
+                      	할인 5000원
                     </td>
                      <td>
                       <div class="form-group" style="width:100px;height:20px;">
 					    <select class="custom-select">
-					      <option selected="">0</option>
-					      <option value="1">1</option>
-					      <option value="2">2</option>
-					      <option value="3">3</option>
+					      <option selected="0">0</option>
+					    <c:forEach begin="1" end="${seatNoLength }" step="1" var="i">
+					      <option value="5000">${i}</option>
+					      </c:forEach>
 					    </select>
 					  </div>
                     </td>
@@ -213,9 +218,11 @@ a{
 			<ul style="padding-left:20px;">
 				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
 				<li>
-					총 N석 선택
+					총 ${seatNoLength }석 선택
 					<br />
-					R석 1층 3열 15번
+					<c:forEach items="${ seatName }" var="seat">
+						${ seat }<br/>
+					</c:forEach>
 				</li>
 			</ul>
 		</div>
@@ -225,23 +232,15 @@ a{
 			<table>
 				<tr>
 					<td style="width:120px;padding-left:20px;">티켓금액</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
-				</tr>
-				<tr>
-					<td style="width:120px;padding-left:20px;">기본가</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ total }원</td>
 				</tr>
 				<tr>
 					<td style="width:120px;padding-left:20px;">가격할인</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
-				</tr>
-				<tr>
-					<td style="width:120px;padding-left:20px;">쿠폰할인</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td id="sale" style="width:180px;text-align:right;padding-right:20px;">0원</td>
 				</tr>
 				<tr>
 					<td style="width:150px;padding-left:20px;"><h5>총결제금액</h5></td>
-					<td style="width:150px;text-align:right;padding-right:20px;"><h5>0원</h5></td>
+					<td id="order" style="width:150px;text-align:right;padding-right:20px;"><h5>${ total }원</h5></td>
 				</tr>
 			</table>
 		</div>
@@ -257,7 +256,29 @@ a{
 	</div>
 	</div>
 	<script>
+	$(function(){
+	$(".custom-select").change(function() {
+		var number = 0;
+		var sale = 0;
+		 $(".custom-select").each(function(){
+			 number += Number($(this).children("option:selected").text());
+				 alert(number);
+				 }
+
+			 }
+			/* sale += Number($(this).val())* Number($(this).children("option:selected").text());
+			number += Number($(this).children("option:selected").text());
+			if(number > ${seatNoLength }){
+					number -=Number($(this).children("option:selected").text());
+					sale -= Number($(this).val())*Number($(this).children("option:selected").text());
+					alert('매수를 초과하였습니다.');
+					$(this).children("option:selected").text(0);
+				}
+			$('#sale').text(sale);
+			$('#order').text(${ total }-sale); */
 		
+		});
+	});
 	</script>
 	
 

@@ -531,7 +531,11 @@
 		from selected
 		where sch_no = #{ schNo }
 	</select>
-	<select id="seatPrice"></select>
+	<select id="seatPrice" resultType="_int">
+ 	select seat_price
+ 	from seat
+ 	where seat_no = #{ i }
+	</select>
 	<select id="seatLength" resultType="_int">
 	select count(*)
 	from selected
