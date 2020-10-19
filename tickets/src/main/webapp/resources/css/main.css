@@ -37,3 +37,86 @@
 #main-container{
 	text-align: center;
 }
+
+/* core styles */
+.isystkSlider {
+  position: relative;
+  width: 650px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.isystkSlider .view-layer {
+  width: 578px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.isystkSlider ul.parent{
+  margin-bottom:10px;
+}
+
+.isystkSlider li.child{
+  float:left;
+}
+
+.isystkSlider li.child p{
+  margin:0 5px 0 0;
+  border:solid 1px #dedede;
+  background:#fff;
+  padding:3px;
+}
+
+.isystkSlider img{
+  vertical-align: middle;
+}
+
+/* controls */
+.isystkSlider .prev-btn,
+.isystkSlider .next-btn{
+  position: absolute;
+  top: 50%;
+  margin-top: -1em;
+  width: 30px;
+}
+
+.isystkSlider .prev-btn img,
+.isystkSlider .next-btn img{
+  width: 30px;
+}
+
+.isystkSlider .next-btn{
+  right: 0;
+}
+
+.isystkSlider .paging {
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 6px;
+  width: 565px;
+}
+
+.isystkSlider .paging p{
+  margin:0 5px 0 0;
+  border:solid 1px #dedede;
+  background:#fff;
+  padding:3px;
+}
+
+.isystkSlider .paging.dot {
+  width: 24%;
+  margin: 5px auto;
+}
+
+.isystkSlider .paging.dot li {
+  border: 1px solid #666;
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  list-style-type: none;
+}
+
+.isystkSlider .paging.dot li.active {
+  background: #666;
+}

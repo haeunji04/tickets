@@ -14,51 +14,52 @@
 	<link type="text/css" href="${pageContext.request.contextPath }/resources/css/styles.css" rel="stylesheet" />
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/waltzerjs.min.js"></script>
+	<link type="text/css" href="${pageContext.request.contextPath }/resources/css/set1.css" rel="stylesheet" />
 
 <div id="category-container" class="mx-auto pb-5">
 
-	<div id="category-header" class="my-3 text-center" >
+	<div id="category-header" class="my-3 text-center">
 		<h2 class="text-primary my-4"> ${ categoryName }</h2>	
 			
 		<!-- 추천 뮤지컬 반복문 블록 시작 -->
-	<div id="carousel" class='outerWrapper'>
-		<!-- <div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3"> -->
-		<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-			<a href="" class="none">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-					 alt="포스터" height="300px" class="mb-2"/>
-			</a>
-				<h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5>
-				<small>기념비적인 40주년 내한 공연!</small>
-		</div>
-		<!-- 추천 뮤지컬 반복문 블록 끝 -->
-		
-		<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
-					 alt="포스터" height="300px" class="mb-2"/>
-			</a>
-				<h5>어쩌면 해피엔딩</h5>
-				<small>우리가 어쩌면, <br /> 해피엔딩</small>
-		</div>
-		
-		<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/소믈리에.jpg" 
-					 alt="포스터" height="300px" class="mb-2"/>
-			</a>
-			<h5>뮤지컬 소믈리에</h5>
-			<small>당신이 절대 후회하지 않을 공연!</small>
-		</div>
-		
-		<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-			<a href="">
-				<img src="${pageContext.request.contextPath }/resources/images/poster/무인도탈출기.jpg" 
-					 alt="포스터" height="300px" class="mb-2"/>
-			</a>
-			<h5>뮤지컬 [무인도 탈출기]</h5>
-			<small>청춘을 대변하는 우리들의 '극중극'</small>
-		</div>
+		<div id="carousel" class='outerWrapper'>
+			<!-- <div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3"> -->
+			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
+				<a href="" class="none">
+					<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
+						 alt="포스터" height="300px" class="mb-2"/>
+				</a>
+					<h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5>
+					<small>기념비적인 40주년 내한 공연!</small>
+			</div>
+			<!-- 추천 뮤지컬 반복문 블록 끝 -->
+			
+			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
+				<a href="">
+					<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
+						 alt="포스터" height="300px" class="mb-2"/>
+				</a>
+					<h5>어쩌면 해피엔딩</h5>
+					<small>우리가 어쩌면, <br /> 해피엔딩</small>
+			</div>
+			
+			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
+				<a href="">
+					<img src="${pageContext.request.contextPath }/resources/images/poster/소믈리에.jpg" 
+						 alt="포스터" height="300px" class="mb-2"/>
+				</a>
+				<h5>뮤지컬 소믈리에</h5>
+				<small>당신이 절대 후회하지 않을 공연!</small>
+			</div>
+			
+			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
+				<a href="">
+					<img src="${pageContext.request.contextPath }/resources/images/poster/무인도탈출기.jpg" 
+						 alt="포스터" height="300px" class="mb-2"/>
+				</a>
+				<h5>뮤지컬 [무인도 탈출기]</h5>
+				<small>청춘을 대변하는 우리들의 '극중극'</small>
+			</div>
 		</div>
 	</div>
 	
@@ -66,7 +67,8 @@
 	<div class="d-block dropdown-divider"></div>
 	<br />
 	
-	<div id="category-body" class="my-3 text-center">
+	<div id="category-body" class="my-3 text-center d-block" style="height:650px;" >
+	<div class="grid">
 		<!-- 공연 반복문 블록 시작 (해당 카테고리 공연 수만큼 반복 돌리기) -->
 		<c:if test="${ not empty list }">
 		<c:forEach items="${ list }" var="per">
@@ -91,17 +93,27 @@
 			</c:choose> --%>
 		<%-- <c:if test="${openDate < nowDate }">
 		</c:if> --%>
-		<div style="width: 235px" class="text-center d-inline-block p-3 align-top">
+<%-- 		<div style="width: 235px"class="text-center d-inline-block p-3 align-top">
 			<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">
-				<%-- <sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>"> --%>					
+				<sec:authorize access="isAuthenticated()">&memberId=<sec:authentication property="principal.userName"/></sec:authorize>">					
 						<img
 						src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />"
-						style="width: 200px" class=" mb-2"/>
+						style="width: 200px; height:270px;" class=" mb-2"/>
 			</a>
 			<h6>${ per.perTitle }</h6>
 			<p style="font-size:13px;" class="mb-0">${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }<br />${ per.theaterName }</p>
-		</div>
-		
+		</div> --%>
+				
+					<figure class="effect-honey">
+						<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" 
+							 alt="${ per.perTitle }"
+							 style="width: 200px; height:270px;" class=" mb-2">
+						<figcaption>
+							<h5><span><i>${per.perTitle } <br /><small>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</small></i></span></h5>
+							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">View more</a>
+						</figcaption>			
+					</figure>
+				
 		</c:forEach>
 		</c:if>
 		
@@ -111,8 +123,9 @@
 		<!-- 뮤지컬 반복문 블록 끝 -->
 	
 	</div>
+	</div>
 	
-	<div class="align-center">
+	<div class="align-center d-block">
     	<ul class="pagination justify-content-center">
 	    
 		            ${ pageBar }     
