@@ -38,9 +38,43 @@
 			board_comment_no = #{ boardCommentNo } 
 	</delete>
 	
+	<select id="selectReviewList" resultMap="reviewMap">
+		select
+			*
+		from
+			review_comment
+		where
+			per_no = #{ perNo }
+		order by review_comment_date desc
+	</select>
+	
+	<select id="searchReservationMember" resultType="string">
+		select 
+		        distinct(P.member_id)
+		from pay P
+		    join schedule S
+		        on P.sch_no = S.sch_no
+		    join performance PF
+		        on S.per_no = PF.per_no
+		where P.member_id=#{ memberId }
+		        and S.per_no = #{ perNo }
+	</select>
+	
+	<insert id="insertReview">
+		insert into review_comment values(
+		    review_comments_seq.nextval,
+		    #{ reviewCommentContent },
+		    default,
+		    #{ perNo },
+		    #{ memberId }
+		)
+	</insert>
+	
+	
 	<resultMap type="boardComment" id="commentListMap">
 	</resultMap>
-	
+	<resultMap type="reviewComment" id="reviewMap">
+	</resultMap>
 	
 	
 	
