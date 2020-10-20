@@ -542,6 +542,11 @@
 	from selected
 	where sch_no = #{ schNo }
 	</select>
+	<select id="selectOneSchedule" resultType="_int">
+	select per_no
+	from schedule
+	where sch_no = #{ schNo }
+	</select>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

@@ -273,6 +273,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int seatLength(int schNo) {
 		return performanceDAO.seatLength(schNo);
 	}
+
+	@Override
+	public int selectOneSchedule(int schNo) {
+		return performanceDAO.selectOneSchedule(schNo);
+	}
 	
 	
 
