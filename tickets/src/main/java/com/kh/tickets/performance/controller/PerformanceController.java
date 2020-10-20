@@ -640,10 +640,9 @@ public class PerformanceController {
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav,
 								   @RequestParam int schNo,
-								   @RequestParam int perNo,
 								   @RequestParam String memberId,
 								   HttpServletRequest request) {
-		PerJoin performance = performanceService.selectOnePerformance(perNo);	
+		PerJoin performance = performanceService.selectOnePerformance(schNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		//List<Seat> seatList = performanceService.selectSeatList(theaterNo);
@@ -666,6 +665,7 @@ public class PerformanceController {
 	@PostMapping("/performance/salePerformance.do")
 	public ModelAndView salePerformance(ModelAndView mav,
 										@RequestParam int[] seatNo,
+										@RequestParam String[] seatName,
 										@RequestParam int schNo,
 										@RequestParam String memberId) {
 		log.debug("seatNo={}",seatNo);
@@ -674,15 +674,39 @@ public class PerformanceController {
 			total += performanceService.seatPrice(seatNo[i]);
 			
 		}
-		
+		mav.addObject("total", total);
+		mav.addObject("schNo", schNo);
+		mav.addObject("seatNo", seatNo);
 		mav.addObject("seatNoLength",seatNo.length);
+		mav.addObject("seatName", seatName);
+		mav.addObject("memberId", memberId);
 		mav.setViewName("performance/salePerformance");
 		return mav;
 	}
 	
-	@GetMapping("/performance/paySelect.do")
-	public ModelAndView paySelect(ModelAndView mav) {
+	@PostMapping("/performance/paySelect.do")
+	public ModelAndView paySelect(ModelAndView mav,
+								  @RequestParam int[] seatNo,
+								  @RequestParam String[] seatName,
+								  @RequestParam int schNo,
+								  @RequestParam String memberId,
+								  @RequestParam int total,
+								  @RequestParam int originTotal,
+								  @RequestParam int sale) {
 		
+		
+		PerJoin performance = performanceService.selectOnePerformance(schNo);	
+		Member member = memberService.selectOneMember(memberId);
+		mav.addObject("member", member);
+		mav.addObject("performance", performance);
+		mav.addObject("total", total);
+		mav.addObject("originTotal", originTotal);
+		mav.addObject("sale", sale);
+		mav.addObject("schNo", schNo);
+		mav.addObject("seatNo", seatNo);
+		mav.addObject("seatNoLength",seatNo.length);
+		mav.addObject("seatName", seatName);
+		mav.addObject("memberId", memberId);
 		mav.setViewName("performance/paySelect");
 		return mav;
 	}
