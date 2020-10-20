@@ -29,6 +29,11 @@ public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 		return sqlSession.selectOne("customerService.selectOneNoticeCollection", noticeNo);
 	}
 
+	@Override
+	public int insertNotice(Notice notice) {
+		return sqlSession.selectOne("customerService.insertNotice", notice);
+	}
+
 	
 	
 }

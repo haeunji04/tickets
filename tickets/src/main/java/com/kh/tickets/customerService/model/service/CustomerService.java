@@ -11,5 +11,7 @@ public interface CustomerService {
 
 	Notice selectOneNoticeCollection(int noticeNo);
 
+	int insertNotice(Notice notice);
+
 
 }

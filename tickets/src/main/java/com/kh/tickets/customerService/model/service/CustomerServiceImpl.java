@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.tickets.customerService.model.dao.CustomerServiceDAO;
 import com.kh.tickets.customerService.model.vo.Notice;
@@ -31,6 +32,14 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerServiceDAO.selectOneNoticeCollection(noticeNo);
 	}
 
-	
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int insertNotice(Notice notice) {
+		int result = 0;
+		
+		//1.board테이블에 insert
+		result = customerServiceDAO.insertNotice(notice);	
+		return result;
+	}
 	
 }

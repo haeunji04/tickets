@@ -14,5 +14,7 @@ public interface CustomerServiceDAO {
 
 	Notice selectOneNoticeCollection(int noticeNo);
 
+	int insertNotice(Notice notice);
+
 
 }

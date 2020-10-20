@@ -31,11 +31,10 @@ function noticeValidate(){
 	<form name="noticeFrm" 
 		  action="${pageContext.request.contextPath}/customerService/noticeEnroll.do" 
 		  method="post" 
-		  onsubmit="return noticeValidate();"
-		  enctype="multipart/form-data">
-		<input type="text" class="form-control" placeholder="제목" name="title" id="title" required>
+		  onsubmit="return noticeValidate();">
+		<input type="text" class="form-control" placeholder="제목" name="notice-title" id="notice-title" required>
 		
-		<select name="notice-kind">
+		<select name="notice-kind" id="notice-kind">
 		<option selected> 서비스 소식 </option>
 		<option> 서비스 오픈 </option>
 		<option> 서비스 종료 </option>
@@ -43,13 +42,7 @@ function noticeValidate(){
 		<option> 안내 </option>
 		</select>
 		
-		<div class="dropdown-menu">
-		  <h6 class="dropdown-header">Dropdown header</h6>
-		  <a class="dropdown-item" href="#">Action</a>
-		  <a class="dropdown-item" href="#">Another action</a>
-		</div>
-		
-	    <textarea class="form-control" name="notice-content" placeholder="내용" required></textarea>
+	    <textarea class="form-control" name="notice-content" id="notice-content" placeholder="내용" required></textarea>
 		<br/>
 		<input type="submit" class="btn btn-outline-success" id="save-btn" value="저장" >
 	</form>
