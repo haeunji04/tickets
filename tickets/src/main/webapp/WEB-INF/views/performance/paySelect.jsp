@@ -80,7 +80,7 @@ a{
                   <tr>
                     <th scope="col" class="sort" data-sort="name">이름 : ${ member.name }</th>
                     <th>연락처 :
-                     <input type="text" name="tel" id="tel" class="inputType inp_txt inp_w52" maxlength="11" style="width:70px;padding:0 10px;" value="${ member.phone }">
+                     <input type="text" name="tel" id="tel" class="inputType inp_txt inp_w52" maxlength="11" style="width:120px;padding:0 10px;" value="${ member.phone }">
                      </th>
                     <th>이메일:
                      <input type="text" name="email" id="email" class="inputType inp_txt inp_w150" value="${ member.email }">
@@ -277,12 +277,13 @@ a{
 	    }
 	}
 	function submit(){
-		 $("[name=BuyBooks").click(function(){
+			 $("[name=chkAgree]").each(function(){
 	    	   if($("[name=chkAgree]").is(":checked") == false) {
 	    		   alert("구매동의를 체크해주세요");
 	    		   
 	    		   return;
 	    		 };
+			});
 
 		
 	}

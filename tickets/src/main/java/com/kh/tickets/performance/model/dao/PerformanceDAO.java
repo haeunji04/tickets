@@ -117,4 +117,6 @@ public interface PerformanceDAO {
 
 	int seatLength(int schNo);
 
+	int selectOneSchedule(int schNo);
+
 }
