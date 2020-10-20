@@ -16,7 +16,7 @@
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
-footer{ margin-top: 2200px; }
+footer{ margin-top: 2100px; }
 
 #best0 {
   animation-name: best;
@@ -90,10 +90,10 @@ if ( getCookie( "popup" ) != "done" ){
 				</ol>
 			  	<div class="carousel-inner">
 				    <div class="carousel-item active" data-interval="2000">
-				    	<img src="${pageContext.request.contextPath }/resources/images/banner/그랜드민트페스티벌2020.jpg" class="d-block w-100" alt="...">
+				    	<img src="${pageContext.request.contextPath }/resources/images/banner/메인공연배너3.jpg" class="d-block w-100" alt="...">
 						      <div class="carousel-caption d-none d-md-block float-left">
-							      <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+							      <!-- <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
 						      </div>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
@@ -149,14 +149,14 @@ if ( getCookie( "popup" ) != "done" ){
 			<div id="myTabContent" class="tab-content d-block float-center mt-5 mb-5 ml-5">
 			
 				<div class="tab-pane fade grid mx-auto" id="new">
-					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
+					<c:forEach items="${ newList }" var="per" begin="0" end="2" step="1" varStatus="status" >
 					<jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />               <%-- 오늘날짜 --%>
 					<fmt:formatDate value="${ per.perStartDate }" pattern="yyyyMMdd" var="startDate"/>     <%-- 시작날짜 --%>
-				    <c:if test="${startDate > nowDate }">   
-				        
+				       		        
 					    <figure class="effect-apollo mb-5 mt-0 pt-0">
-							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }"
+								 style="width:417px;">
 							<figcaption>
 								<h5>${per.perTitle }</h5>
 								<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
@@ -165,103 +165,70 @@ if ( getCookie( "popup" ) != "done" ){
 						</figure>
 
 
-					</c:if>
 					</c:forEach>
-					<%-- <div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">뮤지컬 제이미</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">ㅋㄷㅋㄷ 런</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">캣츠</h5></figcaption></a>
-					</div> --%>
+
 				</div>
-				<div class="tab-pane fade active show" id="con">
-					<c:forEach items="${ concertList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
-					<div class="d-inline-block px-3" style="vertical-align: top;" >
+				<div class="tab-pane fade active show grid mx-auto" id="con">
+					<c:forEach items="${ concertList }" var="per" begin="0" end= "2" step="1" varStatus="status" >
+<%-- 					<div class="d-inline-block px-3" style="vertical-align: top;" >
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
 						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
-					</div>
+					</div> --%>
+						<figure class="effect-apollo mb-5 mt-0 pt-0">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }"
+								 style="width:417px;">
+							<figcaption>
+								<h5>${per.perTitle }</h5>
+								<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
+								<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
+							</figcaption>			
+						</figure>
 					
 					</c:forEach>
-					<%-- <div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" style="width:150px;height:200px;"/></a>
-						<a href="${pageContext.request.contextPath }/performance/performanceInfoView.do"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">캣츠</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">ㅋㄷㅋㄷ 런</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">뮤지컬 제이미</h5></figcaption></a>
-					</div> --%>
+
 				</div>
-				<div class="tab-pane fade" id="mu">
+				<div class="tab-pane fade grid" id="mu">
 				
-					<c:forEach items="${ musicalList }" var="per" begin="0" end= "2" step="1" varStatus="status" >
-					<div class="d-inline-block px-3" style="vertical-align: top;">
+					<c:forEach items="${ musicalList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
+<%-- 					<div class="d-inline-block px-3" style="vertical-align: top;">
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
 						</a>
 						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
-					</div>					
+					</div>	 --%>		
+						<figure class="effect-apollo mb-5 mt-0 pt-0">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }"
+								 style="width:417px;">
+							<figcaption>
+								<h5>${per.perTitle }</h5>
+								<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
+								<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
+							</figcaption>			
+						</figure>		
 					</c:forEach>
-					<c:forEach items="${ theatreList }" var="per" begin="0" end= "1" step="1" varStatus="status" >
-					<div class="d-inline-block px-3" >
-						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
-							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="포스터" style="width:150px;height:200px;"/>
-						</a>
-						<figcaption class="figure-caption text-center" style="width:150px;"><h5 class="card-title mt-2">${ per.perTitle }</h5></figcaption>  
-					</div>					
+					<c:forEach items="${ theatreList }" var="per" begin="0" end= "0" step="1" varStatus="status" >
+						<figure class="effect-apollo mb-5 mt-0 pt-0">
+							<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" alt="${per.perTitle }"
+								 style="width:417px;">
+							<figcaption>
+								<h5>${per.perTitle }</h5>
+								<p><small>${ dateformat.format(per.perStartDate) } <br /> -${ dateformat.format(per.perEndDate) }</small></p>
+								<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">View more</a>
+							</figcaption>			
+						</figure>				
 					</c:forEach>
-					<%-- <div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">뮤지컬 제이미</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">ㅋㄷㅋㄷ 런</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">캣츠</h5></figcaption></a>
-					</div>
-					<div class="d-inline-block px-3">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" style="width:150px;height:200px;"/></a>
-						<a href="#"><figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption></a>
-					</div> --%>
+
 				</div>
 			</div>
 		</div>
 		<!-- 탭 메뉴 끝 -->
 		
-		<img src="${pageContext.request.contextPath }/resources/images/etc/배너.png" style="height:130px;width:900px"/>
+		<%-- <img src="${pageContext.request.contextPath }/resources/images/etc/배너.png" style="height:130px;width:900px"/> --%>
 		
 		<!-- 구분선 -->
-			<br /><br /><br /><br />
+		<br /><br /><br /><br /><br /><br />
 		<div class="d-block dropdown-divider"></div>
 			
 		<div id="third-main" class="d-block">
@@ -274,10 +241,13 @@ if ( getCookie( "popup" ) != "done" ){
 					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
 					<li class="list-group-item" style="text-align:left;">
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}" class="inner inner_ico text-decoration-none">
-							<c:if test="${ per.aloneSale eq 'Y' }">
-							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span> 
-							</c:if>
-							<br />
+							<c:choose>
+							<c:when test="${ per.aloneSale eq 'Y' }">
+							<span class="badge badge-primary" style="float:left;"><span class="ico1">단독판매</span></span> <br />
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+							</c:choose>
 							<span>
 								${ per.perTitle} 티켓 오픈 안내
 								<br />
@@ -428,26 +398,13 @@ if ( getCookie( "popup" ) != "done" ){
 				</div>
 			</div>	
 		</div>
-		
-		
-<%-- 		<div class="perform float-left d-block text-center">
-			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
-			<c:forEach items="${ pickList }" var="per">
-				<div class="figure mx-3 my-3 align-top" style="width:224px; height:304px;">
-					<figure class="figure img-thumbnail">
-				<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
-						<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" class="mx-3" style="width:180px; height:250px;">
-					<figcaption class="figure-caption text-center"" id="title"><strong>${ per.perTitle }</strong></figcaption>
-					</figure>
-				</a>
-				</div>
-			</c:forEach> --%>
 			
 			<div class="d-block mx-auto mt-5 mb-5">
 				<div class="grid" id="new">
+				<br />
+			<div class="d-block dropdown-divider"></div>
 			<h1 class="my-4">────〈&nbsp;티켓츠 PICK!&nbsp;〉────</h1>
-					<c:forEach items="${ pickList }" var="per">
-
+					<c:forEach items="${ pickList }" var="per" begin="0" end="8" step="1" varStatus="status">
 					<figure class="effect-ming">
 						<img src="<c:url value='/resources/upload/performance/${ per.perImgRenamedFileName}' />" 
 							 alt="${ per.perTitle }"
@@ -460,53 +417,7 @@ if ( getCookie( "popup" ) != "done" ){
 					</figure>
 
 					</c:forEach>
-				</div>
-				
-			
-			
-			
-			<%-- <div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">뮤지컬 제이미</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">ㅋㄷㅋㄷ런</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/4.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">ㅋㄷㅋㄷ런</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/3.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">뮤지컬 제이미</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/2.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">댕댕이 페스티벌</h5></figcaption>
-				</figure>
-			</div>
-			<div class="figure mx-3">
-				<figure class="figure img-thumbnail">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/1.PNG" class="mx-3" style="width:180px;height:250px;">
-					<figcaption class="figure-caption text-center"><h5 class="card-title mt-2">옹성우 팬미팅</h5></figcaption>
-				</figure>
-			</div> --%>
+
 				
 		</div>
 	</div>
@@ -594,7 +505,7 @@ function displayRankList(data){
 			endDate = new Date(per.perEndDate);
 
 			var fmtStartDate = getFormatDate(startDate);
-			//var fmtEndDate = getFormatDate(endDate);
+			var fmtEndDate = getFormatDate(endDate);
 
 			html += "<li class='px-3 mb-3' id='best"+i+"'>";
 			html += "<a href='${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo="+per.perNo+"' id='best"+i+"'>";
@@ -605,7 +516,7 @@ function displayRankList(data){
 			html += "<li><strong>"+per.perTitle+"</strong></li>";
 			//html += "<li><small>"+per.perStartDate+"</small></li>";
 			//html += "<li><small>"+fmtStartDate+"</small></li>";
-			html += "<li><small>"+fmtStartDate+"</small></li>";
+			html += "<li><small>"+fmtStartDate+"-"+fmtEndDate+"</small></li>";
 			html += "</ul></a></li>";
 			//<fmt:formatDate pattern='yyyy-MM-dd HH:mm'  value='${boardVO.ntc_dt}' />
 
@@ -616,19 +527,18 @@ function displayRankList(data){
  	$container.html(html);
 }
 
-function getFormatDate(date){
+function getFormatDate(dateParam){
 	var week = new Array('일', '월', '화', '수', '목', '금', '토');
 
-	var year = date.getFullYear();                                 //yyyy
-	var month = (1 + date.getMonth());                     //M
+	var year = dateParam.getFullYear();                                 //yyyy
+	var month = (1 + dateParam.getMonth());                     //M
 	month = month >= 10 ? month : '0' + month;     // month 두자리로 저장
-	var date = date.getDate();                                        //d
+	var date = dateParam.getDate();                                        //d
 	date = date >= 10 ? date : '0' + date;                            //day 두자리로 저장
-	console.log(date.getDay());
-	//var day = date.getDay();
-	//var today = week[day];
+	var day = dateParam.getDay();
+	var today = week[day];
 	//console.log(year + '.' + month + '.' + date + "(" + today + ")");
-	return  year + '.' + month + '.' + date ;
+	return  year + '.' + month + '.' + date + " (" + today + ")" ;
 }
 
 
