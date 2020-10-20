@@ -598,7 +598,7 @@ from
         left join category C
             on P.category_code = C.category_code;
 --====================================
---결제내역 테이블
+--결제내역 뷰 테이블
 create view member_pay_list_view as
 select Y.pay_no, Y.tot_price, Y.pay_option, Y.pay_date, Y.member_id,
        Y.pay_yn, Y.cancel_yn, Y.seat_no, Y.sch_no, Y.order_number,

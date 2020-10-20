@@ -118,6 +118,11 @@
 			</tr>
 			</c:forEach>
 		</table>
+			<div class="text-center">
+				<c:if test="${ empty list }"> 
+					<p>예매한 공연이 없습니다.</p>
+				</c:if>
+			</div>
 	  	</div>
 	  	<div id="reserv-cn-list" class="reserv-cn-list" style="display:none;">
 	  		<table>
