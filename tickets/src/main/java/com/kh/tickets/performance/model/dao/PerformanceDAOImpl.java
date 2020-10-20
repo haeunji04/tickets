@@ -63,8 +63,8 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	@Override
-	public PerJoin selectOnePerformance(int perNo) {
-		return sqlSession.selectOne("performance.selectOnePerformance", perNo);
+	public PerJoin selectOnePerformance(int schNo) {
+		return sqlSession.selectOne("performance.selectOnePerformance", schNo);
 	}
 
 	@Override
