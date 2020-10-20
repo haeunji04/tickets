@@ -226,6 +226,7 @@
                 <c:choose>
 					<c:when test="${ openDate < nowDate }">
 						<div class="box_type_comment">
+							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
 				            <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
 				        </div>
 					</c:when>
@@ -249,7 +250,7 @@
 	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ commntListSize  }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">1</span></h5></a>
+	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#theater" id="theater-tab"><h5 class="m-10 px-4">공연장정보</h5></a>
@@ -261,7 +262,7 @@
 	</div>
 	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 	  <div class="tab-pane fade active show text-left" id="info">
-		  <h5>공연시간</h5>
+		  <h5 class="ml-5 pl-5 my-5 pt-4">공연시간</h5>
 		  <pre>
 		  	2020년 9월 9일(수) ~ 11월 8일(일)
 			평일 오후 8시 / 주말 및 공휴일 오후 2시, 7시 / 월 공연 없음
@@ -303,7 +304,8 @@
 							</td>
 							<td>
 							<!-- <button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button> -->
-							<input type="submit" style="height:50px; margin:12px 10px 12px 30px" class="btn btn-primary" value="등록"/>
+							<input type="submit" style="height:40px;" class="comment-btn btn btn-primary mx-4 rounded-pill" value="등록"/>
+							
 							</td>
 						</tr>
 					</table>
@@ -316,25 +318,25 @@
 						<c:choose>
 						<c:when test="${ comment.boardCommentLevel eq '1'}">						
 						<tr id="comment-tr">
-							<td id="img" class="px-3">
-							<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-1.png" style="width:54px;display:inline-block;" />
+							<td id="img" class="px-3" valign="bottom">
+								<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-1.png" style="width:54px;display:inline-block;" />
 							</td>
-							<td id="user-id" class="px-3">
+							<td id="user-id" class="pr-5" valign="bottom">
 								<p class="text-secondary">${ comment.boardCommentWriter }</p>
 							</td>	
 							<td>
 							</td>			
-							<td id="user-comment" class="px-3">
+							<td id="user-comment" class="pr-3 text-left" valign="bottom">
 								<p class="text-secondary">${ comment.boardCommentContent } (${ comment.boardCommentDate })</p>
 							</td>
-							<td>
-								<c:if test="${ loginMember ne null &&
+							<td valign="middle">
+								<%-- <c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq performance.memberId ||
 											   loginMember.memberRole eq 'A')  }">
 										
 									<button type="button" class="btn btn-outline-primary btn-sm" id="btn-reply"
 											value="${ comment.boardCommentNo }">답글</button>								
-								</c:if>							
+								</c:if>	 --%>						
 								<c:if test="${ loginMember ne null &&
 											  (loginMember.memberId eq comment.boardCommentWriter ||
 											   loginMember.memberRole eq 'A')  }">	
@@ -381,45 +383,53 @@
 	     <div class="comment-editor"  style="margin-left:170px;padding-left:30px;">
 					<div class="form-group bmd-form-group mx-auto">
 					<table>
-						<tr>
-							<td>
-							<img src="${pageContext.request.contextPath }/resources/images/etc/girl.png" style="width:64px;height:70px;display:inline-block;" />
-							</td>
-							<td>
-				 			<textarea class="form-control ml-3" name="afterComment" id="afterComment"
-							 	  cols="80" rows="3"
-							 	  placeholder="감상평을 적어주세요." onclick="alert('구매자만 입력할 수 있습니다.');"></textarea>
-							
-							</td>
-							<td>
-							<button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button>
-							</td>
-						</tr>
+						<form:form action="${pageContext.request.contextPath }/review/insertReview.do"
+								   method="POST">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="hidden" name="perNo" id="perNo" value="${ performance.perNo }" />
+							<input type="hidden" name="memberId" id="memberId" value="${ loginMember.memberId }" />
+							<tr>
+								<td>
+									<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-edit.png" style="width:64px;display:inline-block;" />
+								</td>
+								<td>
+								 	<textarea class="form-control ml-3" name="reviewCommentContent" id="reviewCommentContent"
+											  cols="80" rows="3"
+											  placeholder="관람 후기를 적어주세요." onclick="validate();"></textarea>
+								</td>
+								<td>
+								<button type="submit" style="height:40px;"
+										class="comment-btn btn btn-primary mx-4 rounded-pill">등록</button>
+								</td>
+							</tr>
+					</form:form>
 					</table>
 					<div class="mt-3">
 					<table id="comment-tbl" class="text-center">
-						<tr id="comment-tr">
-							<td id="img" class="px-3">
-							<img src="${pageContext.request.contextPath }/resources/images/etc/boy.png" style="width:64px;height:70px;display:inline-block;" />
-							</td>
-							<td id="user-id" class="px-3">
-								<p class="text-secondary">honggd</p>
-							</td>	
-							<td>
-							</td>			
-							<td id="user-comment" class="px-3">
-								<p class="text-secondary">완전 재밌습니다.</p>
-							</td>
-							
-							<!-- <td id="hidden-btn">
-								<button class="btn btn-info btn-update"
-										value="">수정</button>
-								<button class="btn btn-info btn-delete"
-										value="">삭제</button>				
-							</td> -->
-							<!-- 버튼 보여주기 -->
-							
-						</tr>
+						<c:forEach items="${ reviewList }" var="review">
+							<tr id="comment-tr">
+								<td id="img" class="px-3" valign="bottom">
+									<img src="${pageContext.request.contextPath }/resources/images/etc/free-icon-user-1.png" style="width:54px;display:inline-block;" />
+								</td>
+								<td id="user-id" class="pr-5" valign="bottom">
+									<p class="text-secondary">${ review.memberId }</p>
+								</td>	
+								<td>
+								</td>				
+								<td id="user-comment" class="pr-3 text-left">
+									<p class="text-secondary">${ review.reviewCommentContent } (${ review.reviewCommentDate })</p>
+								</td>
+								
+								<!-- <td id="hidden-btn">
+									<button class="btn btn-info btn-update"
+											value="">수정</button>
+									<button class="btn btn-info btn-delete"
+											value="">삭제</button>				
+								</td> -->
+								<!-- 버튼 보여주기 -->
+								
+							</tr>
+						</c:forEach>
 					</table>
 					</div>
 					</div>
@@ -455,7 +465,7 @@
 	  </div>
 	  <div class="tab-pane fade" id="reserv">
 	     <pre>
-	   		 <h5>티켓 수령 방법 안내</h5>
+	   		 <h5 class="ml-5 pl-5">티켓 수령 방법 안내</h5>
 
 			현장수령
 			- 예매번호가 포함되어 있는 예매확인서와 예매자의 실물 신분증(복사본 및 사진 불가) 을 매표소에 제출하시면 편리하게 티켓을 수령하실 수 있습니다.
@@ -667,6 +677,7 @@ function test(){
 }
 function loginAlert(){
 	alert("로그인 후 이용하실 수 있습니다.");
+	$("#boardCommentContent").attr("readonly","true");
 	return;
 }
 
@@ -680,6 +691,47 @@ $("[type=submit]").click(function(){
 	</c:if>		
 	});
 });
+
+
+function validate(){
+	
+	let perNo = $("#perNo").val();
+	let memberId = $("#memberId").val();
+	console.log("perNo="+perNo+", memberId="+memberId);
+
+	let searchInfo = {
+				perNo : perNo,
+				memberId : memberId
+			};
+
+	let jsonStr = JSON.stringify(searchInfo);
+	
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+		});
+	
+ 	$.ajax({
+		url: "${ pageContext.request.contextPath }/review/searchReservationMember.do",
+		data: jsonStr,
+		method: "POST",
+		contentType: "application/json; charset=utf-8",
+		success: function(data){
+			//console.log(data);
+			if(data == ""){
+				alert("공연을 관람하신 분만 작성하실 수 있습니다.");
+				$("#reviewCommentContent").attr("readonly", "true");
+			}
+		},
+		error: function(xhr, status, err){
+			console.log("처리실패", xhr, status, err);
+			alert("공연을 관람하신 분만 작성하실 수 있습니다.");
+			$("#reviewCommentContent").attr("readonly", "true");
+			
+		}
+	}); 
+	
+}
+
 </script>
 
 <form:form action="" method="post" id="selectDateFrm">
@@ -805,10 +857,15 @@ $("[type=submit]").click(function(){
 			var $li = $('.on');
 			var $frm = $li.find('form');
 			var name = $frm[0].getAttribute('name');
-		    var url="${pageContext.request.contextPath}/performance/selectSeat.do";
+			var caCode = $("#categoryCode").val();
+			console.log(caCode);
+
+			 var url="${pageContext.request.contextPath}/performance/selectSeat.do";
+
 		    window.open(url,name,"width=1200,height=600,left=50,top=50");
 		    $frm.submit();
 		}
+
 	 </script>
 	 
 	<!-- footer -->

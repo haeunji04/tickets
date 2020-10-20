@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.tickets.boardComment.model.service.BoardCommentService;
 import com.kh.tickets.boardComment.model.vo.BoardComment;
+import com.kh.tickets.boardComment.model.vo.ReviewComment;
 import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Member;
@@ -44,7 +45,6 @@ import com.kh.tickets.performance.model.vo.PerformanceHall;
 import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.SchDate;
 import com.kh.tickets.performance.model.vo.Schedule;
-import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.Selected;
 import com.kh.tickets.performance.model.vo.WishList;
 
@@ -625,8 +625,13 @@ public class PerformanceController {
 		log.debug("commentList@controller@@ = {}", commentList);
 		log.debug("commntListSize@@ = {}", commntListSize);
 		
+		List<ReviewComment> reviewList = boardCommentService.selectReviewList(perNo);
+		
+		log.debug("reviewList = {}", reviewList);
+		
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
 		
+		mav.addObject("reviewList", reviewList);
 		mav.addObject("dateformat", dateformat);
 		mav.addObject("performance", performance);		
 		mav.addObject("commentList", commentList);		

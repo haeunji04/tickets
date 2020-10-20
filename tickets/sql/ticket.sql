@@ -345,7 +345,21 @@ CREATE TABLE comment_board (
 --                                                    on delete cascade   
 );
 
---select * from comment_board;
+select * from comment_board;
+
+
+--review_comment
+create table review_comment (
+    review_comment_no number not null,
+    review_comment_content varchar2(2000) not null,
+    review_comment_date date default sysdate,
+    per_no number not null,
+    member_id varchar2(15) not null,
+    
+    constraints pk_review_comment_no primary key(review_comment_no),
+    constraints fk_review_per_no foreign key (per_no) references performance(per_no) on delete cascade,
+    constraints fk_review_member_id foreign key (member_id) references member(member_id) on delete set null
+);
 --=============== tickets계정으로 시퀀스 생성 ===============
 create sequence performance_seq
 increment by 1
@@ -362,6 +376,7 @@ maxvalue 10000
 cycle;
 
 create sequence schedule_seq;
+create sequence review_comments_seq;
 --=============== tickets계정으로 뷰 생성 ===============
 create view wishlist_view as
 select W.member_id, per_no, W.wish_date,
