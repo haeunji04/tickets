@@ -1,12 +1,14 @@
 package com.kh.tickets.boardComment.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.tickets.boardComment.model.dao.BoardCommentDAO;
 import com.kh.tickets.boardComment.model.vo.BoardComment;
+import com.kh.tickets.boardComment.model.vo.ReviewComment;
 
 @Service
 public class BoardCommentServiceImpl implements BoardCommentService {
@@ -29,4 +31,21 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 		return boardCommentDAO.boardCommentDelete(boardComment);
 	}
 
+	@Override
+	public List<ReviewComment> selectReviewList(int perNo) {
+		return boardCommentDAO.selectReviewList(perNo);
+	}
+
+	@Override
+	public String searchReservationMember(Map<String, Object> param) {
+		return boardCommentDAO.searchReservationMember(param);
+	}
+
+	@Override
+	public int insertReview(ReviewComment review) {
+		return boardCommentDAO.insertReview(review);
+	}
+
+	
+	
 }
