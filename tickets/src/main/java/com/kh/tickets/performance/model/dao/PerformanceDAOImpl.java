@@ -276,6 +276,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int seatLength(int schNo) {
 		return sqlSession.selectOne("performance.seatLength", schNo);
 	}
+
+	@Override
+	public int selectOneSchedule(int schNo) {
+		return sqlSession.selectOne("performance.selectOneSchedule",schNo);
+	}
 	
 	
 }
