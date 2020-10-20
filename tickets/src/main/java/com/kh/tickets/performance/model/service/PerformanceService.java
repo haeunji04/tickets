@@ -32,7 +32,7 @@ public interface PerformanceService {
 
 	List<Performance> companyPerList(String memberId);
 
-	PerJoin selectOnePerformance(int perNo);
+	PerJoin selectOnePerformance(int schNo);
 	
 	PerJoin selectOnePerJoin(int perNo);
 
