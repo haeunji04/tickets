@@ -1,12 +1,14 @@
 package com.kh.tickets.boardComment.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.tickets.boardComment.model.vo.BoardComment;
+import com.kh.tickets.boardComment.model.vo.ReviewComment;
 
 @Repository
 public class BoardCommentDAOImpl implements BoardCommentDAO {
@@ -28,5 +30,22 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 	public int boardCommentDelete(BoardComment boardComment) {
 		return sqlSession.delete("boardComment.boardCommentDelete", boardComment);
 	}
+
+	@Override
+	public List<ReviewComment> selectReviewList(int perNo) {
+		return sqlSession.selectList("boardComment.selectReviewList", perNo);
+	}
+
+	@Override
+	public String searchReservationMember(Map<String, Object> param) {
+		return sqlSession.selectOne("boardComment.searchReservationMember", param);
+	}
+
+	@Override
+	public int insertReview(ReviewComment review) {
+		return sqlSession.insert("boardComment.insertReview", review);
+	}
+	
+	
 
 }
