@@ -41,7 +41,6 @@
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
-			<c:if test="${openDate <= nowDate }">
 			<div align="right">	
 				<!-- 찜하기 -->
 				<form:form id="wishListInsertFrm" 
@@ -109,7 +108,7 @@
 				</form:form>		
 				
 			</div>
-			</c:if>
+
 			<table id="perform-info-tbl" >
 			
 			<tr>
@@ -161,7 +160,7 @@
 			</div>	
 		</div>
 		
-		<c:if test="${openDate <= nowDate }">		
+		<c:if test="${openDate <= nowDate and performance.categoryCode ne 'C5'}">		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">
@@ -231,14 +230,17 @@
 				        </div>
 					</c:when>
 			  		<c:otherwise>
+			  		<div>
 					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ dateformat.format(performance.perStartDate) }부터 티켓 오픈!-</h3>
+			  		</div>
 					</c:otherwise> 	
 				</c:choose>
                <!-- <div class="box_type_comment">
                <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
                </div> -->
-              </div>
-              <div class="d-block mx-auto mt-5">
+              
+              
+    <div class="d-block mx-auto mt-5">
 	<ul class="nav nav-tabs justify-content-center" id="tabMenu">
 	  <li class="nav-item">
 	    <a class="nav-link active" data-toggle="tab" href="#info"><h5 class="m-10 px-4">상세정보</h5></a>
@@ -257,7 +259,7 @@
 	  </li>
 	</ul>
 	</div>
-	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5 ">
+	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 	  <div class="tab-pane fade active show text-left" id="info">
 		  <h5>공연시간</h5>
 		  <pre>
@@ -269,11 +271,11 @@
 			*10/9(금) 한글날 2시/7시 2회 공연
 		  </pre>
 		  
-		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"/>
+		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />""/>
 		  
 	  </div>
 	  <div class="tab-pane fade" id="before">
-		  <div class="comment-editor" style="margin-left:30px;padding-left:30px;">
+		  <div class="comment-editor" style="margin-left:170px;padding-left:30px;">
 					<div class="form-group bmd-form-group">
 					<div>
 			       <!-- 기대평 -->
@@ -307,7 +309,7 @@
 					</table>
 					</form:form>	
 					</div>
-					<div class="mt-3">
+					<div class="mt-3" >
 					<table id="comment-tbl" class="text-center">
 						<c:if test="${ commentList ne null && not empty commentList }">
 						<c:forEach items="${ commentList }" var="comment">
@@ -376,8 +378,8 @@
 			</div>
 	  </div>
 	  <div class="tab-pane fade" id="after">
-	     <div class="comment-editor" style="margin-left:30px;padding-left:30px;">
-					<div class="form-group bmd-form-group">
+	     <div class="comment-editor"  style="margin-left:170px;padding-left:30px;">
+					<div class="form-group bmd-form-group mx-auto">
 					<table>
 						<tr>
 							<td>

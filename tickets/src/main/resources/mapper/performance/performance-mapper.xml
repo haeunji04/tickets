@@ -53,7 +53,7 @@
 		from
 			performance
 		
-		where category_code = #{ category } <!-- and admin_approval = 'Y' -->
+		where category_code = #{ category } and admin_approval = 'Y'
 		order by
 			per_register_date
 			asc

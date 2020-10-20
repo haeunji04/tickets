@@ -49,7 +49,7 @@ public class HomeController {
 	public String home(Locale locale, Model model, @ModelAttribute("memberId") String memberId,
 						HttpSession session, Principal principal) {
 		
-		log.debug("memberId = {}", memberId);
+		//log.debug("memberId = {}", memberId);
 //		logger.info("Welcome home! The client locale is {}.", locale);
 //		
 //		Date date = new Date();
@@ -88,10 +88,10 @@ public class HomeController {
 //		else {
 //			memberId = "nonlogin";
 //		}
-		log.debug("memberId@@  = {}", memberId );
+		//log.debug("memberId@@  = {}", memberId );
 		
 		List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
-		log.debug("rList@homecontroller## = {}", rList);		
+		//log.debug("rList@homecontroller## = {}", rList);		
 		
 		model.addAttribute("rList", rList);
 
@@ -106,21 +106,21 @@ public class HomeController {
 		List<Performance> mList = performanceService.selectPerRank(param);
 		List<Performance> pickList = performanceService.selectPickList();
 		
-		log.debug("pickList= {}", pickList);
+		//log.debug("pickList= {}", pickList);
 		
 		//슬라이드 아래 new 공연
 		List<Performance> newList = performanceService.selectPerformanceList();
-		log.debug("newList= {}", newList);
+		//log.debug("newList= {}", newList);
 		
 		//슬라이드 아래 콘서트&페스티벌 공연
 		String category = "C3";
 		List<Performance> concertList = performanceService.selectCategoryList(category);
-		log.debug("concertList= {}", concertList);
+		//log.debug("concertList= {}", concertList);
 		
 		//슬라이드 아래 뮤지컬 공연
 		category = "C1";
 		List<Performance> musicalList = performanceService.selectCategoryList(category);
-		log.debug("musicalList= {}", musicalList);
+		//log.debug("musicalList= {}", musicalList);
 		
 		//슬라이드 아래 연극 공연
 		category = "C2";
