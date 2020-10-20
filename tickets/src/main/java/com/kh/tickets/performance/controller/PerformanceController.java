@@ -713,7 +713,7 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	@GetMapping("/performance/payComplete.do")
+	@PostMapping("/performance/payComplete.do")
 	public ModelAndView payComplete(ModelAndView mav) {
 		
 		mav.setViewName("performance/payComplete");
