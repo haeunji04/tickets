@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,14 +78,12 @@ a{
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" class="sort" data-sort="name">이름 : 홍길동</th>
+                    <th scope="col" class="sort" data-sort="name">이름 : ${ member.name }</th>
                     <th>연락처 :
-                     <input type="text" name="tel1" id="tel1" class="inputType inp_txt inp_w52" maxlength="4" style="width:50px;padding:0 10px;">
-                     <input type="text" name="tel2" id="tel2" class="inputType inp_txt inp_w52" maxlength="4" style="width:50px;padding:0 10px;">
-                     <input type="text" name="tel3" id="tel3" class="inputType inp_txt inp_w52" maxlength="4" style="width:50px;padding:0 10px;">
+                     <input type="text" name="tel" id="tel" class="inputType inp_txt inp_w52" maxlength="11" style="width:70px;padding:0 10px;" value="${ member.phone }">
                      </th>
                     <th>이메일:
-                     <input type="text" name="email" id="email" class="inputType inp_txt inp_w150" value="">
+                     <input type="text" name="email" id="email" class="inputType inp_txt inp_w150" value="${ member.email }">
                     </th>
                   </tr>
                 </thead>
@@ -87,6 +91,7 @@ a{
             </div>
 		
 	</div>
+    <form action="">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
               <table class="table align-items-center table-flush">
@@ -94,7 +99,6 @@ a{
                   <tr>
                     <th scope="row">
                       <div class="media align-items-center">
-                       
                           <div class="form-group">
 						   <div class="custom-control custom-radio d-inline-block mx-3">
 						     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
@@ -217,14 +221,16 @@ a{
 		
 	</div>
 	<div class="text-left" style="padding-left:50px;">
-			<h5>캣츠<40주년> 내한공연</h5>
+			<h5>${ performance.perTitle }</h5>
 		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
 			<ul style="padding-left:20px;">
 				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
 				<li>
-					총 N석 선택
+					총 ${ seatNoLength }석 선택
 					<br />
-					R석 1층 3열 15번
+					<c:forEach items="${ seatName }" var="seat">
+						${ seat }<br/>
+					</c:forEach>
 				</li>
 			</ul>
 		</div>
@@ -234,23 +240,19 @@ a{
 			<table>
 				<tr>
 					<td style="width:120px;padding-left:20px;">티켓금액</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ originTotal }원</td>
 				</tr>
 				<tr>
 					<td style="width:120px;padding-left:20px;">기본가</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ originTotal }원</td>
 				</tr>
 				<tr>
 					<td style="width:120px;padding-left:20px;">가격할인</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
-				</tr>
-				<tr>
-					<td style="width:120px;padding-left:20px;">쿠폰할인</td>
-					<td style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ sale }원</td>
 				</tr>
 				<tr>
 					<td style="width:150px;padding-left:20px;"><h5>총결제금액</h5></td>
-					<td style="width:150px;text-align:right;padding-right:20px;"><h5>0원</h5></td>
+					<td style="width:150px;text-align:right;padding-right:20px;"><h5>${ total }원</h5></td>
 				</tr>
 			</table>
 		</div>
@@ -258,13 +260,14 @@ a{
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
-		<button type="button" class="btn btn-primary" style="width:150px;" onclick="location.href='${pageContext.request.contextPath}/performance/payComplete.do'">결제하기</button>
+		<button type="button" class="btn btn-primary" style="width:150px;">결제하기</button>
 		</div>
 	</div>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
 	</div>
 	</div>
+    </form>
 	<script>
 	function checkAll(){
 	    var check = document.getElementsByName("chkAgree");

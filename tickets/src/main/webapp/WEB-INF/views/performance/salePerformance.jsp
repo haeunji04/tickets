@@ -236,19 +236,34 @@ a{
 				</tr>
 				<tr>
 					<td style="width:120px;padding-left:20px;">가격할인</td>
-					<td id="sale" style="width:180px;text-align:right;padding-right:20px;">0원</td>
+					<td style="width:180px;text-align:right;padding-right:20px;"><span id="sale">0</span>원</td>
 				</tr>
 				<tr>
 					<td style="width:150px;padding-left:20px;"><h5>총결제금액</h5></td>
-					<td id="order" style="width:150px;text-align:right;padding-right:20px;"><h5>${ total }원</h5></td>
+					<td style="width:150px;text-align:right;padding-right:20px;">
+						<h5 id="order">${ total }</h5><h5>원</h5>
+					</td>
 				</tr>
 			</table>
 		</div>
 			
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
+		<form:form action="${pageContext.request.contextPath}/performance/paySelect.do" method="POST">
+		<input type="hidden" name="memberId" value="${ memberId }" />
+		<input type="hidden" name="originTotal" value="${ total }"/>
+		<input type="hidden" name="schNo" value="${ schNo }" />
+		<input type="hidden" name="sale" value=""/>
+		<input type="hidden" name="total" value="" />
+		<c:forEach items="${ seatName }" var="seatName">
+		<input type="hidden" name="seatName" value="${ seatName }" />
+		</c:forEach>
+		<c:forEach items="${ seatNo }" var="seatNo">
+		<input type="hidden" name="seatNo" value="${ seatNo }" />
+		</c:forEach>
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
-		<button type="button" class="btn btn-primary" style="width:150px;" onclick="location.href='${pageContext.request.contextPath}/performance/paySelect.do'">다음</button>
+		<button type="submit" class="btn btn-primary" style="width:150px;">다음</button>
+		</form:form>
 		</div>
 	</div>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
@@ -257,16 +272,10 @@ a{
 	</div>
 	<script>
 	$(function(){
+	var number = 0;
+	var sale = 0;
 	$(".custom-select").change(function() {
-		var number = 0;
-		var sale = 0;
-		 $(".custom-select").each(function(){
-			 number += Number($(this).children("option:selected").text());
-				 alert(number);
-				 }
-
-			 }
-			/* sale += Number($(this).val())* Number($(this).children("option:selected").text());
+			sale += Number($(this).val())* Number($(this).children("option:selected").text());
 			number += Number($(this).children("option:selected").text());
 			if(number > ${seatNoLength }){
 					number -=Number($(this).children("option:selected").text());
@@ -275,8 +284,9 @@ a{
 					$(this).children("option:selected").text(0);
 				}
 			$('#sale').text(sale);
-			$('#order').text(${ total }-sale); */
-		
+			$('#order').text(${ total }-sale);
+			$('[name=total]').val(${ total }-sale);
+			$('[name=sale]').val(sale);
 		});
 	});
 	</script>
