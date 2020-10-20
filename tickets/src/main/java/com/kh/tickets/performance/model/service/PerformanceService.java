@@ -118,6 +118,8 @@ public interface PerformanceService {
 
 	int seatLength(int schNo);
 
+	int selectOneSchedule(int schNo);
+
 
 
 

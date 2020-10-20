@@ -701,10 +701,11 @@ public class PerformanceController {
 								  @RequestParam int sale) {
 		
 		
-		//PerJoin performance = performanceService.selectOnePerformance(schNo);	
+		int perNo = performanceService.selectOneSchedule(schNo);
+		PerJoin performance = performanceService.selectOnePerformance(perNo);
 		Member member = memberService.selectOneMember(memberId);
 		mav.addObject("member", member);
-		//mav.addObject("performance", performance);
+		mav.addObject("performance", performance);
 		mav.addObject("total", total);
 		mav.addObject("originTotal", originTotal);
 		mav.addObject("sale", sale);
