@@ -91,7 +91,7 @@ a{
             </div>
 		
 	</div>
-    <form action="">
+    <form:form action="${pageContext.request.contextPath}/performance/payComplete.do" method="POST">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
               <table class="table align-items-center table-flush">
@@ -101,19 +101,19 @@ a{
                       <div class="media align-items-center">
                           <div class="form-group">
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
+						     <input type="radio" id="customRadio1" name="customRadio" value="card" class="custom-control-input" checked="">
 						     <label class="custom-control-label" for="customRadio1">신용카드</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+						     <input type="radio" id="customRadio2" name="customRadio" value="kakao" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio2">카카오페이</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+						     <input type="radio" id="customRadio3" name="customRadio" value="naver" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio3">네이버페이</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio4" name="customRadio" class="custom-control-input">
+						     <input type="radio" id="customRadio4" name="customRadio" value="pay" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio4">무통장입금</label>
 						   </div>
 						  
@@ -260,14 +260,14 @@ a{
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
-		<button type="button" class="btn btn-primary" style="width:150px;">결제하기</button>
+		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
 		</div>
 	</div>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
 	</div>
 	</div>
-    </form>
+    </form:form>
 	<script>
 	function checkAll(){
 	    var check = document.getElementsByName("chkAgree");
@@ -275,6 +275,16 @@ a{
 	    for(var i=0; i<check.length; i++){
 	    	check[i].checked = all.checked;
 	    }
+	}
+	function submit(){
+		 $("[name=BuyBooks").click(function(){
+	    	   if($("[name=chkAgree]").is(":checked") == false) {
+	    		   alert("구매동의를 체크해주세요");
+	    		   
+	    		   return;
+	    		 };
+
+		
 	}
 	</script>
 	</script>
