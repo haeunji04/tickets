@@ -184,4 +184,15 @@
 			member_id = #{ memberId }
 	</update>
 	
+	<select id="selectMemberPayList" resultMap="memberPayListMap">
+		select
+			*
+		from
+			member_pay_list_view
+		where member_id = #{ memberId }
+	</select>
+	
+	<resultMap type="memberPayList" id="memberPayListMap">
+	</resultMap>
+	
 </mapper>

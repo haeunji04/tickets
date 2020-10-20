@@ -75,19 +75,17 @@
 				<th>예매상태</th>
 			</tr>
 			<!-- 티켓예매테이블 -->
-			<c:forEach items="${ list }" var="pay">
 			<tr class="border-bottom">
-				<td class="px-3">${ dateformat.format(pay.payDate) }</td>
+				<td class="px-3">2020.09.22</td>
 				<td>
 					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
 					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do">
-					<img style="position:absolute;width:80px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
+					<img style="position:absolute;width:80px;top:0;left:10px;" src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/>
 					<p style="padding-left:100px;">
-						<span class="d-block">${ pay.perTitle }</span>
+						<span class="d-block">캣츠</span>
 					</a>
-						<span class="d-block mt-3"><small>${ dateformat.format(pay.perStartDate) } ~ ${ dateformat.format(pay.perEndDate) }</small></span>
-						<span class="d-block">${ pay.theaterName }</span>
-						<%-- <span class="d-block"><small> ${ pay.theaterLocation } ${ pay.theaterCity } ${ pay.theaterAddress }</small></span> --%>
+						<span class="d-block mt-3"><small>2020.09.10~2020.09.30</small></span>
+						<span class="d-block">롯데콘서트몰</span>
 					</p>
 					</div>
 				</td>
@@ -99,7 +97,7 @@
 						</dl>
 						<dl>
 							<dt>관람일</dt>
-							<dd>${ dateformat.format(pay.schDateTime) }</dd>
+							<dd>M045355</dd>
 						</dl>
 						<dl>
 							<dt>매수</dt>
@@ -113,10 +111,44 @@
 				</td>
 				<td>
 					<p>예매완료(미입금)</p>
-					<p>결제방식(${ pay.payOption })</p>
 				</td>
 			</tr>
-			</c:forEach>
+			<tr class="border-bottom">
+				<td class="px-3">2020.09.22</td>
+				<td>
+					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
+					<img style="position:absolute;width:80px;top:0;left:10px;" src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/>
+					<p style="padding-left:100px;">
+						<span class="d-block">캣츠</span>
+						<span class="d-block mt-3"><small>2020.09.10~2020.09.30</small></span>
+						<span class="d-block">롯데콘서트몰</span>
+					</p>
+					</div>
+				</td>
+				<td>
+					<div class="booking-info" style="text-align:left;">
+						<dl>
+							<dt>예약 정보</dt>
+							<dd>M045355</dd>
+						</dl>
+						<dl>
+							<dt>관람일</dt>
+							<dd>M045355</dd>
+						</dl>
+						<dl>
+							<dt>매수</dt>
+							<dd>M045355</dd>
+						</dl>
+						<dl>
+							<dt>취소가능</dt>
+							<dd>2020.11.26(목) 17:00 까지</dd>
+						</dl>
+					</div>
+				</td>
+				<td>
+					<p>예매완료(미입금)</p>
+				</td>
+			</tr>
 		</table>
 	  	</div>
 	  	<div id="reserv-cn-list" class="reserv-cn-list" style="display:none;">

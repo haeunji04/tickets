@@ -1,7 +1,10 @@
 package com.kh.tickets.member.controller;
 
+import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -37,7 +40,10 @@ import com.kh.tickets.common.Utils;
 import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
+import com.kh.tickets.member.model.vo.MemberPayList;
 import com.kh.tickets.performance.model.service.PerformanceService;
+import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
+import com.kh.tickets.performance.model.vo.Performance;
 
 
 
@@ -410,12 +416,38 @@ public class MemberController {
 
 			return mav;
 		}
+		
+		//결제 및 예약내역 	
 		@GetMapping("/member/memberBookingList.do")
-		public ModelAndView memberBookingList(ModelAndView mav) {
+		public ModelAndView memberBookingList(ModelAndView mav, Principal principal) {
+			
+			log.debug("principal = {}", principal);
+			
+			String memberId = null;
+			if(principal != null) {
+				memberId = principal.getName();			
+			}
+			
+			log.debug("memberId@@  = {}", memberId );
+			
+			List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+			log.debug("rList@controller = {}", rList);
+			
+			List<MemberPayList> list = memberService.selectMemberPayList(memberId);
+//			List<PerJoin> list = performanceService.todayPerList();
+			log.debug("list@controller = {}", list);
+						
+//			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+			mav.addObject("dateformat", dateformat);
+			mav.addObject("rList", rList);
+			mav.addObject("list", list);
+			
 			
 			mav.setViewName("member/memberBookingList");
 			return mav;
-		}
+		}		
+			
 		@GetMapping("/member/memberOneBooking.do")
 		public ModelAndView memberOneBooking(ModelAndView mav) {
 			
@@ -709,6 +741,7 @@ public class MemberController {
 			
 			return mav;
 		}
+		
 		
 		
 		

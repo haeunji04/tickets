@@ -227,8 +227,14 @@ public class PerformanceController {
 		
 		int perNo = performanceService.getPerNo(performance.getPerTitle());
 		
+		if(performance.getCategoryCode().equals("C5")) {
+			mav.setViewName("performance/performanceRegisterEnd");
+		} else {
+			mav.setViewName("performance/performanceDateRegisterForm");
+		}
+		
+		
 		mav.addObject("perNo", perNo);
-		mav.setViewName("performance/performanceDateRegisterForm");
 		return mav;
 	}
 	
