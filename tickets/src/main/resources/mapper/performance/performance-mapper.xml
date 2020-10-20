@@ -120,7 +120,7 @@
 		from
 			performance
 		where
-			sch_no = #{ schNo }
+			per_no = #{ perNo }
 		<!-- order by
 			no desc -->
 	</select>	

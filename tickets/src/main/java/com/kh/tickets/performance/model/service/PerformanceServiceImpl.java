@@ -62,8 +62,8 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public PerJoin selectOnePerformance(int schNo) {
-		return performanceDAO.selectOnePerformance(schNo);
+	public PerJoin selectOnePerformance(int perNo) {
+		return performanceDAO.selectOnePerformance(perNo);
 	}
 
 	@Override

@@ -640,9 +640,10 @@ public class PerformanceController {
 	@GetMapping("/performance/selectSeat.do")
 	public ModelAndView selectSeat(ModelAndView mav,
 								   @RequestParam int schNo,
+								   @RequestParam int perNo,
 								   @RequestParam String memberId,
 								   HttpServletRequest request) {
-		PerJoin performance = performanceService.selectOnePerformance(schNo);	
+		PerJoin performance = performanceService.selectOnePerformance(perNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		//List<Seat> seatList = performanceService.selectSeatList(theaterNo);
@@ -695,10 +696,10 @@ public class PerformanceController {
 								  @RequestParam int sale) {
 		
 		
-		PerJoin performance = performanceService.selectOnePerformance(schNo);	
+		//PerJoin performance = performanceService.selectOnePerformance(schNo);	
 		Member member = memberService.selectOneMember(memberId);
 		mav.addObject("member", member);
-		mav.addObject("performance", performance);
+		//mav.addObject("performance", performance);
 		mav.addObject("total", total);
 		mav.addObject("originTotal", originTotal);
 		mav.addObject("sale", sale);
