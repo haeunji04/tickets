@@ -713,10 +713,27 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	@GetMapping("/performance/payComplete.do")
-	public ModelAndView payComplete(ModelAndView mav) {
+	@PostMapping("/performance/pay.do")
+	public ModelAndView pay(ModelAndView mav,
+							  @RequestParam int[] seatNo,
+							  @RequestParam String[] seatName,
+							  @RequestParam int schNo,
+							  @RequestParam String memberId,
+							  @RequestParam int total,
+							  @RequestParam String customRadio) {
 		
-		mav.setViewName("performance/payComplete");
+		log.debug("customRadio={}",customRadio);
+		int perNo = performanceService.selectOneSchedule(schNo);
+		PerJoin performance = performanceService.selectOnePerformance(perNo);
+		Member member = memberService.selectOneMember(memberId);
+		mav.addObject("member", member);
+		mav.addObject("performance", performance);
+		mav.addObject("total", total);
+		mav.addObject("seatNo", seatNo);
+		mav.addObject("seatNoLength",seatNo.length);
+		mav.addObject("seatName", seatName);
+		mav.addObject("seatNameLength", seatName.length);
+		mav.setViewName("performance/pay");
 		return mav;
 	}
 	
