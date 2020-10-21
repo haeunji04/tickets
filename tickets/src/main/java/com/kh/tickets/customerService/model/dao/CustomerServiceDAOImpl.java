@@ -19,9 +19,8 @@ public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public List<Notice> selectNoticeList(int limit, int offset) {
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		return sqlSession.selectList("customerService.selectNoticeList", null, rowBounds);
+	public List<Notice> selectNoticeList(Map<String, Object> map) {
+		return sqlSession.selectList("customerService.selectNoticeList", map);
 	}
 
 	@Override
@@ -34,6 +33,14 @@ public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 		return sqlSession.selectOne("customerService.insertNotice", notice);
 	}
 
-	
+	@Override
+	public List<Notice> selectFaqList(Map<String, Object> map) {
+		return sqlSession.selectList("customerService.selectFaqList", map);
+	}
+
+	@Override
+	public int selectNoticeTotalContents() {
+		return sqlSession.selectOne("customerService.selectNoticeTotalContents");
+	}
 	
 }

@@ -10,11 +10,14 @@ import com.kh.tickets.member.model.vo.MemberPayList;
 
 public interface CustomerServiceDAO {
 
-	List<Notice> selectNoticeList(int limit, int offset);
+	List<Notice> selectNoticeList(Map<String, Object> map);
 
 	Notice selectOneNoticeCollection(int noticeNo);
 
 	int insertNotice(Notice notice);
 
+	List<Notice> selectFaqList(Map<String, Object> map);
+
+	int selectNoticeTotalContents();
 
 }
