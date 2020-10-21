@@ -46,6 +46,8 @@ public class PerJoin implements Serializable{
 	private int saleCnt;	
 	//오픈관련
 	private String aloneSale;
+	private int price;
+	private java.util.Date reservationStartDate;
 	
 	
 	

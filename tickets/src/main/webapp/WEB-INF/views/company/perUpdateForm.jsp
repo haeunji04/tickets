@@ -87,11 +87,15 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">		      
 		      <span id="frame">${ performance.detailImgOriginalFileName }</span>	 
 		      <input type="hidden" name="oldDetailImgOriginalFileName"
-		      		 value="${ performance.detailImgOriginalFileName != null ? performance.detailImgOriginalFileName : ''}"/>    
+		      		 value="${ performance.detailImgOriginalFileName != null ? performance.detailImgOriginalFileName : ''}"/>
 		      <input type="hidden" name="oldDetailImgRenamedFileName"
-		      		 value="${ performance.detailImgRenamedFileName != null ? performance.detailImgOriginalFileName : ''}"/>    
+		      		 value="${ performance.detailImgRenamedFileName != null ? performance.detailImgRenamedFileName : ''}"/>    
 		    </div>  
-		    
+		    <tr>
+		    	<label for="reservationStartDate">예매시작일</label>
+		    	<input type="datetime-local" class="form-control" name="reservationStart" id="reservationStart" value="${ reservationStartDate }"/>
+		    	<br />
+		    </tr>
 		    <tr>
 				<label for="perStartDate">공연시작일</label>
 				<input type="date" class="form-control" name="perStartDate" id="perStartDate"

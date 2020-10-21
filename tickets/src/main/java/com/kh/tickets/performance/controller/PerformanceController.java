@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -161,11 +163,23 @@ public class PerformanceController {
 	public ModelAndView performanceRegister(Performance performance,
 			  						  @RequestParam(value="perImgFile",required=false) MultipartFile[] perImgFiles,
 			  						  @RequestParam(value="detailImgFile",required=false) MultipartFile[] detailImgFiles,
+			  						  @RequestParam(value="reservationStart") String rStartDate,
 									  HttpServletRequest request,
 									  ModelAndView mav) {
 		
-		String theaterNo = request.getParameter("searchHallNo");	
-		performance.setTheaterNo(theaterNo);	
+		String theaterNo = request.getParameter("searchHallNo");
+		performance.setTheaterNo(theaterNo);
+		//log.debug("performanceReservationStartDate = {}", rStartDate);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		
+		try {
+			Date reservationStartDate = sdf.parse(rStartDate);
+			performance.setReservationStartDate(reservationStartDate);
+			
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
 		if(performance.getAloneSale() == null) {
 			performance.setAloneSale("N");
@@ -365,6 +379,11 @@ public class PerformanceController {
 		log.debug("aloneSale@@ = {}", performance.getAloneSale());
 		log.debug("perRating@@ = {}", performance.getPerRating());
 		
+		Date beforeDate = performance.getReservationStartDate();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		String afterDate = sdf.format(beforeDate);
+		
+		mav.addObject("reservationStartDate", afterDate);
 		mav.addObject("performance", performance);
 		mav.setViewName("/company/perUpdateForm");
 		return mav;
@@ -378,6 +397,7 @@ public class PerformanceController {
 			 				@RequestParam("oldDetailImgOriginalFileName") String oldDetailImgOriginalFileName,
 			 				@RequestParam("oldPerImgRenamedFileName") String oldPerImgRenamedFileName,
 			 				@RequestParam("oldDetailImgRenamedFileName") String oldDetailImgRenamedFileName,
+			 				@RequestParam(value="reservationStart") String rStartDate,
 			 				HttpServletRequest request,
 			 				ModelAndView mav){
 		
@@ -385,6 +405,16 @@ public class PerformanceController {
 		
 		if(performance.getAloneSale() == null) {
 			performance.setAloneSale("N");
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+		
+		try {
+			Date reservationStartDate = sdf.parse(rStartDate);
+			performance.setReservationStartDate(reservationStartDate);
+			
+		} catch (ParseException e1) {
+			e1.printStackTrace();
 		}
 		
 		String saveDirectory = request.getServletContext()

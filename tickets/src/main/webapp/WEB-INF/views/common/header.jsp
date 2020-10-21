@@ -88,7 +88,7 @@
 			<div><span class="text-danger">
 					<sec:authentication property="principal.username"/>
 				    <%-- <sec:authentication property="principal.authorities"/> --%>
-				</span>님, 어서오세요!</div>
+				</span>님, 어서오세요!😊</div>
 			</sec:authorize>
 		
 		
@@ -157,7 +157,9 @@
 		      		<%-- <c:if test="${ not empty loginMember }"> --%>
 		      		<sec:authorize access="isAuthenticated()">				
 			      	<li class="nav-item dropdown" style="right: 0px !important">
-			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Page </a>
+			        	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			 				My Page 
+			        	</a>
 			        	<div class="dropdown-menu">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do?memberId=<sec:authentication property="principal.username"/>">내 정보</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
