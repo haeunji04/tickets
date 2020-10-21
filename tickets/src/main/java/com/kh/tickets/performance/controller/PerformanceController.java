@@ -106,10 +106,9 @@ public class PerformanceController {
 		map.put("start", start);
 		map.put("end", end);
 		map.put("category", category);
-		
-//		List<PerJoin> list = performanceService.categoryListView(category);
-//		List<PerJoin> list = performanceService.categoryListView(category, limit, offset);
+
 		List<PerJoin> list = performanceService.categoryListView(map);
+		List<Performance> slideList = performanceService.selectCategoryList(category);
 		
 		String categoryName = performanceService.getCategoryName(category); 
 		
@@ -128,6 +127,7 @@ public class PerformanceController {
 		mav.addObject("totalContents", totalContents);
 		mav.addObject("pageBar", pageBar);
 		mav.addObject("rList", rList);
+		mav.addObject("slideList", slideList);
 		mav.setViewName("/performance/performanceCategoryView");
 		return mav;
 	}

@@ -281,6 +281,9 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int selectOneSchedule(int schNo) {
 		return sqlSession.selectOne("performance.selectOneSchedule",schNo);
 	}
+
+	
+	
 	
 	
 }

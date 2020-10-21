@@ -109,8 +109,10 @@ th, td{
 				<c:forEach items="${ perList }" var="per">
 					<tr>
 						<th>
-							<img src="${ pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" alt="포스터"
-								 width="150px;" class="img-thumbnail" />
+							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }">
+								<img src="${ pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" alt="포스터"
+									 width="150px;" class="img-thumbnail" />
+							</a>
 						</th>
 						<td class="align-middle"><h6>${ per.perTitle }</h6></td>
 						<td class="align-middle">${ per.perStartDate } <br /> - ${ per.perEndDate }</td>
