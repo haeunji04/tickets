@@ -650,12 +650,14 @@ public class PerformanceController {
 								   @RequestParam int perNo,
 								   @RequestParam String memberId,
 								   HttpServletRequest request) {
+		
 		PerJoin performance = performanceService.selectOnePerformance(perNo);	
 		int theaterNo = performanceService.selectScheduleHall(schNo);
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		//List<Seat> seatList = performanceService.selectSeatList(theaterNo);
 		int seatLength = performanceService.seatLength(schNo);
 		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
+		
 		log.debug("selectedList@={}",selectedList);
 		request.setAttribute("selectedList", selectedList);
 		mav.addObject("selectedList", selectedList);
