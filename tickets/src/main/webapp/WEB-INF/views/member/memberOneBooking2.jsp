@@ -49,101 +49,87 @@
 	}
 	</script>
 	
-
-		<c:forEach items="${ list }" var="pay">
-		<div class="total-container p-3">
+		<div class="total-container">
 		<div class="booking-one" style="background-image:url('${pageContext.request.contextPath}/resources/images/etc/1.png');">
 			<div class="table" style="padding-top:80px;padding-left:160px;">
 			<table id="perform-info-tbl">
 			
 			<tr>
 				<td rowspan=5 colspan=3>
-					<%-- <img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-	                    		 style="width: 150px;"> 	 --%>			
-					<img src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />" 
+					<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
 	                    		 style="width: 150px;"> 				
 				</td>
-				<td colspan=5><h5>${ pay.perTitle }</h5></td>
+				<td colspan=5><h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5></td>
 			</tr>
 			<tr>
-				<td>예매 번호</td>
-				<td>${ pay.orderNo }</td>
+				<td>예매번호</td>
+				<td>026619782</td>
 				<td></td>
 				<td>공연장</td>
-				<td>${ pay.theaterName }</td>
+				<td>세종문화회관</td>
 			</tr>
 			<tr>
 				<td>예매일시</td>
-				<td>${ dateformat.format(pay.payDate) }</td>
+				<td>2020.09.22</td>
 				<td></td>
 				<td>예매자</td>
-				<td>${ pay.name }</td>
+				<td>홍길동</td>
 			</tr>
 			<tr>
 				<td>관람일시</td>
-				<!-- <td>2020.11.27(금) 19:30</td> -->
-				<td>${ dateformat.format(pay.schDateTime) }</td>
+				<td>2020.11.27(금) 19:30</td>
 				<td></td>
-				<!-- <td>취소가능</td>
-				<td>관림일시 하루 전날까지(기간에 따라 수수료 차등)</td> -->
+				<td>취소가능</td>
+				<td>2020.09.22 까지</td>
 			</tr>
 			<tr>
 				<td>매수</td>				
 				<td>1매</td>				
 				<td></td>				
-				<td>좌석번호</td>				
-				<td>${ pay.seatName }</td>	 			
+				<td>상태</td>				
+				<td>예매완료(미입금)</td>				
 			</tr>
 			</table>
 			</div>	
 		</div>
-		<br />
 		<div class="person-perform mt-3">
-		<h4 class="text-left mb-3">구매내역</h4>	
+		<h5 class="text-left mb-3">구매내역</h5>	
 			
-			<div class="perform border py-4" style="width:100%;">
+			<div class="perform border" style="width:100%;">
 				<table class="order">
 					<tr>
 						<td>티켓금액</td>
-						<td>${ pay.ticPrice }원</td>
+						<td>5,0000</td>
 					</tr>
-					<!-- <tr>
+					<tr>
 						<td>예매 수수료</td>
 						<td>500</td>
 					</tr>
 					<tr>
 						<td>가격할인</td>
 						<td>0</td>
-					</tr> 
+					</tr>
 					<tr>
 						<td>총 가격</td>
 						<td>50,500원</td>
-					</tr> -->
-					<tr>
-						<td>결제방식</td>
-						<td>${ pay.payOption }</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		<br />
-		<%-- <c:if test="${ pay.payOption eq '' }"></c:if>  --%>
 		<div class="person-perform mt-3">
-
-		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
-		<!-- <div class="more" style="float:right;">
+		<h5 class="text-left d-inline-block mb-3">결제내역</h5>	
+		<div class="more" style="float:right;">
 				<button class="btn btn-outline-secondary rounded-pill d-inline-block text-right" value="">결제수단변경</button>
-		</div> -->
-			<div class="perform border py-4" style="width:100%;">
-
+		</div>
+			<div class="perform border" style="width:100%;">
 				<table class="order">
 					<tr>
 						<td>결제방법</td>
-						<td>${ pay.payOption }</td>
+						<td>무통장</td>
 					</tr>
 					<tr>
 						<td>입금마감시간</td>
-						<td>${ dateformat.format(pay.payDate) } 23시 59분</td>
+						<td>2020년 9월 24일 23시 59분</td>
 					</tr>
 					<tr>
 						<td>입금계좌</td>
@@ -164,16 +150,14 @@
 				</table>
 			</div>
 		</div>
-		<br />
-
-		<!-- <div class="person-perform mt-3">
-		<h4 class="text-left d-inline-block mb-3">구매좌석</h4>	
+		<div class="person-perform mt-3">
+		<h5 class="text-left d-inline-block mb-3">구매좌석</h5>	
 			<div class="more" style="float:right;">
 				<input type="checkbox" name="allcheck" id="allcheck" onchange="checkAll();" />
 				<label for="allcheck">전체선택</label>
 			</div>
-			<div class="perform border pt-4" style="width:100%;text-align:center">
-				<table class="seat" align="center">
+			<div class="perform border" style="width:100%;text-align:center">
+				<table class="seat">
 					<tr>
 						<th>좌석등급</th>
 						<th>좌석번호</th>
@@ -193,20 +177,17 @@
 					</tr>
 					
 				</table>
-			</div>
-
-		</div> -->
 				<button type="button" class="btn btn-primary btn-lg btn-block">예매취소 요청</button>
-		</c:forEach>
-		<!-- ========================================================= -->
+			</div>
+		</div>
 		<div class="person-perform mt-3">
-		<h4 class="text-left d-inline-block mb-3">취소수수료</h4>	
-			<div class="perform border py-4" style="width:100%;text-align:center">
-				<table class="fees" align="center">
+		<h5 class="text-left d-inline-block mb-3">취소수수료</h5>	
+			<div class="perform border" style="width:100%;text-align:center">
+				<table class="fees">
 					<tr>
 						<th>취소기간</th>
 						<th>미부과기간</th>
-						<th>예매후 8일~관람일 10일 이내</th>
+						<th>예매후 8일~관림일 10일 이내</th>
 						<th>관람일 7일전</th>
 						<th>관람일 1일전</th>
 					</tr>

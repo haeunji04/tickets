@@ -82,7 +82,7 @@
 			<tr class="border-bottom">
 				<td class="px-3" valign="middle">${ dateformat.format(pay.payDate) }</td>
 				<td align="right">
-					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do">
+					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do?orderNo=${ pay.orderNo }">
 						<img style="width:120px;height:160px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
 					</a>
 				</td>
@@ -90,7 +90,7 @@
 					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do" style="text-decoration: none; color: black;">
 						<p>
 							<span class="d-block"><strong>${ pay.perTitle }</strong> <br />
-								<small>${ dateformat.format(pay.perStartDate) } - ${ dateformat.format(pay.perEndDate) }</small> <br />
+								<small>${ dateformat2.format(pay.perStartDate) } - ${ dateformat2.format(pay.perEndDate) }</small> <br />
 								${ pay.theaterName }
 							</span>
 						</p>
@@ -101,7 +101,7 @@
 					<div class="booking-info" style="text-align:left;">
 						<dl>
 							<dt>예약 정보</dt>
-							<dd>M045355</dd>
+							<dd>${ pay.orderNo }</dd>
 						</dl>
 						<dl>
 							<dt>관람일</dt>
@@ -137,7 +137,7 @@
 			<tr class="border-top border-bottom" >
 				<th style="width:80px;">예매일</th>
 				<th colspan="2" id="perInfo" style="width:600px;">공연정보</th>
-				<th style="width:280px;">예매정보</th>
+				<th style="width:270px;">예매정보</th>
 				<th style="width:190px;">예매상태</th>
 			</tr>
 			<!-- 티켓예매테이블 -->
@@ -154,7 +154,7 @@
 					<a href="#" style="text-decoration: none; color: black;">
 						<p>
 							<span class="d-block"><strong>캣츠</strong> <br />
-								<small>2020.09.10~2020.09.30</small> <br />
+								<small>2020.09.10-2020.09.30</small> <br />
 								롯데콘서트몰
 							</span>
 						</p>
