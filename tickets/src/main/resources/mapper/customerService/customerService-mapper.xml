@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customerService">
+	<select id="selectNoticeList" resultMap="noticeMap">
+		select 
+			* 
+		from 
+			notice
+		order by
+			notice_no desc
+	</select>
+	<resultMap id="noticeMap" type="notice">
+	</resultMap>	
+	
+	<insert id="insertNotice">
+		insert into
+			notice (
+				notice_no, 
+				notice_kind,
+				notice_title,
+				notice_content
+			)
+		values (
+			seq_notice_no.nextval,
+			#{ noticeKind },
+			#{ noticeTitle },
+			#{ noticeContent }		
+		)
+		
+		<selectKey keyProperty="noticeNo" resultType="_int" order="AFTER">
+			select
+				seq_notice_no.currval
+			from 
+				dual
+		</selectKey>
+	</insert>
+	
+	<select id="selectOneNoticeCollection" resultMap="noticeCollectionMap">
+		select 
+			notice_no,
+			notice_title,
+			notice_reg_date,
+			notice_content
+		from 
+		    notice
+		where 
+		    notice_no = #{ notice_no }
+	</select>
+	<resultMap id="noticeCollectionMap" type="notice">
+		<id column="notice_no" property="noticeNo"/>
+		<result column="notice_title" property="noticeTitle"/>
+		<result column="notice_reg_date" property="noticeRegDate"/>
+		<result column="notice_content" property="noticeContent"/>
+	</resultMap>
+	
+
+</mapper>

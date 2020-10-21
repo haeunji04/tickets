@@ -454,11 +454,6 @@ public class MemberController {
 			mav.setViewName("member/memberOneBooking");
 			return mav;
 		}
-	
-		@RequestMapping("/member/customerService.do")
-		public String customerService() {
-			return "member/customerService";
-		}
 		
 		@GetMapping("/member/adminMemberSearchList")
 		public ModelAndView adminMemberSearchList(ModelAndView mav,

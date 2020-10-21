@@ -82,7 +82,7 @@
 			<a class="text-secondary" href="${pageContext.request.contextPath }/member/memberEnrollForm.do">회원가입</a><span class="text-secondary">&nbsp;|</span>
 			</sec:authorize>
 			
-			<a class="text-secondary" href="${pageContext.request.contextPath }/member/customerService.do">고객센터 </a>
+			<a class="text-secondary" href="${pageContext.request.contextPath }/customerService/customerService.do">고객센터 </a>
 			
 			<sec:authorize access="isAuthenticated()">
 			<div><span class="text-danger">
