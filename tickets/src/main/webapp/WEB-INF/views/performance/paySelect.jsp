@@ -91,7 +91,7 @@ a{
             </div>
 		
 	</div>
-    <form:form action="${pageContext.request.contextPath}/performance/payComplete.do" method="POST">
+    <form:form action="${pageContext.request.contextPath}/performance/pay.do" method="POST">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
               <table class="table align-items-center table-flush">
@@ -164,7 +164,7 @@ a{
 						<li class="list_agree d-block text-left" id="agree05" style="display: none;">
 					
 							<div class="tit_check d-block">
-								<input type="checkbox" id="chkAgree05" name="chkAgree" title="[필수] 결제대행 서비스 표준이용약관" notcontained="true">
+								<input type="checkbox" id="chkAgree05" name="chkAgree" title="[필수] 결제대행 서비스 표준이용약관" notcontained="true" checked>
 								<label for="chkAgree05"><span class="txt_lab">[필수] 결제대행 서비스 표준이용약관</span></label>
 								<a href="javascript: popupAgreementForPayMethod();" class="btn_flexible btn_flexible_ico2 btn_detail"><span>상세보기</span></a>
 								<!-- 레이어 보기 임시 onclick 이벤트 개발시 삭제 -->
@@ -259,6 +259,15 @@ a{
 			
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
+		<input type="hidden" name="memberId" value="${ memberId }" />
+		<input type="hidden" name="total" value="${ total }" />
+		<input type="hidden" name="schNo" value="${ schNo }" />
+		<c:forEach items="${ seatName }" var="seatName">
+		<input type="hidden" name="seatName" value="${ seatName }" />
+		</c:forEach>
+		<c:forEach items="${ seatNo }" var="seatNo">
+		<input type="hidden" name="seatNo" value="${ seatNo }" />
+		</c:forEach>
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
 		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
 		</div>
@@ -289,6 +298,8 @@ a{
 		
 	}
 	</script>
+	<script>
+		
 	</script>
 	
 
