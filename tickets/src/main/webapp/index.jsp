@@ -90,31 +90,34 @@ if ( getCookie( "popup" ) != "done" ){
 				</ol>
 			  	<div class="carousel-inner">
 				    <div class="carousel-item active" data-interval="2000">
+				    
+				    <a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=1">
 				    	<img src="${pageContext.request.contextPath }/resources/images/banner/메인공연배너3.jpg" class="d-block w-100" alt="...">
-						      <div class="carousel-caption d-none d-md-block float-left">
-							      <!-- <h5>First slide label</h5>
-							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> -->
-						      </div>
+<!-- 						      <div class="carousel-caption">
+							      <h5>First slide label</h5>
+							      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+						      </div> -->
+				    </a>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
-				    	<img src="${pageContext.request.contextPath }/resources/images/banner/연극이퀄.jpg" class="d-block w-100" alt="...">
-						      <div class="carousel-caption d-none d-md-block float-left">
-						      </div>				    
+					    <a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=182">
+				    		<img src="${pageContext.request.contextPath }/resources/images/banner/연극이퀄.jpg" class="d-block w-100" alt="...">
+					    </a>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
-				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬호프.jpg" class="d-block w-100" alt="...">
-						      <div class="carousel-caption d-none d-md-block float-left">
-						      </div>
+					    <a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=3">
+					    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬호프.jpg" class="d-block w-100" alt="...">
+					    </a>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
-				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬베르테르.jpg" class="d-block w-100" alt="...">
-						      <div class="carousel-caption d-none d-md-block float-left">
-						      </div>
+				    	<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=181">
+					    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬베르테르.jpg" class="d-block w-100" alt="...">
+				    	</a>
 				    </div>
 				    <div class="carousel-item" data-interval="2000">
-				    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬블랙메리포핀스.jpg" class="d-block w-100" alt="...">
-						      <div class="carousel-caption d-none d-md-block float-left">
-						      </div>
+				    	<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=183">
+					    	<img src="${pageContext.request.contextPath }/resources/images/banner/뮤지컬블랙메리포핀스.jpg" class="d-block w-100" alt="...">
+				    	</a>
 				    </div>
 			  	</div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
