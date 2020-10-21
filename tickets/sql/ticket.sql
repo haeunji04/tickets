@@ -194,6 +194,9 @@ create table performance(
     --    per_sale varchar2(20),
 );
 
+alter table performance add price number;
+update performance set price = 15000 where category_code='C5';
+
 
 alter table performance add sale_cnt int default 0;
 --오픈 소식 추가 관련
