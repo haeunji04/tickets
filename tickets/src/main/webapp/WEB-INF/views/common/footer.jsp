@@ -13,7 +13,7 @@
 		display:inline-block; 
 		right:30px; 
 		/* 창에서 오른쪽 길이 */ 
-		top:19%; 
+		top:13%; 
 		/* 창에서 위에서 부터의 높이 */ 
 		background-color: transparent; margin:0; 
 		padding : 15px;

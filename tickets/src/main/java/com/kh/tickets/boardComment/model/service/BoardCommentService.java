@@ -20,4 +20,6 @@ public interface BoardCommentService {
 
 	int insertReview(ReviewComment review);
 
+	List<ReviewComment> reivewPerList(String boardCommentWriter);
+
 }
