@@ -302,7 +302,8 @@ create table pay(
     constraints fk_sch_no4 foreign key(sch_no) references schedule(sch_no)
 );
 
-
+alter table pay modify(order_no varchar2(20));
+alter table ticket modify(order_no varchar2(20));
 --Ticket
 create table ticket(
     tic_no number,
@@ -317,6 +318,8 @@ create table ticket(
     constraints fk_member_id6 foreign key(member_id) references member(member_id),
     constraints fk_seat_no2 foreign key(seat_no) references seat(seat_no)
 );
+
+
 --selected
 create table selected(
     seat_no number,

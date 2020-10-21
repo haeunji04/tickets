@@ -743,19 +743,26 @@ public class PerformanceController {
 									ModelAndView mav) {
 		
 		int length = pay.getSeatCount();
-		String result = performanceService.insertPay(pay);
-		//Pay payResult = performanceService.selectorderNo(pay);
+		
+		String orderNum ="M";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHssSS");
+		orderNum += sdf.format(new Date());
+		pay.setOrderNo(orderNum);
+
+		int result = performanceService.insertPay(pay);
 		
 		log.debug("result={}",result);
 		
-		/*
-		 * for(int i=0;i<length;i++) { //ticket.setOrderNo(payResult.getOrderNo());
-		 * ticket.setSeatNo(seatNo[i]); int price =
-		 * performanceService.seatPrice(seatNo[i]); ticket.setTicPrice(price); int
-		 * result2 =performanceService.insertTicket(ticket);
-		 * log.debug("ticket={}",ticket); }
-		 */
-		//mav.addObject("pay", attributeValue)
+		
+		 for(int i=0;i<length;i++) { //ticket.setOrderNo(payResult.getOrderNo());
+			 ticket.setSeatNo(seatNo[i]); 
+			 ticket.setSeatName(seatName[i]);
+			 int price = performanceService.seatPrice(seatNo[i]); 
+			 ticket.setTicPrice(price); 
+			 ticket.setOrderNo(orderNum);
+			 int result2 =performanceService.insertTicket(ticket);
+			 log.debug("ticket={}",ticket); 
+		 }
 		mav.setViewName("performance/payComplete");
 		return mav;
 	}

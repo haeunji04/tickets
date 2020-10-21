@@ -547,16 +547,10 @@
 	where sch_no = #{ schNo }
 	</select>
 	<insert id="insertPay">
-	insert into pay values(default,#{ schNo },#{ totPrice },#{ seatCount },#{ payOption },default,#{ memberId },default,default )
-	<selectKey resultType="string" keyProperty="order_no" order="AFTER">
-    SELECT LAST_INSERT_ID()
-	</selectKey>
+	insert into pay values(#{ orderNo },#{ schNo },#{ totPrice },#{ seatCount },#{ payOption },default,#{ memberId },default,default )
 	</insert>
-	<select id="selectorderNo" resultMap="payMap">
-	select * from pay where sch_no = #{ schNo } and member_id = #{ memberId }
-	</select>
 	<insert id="insertTicket">
-	insert into ticket values(ticket_sequence.nextval,#{ ticPrice },#{ schNo },#{ seatNo },#{ memberId},#{ orderNo })
+	insert into ticket values(ticket_sequence.nextval,#{ ticPrice },#{ schNo },#{ seatNo },#{ memberId},#{ orderNo },#{ seatName })
 	</insert>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>

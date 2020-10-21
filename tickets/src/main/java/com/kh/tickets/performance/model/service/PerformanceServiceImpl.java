@@ -282,7 +282,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public String insertPay(Pay pay) {
+	public int insertPay(Pay pay) {
 		return performanceDAO.insertPay(pay);
 	}
 

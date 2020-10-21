@@ -22,4 +22,5 @@ public class Ticket implements Serializable{
 	private int seatNo;
 	private String memberId;
 	private String orderNo;
+	private String seatName;
 }

@@ -284,11 +284,9 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	@Override
-	public String insertPay(Pay pay) {
-		sqlSession.insert("performance.insertPay", pay);
-		String orderNo = pay.getOrderNo();
-		
-		return orderNo;
+	public int insertPay(Pay pay) {
+		return sqlSession.insert("performance.insertPay", pay);
+
 	}
 
 	@Override

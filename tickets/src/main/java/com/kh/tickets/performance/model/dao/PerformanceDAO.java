@@ -121,7 +121,7 @@ public interface PerformanceDAO {
 
 	int selectOneSchedule(int schNo);
 
-	String insertPay(Pay pay);
+	int insertPay(Pay pay);
 
 	Pay selectorderNo(Pay pay);
 
