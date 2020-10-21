@@ -264,15 +264,10 @@
 	  <div class="tab-pane fade active show text-left" id="info">
 		  <h5 class="ml-5 pl-5 my-5 pt-4">공연시간</h5>
 		  <pre>
-		  	2020년 9월 9일(수) ~ 11월 8일(일)
-			평일 오후 8시 / 주말 및 공휴일 오후 2시, 7시 / 월 공연 없음
-			* 추석연휴 : 9/30(수), 10/2(금), 10/3(토) 2시,7시 2회 공연 / 10/4(일) 3시 1회 공연 
-			*10/1(목) 공연 없음
-			* 마티네 : 10/7(수), 10/14(수), 10/21(수) 3시 1회 공연 
-			*10/9(금) 한글날 2시/7시 2회 공연
+		  	${ performance.perContent }
 		  </pre>
 		  
-		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />""/>
+		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"/>
 		  
 	  </div>
 	  <div class="tab-pane fade" id="before">

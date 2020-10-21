@@ -55,8 +55,7 @@
 		
 		where category_code = #{ category } and admin_approval = 'Y'
 		order by
-			per_register_date
-			asc
+			per_register_date desc
 	</select>
 	
 	<select id="categoryListView" resultMap="perJoinMap">
@@ -417,7 +416,6 @@
 		                    	</otherwise>
 		                    </choose>
 		                order by sale_cnt desc) P) P
-		where rnum between 1 and 3
 	</select>
 	
 	<select id="selectPickList" resultMap="performanceMap">
