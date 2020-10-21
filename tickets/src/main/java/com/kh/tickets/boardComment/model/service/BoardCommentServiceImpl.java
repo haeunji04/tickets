@@ -52,6 +52,11 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 	
 	}
 
+	@Override
+	public int deleteReview(int reviewCommentNo) {
+		return boardCommentDAO.deleteReview(reviewCommentNo);
+	}
+
 	
 	
 }
