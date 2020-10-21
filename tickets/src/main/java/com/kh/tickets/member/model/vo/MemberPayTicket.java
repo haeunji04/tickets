@@ -21,18 +21,20 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class MemberPayTicket implements Serializable {
+	
+	//ticket table
+	private int ticNo;
+	private int ticPrice;
+	private int seatNo;
 
 	//pay table
-	private int payNo;
-	private int totPrice;
 	private String payOption;
 	private Date payDate;
 	private String memberId;
 	private String payYn;
 	private String cancelYn;
-	private int seatNo;
 	private int schNo;
-	//private int orderNumber;
+	private int orderNo;
 	
 	//schedule table
 	private Date schDateTime;

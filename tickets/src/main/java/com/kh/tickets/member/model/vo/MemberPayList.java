@@ -23,14 +23,13 @@ import lombok.ToString;
 public class MemberPayList implements Serializable {
 
 	//pay table
-	private int payNo;
 	private int totPrice;
 	private String payOption;
 	private Date payDate;
 	private String memberId;
 	private String payYn;
 	private String cancelYn;
-	private int seatNo;
+	private int seatCount;
 	private int schNo;
 	private String orderNo;
 	

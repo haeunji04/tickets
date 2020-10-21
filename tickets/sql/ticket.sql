@@ -47,7 +47,7 @@ show user;
 --DROP SEQUENCE "PERFORMANCE_SEQ";
 
 -- 뷰 삭제
---DROP VIEW "MEMBER_PAY_LIST_VIEW";
+--DROP VIEW "MEMBER_PAY_TICKET_VIEW";
 --=============== tickets계정으로 테이블 생성 ===============
 
 --Theater
@@ -285,7 +285,7 @@ create table seat(
 
 --Pay
 create table pay(
-    order_no varchar(13) default 'M'||to_char(sysdate,'yyMMddHHssSS'),
+    order_no varchar2(13) default 'M'||to_char(sysdate,'yyMMddHHssSS'),
     sch_no number,
     tot_price number,
     seat_count number,
@@ -626,9 +626,12 @@ from
             on P.category_code = C.category_code;
 --====================================
 --결제내역 뷰 테이블
+select * from pay;
+select * from ticket;
+
 create view member_pay_list_view as
-select Y.pay_no, Y.tot_price, Y.pay_option, Y.pay_date, Y.member_id,
-       Y.pay_yn, Y.cancel_yn, Y.seat_no, Y.sch_no, Y.order_no,
+select Y.order_no, Y.tot_price, Y.pay_option, Y.pay_date, Y.member_id,
+       Y.pay_yn, Y.cancel_yn, Y.seat_count, Y.sch_no, 
        S.sch_date_time, S.per_no,
        P.per_title, P.per_img_original_filename, P.per_img_renamed_filename,
        P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
@@ -642,6 +645,26 @@ from pay Y
         on P.theater_no = T.theater_no;
 
 select  * from member_pay_list_view; 
+
+create view member_pay_ticket_view as
+select K.tic_no, K.tic_price, K.seat_no,
+       Y.pay_option, Y.pay_date, Y.member_id,
+       Y.pay_yn, Y.cancel_yn, Y.sch_no, Y.order_no,
+       S.sch_date_time, S.per_no,
+       P.per_title, P.per_img_original_filename, P.per_img_renamed_filename,
+       P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
+       T.theater_location, T.theater_city, T.theater_address, T.theater_name
+from ticket K
+    left join pay Y
+        on K.order_no = Y.order_no
+    left join schedule S 
+        on Y.sch_no = S.sch_no 
+    left join performance P 
+        on S.per_no = P.per_no
+    left join theater T 
+        on P.theater_no = T.theater_no;
+        
+select  * from member_pay_ticket_view; 
 
 insert into review_comment values(
 		    review_comments_seq.nextval,

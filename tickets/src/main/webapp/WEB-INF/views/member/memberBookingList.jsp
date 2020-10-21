@@ -80,7 +80,7 @@
 				<td class="px-3">${ dateformat.format(pay.payDate) }</td>
 				<td>
 					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
-					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do?perNo=${ pay.perNo }">
+					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do?orderNo=${ pay.orderNo }">
 					<img style="position:absolute;width:85px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
 					<p style="padding-left:100px;">
 						<span class="d-block">${ pay.perTitle }</span>
