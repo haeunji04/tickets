@@ -449,8 +449,24 @@ public class MemberController {
 		}		
 			
 		@GetMapping("/member/memberOneBooking.do")
-		public ModelAndView memberOneBooking(ModelAndView mav) {
+		public ModelAndView memberOneBooking(ModelAndView mav, Principal principal, @RequestParam int perNo) {
 			
+			log.debug("perNo@@ = {}", perNo);
+			log.debug("principal = {}", principal);
+			
+			String memberId = null;
+			if(principal != null) {
+				memberId = principal.getName();			
+			}
+			
+			log.debug("memberId@@  = {}", memberId );
+			
+			List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+			log.debug("rList@controller = {}", rList);
+			
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+			mav.addObject("dateformat", dateformat);
+			mav.addObject("rList", rList);
 			mav.setViewName("member/memberOneBooking");
 			return mav;
 		}

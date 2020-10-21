@@ -32,7 +32,7 @@ public class MemberPayList implements Serializable {
 	private String cancelYn;
 	private int seatNo;
 	private int schNo;
-	//private int orderNumber;
+	private String orderNo;
 	
 	//schedule table
 	private Date schDateTime;

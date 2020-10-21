@@ -47,7 +47,7 @@ show user;
 --DROP SEQUENCE "PERFORMANCE_SEQ";
 
 -- 뷰 삭제
---DROP VIEW "";
+--DROP VIEW "MEMBER_PAY_LIST_VIEW";
 --=============== tickets계정으로 테이블 생성 ===============
 
 --Theater
@@ -627,7 +627,7 @@ from
 --결제내역 뷰 테이블
 create view member_pay_list_view as
 select Y.pay_no, Y.tot_price, Y.pay_option, Y.pay_date, Y.member_id,
-       Y.pay_yn, Y.cancel_yn, Y.seat_no, Y.sch_no, Y.order_number,
+       Y.pay_yn, Y.cancel_yn, Y.seat_no, Y.sch_no, Y.order_no,
        S.sch_date_time, S.per_no,
        P.per_title, P.per_img_original_filename, P.per_img_renamed_filename,
        P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
@@ -642,7 +642,13 @@ from pay Y
 
 select  * from member_pay_list_view; 
 
-
+insert into review_comment values(
+		    review_comments_seq.nextval,
+		    '또 보고 싶어요!!',
+		    default,
+		    6,
+		    'koko'
+		);
 --======================================================
 
 select * from theater;
@@ -652,7 +658,7 @@ select * from member;
 --select * from category;
 select * from performance;
 select * from comment_board;
---select * from review;
+select * from review_comment;
 select * from wishlist;
 select * from schedule;
 select * from seat;

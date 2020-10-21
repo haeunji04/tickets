@@ -72,7 +72,7 @@
 				<th>예매일</th>
 				<th>공연정보</th>
 				<th>예매정보</th>
-				<th>예매상태</th>
+				<th>결제방식</th>
 			</tr>
 			<!-- 티켓예매테이블 -->
 			<c:forEach items="${ list }" var="pay">
@@ -80,14 +80,14 @@
 				<td class="px-3">${ dateformat.format(pay.payDate) }</td>
 				<td>
 					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
-					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do">
-					<img style="position:absolute;width:80px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
+					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do?perNo=${ pay.perNo }">
+					<img style="position:absolute;width:85px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
 					<p style="padding-left:100px;">
 						<span class="d-block">${ pay.perTitle }</span>
 					</a>
 						<span class="d-block mt-3"><small>${ dateformat.format(pay.perStartDate) } ~ ${ dateformat.format(pay.perEndDate) }</small></span>
-						<span class="d-block">${ pay.theaterName }</span>
-						<%-- <span class="d-block"><small> ${ pay.theaterLocation } ${ pay.theaterCity } ${ pay.theaterAddress }</small></span> --%>
+						<span class="d-block"><small>${ pay.theaterName }</small></span>
+						<span class="d-block"><small> ${ pay.theaterLocation } ${ pay.theaterCity } ${ pay.theaterAddress }</small></span> 
 					</p>
 					</div>
 				</td>
@@ -95,7 +95,7 @@
 					<div class="booking-info" style="text-align:left;">
 						<dl>
 							<dt>예약 정보</dt>
-							<dd>M045355</dd>
+							<dd>${ pay.orderNo }</dd>
 						</dl>
 						<dl>
 							<dt>관람일</dt>
@@ -105,15 +105,15 @@
 							<dt>매수</dt>
 							<dd>M045355</dd>
 						</dl>
-						<dl>
+						<!-- <dl>
 							<dt>취소가능</dt>
 							<dd>2020.11.26(목) 17:00 까지</dd>
-						</dl>
+						</dl> -->
 					</div>
 				</td>
 				<td>
-					<p>예매완료(미입금)</p>
-					<p>결제방식(${ pay.payOption })</p>
+					<!-- <p>예매완료(미입금)</p> -->
+					<p>${ pay.payOption }</p>
 				</td>
 			</tr>
 			</c:forEach>
