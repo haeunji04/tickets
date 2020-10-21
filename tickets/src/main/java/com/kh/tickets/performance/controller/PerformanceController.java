@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -656,7 +657,52 @@ public class PerformanceController {
 		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
 		//List<Seat> seatList = performanceService.selectSeatList(theaterNo);
 		int seatLength = performanceService.seatLength(schNo);
+		
 		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
+		Selected[] arr = selectedList.toArray(new Selected[selectedList.size()]);
+		
+		//시간 지난 selected 좌석 삭제
+		// Calendar 객체 생성
+		Calendar cal = Calendar.getInstance() ;
+		long todayMil = cal.getTimeInMillis() ;     // 현재 시간(밀리 세컨드)
+		long oneDayMil = 60*1000; 
+		
+		Calendar fileCal = Calendar.getInstance() ;
+		Date fileDate = null ;		
+		log.debug("arr@@ = {}", arr);
+		
+	    for(int i=0; i<arr.length; i++){
+	    	
+	    	fileDate = arr[i].getTempTime();
+	    	
+	    	// 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드)
+	        fileCal.setTime(fileDate);
+	        long diffMil = todayMil - fileCal.getTimeInMillis() ;
+	        log.debug("fileCal.getTimeInMillis()@@ = {}", fileCal.getTimeInMillis());
+	        log.debug("todayMil@@ = {}", todayMil);
+	        log.debug("diffMil@@ = {}", diffMil);
+	        log.debug("arrlength@@ = {}", arr.length);
+	         
+	        //날짜로 계산
+	        int diffDay = (int)(diffMil/60000) ;
+	        
+	        log.debug("diffDay@@ = {}", diffDay);
+	     
+	         
+//	        // 3일이 지난 파일 삭제
+//	        if(diffDay > 1){
+//	        	
+//	        	int result = performanceService.selectedDelete(arr[i]);
+//	        	if(result>0) {
+//	        		log.debug("임시좌석 삭제성공");	        		
+//	        	}else {
+//	        		log.debug("임시좌석 삭제실패");	        		
+//	        		
+//	        	}
+//	        	
+//	        }
+	    	
+	    }
 		
 		log.debug("selectedList@={}",selectedList);
 		request.setAttribute("selectedList", selectedList);
