@@ -46,6 +46,12 @@ public class BoardCommentServiceImpl implements BoardCommentService {
 		return boardCommentDAO.insertReview(review);
 	}
 
+	@Override
+	public List<ReviewComment> reivewPerList(String boardCommentWriter) {
+		return boardCommentDAO.reivewPerList(boardCommentWriter);
+	
+	}
+
 	
 	
 }

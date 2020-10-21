@@ -1060,7 +1060,7 @@ public class PerformanceController {
 		return schList;
 	}
 	
-	//내가 기대평 단 공연목록
+	//내가 기대평 댓글 단 공연목록
 	@RequestMapping("/performance/commentPerList.do")
 	public String commentPerList(Model model, Principal principal) {
 		
@@ -1070,6 +1070,10 @@ public class PerformanceController {
 		
 		List<CommentPerList> list = performanceService.commentPerList(boardCommentWriter);
 		log.debug("list@controller = {}", list);
+		
+		List<ReviewComment> reviewList = boardCommentService.reivewPerList(boardCommentWriter);
+		
+		log.debug("reviewList = {}", reviewList);
 		
 		CommentPerList[] arr = list.toArray(new CommentPerList[list.size()]);
 		
@@ -1098,6 +1102,7 @@ public class PerformanceController {
 		model.addAttribute("cList", cList);
 		model.addAttribute("list", list);
 		model.addAttribute("rList", rList);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "performance/commentPerList";
 	}	
