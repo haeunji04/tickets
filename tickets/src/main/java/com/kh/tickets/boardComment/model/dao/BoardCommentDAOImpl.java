@@ -50,6 +50,11 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 	public List<ReviewComment> reivewPerList(String boardCommentWriter) {
 		return sqlSession.selectList("boardComment.reivewPerList", boardCommentWriter);
 	}
+
+	@Override
+	public int deleteReview(int reviewCommentNo) {
+		return sqlSession.delete("boardComment.deleteReview", reviewCommentNo);
+	}
 	
 	
 

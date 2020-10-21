@@ -9,40 +9,10 @@
 <fmt:requestEncoding value="utf-8"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<link href="${pageContext.request.contextPath }/resources/css/jsRapCalendar.css" rel="stylesheet" type="text/css">
-
-	<script src="${pageContext.request.contextPath }/resources/js/jsRapCalendar.js"></script>
-<script>
-$(document).ready(function(){
-	$('#demo').jsRapCalendar({
-	  week:6,
-		onClick:function(y,m,d){
-			var mm = 0;
-			if(m < 9){
-				mm = "0"+(m+1);
-			}
-			else {
-				mm = m+1;
-			}
-
-			var dd = 0;
-			if(d<10){
-				dd = "0"+d;
-			}
-			else {
-				dd = d;	
-			}
-			
-			var date = y+"-"+mm+"-"+dd;
-
-			document.getElementById("inputDate").value = date;
-		}
-	});
-
-});
-
-</script>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/calendar.css">
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/calendar.js"></script>
+	
 <div class="mx-auto align-middle my-5" style="width:50%;">
 <div class="text-left d-inline">
 	<div class="d-inline">
@@ -55,22 +25,28 @@ $(document).ready(function(){
 			</div>
 		    <br /><br />
 
-				<div class="cont_process d-inline-block align-middle mx-3">
+				<!-- <div class="cont_process d-inline-block align-middle mx-3">
 					<div id="demo" class="d-inline-block"></div>
-				</div>
+				</div> -->
+				    <dl class="date_choice align-middle" style="display:inline-grid;margin:30px;">
+                        <dt class="tit_process tit_date_choice text-center"><span class="img">날짜 선택</span></dt>
+               				<div id="demo">
+        						<div id="one"></div>
+        					</div>
+        			</dl>
 				<div class="d-inline-block align-middle" >
 					<form:form action="" method="post" class="form-group" id="scheduleFrm">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type="hidden" name="perNo" id="perNo" value="${ perNo }" />
 						<div class="input-group my-2">
-							<div class="input-group-prepend" style="height:40px;">
+							<div class="input-group-prepend">
 								<label for="inputDate" class="input-group-text"> 날짜 </label>
 							</div>
 							<input type="text" id="inputDate" name="inputDate" class="form-control"
 									aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required/>
 						</div>
 						<div class="input-group my-3 float-right text-right">
-							<div class="input-group-prepend" style="height:40px;">
+							<div class="input-group-prepend">
 								<label for="timeHour" class="input-group-text"> 시 </label>
 							</div>
 							<select name="timeHour" id="timeHour" class="custom-select">
@@ -101,7 +77,7 @@ $(document).ready(function(){
 							</select>
 						</div>
 						<div class="input-group my-3">
-							<div class="input-group-prepend" style="height:40px;">
+							<div class="input-group-prepend">
 								<label for="timeMin" class="input-group-text"> 분 </label>
 							</div>
 							<select name="timeMin" id="timeMin" class="custom-select" >
@@ -218,6 +194,49 @@ function displayResultTable(){
 		$container.append(html);
 }
 
+var now = new Date();
+var year = now.getFullYear();
+var month = now.getMonth() + 1;
+var date = now.getDate();
+
+
+var data = [{
+    date: year + '/' + month + '/' + date,
+    value: 'today'
+}];
+
+// inline
+var $ca = $('#one').calendar({
+    // view: 'month',
+    width: 320,
+    height: 320,
+    // startWeek: 0,
+    // selectedRang: [new Date(), null],
+    data: data,
+    //monthArray: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    date: new Date(),
+    onSelected: function (view, date, data) {
+        console.log('view:' + view);
+        //alert('date:' + date);
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        month = month>=10? month : '0'+month;
+        var day = date.getDate();
+        day = day>=10? day : '0'+day;
+        //console.log(date);
+		date = year+"-"+month+"-"+day;
+
+        document.getElementById("inputDate").value = date;
+        //console.log('data:' + (data));
+
+		selectDate();
+    },
+    
+    viewChange: function (view, y, m) {
+        console.log(view, y, m);
+
+    }
+});
 		
 
 

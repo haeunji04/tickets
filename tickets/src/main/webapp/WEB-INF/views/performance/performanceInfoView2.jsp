@@ -271,7 +271,7 @@
 	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ commntListSize  }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
+		  <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#theater" id="theater-tab"><h5 class="m-10 px-4">공연장정보</h5></a>
@@ -284,16 +284,9 @@
 	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 	  <div class="tab-pane fade active show text-left" id="info">
 		  <h5 class="ml-5 pl-5 my-5 pt-4">공연시간</h5>
-		  <pre>
-		  	2020년 9월 9일(수) ~ 11월 8일(일)
-			평일 오후 8시 / 주말 및 공휴일 오후 2시, 7시 / 월 공연 없음
-			* 추석연휴 : 9/30(수), 10/2(금), 10/3(토) 2시,7시 2회 공연 / 10/4(일) 3시 1회 공연 
-			*10/1(목) 공연 없음
-			* 마티네 : 10/7(수), 10/14(수), 10/21(수) 3시 1회 공연 
-			*10/9(금) 한글날 2시/7시 2회 공연
-		  </pre>
+		  <pre>${ performance.perContent }</pre>
 		  
-		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />""/>
+		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"/>
 		  
 	  </div>
 	  <div class="tab-pane fade" id="before">
@@ -325,7 +318,7 @@
 							</td>
 							<td>
 							<!-- <button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button> -->
-							<input type="submit" style="height:40px;" class="comment-btn btn btn-primary mx-4 rounded-pill" value="등록"/>
+							<input type="submit" style="height:40px;" id="submit-btn" class="comment-btn btn btn-primary mx-4 rounded-pill" value="등록"/>
 							
 							</td>
 						</tr>
@@ -419,7 +412,7 @@
 											  placeholder="관람 후기를 적어주세요." onclick="validate();"></textarea>
 								</td>
 								<td>
-								<button type="submit" style="height:40px;"
+								<button type="submit" style="height:40px;" id="submit-btn"
 										class="comment-btn btn btn-primary mx-4 rounded-pill">등록</button>
 								</td>
 							</tr>
@@ -437,16 +430,25 @@
 								</td>	
 								<td>
 								</td>				
-								<td id="user-comment" class="pr-3 text-left">
-									<p class="text-secondary">${ review.reviewCommentContent } (${ review.reviewCommentDate })</p>
+								<td id="user-comment" class="pr-3 text-left" valign="bottom">
+									<div>
+										<p class="text-secondary">${ review.reviewCommentContent } (${ review.reviewCommentDate })</p>
+									</div>
+									<div>
+									</div>
 								</td>
 								
-								<!-- <td id="hidden-btn">
-									<button class="btn btn-info btn-update"
-											value="">수정</button>
-									<button class="btn btn-info btn-delete"
-											value="">삭제</button>				
-								</td> -->
+								<c:if test="${ review.memberId eq loginMember.memberId }">
+								<td id="hidden-btn" align="right">
+									 <form:form action="${ pageContext.request.contextPath }/review/deleteReview.do"
+									 			method="POST">
+									 	<input type="hidden" name="perNo" value=${ review.perNo } />
+									 	<input type="hidden" name="reviewCommentNo" value=${ review.reviewCommentNo } />
+										<button class="btn btn-sm btn-outline-primary btn-delete"
+												type="submit">삭제</button>
+									 </form:form>
+								</td> 
+								</c:if>
 								<!-- 버튼 보여주기 -->
 								
 							</tr>
@@ -703,8 +705,7 @@ function loginAlert(){
 }
 
 $(function(){
-	
-$("[type=submit]").click(function(){
+$("#submit-btn").click(function(){
 	//로그인 여부 검사
 	<c:if test="${ empty memberId }">
 		loginAlert();

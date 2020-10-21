@@ -60,9 +60,9 @@ $(document).ready(function(){
 					</tr>
 				</c:forEach>
 			</c:if>
-			<c:if test="${ empty schList }">
+<%-- 			<c:if test="${ empty schList }">
 				일정이 존재하지 않습니다.
-			</c:if>
+			</c:if> --%>
 		</table>
 	</div>
 	
@@ -88,9 +88,13 @@ function deleteSch(schNo){
         return;
     } 
 
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+		});
+
  	$.ajax({
 		url : "${pageContext.request.contextPath}/company/deleteDate.do",
-		data : {"schNo":schNo},
+		data : {"schNo":schNo },
 		method : "POST",
 		success : function(data){
 				$("#"+schNo).remove();

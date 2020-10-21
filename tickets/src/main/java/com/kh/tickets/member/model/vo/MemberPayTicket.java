@@ -21,18 +21,21 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class MemberPayTicket implements Serializable {
+	
+	//ticket table
+	private int ticNo;
+	private int ticPrice;
+	private int seatNo;
+	private String seatName;
 
 	//pay table
-	private int payNo;
-	private int totPrice;
 	private String payOption;
 	private Date payDate;
 	private String memberId;
 	private String payYn;
 	private String cancelYn;
-	private int seatNo;
 	private int schNo;
-	//private int orderNumber;
+	private String orderNo;
 	
 	//schedule table
 	private Date schDateTime;
@@ -53,6 +56,11 @@ public class MemberPayTicket implements Serializable {
 	private String theaterCity;
 	private String theaterAddress;
 	private String theaterName;
+	
+	//member table
+	private String name;
+	private String email;
+	private String phone;
 	
 	
 	

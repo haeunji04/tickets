@@ -81,6 +81,13 @@
 			review_comment_date desc 
 	</select>
 	
+	<delete id="deleteReview">
+		delete from 
+			review_comment
+		where
+			review_comment_no = #{ reviewCommentNo }	
+	</delete>
+	
 	
 	<resultMap type="boardComment" id="commentListMap">
 	</resultMap>

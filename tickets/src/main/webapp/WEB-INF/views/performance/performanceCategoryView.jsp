@@ -24,42 +24,18 @@
 		<!-- 추천 뮤지컬 반복문 블록 시작 -->
 		<div id="carousel" class='outerWrapper'>
 			<!-- <div style="width: 220px; height:400px;" class="item text-center d-inline-block m-3"> -->
-			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-				<a href="" class="none">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg" 
-						 alt="포스터" height="300px" class="mb-2"/>
-				</a>
-					<h5>뮤지컬 〈캣츠〉 40주년 오리지널 내한공연</h5>
-					<small>기념비적인 40주년 내한 공연!</small>
-			</div>
+			<c:forEach items="${ slideList }" var="per" begin="0" end="3" step="1" varStatus="status" >
+				<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
+					<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo }" class="none">
+						<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" 
+							 alt="포스터" height="300px" width="214px" class="mb-2"/>
+					</a>
+						<h6>${ per.perTitle }</h6>
+						<small>${ dateformat.format(per.perStartDate) } - ${ dateformat.format(per.perEndDate) }</small>
+				</div>
+			</c:forEach>
 			<!-- 추천 뮤지컬 반복문 블록 끝 -->
-			
-			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-				<a href="">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/어쩌면해피엔딩.jpg" 
-						 alt="포스터" height="300px" class="mb-2"/>
-				</a>
-					<h5>어쩌면 해피엔딩</h5>
-					<small>우리가 어쩌면, <br /> 해피엔딩</small>
-			</div>
-			
-			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-				<a href="">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/소믈리에.jpg" 
-						 alt="포스터" height="300px" class="mb-2"/>
-				</a>
-				<h5>뮤지컬 소믈리에</h5>
-				<small>당신이 절대 후회하지 않을 공연!</small>
-			</div>
-			
-			<div style="width: 220px; height:400px;" class="item text-center mx-2 d-inline-block">
-				<a href="">
-					<img src="${pageContext.request.contextPath }/resources/images/poster/무인도탈출기.jpg" 
-						 alt="포스터" height="300px" class="mb-2"/>
-				</a>
-				<h5>뮤지컬 [무인도 탈출기]</h5>
-				<small>청춘을 대변하는 우리들의 '극중극'</small>
-			</div>
+
 		</div>
 	</div>
 	

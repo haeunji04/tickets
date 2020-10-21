@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -41,9 +40,9 @@ import com.kh.tickets.member.model.service.MemberService;
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.member.model.vo.MemberPayList;
+import com.kh.tickets.member.model.vo.MemberPayTicket;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
-import com.kh.tickets.performance.model.vo.Performance;
 
 
 
@@ -439,7 +438,9 @@ public class MemberController {
 						
 //			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
 			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			mav.addObject("dateformat", dateformat);
+			mav.addObject("dateformat2", dateformat2);
 			mav.addObject("rList", rList);
 			mav.addObject("list", list);
 			
@@ -449,8 +450,28 @@ public class MemberController {
 		}		
 			
 		@GetMapping("/member/memberOneBooking.do")
-		public ModelAndView memberOneBooking(ModelAndView mav) {
+		public ModelAndView memberOneBooking(ModelAndView mav, Principal principal, @RequestParam String orderNo) {
 			
+			log.debug("orderNo@@ = {}", orderNo);
+			log.debug("principal = {}", principal);
+			
+			String memberId = null;
+			if(principal != null) {
+				memberId = principal.getName();			
+			}
+			
+			log.debug("memberId@@  = {}", memberId );
+			
+			List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+			log.debug("rList@controller = {}", rList);
+			
+			List<MemberPayTicket> list = memberService.selectMemberPayTicket(orderNo);
+			log.debug("list@controller = {}", list);
+			
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+			mav.addObject("dateformat", dateformat);
+			mav.addObject("rList", rList);
+			mav.addObject("list", list);
 			mav.setViewName("member/memberOneBooking");
 			return mav;
 		}
