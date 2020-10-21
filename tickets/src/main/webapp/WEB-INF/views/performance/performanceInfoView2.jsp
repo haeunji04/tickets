@@ -250,7 +250,7 @@
 	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ commntListSize  }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
+		  <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#theater" id="theater-tab"><h5 class="m-10 px-4">공연장정보</h5></a>
@@ -263,9 +263,7 @@
 	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
 	  <div class="tab-pane fade active show text-left" id="info">
 		  <h5 class="ml-5 pl-5 my-5 pt-4">공연시간</h5>
-		  <pre>
-		  	${ performance.perContent }
-		  </pre>
+		  <pre>${ performance.perContent }</pre>
 		  
 		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"/>
 		  
@@ -299,7 +297,7 @@
 							</td>
 							<td>
 							<!-- <button type="submit" style="height:50px; margin:12px 10px 12px 30px" class="comment-btn btn btn-primary btn-lg">등록</button> -->
-							<input type="submit" style="height:40px;" class="comment-btn btn btn-primary mx-4 rounded-pill" value="등록"/>
+							<input type="submit" style="height:40px;" id="submit-btn" class="comment-btn btn btn-primary mx-4 rounded-pill" value="등록"/>
 							
 							</td>
 						</tr>
@@ -393,7 +391,7 @@
 											  placeholder="관람 후기를 적어주세요." onclick="validate();"></textarea>
 								</td>
 								<td>
-								<button type="submit" style="height:40px;"
+								<button type="submit" style="height:40px;" id="submit-btn"
 										class="comment-btn btn btn-primary mx-4 rounded-pill">등록</button>
 								</td>
 							</tr>
@@ -686,8 +684,7 @@ function loginAlert(){
 }
 
 $(function(){
-	
-$("[type=submit]").click(function(){
+$("#submit-btn").click(function(){
 	//로그인 여부 검사
 	<c:if test="${ empty memberId }">
 		loginAlert();
