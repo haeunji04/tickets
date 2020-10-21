@@ -285,33 +285,34 @@ create table seat(
 
 --Pay
 create table pay(
-    pay_no number,
+    order_no varchar(13) default 'M'||to_char(sysdate,'yyMMddHHssSS'),
+    sch_no number,
     tot_price number,
+    seat_count number,
     pay_option varchar2(20),
     pay_date date default sysdate,
     member_id varchar2(15),
     pay_yn char(1) default 'N',
     cancel_yn char(1) default 'N',
-    seat_no number,
-    sch_no number,
-    constraints pk_pay_no primary key(pay_no),
-    constraints fk_member_id3 foreign key(member_id) references member(member_id),
-    constraints fk_seat_no foreign key(seat_no) references seat(seat_no),
-    constraints fk_sch_no foreign key(sch_no) references schedule(sch_no)
+    constraints pk_order_no primary key(order_no),
+    constraints fk_member_id4 foreign key(member_id) references member(member_id),
+    constraints fk_sch_no4 foreign key(sch_no) references schedule(sch_no)
 );
+
+
 --Ticket
 create table ticket(
     tic_no number,
     tic_price number,
-    pay_no number,
     sch_no number,
+    seat_no number,
     member_id varchar2(15),
-    per_no number,
+    order_no varchar2(13),
     constraints pk_tic_no primary key(tic_no),
-    constraints fk_pay_no foreign key(pay_no) references pay(pay_no),
-    constraints fk_sch_no2 foreign key(sch_no) references schedule(sch_no),
-    constraints fk_member_id4 foreign key(member_id) references member(member_id),
-    constraints fk_per_no3 foreign key(per_no) references performance(per_no)    
+    constraints fk_order_no foreign key(order_no) references pay(order_no),
+    constraints fk_sch_no6 foreign key(sch_no) references schedule(sch_no),
+    constraints fk_member_id6 foreign key(member_id) references member(member_id),
+    constraints fk_seat_no2 foreign key(seat_no) references seat(seat_no)
 );
 --selected
 create table selected(
@@ -671,7 +672,7 @@ values(
 );
 commit;
 --select * from ticket;
---select * from pay;
+select * from pay;
 --select * from wishlist_view;
 select * from recently_per_list;
 --select * from recently_per_list_view;
