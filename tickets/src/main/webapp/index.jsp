@@ -285,9 +285,9 @@ if ( getCookie( "popup" ) != "done" ){
 			</div>
 			<div class="rank-ticket mx-auto mt-5" style="width:35%;float:right;position:relative;">
 				<h4 class="card-title">랭킹</h4>
-					<div class="more" style="text-align:right;">
+					<!-- <div class="more" style="text-align:right;">
 						<a href="#">더보기 ❭</a>
-					</div>
+					</div> -->
 				<div class="d-block mx-auto mt-3">
 					<ul class="nav nav-tabs justify-content-center">
 						<li class="nav-item">
@@ -333,7 +333,7 @@ if ( getCookie( "popup" ) != "done" ){
 						</li> --%>
 					<!-- </ol> -->
 					<ol class="tab-pane fade active show" id="">
-  					<c:forEach items="${ muRank }" var="per">
+  					<c:forEach items="${ muRank }" var="per" begin="0" end="2" step="1" varStatus="status">
 						<li class="px-3 mb-3">
 							<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}">
 								<img src="${pageContext.request.contextPath }/resources/upload/performance/${ per.perImgRenamedFileName }" style="width:75px;height:100px;"/>
@@ -498,6 +498,7 @@ function displayRankList(data){
 	
  	if(data.list.length > 0){
 		for(var i in data.list){
+			if(i<3){
 			var per = data.list[i];
 			
 			console.log(per);
@@ -520,6 +521,7 @@ function displayRankList(data){
 			html += "</ul></a></li>";
 			//<fmt:formatDate pattern='yyyy-MM-dd HH:mm'  value='${boardVO.ntc_dt}' />
 
+				}
 		}
 	} 
 
