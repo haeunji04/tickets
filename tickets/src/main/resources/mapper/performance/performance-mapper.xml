@@ -477,7 +477,8 @@
 	values(
 		#{ seatNo },
 		#{ memberId},
-		#{ schNo }
+		#{ schNo },
+		default
 	)
 	</insert>
 	<delete id="removeSelect">
