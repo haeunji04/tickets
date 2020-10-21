@@ -718,12 +718,29 @@ public class PerformanceController {
 		return mav;
 	}
 	
-	@GetMapping("/performance/payComplete.do")
-	public ModelAndView payComplete(ModelAndView mav) {
-		
-		mav.setViewName("performance/payComplete");
-		return mav;
-	}
+//	@PostMapping("/performance/pay.do")
+//	public ModelAndView pay(ModelAndView mav,
+//							  @RequestParam int[] seatNo,
+//							  @RequestParam String[] seatName,
+//							  @RequestParam int schNo,
+//							  @RequestParam String memberId,
+//							  @RequestParam int total,
+//							  @RequestParam String customRadio) {
+//		
+//		log.debug("customRadio={}",customRadio);
+//		int perNo = performanceService.selectOneSchedule(schNo);
+//		PerJoin performance = performanceService.selectOnePerformance(perNo);
+//		Member member = memberService.selectOneMember(memberId);
+//		mav.addObject("member", member);
+//		mav.addObject("performance", performance);
+//		mav.addObject("total", total);
+//		mav.addObject("seatNo", seatNo);
+//		mav.addObject("seatNoLength",seatNo.length);
+//		mav.addObject("seatName", seatName);
+//		mav.addObject("seatNameLength", seatName.length);
+//		mav.setViewName("performance/pay");
+//		return mav;
+//	}
 	
 	//요거 질문: 아래 똑같은데 ModelAndView는 됬는데 Model은 왜 perNo를 못읽고 화면을 다시 못띄우는지? sql까진 wishlist 정상 들어감.
 //	@PostMapping("/performance/wishListInsert.do")
