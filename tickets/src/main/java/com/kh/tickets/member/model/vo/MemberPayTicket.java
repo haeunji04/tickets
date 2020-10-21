@@ -26,6 +26,7 @@ public class MemberPayTicket implements Serializable {
 	private int ticNo;
 	private int ticPrice;
 	private int seatNo;
+	private String seatName;
 
 	//pay table
 	private String payOption;
@@ -34,7 +35,7 @@ public class MemberPayTicket implements Serializable {
 	private String payYn;
 	private String cancelYn;
 	private int schNo;
-	private int orderNo;
+	private String orderNo;
 	
 	//schedule table
 	private Date schDateTime;
@@ -55,6 +56,11 @@ public class MemberPayTicket implements Serializable {
 	private String theaterCity;
 	private String theaterAddress;
 	private String theaterName;
+	
+	//member table
+	private String name;
+	private String email;
+	private String phone;
 	
 	
 	

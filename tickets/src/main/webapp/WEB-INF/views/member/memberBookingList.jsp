@@ -85,7 +85,7 @@
 					<p style="padding-left:100px;">
 						<span class="d-block">${ pay.perTitle }</span>
 					</a>
-						<span class="d-block mt-3"><small>${ dateformat.format(pay.perStartDate) } ~ ${ dateformat.format(pay.perEndDate) }</small></span>
+ 						<span class="d-block mt-3"><small>${ dateformat.format(pay.perStartDate) } ~ ${ dateformat.format(pay.perEndDate) }</small></span> 
 						<span class="d-block"><small>${ pay.theaterName }</small></span>
 						<span class="d-block"><small> ${ pay.theaterLocation } ${ pay.theaterCity } ${ pay.theaterAddress }</small></span> 
 					</p>
@@ -94,12 +94,12 @@
 				<td>
 					<div class="booking-info" style="text-align:left;">
 						<dl>
-							<dt>예약 정보</dt>
+							<dt>예매 번호</dt>
 							<dd>${ pay.orderNo }</dd>
 						</dl>
 						<dl>
 							<dt>관람일</dt>
-							<dd>${ dateformat.format(pay.schDateTime) }</dd>
+							<dd>${ dateformat2.format(pay.schDateTime) }</dd>
 						</dl>
 						<dl>
 							<dt>매수</dt>
