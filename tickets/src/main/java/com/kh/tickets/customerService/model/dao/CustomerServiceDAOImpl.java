@@ -30,7 +30,7 @@ public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 
 	@Override
 	public int insertNotice(Notice notice) {
-		return sqlSession.selectOne("customerService.insertNotice", notice);
+		return sqlSession.insert("customerService.insertNotice", notice);
 	}
 
 	@Override

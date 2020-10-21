@@ -99,7 +99,7 @@ public class CustomerServiceController {
 		
 		redirectAttr.addFlashAttribute("msg", result > 0? "관람후기 등록 성공!" : "관람후기 등록 실패");
 		mav.addObject(notice);		
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/customerService/customerService.do");
 		
 		return mav;
 	}
