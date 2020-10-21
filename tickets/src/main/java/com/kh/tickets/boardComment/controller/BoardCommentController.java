@@ -78,15 +78,32 @@ public class BoardCommentController {
 	}
 	
 	@PostMapping("/review/insertReview.do")
-	public ModelAndView insertReview(ReviewComment review, ModelAndView mav) {
+	public ModelAndView insertReview(ReviewComment review, ModelAndView mav,
+							   RedirectAttributes redirectAttr) {
 		
 		log.debug("review = {}", review);
 		
 		int result = boardCommentService.insertReview(review);
 		
-		mav.addObject("msg", result > 0? "기대평 등록 성공!" : "기대평 등록 실패");
-		
+		redirectAttr.addFlashAttribute("msg", result > 0? "관람후기 등록 성공!" : "관람후기 등록 실패");
 		mav.addObject("perNo", review.getPerNo());		
+		mav.setViewName("redirect:/performance/performanceInfoView2.do");
+		
+		return mav;
+	}
+	
+	@PostMapping("/review/deleteReview.do")
+	public ModelAndView deleteReview(@RequestParam("reviewCommentNo") int reviewCommentNo,
+									 @RequestParam("perNo") int perNo,
+									 ModelAndView mav,
+									 RedirectAttributes redirectAttr) {
+		
+		log.debug("reviewCommentNo = {}", reviewCommentNo);
+		
+		int result = boardCommentService.deleteReview(reviewCommentNo);
+		
+		mav.addObject("perNo", perNo);
+		redirectAttr.addFlashAttribute("msg", result > 0 ? "관람후기 삭제 성공":"관람후기 삭제 실패");
 		mav.setViewName("redirect:/performance/performanceInfoView2.do");
 		
 		return mav;

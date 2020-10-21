@@ -416,16 +416,25 @@
 								</td>	
 								<td>
 								</td>				
-								<td id="user-comment" class="pr-3 text-left">
-									<p class="text-secondary">${ review.reviewCommentContent } (${ review.reviewCommentDate })</p>
+								<td id="user-comment" class="pr-3 text-left" valign="bottom">
+									<div>
+										<p class="text-secondary">${ review.reviewCommentContent } (${ review.reviewCommentDate })</p>
+									</div>
+									<div>
+									</div>
 								</td>
 								
-								<!-- <td id="hidden-btn">
-									<button class="btn btn-info btn-update"
-											value="">수정</button>
-									<button class="btn btn-info btn-delete"
-											value="">삭제</button>				
-								</td> -->
+								<c:if test="${ review.memberId eq loginMember.memberId }">
+								<td id="hidden-btn" align="right">
+									 <form:form action="${ pageContext.request.contextPath }/review/deleteReview.do"
+									 			method="POST">
+									 	<input type="hidden" name="perNo" value=${ review.perNo } />
+									 	<input type="hidden" name="reviewCommentNo" value=${ review.reviewCommentNo } />
+										<button class="btn btn-sm btn-outline-primary btn-delete"
+												type="submit">삭제</button>
+									 </form:form>
+								</td> 
+								</c:if>
 								<!-- 버튼 보여주기 -->
 								
 							</tr>

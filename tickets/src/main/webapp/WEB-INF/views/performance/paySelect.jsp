@@ -91,7 +91,6 @@ a{
             </div>
 		
 	</div>
-    <form:form action="${pageContext.request.contextPath}/performance/pay.do" method="POST">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
               <table class="table align-items-center table-flush">
@@ -259,7 +258,7 @@ a{
 			
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
-		<input type="hidden" name="memberId" value="${ memberId }" />
+		<%-- <input type="hidden" name="memberId" value="${ memberId }" />
 		<input type="hidden" name="total" value="${ total }" />
 		<input type="hidden" name="schNo" value="${ schNo }" />
 		<c:forEach items="${ seatName }" var="seatName">
@@ -267,7 +266,7 @@ a{
 		</c:forEach>
 		<c:forEach items="${ seatNo }" var="seatNo">
 		<input type="hidden" name="seatNo" value="${ seatNo }" />
-		</c:forEach>
+		</c:forEach> --%>
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
 		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
 		</div>
@@ -276,7 +275,8 @@ a{
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
 	</div>
 	</div>
-    </form:form>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script>
 	function checkAll(){
 	    var check = document.getElementsByName("chkAgree");
@@ -293,8 +293,43 @@ a{
 	    		   
 	    		   return;
 	    		 };
-			});
+			}); */
 
+		var pay = $('[name=customRadio]:checked').val();
+
+		if(pay == "card"){
+			 	var IMP = window.IMP; 
+		        var msg;
+		        var title = JSON.stringify('${ performance.perTitle }');
+		        IMP.init('imp63677074'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		        
+		        IMP.request_pay({
+		            pg : 'kg_ini',
+		            pay_method : 'card',
+		            merchant_uid : 'merchant_' + new Date().getTime(),
+		            name : title,
+		            amount : ${ total }
+		        }, function(rsp) {
+		            if ( rsp.success ) {
+		            	//성공시 이동할 페이지
+		            	msg = "결제 성공";
+		            } else {
+		                msg = '결제에 실패하였습니다.';
+		                msg += '에러내용 : ' + rsp.error_msg;
+		                //실패시 이동할 페이지
+		            	alert(msg);
+		            }
+		        });
+		}
+		else if( pay == "naver"){
+				
+		}
+		else if( pay == "kakao"){
+
+		}
+		else {
+
+		}
 		
 	}
 	</script>
