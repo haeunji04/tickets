@@ -547,6 +547,18 @@
 	from schedule
 	where sch_no = #{ schNo }
 	</select>
+	<insert id="insertPay">
+	insert into pay values(default,#{ schNo },#{ totPrice },#{ seatCount },#{ payOption },default,#{ memberId },default,default )
+	<selectKey resultType="string" keyProperty="order_no" order="AFTER">
+    SELECT LAST_INSERT_ID()
+	</selectKey>
+	</insert>
+	<select id="selectorderNo" resultMap="payMap">
+	select * from pay where sch_no = #{ schNo } and member_id = #{ memberId }
+	</select>
+	<insert id="insertTicket">
+	insert into ticket values(ticket_sequence.nextval,#{ ticPrice },#{ schNo },#{ seatNo },#{ memberId},#{ orderNo })
+	</insert>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -566,6 +578,8 @@
 	<resultMap type="seat" id="seatMap">
 	</resultMap>
 	<resultMap type="selected" id="selectedMap">
+	</resultMap>
+	<resultMap type="pay" id="payMap">
 	</resultMap>
 	
 </mapper>

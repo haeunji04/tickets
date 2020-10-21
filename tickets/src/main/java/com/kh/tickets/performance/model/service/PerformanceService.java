@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.Selected;
+import com.kh.tickets.performance.model.vo.Ticket;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.Pay;
 import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -119,6 +121,12 @@ public interface PerformanceService {
 	int seatLength(int schNo);
 
 	int selectOneSchedule(int schNo);
+
+	String insertPay(Pay pay);
+
+	Pay selectorderNo(Pay pay);
+
+	int insertTicket(Ticket ticket);
 
 
 

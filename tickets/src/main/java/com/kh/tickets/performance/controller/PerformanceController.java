@@ -39,6 +39,7 @@ import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.Pay;
 import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -46,6 +47,7 @@ import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.SchDate;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Selected;
+import com.kh.tickets.performance.model.vo.Ticket;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -668,6 +670,18 @@ public class PerformanceController {
 		return mav;
 	}
 	
+	@GetMapping("/performance/salePerformance.do")
+	public ModelAndView dispaly(ModelAndView mav,
+								@RequestParam String memberId,
+								@RequestParam int perNo) {
+		
+	  PerJoin performance = performanceService.selectOnePerformance(perNo);
+	  mav.addObject("performance", performance);
+	  mav.addObject("memberId", memberId);	
+	  mav.setViewName("performance/salePerformance");
+	  return mav;
+	}
+	
 	@PostMapping("/performance/salePerformance.do")
 	public ModelAndView salePerformance(ModelAndView mav,
 										@RequestParam int[] seatNo,
@@ -718,10 +732,28 @@ public class PerformanceController {
 		return mav;
 	}
 	
-
+	@ResponseBody
 	@PostMapping("/performance/payComplete.do")
-	public ModelAndView payComplete(ModelAndView mav) {
+	public ModelAndView payComplete(Pay pay,
+									Ticket ticket,
+									@RequestParam String[] seatName,
+									@RequestParam int[] seatNo,
+									ModelAndView mav) {
 		
+		int length = pay.getSeatCount();
+		String result = performanceService.insertPay(pay);
+		//Pay payResult = performanceService.selectorderNo(pay);
+		
+		log.debug("result={}",result);
+		
+		/*
+		 * for(int i=0;i<length;i++) { //ticket.setOrderNo(payResult.getOrderNo());
+		 * ticket.setSeatNo(seatNo[i]); int price =
+		 * performanceService.seatPrice(seatNo[i]); ticket.setTicPrice(price); int
+		 * result2 =performanceService.insertTicket(ticket);
+		 * log.debug("ticket={}",ticket); }
+		 */
+		//mav.addObject("pay", attributeValue)
 		mav.setViewName("performance/payComplete");
 		return mav;
 	}
