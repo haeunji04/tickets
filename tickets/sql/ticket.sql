@@ -646,14 +646,16 @@ from pay Y
 
 select  * from member_pay_list_view; 
 
+--DROP VIEW "MEMBER_PAY_TICKET_VIEW";
 create view member_pay_ticket_view as
-select K.tic_no, K.tic_price, K.seat_no,
+select K.tic_no, K.tic_price, K.seat_no, K.seat_name,
        Y.pay_option, Y.pay_date, Y.member_id,
        Y.pay_yn, Y.cancel_yn, Y.sch_no, Y.order_no,
        S.sch_date_time, S.per_no,
        P.per_title, P.per_img_original_filename, P.per_img_renamed_filename,
        P.theater_no, P.per_start_date, P.per_end_date, P.per_rating, P.per_time,
-       T.theater_location, T.theater_city, T.theater_address, T.theater_name
+       T.theater_location, T.theater_city, T.theater_address, T.theater_name,
+       M.name, M.email, M.phone       
 from ticket K
     left join pay Y
         on K.order_no = Y.order_no
@@ -662,7 +664,9 @@ from ticket K
     left join performance P 
         on S.per_no = P.per_no
     left join theater T 
-        on P.theater_no = T.theater_no;
+        on P.theater_no = T.theater_no
+    left join member M 
+        on K.member_id = M.member_id;
         
 select  * from member_pay_ticket_view; 
 
