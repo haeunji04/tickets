@@ -22,4 +22,6 @@ public interface BoardCommentService {
 
 	List<ReviewComment> reivewPerList(String boardCommentWriter);
 
+	int deleteReview(int reviewCommentNo);
+
 }

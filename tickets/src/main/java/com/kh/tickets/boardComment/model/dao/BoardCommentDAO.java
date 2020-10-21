@@ -22,4 +22,6 @@ public interface BoardCommentDAO {
 
 	List<ReviewComment> reivewPerList(String boardCommentWriter);
 
+	int deleteReview(int reviewCommentNo);
+
 }
