@@ -20,4 +20,6 @@ public interface BoardCommentDAO {
 
 	int insertReview(ReviewComment review);
 
+	List<ReviewComment> reivewPerList(String boardCommentWriter);
+
 }

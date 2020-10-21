@@ -284,10 +284,11 @@ a{
 	    for(var i=0; i<check.length; i++){
 	    	check[i].checked = all.checked;
 	    }
-	}
+	} 
 	function submit(){
-			 $("[name=chkAgree]").each(function(){
+			$("[name=chkAgree]").each(function(){
 	    	   if($("[name=chkAgree]").is(":checked") == false) {
+	    	   //if($("input:checkbox[id='chkAgree03']").is(":checked") == false) {
 	    		   alert("구매동의를 체크해주세요");
 	    		   
 	    		   return;

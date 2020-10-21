@@ -718,6 +718,14 @@ public class PerformanceController {
 		return mav;
 	}
 	
+
+	@PostMapping("/performance/payComplete.do")
+	public ModelAndView payComplete(ModelAndView mav) {
+		
+		mav.setViewName("performance/payComplete");
+		return mav;
+	}
+
 //	@PostMapping("/performance/pay.do")
 //	public ModelAndView pay(ModelAndView mav,
 //							  @RequestParam int[] seatNo,
@@ -741,6 +749,7 @@ public class PerformanceController {
 //		mav.setViewName("performance/pay");
 //		return mav;
 //	}
+
 	
 	//요거 질문: 아래 똑같은데 ModelAndView는 됬는데 Model은 왜 perNo를 못읽고 화면을 다시 못띄우는지? sql까진 wishlist 정상 들어감.
 //	@PostMapping("/performance/wishListInsert.do")
@@ -1051,7 +1060,7 @@ public class PerformanceController {
 		return schList;
 	}
 	
-	//내가 기대평 단 공연목록
+	//내가 기대평 댓글 단 공연목록
 	@RequestMapping("/performance/commentPerList.do")
 	public String commentPerList(Model model, Principal principal) {
 		
@@ -1061,6 +1070,10 @@ public class PerformanceController {
 		
 		List<CommentPerList> list = performanceService.commentPerList(boardCommentWriter);
 		log.debug("list@controller = {}", list);
+		
+		List<ReviewComment> reviewList = boardCommentService.reivewPerList(boardCommentWriter);
+		
+		log.debug("reviewList = {}", reviewList);
 		
 		CommentPerList[] arr = list.toArray(new CommentPerList[list.size()]);
 		
@@ -1089,6 +1102,7 @@ public class PerformanceController {
 		model.addAttribute("cList", cList);
 		model.addAttribute("list", list);
 		model.addAttribute("rList", rList);
+		model.addAttribute("reviewList", reviewList);
 		
 		return "performance/commentPerList";
 	}	

@@ -16,7 +16,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <br />
-<h3 class="text-primary my-4">내가 기대평 남긴 공연</h3>
+<h3 class="text-primary my-4">내가 댓글 남긴 공연</h3>
 <br />
 <br />
 
@@ -57,7 +57,7 @@
 	</tr>
 	
 	<tr>
-		<td></td>
+		<td style="text-align: center;" class="text-primary my-4">기대평</td>
 		<td colspan=4>
 			<c:forEach items="${ list }" var="comment"  >
 			<c:if test="${ commentPer.perNo ==  comment.perNo}">
@@ -66,6 +66,18 @@
 			</c:forEach>
 		</td>
 	</tr>
+	<c:if test="${ not empty cList }">
+	<tr>
+		<td style="text-align: center;" class="text-primary my-4">감상후기</td>
+		<td colspan=4>
+			<c:forEach items="${ reviewList }" var="comment"  >
+			<c:if test="${ commentPer.perNo ==  comment.perNo}">
+				<p class="text-secondary">${ comment.memberId }: ${ comment.reviewCommentContent } (${ comment.reviewCommentDate })</p>				
+			</c:if>
+			</c:forEach>
+		</td>
+	</tr>
+	</c:if>
 	
 	</c:forEach>    
   </tbody>
@@ -73,7 +85,7 @@
 
 <div class="text-center">
 	<c:if test="${ empty cList }"> 
-		<p>기대평을 작성한 공연이 없습니다.</p>
+		<p>댓글을 작성한 공연이 없습니다.</p>
 	</c:if>
 </div>
 

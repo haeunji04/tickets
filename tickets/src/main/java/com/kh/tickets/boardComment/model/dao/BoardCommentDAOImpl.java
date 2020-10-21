@@ -45,6 +45,11 @@ public class BoardCommentDAOImpl implements BoardCommentDAO {
 	public int insertReview(ReviewComment review) {
 		return sqlSession.insert("boardComment.insertReview", review);
 	}
+
+	@Override
+	public List<ReviewComment> reivewPerList(String boardCommentWriter) {
+		return sqlSession.selectList("boardComment.reivewPerList", boardCommentWriter);
+	}
 	
 	
 

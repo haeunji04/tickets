@@ -70,6 +70,17 @@
 		)
 	</insert>
 	
+	<select id="reivewPerList" resultMap="reviewMap">
+		select
+			*
+		from
+			review_comment
+		where
+			member_id = #{ boardCommentWriter }
+		order by
+			review_comment_date desc 
+	</select>
+	
 	
 	<resultMap type="boardComment" id="commentListMap">
 	</resultMap>
