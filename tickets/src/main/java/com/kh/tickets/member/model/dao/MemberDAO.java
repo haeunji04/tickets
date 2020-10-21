@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.tickets.member.model.vo.Auth;
 import com.kh.tickets.member.model.vo.Member;
 import com.kh.tickets.member.model.vo.MemberPayList;
+import com.kh.tickets.member.model.vo.MemberPayTicket;
 
 public interface MemberDAO {
 
@@ -40,4 +41,6 @@ public interface MemberDAO {
 	int authEnroll(Auth auth);
 
 	List<MemberPayList> selectMemberPayList(String memberId);
+
+	List<MemberPayTicket> selectMemberPayTicket(String orderNo);
 }

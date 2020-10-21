@@ -192,7 +192,17 @@
 		where member_id = #{ memberId }
 	</select>
 	
+	<select id="selectMemberPayTicket" resultMap="memberPayTicketMap">
+		select
+			*
+		from
+			member_pay_ticket_view
+		where order_no = #{ orderNo }
+	</select>
+	
 	<resultMap type="memberPayList" id="memberPayListMap">
+	</resultMap>
+	<resultMap type="memberPayTicket" id="memberPayTicketMap">
 	</resultMap>
 	
 </mapper>
