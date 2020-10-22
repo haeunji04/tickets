@@ -17,4 +17,6 @@ public interface CustomerService {
 
 	int selectNoticeTotalContents();
 
+	int deleteNotice(int noticeNo);
+
 }

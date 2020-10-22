@@ -98,7 +98,7 @@ public class CustomerServiceController {
 		int result = customerService.insertNotice(notice);
 		
 		redirectAttr.addFlashAttribute("msg", result > 0? "관람후기 등록 성공!" : "관람후기 등록 실패");
-		mav.addObject(notice);		
+		
 		mav.setViewName("redirect:/customerService/customerService.do");
 		
 		return mav;
@@ -119,6 +119,16 @@ public class CustomerServiceController {
 		model.addAttribute("notice", notice);
 		
 		return "customerService/noticeDetail";
+	}
+	
+	@PostMapping("/deleteNotice.do")
+	public String deleteNotice(@RequestParam("noticeNo") int noticeNo,
+							   RedirectAttributes redirectAttr) {
+		
+		int result = customerService.deleteNotice(noticeNo);
+		redirectAttr.addFlashAttribute("msg", result>0? "성공적으로 삭제되었습니다.😊":"삭제에 실패하였습니다.😥");
+		
+		return "redirect:/customerService/customerService.do";
 	}
 
 }

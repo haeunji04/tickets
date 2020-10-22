@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- param 한글 encoding 처리 -->
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
@@ -52,9 +54,11 @@ $(function(){
 			<!-- 공지사항 -->
 			<div class="tab-pane fade show active" id="notice-list" role="tabpanel" aria-labelledby="notice-list-tab">
 				<!-- 관리자에게만 보이는 버튼 -->
-				<div style="float: right; padding: 10px 5px;">
-					<input type="button" value="글쓰기" id="btn-add" class="btn" onclick="goNoticeForm();"/>
-				</div>
+				<sec:authorize access="hasRole('ADMIN')">
+					<div style="float: right; padding: 10px 5px;">
+						<input type="button" value="글쓰기" id="btn-add" class="btn" onclick="goNoticeForm();"/>
+					</div>
+				</sec:authorize>
 				<div style="padding-top: 20px; text-align:left">
 					<p style="font-weight: bold; font-size: 20px">공지사항</p>
 					<p style="text-align:center">* 총 <span class="text-primary"> ${ totalContents }</span> 개의 게시글이 있습니다. *</p>
@@ -68,7 +72,7 @@ $(function(){
 							</tr>
 						</thead>
 						<tbody>  
-							<c:forEach items="${ noticeList }" var="n">
+							<c:forEach items="${ noticeList }" var="n" varStatus="status">
 							<tr data-notice-no="${ n.noticeNo }">
 								<td>${ n.noticeNo }</td>
 								<td>${ n.noticeKind }</td>

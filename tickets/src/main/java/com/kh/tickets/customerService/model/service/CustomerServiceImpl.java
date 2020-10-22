@@ -51,5 +51,12 @@ public class CustomerServiceImpl implements CustomerService {
 	public int selectNoticeTotalContents() {
 		return customerServiceDAO.selectNoticeTotalContents();
 	}
+
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return customerServiceDAO.deleteNotice(noticeNo);
+	}
+	
+	
 	
 }

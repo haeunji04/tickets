@@ -20,4 +20,6 @@ public interface CustomerServiceDAO {
 
 	int selectNoticeTotalContents();
 
+	int deleteNotice(int noticeNo);
+
 }
