@@ -325,6 +325,16 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.selectOpenList");
 	}
 
+	@Override
+	public String selectOnePay(int ticNo) {
+		return sqlSession.selectOne("performance.selectOneTicket", ticNo);
+	}
+
+	@Override
+	public int updatePayCount(String orderNo) {
+		return sqlSession.update("performance.updatePayCount", orderNo);
+	}
+
 	
 	
 }

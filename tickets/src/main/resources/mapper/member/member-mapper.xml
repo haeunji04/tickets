@@ -189,7 +189,8 @@
 			*
 		from
 			member_pay_list_view
-		where member_id = #{ memberId }
+		where member_id = #{ memberId } 
+		order by pay_date desc
 	</select>
 	
 	<select id="selectMemberPayTicket" resultMap="memberPayTicketMap">
@@ -207,6 +208,13 @@
 			member_pay_list_view
 		where per_no = #{ perNo }
 	</select>
+	
+	<delete id="ticketDelete">
+		delete from 
+			ticket
+		where 
+			tic_no = #{ ticNo }	
+	</delete>
 	
 	<resultMap type="memberPayList" id="memberPayListMap">
 	</resultMap>

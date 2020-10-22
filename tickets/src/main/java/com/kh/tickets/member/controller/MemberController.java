@@ -43,6 +43,7 @@ import com.kh.tickets.member.model.vo.MemberPayList;
 import com.kh.tickets.member.model.vo.MemberPayTicket;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
+import com.kh.tickets.performance.model.vo.Pay;
 
 
 
@@ -511,7 +512,26 @@ public class MemberController {
 			
 			mav.setViewName("member/memberBookingList");
 			return mav;
-				}		
+				}
+		
+		@RequestMapping(value = "/member/ticketDelete.do",
+				method = RequestMethod.POST)
+		public String ticketDelete(@RequestParam int ticNo, RedirectAttributes redirectAttributes){
+			String orderNo = performanceService.selectOnePay(ticNo);
+			int result = memberService.ticketDelete(ticNo);
+			Pay pay = new Pay();
+			log.debug("orderNo = {}", orderNo);
+			
+			int result2 = performanceService.updatePayCount(orderNo);
+			
+			if(result2 >0) {
+				log.debug("payCount 수정 성공");
+			}
+			
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "티켓 삭제성공" : "티켓 삭제실패");
+//			redirectAttributes.addFlashAttribute("orderNo", orderNo);
+			return "redirect:/member/memberBookingList.do";
+		}
 		
 		@GetMapping("/member/adminMemberSearchList")
 		public ModelAndView adminMemberSearchList(ModelAndView mav,

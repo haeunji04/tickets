@@ -195,7 +195,7 @@
                                 	<td>좌석별 가격 현황</td>
                                 	<td></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                 	<td></td>
                                 	<td>VIP석</td>
                                 	<td>160,000원</td>
@@ -204,21 +204,21 @@
                                 	<td></td>
                                 	<td>R석</td>
                                 	<td>130,000원</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                 	<td></td>
                                 	<td>S석</td>
-                                	<td>110,000원</td>
+                                	<td>50,000원</td>
                                 </tr>
                                 <tr>
                                 	<td></td>
                                 	<td>A석</td>
-                                	<td>90,000원</td>
+                                	<td>45,000원</td>
                                 </tr>
                                 <tr>
                                 	<td></td>
                                 	<td>B석</td>
-                                	<td>60,000원</td>
+                                	<td>40,000원</td>
                                 </tr>				
                             </table>
                             </div>

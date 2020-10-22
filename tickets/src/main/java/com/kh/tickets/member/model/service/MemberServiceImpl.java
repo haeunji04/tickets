@@ -115,6 +115,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectCompanyPayList(perNo);
 	}
 
+	@Override
+	public int ticketDelete(int ticNo) {
+		return memberDAO.ticketDelete(ticNo);
+	}
+
 	
 
 	

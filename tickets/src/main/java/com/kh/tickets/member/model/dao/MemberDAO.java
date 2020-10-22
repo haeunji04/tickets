@@ -45,4 +45,6 @@ public interface MemberDAO {
 	List<MemberPayTicket> selectMemberPayTicket(String orderNo);
 
 	List<MemberPayList> selectCompanyPayList(int perNo);
+
+	int ticketDelete(int ticNo);
 }

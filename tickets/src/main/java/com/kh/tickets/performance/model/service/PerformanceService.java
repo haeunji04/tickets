@@ -139,6 +139,10 @@ public interface PerformanceService {
 	
 	List<Performance> selectOpenList();
 
+	String selectOnePay(int ticNo);
+
+	int updatePayCount(String orderNo);
+
 
 
 
