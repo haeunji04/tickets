@@ -335,6 +335,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectScheduleNo(perNo);
 	}
 
+	@Override
+	public int updateSaleCount(int perNo) {
+		return performanceDAO.updateSaleCount(perNo);
+	}
+
 	
 	
 

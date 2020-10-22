@@ -145,5 +145,7 @@ public interface PerformanceDAO {
 	
 	int selectScheduleNo(int perNo);
 
+	int updateSaleCount(int perNo);
+
 
 }
