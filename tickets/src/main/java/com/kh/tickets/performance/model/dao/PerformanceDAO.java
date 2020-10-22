@@ -138,5 +138,7 @@ public interface PerformanceDAO {
 	
 	List<Performance> selectOpenList();
 
+	int selectScheduleNo(int perNo);
+
 
 }

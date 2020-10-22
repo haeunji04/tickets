@@ -91,6 +91,7 @@ a{
             </div>
 		
 	</div>
+	<c:if test="${ categoryCode ne 'C5'}">
 	<form:form id="complete" action="${pageContext.request.contextPath }/performance/payComplete.do" method="POST">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
@@ -109,14 +110,9 @@ a{
 						     <label class="custom-control-label" for="customRadio2">카카오페이</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio3" name="payOption" value="naver" class="custom-control-input">
-						     <label class="custom-control-label" for="customRadio3">네이버페이</label>
+						     <input type="radio" id="customRadio3" name="payOption" value="payco" class="custom-control-input">
+						     <label class="custom-control-label" for="customRadio3">페이코</label>
 						   </div>
-						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio4" name="payOption" value="pay" class="custom-control-input">
-						     <label class="custom-control-label" for="customRadio4">무통장입금</label>
-						   </div>
-						  
 						 </div>
                       </div>
                     </th>
@@ -139,6 +135,45 @@ a{
 			<input type="hidden" name="seatNo" value="${ seatNo }" />
 			</c:forEach>
 		</form:form>
+	</c:if>
+	<c:if test="${ categoryCode eq 'C5'}">
+	<form:form id="complete" action="${pageContext.request.contextPath }/performance/payComplete.do" method="GET">
+	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
+		<h5>결제수단을 선택하세요.</h5>
+              <table class="table align-items-center table-flush">
+                <tbody class="list">
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                          <div class="form-group">
+						   <div class="custom-control custom-radio d-inline-block mx-3">
+						     <input type="radio" id="customRadio1" name="payOption" value="card" class="custom-control-input" checked="">
+						     <label class="custom-control-label" for="customRadio1">신용카드</label>
+						   </div>
+						   <div class="custom-control custom-radio d-inline-block mx-3">
+						     <input type="radio" id="customRadio2" name="payOption" value="kakao" class="custom-control-input">
+						     <label class="custom-control-label" for="customRadio2">카카오페이</label>
+						   </div>
+						   <div class="custom-control custom-radio d-inline-block mx-3">
+						     <input type="radio" id="customRadio3" name="payOption" value="payco" class="custom-control-input">
+						     <label class="custom-control-label" for="customRadio3">페이코</label>
+						   </div>
+						 </div>
+                      </div>
+                    </th>
+                    
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+            <input type="hidden" name="memberId" value="${ memberId }" />
+			<input type="hidden" name="totPrice" value="${ total }" />
+			<input type="hidden" name="perNo" value="${ perNo }" />
+			<input type="hidden" name="seatNo" value="0" />
+			<input type="hidden" name="seatCount" value="${ count }" />
+		</form:form>
+	</c:if>
             <div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
             <h5></h5>
             	<div id="partCheckAgree" class="box_cont box_receipt">
@@ -169,7 +204,7 @@ a{
 											</tr>
 										</thead>
 										<tbody id="partCancelFeeList2">
-										<tr><td>2020.09.27</td><td>없음</td></tr><tr><td>2020.09.28 ~ 2020.09.29</td><td>티켓금액의 30%</td></tr></tbody>
+										<tr><td>한달 전</td><td>없음</td></tr><tr><td>일주일 전</td><td>티켓금액의 30%</td></tr></tbody>
 									</table>
 								</div>
 							</div>
@@ -216,11 +251,11 @@ a{
 						
 						<li class="list_agree">
 							
-										<div class="tit_check">
-											<input type="checkbox" id="chkAgreeChannel" name="chkAgreeChannel" title="[선택] 카카오톡 멜론티켓 채널 추가">
-											<label for="chkAgreeChannel"><span class="txt_lab">[선택] 카카오톡 멜론티켓 채널 추가</span></label>
-											<a href="javascript: popupAgreement('05');" class="btn_flexible btn_flexible_ico2 btn_detail"><span>상세보기</span></a>
-										</div>
+							<div class="tit_check">
+								<input type="checkbox" id="chkAgreeChannel" name="chkAgreeChannel" title="[선택] 카카오톡 멜론티켓 채널 추가">
+								<label for="chkAgreeChannel"><span class="txt_lab">[선택] 카카오톡 멜론티켓 채널 추가</span></label>
+								<a href="javascript: popupAgreement('05');" class="btn_flexible btn_flexible_ico2 btn_detail"><span>상세보기</span></a>
+							</div>
 									
 							</li>
 						</ul>
@@ -233,6 +268,7 @@ a{
 	<div class="show-seat h-30">
 		
 	</div>
+	<c:if test="${ categoryCode ne 'C5'}">
 	<div class="text-left" style="padding-left:50px;">
 			<h5>${ performance.perTitle }</h5>
 		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
@@ -277,6 +313,46 @@ a{
 		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
 		</div>
 	</div>
+	</c:if>
+	<c:if test="${ categoryCode eq 'C5'}">
+	<div class="text-left" style="padding-left:50px;">
+			<h5>${ performance.perTitle }</h5>
+		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
+			<ul style="padding-left:20px;">
+				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
+				<li>
+					비 지정석
+					<br />
+				</li>
+			</ul>
+		</div>
+		<div class="side-bar d-block text-left" style="padding-left:20px;">
+			<h5>티켓 결제 금액</h5>
+			<div class="seat-grade mb-3 border text-left" style="margin-top:30px;width:316px;">
+			<table>
+				<tr>
+					<td style="width:120px;padding-left:20px;">티켓금액</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ total }원</td>
+				</tr>
+				<tr>
+					<td style="width:120px;padding-left:20px;">기본가</td>
+					<td style="width:180px;text-align:right;padding-right:20px;">${ total }원</td>
+				</tr>
+				<tr>
+					<td style="width:150px;padding-left:20px;"><h5>총결제금액</h5></td>
+					<td style="width:150px;text-align:right;padding-right:20px;"><h5>${ total }원</h5></td>
+				</tr>
+			</table>
+		</div>
+			
+		</div>
+		<div class="button" style="padding-left:20px;padding-top:30px;">
+
+		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
+		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
+		</div>
+	</div>
+	</c:if>
 	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
 	</div>
@@ -310,8 +386,8 @@ a{
 		        IMP.init('imp63677074'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		        
 		        IMP.request_pay({
-		            pg : 'kg_ini',
-		            pay_method : 'card',
+		            pg : 'kg_inicis',
+		            pay_method : 'kg_inicis',
 		            merchant_uid : 'merchant_' + new Date().getTime(),
 		            name : title,
 		            amount : 100
@@ -326,15 +402,53 @@ a{
 		            }
 		        });
 		}
-		else if( pay == "naver"){
-				
+		else if( pay == "payco"){
+			var IMP = window.IMP; 
+	        var msg;
+	        var title = JSON.stringify('${ performance.perTitle }');
+	        IMP.init('imp36412553'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	        
+	        IMP.request_pay({
+	            pg : 'payco',
+	            pay_method : 'payco',
+	            merchant_uid : 'merchant_' + new Date().getTime(),
+	            name : title,
+	            amount : 100
+	        }, function(rsp) {
+	            if ( rsp.success ) {
+	            	$('#complete').submit();
+	            } else {
+	                msg = '결제에 실패하였습니다.';
+	                msg += '에러내용 : ' + rsp.error_msg;
+	                //실패시 이동할 페이지
+	            	alert(msg);
+	            }
+	        });
 		}
 		else if( pay == "kakao"){
-
+			var IMP = window.IMP; 
+	        var msg;
+	        var title = JSON.stringify('${ performance.perTitle }');
+	        IMP.init('imp63983253'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	        
+	        IMP.request_pay({
+	            pg : 'kakao',
+	            pay_method : 'kakaoPay',
+	            merchant_uid : 'merchant_' + new Date().getTime(),
+	            name : title,
+	            amount : 100
+	        }, function(rsp) {
+	            if ( rsp.success ) {
+	            	$('#complete').submit();
+	            } else {
+	                msg = '결제에 실패하였습니다.';
+	                msg += '에러내용 : ' + rsp.error_msg;
+	                //실패시 이동할 페이지
+	            	alert(msg);
+	            }
+	        });
 		}
-		else {
-
-		}
+		
 		
 	}
 	</script>

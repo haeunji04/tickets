@@ -588,6 +588,11 @@
 		order by 
 			reservation_start_date
 	</select>
+	<select id="selectScheduleNo" resultType="_int">
+	select sch_no
+	from schedule
+	where per_no = #{ perNo }
+	</select>
 	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>

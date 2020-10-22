@@ -245,12 +245,12 @@
                 <c:choose>
 					<c:when test="${ reservationStartDate <= nowDate }">
 						<div class="box_type_comment">
-						<form:form action="${pageContext.request.contextPath }/performance/salePerformance.do" method="GET">
+						<form:form action="${pageContext.request.contextPath }/performance/salePerformance.do" id="c5" method="GET" name='salePerformance' target='salePerformance'>
 							<input type='hidden' name='perNo' value='${performance.perNo}'/>
 							<input type='hidden' name='memberId' value='${loginMember.memberId}'/>
 							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				            <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-block">예매하기</button>
+				            <button type="button" id="submit-btn" class="btn btn-primary btn-lg btn-block" onclick="newWindow();">예매하기</button>
 						</form:form>
 				        </div>
 					</c:when>
@@ -894,6 +894,14 @@ function validate(){
 
 		    window.open(url,name,"width=1200,height=600,left=50,top=50");
 		    $frm.submit();
+		}
+		function newWindow(){
+			var $frm = $('#c5');
+			var name = $frm[0].getAttribute('name');
+
+			var url = "${pageContext.request.contextPath }/performance/salePerformance.do";
+			window.open(url,name,"width=1200,height=600,left=50,top=50");
+			$frm.submit();
 		}
 
 	 </script>

@@ -139,6 +139,8 @@ public interface PerformanceService {
 	
 	List<Performance> selectOpenList();
 
+	int selectScheduleNo(int perNo);
+
 
 
 

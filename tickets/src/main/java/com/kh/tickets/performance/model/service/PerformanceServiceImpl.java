@@ -321,6 +321,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.selectOpenList();
 	}
 
+	@Override
+	public int selectScheduleNo(int perNo) {
+		return performanceDAO.selectScheduleNo(perNo);
+	}
+
 	
 	
 
