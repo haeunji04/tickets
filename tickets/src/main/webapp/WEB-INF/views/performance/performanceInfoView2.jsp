@@ -35,7 +35,9 @@
 </style>
 <!-- 공연 시작(오픈) 날짜비교 -->
 <jsp:useBean id="now" class="java.util.Date" />
+<%-- <jsp:useBean id="now2" class="java.util.Date" /> --%>
 <fmt:formatDate value="${ now }" pattern="yyyy.MM.dd(E) HH:mm" var="nowDate" />             <%-- 오늘날짜 --%>
+<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="today" />             <%-- 오늘날짜 --%>
 <fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMdd" var="openDate"/>     <%-- 시작날짜 --%>
 <fmt:formatDate value="${ performance.perEndDate }" pattern="yyyyMMdd" var="endDate"/>     <%-- 마감날짜 --%>
 <fmt:formatDate value="${ performance.reservationStartDate }" pattern="yyyy.MM.dd(E) HH:mm" var="reservationStartDate" />
@@ -121,7 +123,7 @@
 				<td colspan=3>
 					<h3>
 						${ performance.perTitle }
-						<c:if test="${endDate eq nowDate }">
+						<c:if test="${endDate eq today }">
 							<span class="text-primary" style="font-size:25px">(마감일 오늘티켓 50%할인)</span>
 						</c:if> 
 				
