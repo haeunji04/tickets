@@ -3,7 +3,6 @@ package com.kh.tickets.performance.model.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.Pay;
 import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -18,6 +18,7 @@ import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.Selected;
+import com.kh.tickets.performance.model.vo.Ticket;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Repository
@@ -282,8 +283,23 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.selectOneSchedule",schNo);
 	}
 
-	
-	
+	@Override
+	public int insertPay(Pay pay) {
+		return sqlSession.insert("performance.insertPay", pay);
+
+	}
+
+	@Override
+	public Pay selectorderNo(Pay pay) {
+		return sqlSession.selectOne("performance.selectorderNo", pay);
+	}
+
+	@Override
+	public int insertTicket(Ticket ticket) {
+		return sqlSession.insert("performance.insertTicket", ticket);
+		
+	}
+
 	
 	
 }

@@ -42,6 +42,7 @@ import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.Pay;
 import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -49,6 +50,7 @@ import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.SchDate;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Selected;
+import com.kh.tickets.performance.model.vo.Ticket;
 import com.kh.tickets.performance.model.vo.WishList;
 
 import lombok.extern.slf4j.Slf4j;
@@ -707,9 +709,11 @@ public class PerformanceController {
 	        fileCal.setTime(fileDate);
 	        long diffMil = todayMil - fileCal.getTimeInMillis() ;
 	        log.debug("fileCal.getTimeInMillis()@@ = {}", fileCal.getTimeInMillis());
+	        log.debug("arr[i]={}",arr[i].getSeatNo());
 	        log.debug("todayMil@@ = {}", todayMil);
 	        log.debug("diffMil@@ = {}", diffMil);
 	        log.debug("arrlength@@ = {}", arr.length);
+	        log.debug("fileDate@@ = {}", fileDate);
 	         
 	        //날짜로 계산
 	        int diffDay = (int)(diffMil/60000) ;
@@ -744,6 +748,18 @@ public class PerformanceController {
 		mav.addObject("schNo", schNo);
 		mav.setViewName("/performance/selectSeat2");
 		return mav;
+	}
+	
+	@GetMapping("/performance/salePerformance.do")
+	public ModelAndView dispaly(ModelAndView mav,
+								@RequestParam String memberId,
+								@RequestParam int perNo) {
+		
+	  PerJoin performance = performanceService.selectOnePerformance(perNo);
+	  mav.addObject("performance", performance);
+	  mav.addObject("memberId", memberId);	
+	  mav.setViewName("performance/salePerformance");
+	  return mav;
 	}
 	
 	@PostMapping("/performance/salePerformance.do")
@@ -796,10 +812,35 @@ public class PerformanceController {
 		return mav;
 	}
 	
-
+	@ResponseBody
 	@PostMapping("/performance/payComplete.do")
-	public ModelAndView payComplete(ModelAndView mav) {
+	public ModelAndView payComplete(Pay pay,
+									Ticket ticket,
+									@RequestParam String[] seatName,
+									@RequestParam int[] seatNo,
+									ModelAndView mav) {
 		
+		int length = pay.getSeatCount();
+		
+		String orderNum ="M";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHssSS");
+		orderNum += sdf.format(new Date());
+		pay.setOrderNo(orderNum);
+
+		int result = performanceService.insertPay(pay);
+		
+		log.debug("result={}",result);
+		
+		
+		 for(int i=0;i<length;i++) { //ticket.setOrderNo(payResult.getOrderNo());
+			 ticket.setSeatNo(seatNo[i]); 
+			 ticket.setSeatName(seatName[i]);
+			 int price = performanceService.seatPrice(seatNo[i]); 
+			 ticket.setTicPrice(price); 
+			 ticket.setOrderNo(orderNum);
+			 int result2 =performanceService.insertTicket(ticket);
+			 log.debug("ticket={}",ticket); 
+		 }
 		mav.setViewName("performance/payComplete");
 		return mav;
 	}
@@ -1223,6 +1264,7 @@ public class PerformanceController {
 
 		int seatNo = Integer.parseInt((String) param.get("seatNo"));
 		String memberId = String.valueOf(param.get("memberId"));
+		Date date = new Date();
 		memberId = memberId.replaceAll("\"", "");
 		param.put("seatNo", seatNo);
 		param.put("memberId", memberId);

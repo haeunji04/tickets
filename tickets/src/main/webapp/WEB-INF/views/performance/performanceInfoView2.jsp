@@ -223,7 +223,6 @@
                     </dl>
                     
                 </div>
-                </c:if>
                 <c:choose>
 					<c:when test="${ reservationStartDate < nowDate }">
 						<div class="box_type_comment">
@@ -237,6 +236,28 @@
 			  		</div>
 					</c:otherwise> 	
 				</c:choose>
+                </c:if>
+                <c:if test="${openDate <= nowDate and performance.categoryCode eq 'C5'}">
+                <c:choose>
+					<c:when test="${ openDate < nowDate }">
+						<div class="box_type_comment">
+						<form:form action="${pageContext.request.contextPath }/performance/salePerformance.do" method="GET">
+							<input type='hidden' name='perNo' value='${performance.perNo}'/>
+							<input type='hidden' name='memberId' value='${loginMember.memberId}'/>
+							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				            <button type="submit" class="btn btn-primary btn-lg btn-block">예매하기</button>
+						</form:form>
+				        </div>
+					</c:when>
+			  		<c:otherwise>
+			  		<div>
+					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ dateformat.format(performance.perStartDate) }부터 티켓 오픈!-</h3>
+			  		</div>
+					</c:otherwise> 	
+				</c:choose>	
+                
+                </c:if>
                <!-- <div class="box_type_comment">
                <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
                </div> -->

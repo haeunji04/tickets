@@ -550,6 +550,12 @@
 	from schedule
 	where sch_no = #{ schNo }
 	</select>
+	<insert id="insertPay">
+	insert into pay values(#{ orderNo },#{ schNo },#{ totPrice },#{ seatCount },#{ payOption },default,#{ memberId },default,default )
+	</insert>
+	<insert id="insertTicket">
+	insert into ticket values(ticket_sequence.nextval,#{ ticPrice },#{ schNo },#{ seatNo },#{ memberId},#{ orderNo },#{ seatName })
+	</insert>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
@@ -569,6 +575,8 @@
 	<resultMap type="seat" id="seatMap">
 	</resultMap>
 	<resultMap type="selected" id="selectedMap">
+	</resultMap>
+	<resultMap type="pay" id="payMap">
 	</resultMap>
 	
 </mapper>

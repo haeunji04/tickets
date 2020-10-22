@@ -10,6 +10,7 @@ import com.kh.tickets.performance.model.dao.PerformanceDAO;
 import com.kh.tickets.performance.model.vo.CommentPerList;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.MyWishList;
+import com.kh.tickets.performance.model.vo.Pay;
 import com.kh.tickets.performance.model.vo.PerJoin;
 import com.kh.tickets.performance.model.vo.Performance;
 import com.kh.tickets.performance.model.vo.PerformanceHall;
@@ -17,6 +18,7 @@ import com.kh.tickets.performance.model.vo.RecentlyPerList;
 import com.kh.tickets.performance.model.vo.Schedule;
 import com.kh.tickets.performance.model.vo.Seat;
 import com.kh.tickets.performance.model.vo.Selected;
+import com.kh.tickets.performance.model.vo.Ticket;
 import com.kh.tickets.performance.model.vo.WishList;
 
 @Service
@@ -277,6 +279,21 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int selectOneSchedule(int schNo) {
 		return performanceDAO.selectOneSchedule(schNo);
+	}
+
+	@Override
+	public int insertPay(Pay pay) {
+		return performanceDAO.insertPay(pay);
+	}
+
+	@Override
+	public Pay selectorderNo(Pay pay) {
+		return performanceDAO.selectorderNo(pay);
+	}
+
+	@Override
+	public int insertTicket(Ticket ticket) {
+		return performanceDAO.insertTicket(ticket);
 	}
 
 	

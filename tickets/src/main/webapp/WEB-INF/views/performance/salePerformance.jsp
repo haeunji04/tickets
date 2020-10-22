@@ -213,7 +213,7 @@ a{
 		
 	</div>
 	<div class="text-left" style="padding-left:50px;">
-			<h5>캣츠<40주년> 내한공연</h5>
+			<h5>${ performance.perTitle }</h5>
 		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
 			<ul style="padding-left:20px;">
 				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
@@ -270,6 +270,197 @@ a{
 		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
 	</div>
 	</div>
+	<c:if test=" ${ schNo eq null }">
+	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
+		<h5>가격을 선택하세요.</h5>
+		 <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="sort" data-sort="name">좌석</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                       
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">기본가</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                    </td>
+                    <td>
+                      <div class="form-group" style="width:100px;height:20px;">
+					    <select class="custom-select2">
+					      <option selected="">0</option>
+					    <c:forEach begin="1" end="4" step="1" var="i">
+					      <option value="0">${i}</option>
+					      </c:forEach>
+					    </select>
+					  </div>
+                    </td>
+                   
+                   
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">국가유공자(본인만)</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      	할인 10000원
+                    </td>
+                     <td>
+                      <div class="form-group" style="width:100px;height:20px;">
+					    <select class="custom-select2">
+					      <option selected="">0</option>
+					    <c:forEach begin="1" end="4" step="1" var="i">
+					      <option value="10000">${i}</option>
+					      </c:forEach>
+					    </select>
+					  </div>
+                    </td>
+                   
+                  
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">재관람할인</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      	할인 3000원
+                    </td>
+                     <td>
+                      <div class="form-group" style="width:100px;height:20px;">
+					    <select class="custom-select2">
+					      <option selected="">0</option>
+					    <c:forEach begin="1" end="4" step="1" var="i">
+					      <option value="3000">${i}</option>
+					      </c:forEach>
+					    </select>
+					  </div>
+                    </td>
+                   
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">50플러스할인(1971년이전출생자)</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      	할인 5000원
+                    </td>
+                     <td>
+                      <div class="form-group" style="width:100px;height:20px;">
+					    <select class="custom-select2">
+					      <option selected="">0</option>
+					    <c:forEach begin="1" end="4" step="1" var="i">
+					      <option value="5000">${i}</option>
+					      </c:forEach>
+					    </select>
+					  </div>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="name mb-0 text-sm">장애인할인</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="budget">
+                      	할인 5000원
+                    </td>
+                     <td>
+                      <div class="form-group" style="width:100px;height:20px;">
+					    <select class="custom-select2">
+					      <option selected="0">0</option>
+					    <c:forEach begin="1" end="4" step="1" var="i">
+					      <option value="5000">${i}</option>
+					      </c:forEach>
+					    </select>
+					  </div>
+                    </td>
+                   
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+		
+	</div>
+		
+
+	<div class="position-fixed text-center" style="top:60px;left:750px;width:400px;height:1000px;background-color:white;line-height:30px; ">
+	<div class="show-seat h-30">
+		
+	</div>
+	<div class="text-left" style="padding-left:50px;">
+			<h5>${ performance.perTitle }</h5>
+		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
+			<ul style="padding-left:20px;">
+				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
+				<li>
+					총 <p id="seatCount"></p>매 선택
+					<br />
+					
+				</li>
+			</ul>
+		</div>
+		<div class="side-bar d-block text-left" style="padding-left:20px;">
+			<h5>티켓 결제 금액</h5>
+			<div class="seat-grade mb-3 border text-left" style="margin-top:30px;width:316px;">
+			<table>
+				<tr>
+					<td style="width:120px;padding-left:20px;">티켓금액</td>
+					<td style="width:180px;text-align:right;padding-right:20px;"><span id="sale">0</span>원</td>
+				</tr>
+				<tr>
+					<td style="width:120px;padding-left:20px;">가격할인</td>
+					<td style="width:180px;text-align:right;padding-right:20px;"><span id="sale">0</span>원</td>
+				</tr>
+				<tr>
+					<td style="width:150px;padding-left:20px;"><h5>총결제금액</h5></td>
+					<td style="width:150px;text-align:right;padding-right:20px;">
+						<h5 id="order2"></h5><h5>원</h5>
+					</td>
+				</tr>
+			</table>
+		</div>
+			
+		</div>
+		<div class="button" style="padding-left:20px;padding-top:30px;">
+		<form:form action="${pageContext.request.contextPath}/performance/paySelect.do" method="POST">
+		<input type="hidden" name="memberId" value="${ memberId }" />
+		<input type="hidden" name="originTotal" value="${ total }"/>
+		<input type="hidden" name="sale" value=""/>
+		<input type="hidden" name="total" value="" />
+		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
+		<button type="submit" class="btn btn-primary" style="width:150px;">다음</button>
+		</form:form>
+		</div>
+	</div>
+	<div class="loading position-absolute" style="top:0;left:0;opacity:0.7;width:1000px;height:1000px;background-color:white;display:none;">
+		<img class="position-absolute" src="${pageContext.request.contextPath }/resources/images/etc/loading.png" style="top:380px;left:300px;"/>
+	</div>
+	</div>
+	</c:if>
 	<script>
 	$(function(){
 	var number = 0;
