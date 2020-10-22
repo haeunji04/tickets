@@ -46,7 +46,7 @@
 </div>	
 
 <div class="text-center">
-	<c:if test="${ empty rList }"> 
+	<c:if test="${ empty list }"> 
 		<p>최근 본 공연이 없습니다.</p>
 	</c:if>
 </div>

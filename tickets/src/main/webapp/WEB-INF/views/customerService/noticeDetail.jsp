@@ -34,7 +34,9 @@ div#notice-container{width:90%; margin:0 auto; text-align:center;}
 			<form:form action="${ pageContext.request.contextPath }/customerService/deleteNotice.do" method="POST">
 				<input type="hidden" name="noticeNo" value=${ notice.noticeNo } />
 				<input type="button" class="btn btn-primary" value="목록" onclick="javascript:history.back();"/>
-				<input type="submit" value="삭제" class="btn btn-outline-primary"/>
+				<sec:authorize access="hasRole('ADMIN')">
+					<input type="submit" value="삭제" class="btn btn-outline-primary"/>
+				</sec:authorize>
 			</form:form>
 		</div>
 	</div>
