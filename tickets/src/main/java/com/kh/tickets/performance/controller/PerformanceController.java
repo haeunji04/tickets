@@ -849,6 +849,7 @@ public class PerformanceController {
 		log.debug("result={}",result);
 		
 		
+		int perNo = performanceService.selectOneSchedule(ticket.getSchNo());
 		 for(int i=0;i<length;i++) { 
 			 log.debug("ticket={}",ticket);
 			 ticket.setSeatNo(seatNo[i]); 
@@ -862,8 +863,8 @@ public class PerformanceController {
 			 ticket.setOrderNo(orderNum);
 			 int result2 =performanceService.insertTicket(ticket);
 			 log.debug("ticket={}",ticket); 
+			 int result3 = performanceService.updateSaleCount(perNo);
 		 }
-		int perNo = performanceService.selectOneSchedule(ticket.getSchNo());
 		PerJoin performance = performanceService.selectOnePerformance(perNo);
 		mav.addObject("performance", performance);
 		

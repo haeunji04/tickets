@@ -141,6 +141,8 @@ public interface PerformanceService {
 
 	int selectScheduleNo(int perNo);
 
+	int updateSaleCount(int perNo);
+
 
 
 

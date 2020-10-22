@@ -330,6 +330,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectOne("performance.selectScheduleNo", perNo);
 	}
 
+	@Override
+	public int updateSaleCount(int perNo) {
+		return sqlSession.update("performance.updateSaleCount",perNo);
+	}
+
 	
 	
 }

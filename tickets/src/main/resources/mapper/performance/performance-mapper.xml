@@ -591,7 +591,9 @@
 	from schedule
 	where per_no = #{ perNo }
 	</select>
-	
+	<update id="updateSaleCount">
+	update performance set sale_cnt = sale_cnt+1 where per_no = #{ perNo }
+	</update>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
