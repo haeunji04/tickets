@@ -47,6 +47,4 @@ public interface MemberService {
 	List<MemberPayList> selectCompanyPayList(int perNo);
 
 	int ticketDelete(int ticNo);
-
-	int ticketcancel(int ticNo);
 }
