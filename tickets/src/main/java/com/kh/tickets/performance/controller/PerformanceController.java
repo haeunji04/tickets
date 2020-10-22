@@ -697,7 +697,7 @@ public class PerformanceController {
 			log.debug("arrlength@@ = {}", arr.length);
 			log.debug("fileDate@@ = {}", fileDate);
 
-			// 분으로로 계산
+			// 분으로 계산
 			int diffMin = (int) (diffMil / 60000);
 
 			log.debug("diffDay@@ = {}", diffMin);
