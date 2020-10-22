@@ -14,6 +14,24 @@
 	<resultMap id="noticeMap" type="notice">
 	</resultMap>	
 	
+	<select id="selectNoticeTotalContents" resultType="_int">
+	    select 
+	    	count(*) 
+	    from 
+	    	notice	
+	</select>
+	
+	<select id="selectFaqList" resultMap="faqMap">
+		select 
+			* 
+		from 
+			faq
+		order by
+			faq_no
+	</select>
+	<resultMap id="faqMap" type="faq">
+	</resultMap>
+	
 	<insert id="insertNotice">
 		insert into
 			notice (
@@ -28,13 +46,6 @@
 			#{ noticeTitle },
 			#{ noticeContent }		
 		)
-		
-		<selectKey keyProperty="noticeNo" resultType="_int" order="AFTER">
-			select
-				seq_notice_no.currval
-			from 
-				dual
-		</selectKey>
 	</insert>
 	
 	<select id="selectOneNoticeCollection" resultMap="noticeCollectionMap">

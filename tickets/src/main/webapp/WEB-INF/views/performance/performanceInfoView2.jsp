@@ -35,9 +35,10 @@
 </style>
 <!-- 공연 시작(오픈) 날짜비교 -->
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${ now }" pattern="yyyyMMdd" var="nowDate" />             <%-- 오늘날짜 --%>
+<fmt:formatDate value="${ now }" pattern="yyyyMMdd HH:mm" var="nowDate" />             <%-- 오늘날짜 --%>
 <fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMdd" var="openDate"/>     <%-- 시작날짜 --%>
 <fmt:formatDate value="${ performance.perEndDate }" pattern="yyyyMMdd" var="endDate"/>     <%-- 마감날짜 --%>
+<fmt:formatDate value="${ performance.reservationStartDate }" pattern="yyyyMMdd HH:mm" var="reservationStartDate" />
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
@@ -160,12 +161,12 @@
 			</div>	
 		</div>
 		
-		<c:if test="${openDate <= nowDate and performance.categoryCode ne 'C5'}">		
+		<c:if test="${ (reservationStartDate >= nowDate) or (performance.categoryCode ne 'C5') }">		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">
-                        <dt class="tit_process tit_date_choice text-center"><span class="img">날짜 선택</span></dt>
-               				<div id="demo">
+                        <dt class="tit_process tit_date_choice text-center mx-2"><span class="img">날짜 선택</span></dt>
+               				<div id="demo" class="mx-auto">
         						<div id="one"></div>
         					</div>
         			</dl>
@@ -184,7 +185,7 @@
                     <dl class="seat_price" style="display:inline-grid;margin:30px;">
                         <dt class="tit_process tit_seat_price text-center"><span class="img">좌석등급</span></dt>
                         <dd class="cont_process" id="section_seat">
-                            <div class="box_type_comment">
+                            <div class="box_type_comment my-3 p-4 rounded" style="background-color:#F4F4F4;">
                             <table class="text-left">
                                 <tr>
                                 	<td></td>
@@ -224,7 +225,7 @@
                 </div>
                 </c:if>
                 <c:choose>
-					<c:when test="${ openDate < nowDate }">
+					<c:when test="${ reservationStartDate < nowDate }">
 						<div class="box_type_comment">
 							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
 				            <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
@@ -232,7 +233,7 @@
 					</c:when>
 			  		<c:otherwise>
 			  		<div>
-					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ dateformat.format(performance.perStartDate) }부터 티켓 오픈!-</h3>
+					  	<h3 class="text-primary my-4" style="text-align:center;"> - 20<fmt:formatDate value="${ performance.reservationStartDate }" pattern="yy.MM.dd(E) hh:mm"/>부터 티켓 오픈! -</h3>
 			  		</div>
 					</c:otherwise> 	
 				</c:choose>

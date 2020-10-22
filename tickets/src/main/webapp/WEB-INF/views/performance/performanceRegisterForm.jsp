@@ -60,14 +60,14 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			
 			<div class="form-group">
 				<input type="button" class="btn btn-outline-primary" value="공연장 검색" onclick="searchHall()"/>
-				<input type="text" class="form-control" id="searchHallNo" name="searchHallNo" placeholder="공연장번호" readonly/>
+				<input type="text" class="form-control my-2" id="searchHallNo" name="searchHallNo" placeholder="공연장번호" readonly/>
 				<input type="text" class="form-control" id="searchHallName" name="searchHallName" placeholder="공연장명" readonly/>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</div>		
 			
 			<div class="form-group">
 		      <label class="col-form-label" for="perContent">공연소개</label>
-		      <textarea class="form-control" name="perContent" id="perContent" rows="3"></textarea>
+		      <textarea class="form-control" name="perContent" id="perContent" rows="5"></textarea>
 		    </div>
 		    
 		    <div class="form-group">
@@ -77,15 +77,23 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 			
 			<div class="form-group">
 		      <label for="detailImgFile">작품설명 이미지</label>
-		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">		      
+		      <input type="file" class="form-control-file" id="detailImgFile" name="detailImgFile">	
+		      <br />	      
 		    </div>
+		    <tr>
+		    	<label for="reservationStartDate">예매시작일</label>
+		    	<input type="datetime-local" class="form-control" name="reservationStart" id="reservationStart" />
+		    	<br />
+		    </tr>
 		    <tr>
 				<label for="perStartDate">공연시작일</label>
 				<input type="date" class="form-control" name="perStartDate" id="perStartDate"/>
+		    	<br />
 			</tr> 
 		    <tr>
 				<label for="perEndDate">공연종료일</label>
 				<input type="date" class="form-control" name="perEndDate" id="perEndDate"/>
+		    	<br />
 			</tr> 		
 		    
 		    <div class="form-group">
@@ -140,7 +148,7 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 		    </div>
 		    
 		    <div class="form-group">
-		      <label>※ 티켓츠 단독판매 유무: <input type="checkbox" name="aloneSale" id="aloneSale" value="Y"></label>
+		      <label><strong>※ 티켓츠 단독판매 유무: </strong><input type="checkbox" name="aloneSale" id="aloneSale" value="Y"></label>
 		    </div>
 		    
 		    

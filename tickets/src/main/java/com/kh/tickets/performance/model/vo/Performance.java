@@ -39,6 +39,8 @@ public class Performance implements Serializable {
 	private Date perEndDate;
 	private int saleCnt;
 	private String aloneSale;
+	private int price;
+	private java.util.Date reservationStartDate;
 	
 
 }

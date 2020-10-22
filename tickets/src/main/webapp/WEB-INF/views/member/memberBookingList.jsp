@@ -13,6 +13,11 @@
 	 th{
 	 	padding:10px;
 	 }
+	 .table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle !important; 
+    border-top: 1px solid #dee2e6;
+	}
 	 dt{
 	 	width:63px;
 	 }
@@ -32,12 +37,10 @@
 	 	margin-bottom:20px;
 	 	margin-right:40px;
 	 }
-	 .performInfo{
-	 	margin-right:80px;
-	 }
 	 ul{
 	 	padding:0;
 	 }
+
 	</style>
 	<script>
 		$(function(){
@@ -57,63 +60,66 @@
 			
 		});
 	</script>
-	<div class="form-group text-center" style="position:relative;">
+	<div class="form-group text-center my-5" style="position:relative;">
 		<div class="reserve-btn">
-	    <button id="pill1" class="btn btn-outline-secondary rounded-pill" style="width:200px;height:40px;position:absolute;left:350px;z-index:1;background-color:white;">예매확인</button>
+	    <button id="pill1" class="btn btn-outline-secondary rounded-pill mx-auto" style="width:200px;height:40px;position:absolute;left:500px;z-index:1;background-color:white;">예매확인</button>
 		</div>
-		<div class="reserve-cn-btn" style="margin-left:50px;">
+		<div class="reserve-cn-btn" style="margin-left:180px;">
 	    <button id="pill2" class="btn btn-outline-secondary rounded-pill" style="width:200px;height:40px;position:relative;z-index:0;background-color:white;">예매취소</button>
 		</div>
   	</div>
-  	<div class="list" style="padding-left:100px;">
-	  	<div id="reserv-list" class="reserv-list" style="display:block;">
-	  		<table>
-			<tr class="border-top border-bottom">
-				<th>예매일</th>
-				<th>공연정보</th>
+  	<div class="list text-center" >
+	  	<div id="reserv-list" class="reserv-list mx-auto" style="width:90%;">
+	  		<table class="table table-hover ">
+			<tr class="border-top border-bottom" >
+				<th style="width:80px;">예매일</th>
+				<th colspan="2" id="perInfo" style="width:600px;">공연정보</th>
 				<th>예매정보</th>
-				<th>결제방식</th>
+				<th>예매상태</th>
 			</tr>
 			<!-- 티켓예매테이블 -->
 			<c:forEach items="${ list }" var="pay">
 			<tr class="border-bottom">
-				<td class="px-3">${ dateformat.format(pay.payDate) }</td>
-				<td>
-					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
+				<td class="px-3" valign="middle">${ dateformat.format(pay.payDate) }</td>
+				<td align="right">
 					<a class="text-reset" href="${pageContext.request.contextPath }/member/memberOneBooking.do?orderNo=${ pay.orderNo }">
-					<img style="position:absolute;width:85px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
-					<p style="padding-left:100px;">
-						<span class="d-block">${ pay.perTitle }</span>
+						<img style="width:120px;height:160px;top:0;left:10px;" src="<c:url value='/resources/upload/performance/${ pay.perImgRenamedFileName}' />"/>
 					</a>
- 						<span class="d-block mt-3"><small>${ dateformat.format(pay.perStartDate) } ~ ${ dateformat.format(pay.perEndDate) }</small></span> 
-						<span class="d-block"><small>${ pay.theaterName }</small></span>
-						<span class="d-block"><small> ${ pay.theaterLocation } ${ pay.theaterCity } ${ pay.theaterAddress }</small></span> 
-					</p>
-					</div>
+				</td>
+				<td align="left">
+					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do" style="text-decoration: none; color: black;">
+						<p>
+							<span class="d-block"><strong>${ pay.perTitle }</strong> <br />
+								<small>${ dateformat2.format(pay.perStartDate) } - ${ dateformat2.format(pay.perEndDate) }</small> <br />
+								${ pay.theaterName }
+							</span>
+						</p>
+					</a>
+					<!-- </div> -->
 				</td>
 				<td>
 					<div class="booking-info" style="text-align:left;">
 						<dl>
-							<dt>예매 번호</dt>
+							<dt>예약 정보</dt>
 							<dd>${ pay.orderNo }</dd>
 						</dl>
 						<dl>
 							<dt>관람일</dt>
-							<dd>${ dateformat2.format(pay.schDateTime) }</dd>
+							<dd>${ dateformat.format(pay.schDateTime) }</dd>
 						</dl>
 						<dl>
 							<dt>매수</dt>
 							<dd>M045355</dd>
 						</dl>
-						<!-- <dl>
+						<dl>
 							<dt>취소가능</dt>
 							<dd>2020.11.26(목) 17:00 까지</dd>
-						</dl> -->
+						</dl>
 					</div>
 				</td>
 				<td>
-					<!-- <p>예매완료(미입금)</p> -->
-					<p>${ pay.payOption }</p>
+					<p>예매완료(미입금)</p>
+					<p>결제방식(${ pay.payOption })</p>
 				</td>
 			</tr>
 			</c:forEach>
@@ -124,37 +130,46 @@
 				</c:if>
 			</div>
 	  	</div>
-	  	<div id="reserv-cn-list" class="reserv-cn-list" style="display:none;">
-	  		<table>
-			<tr class="border-top border-bottom">
-				<th>예매일</th>
-				<th>공연정보</th>
-				<th>예매정보</th>
-				<th>예매상태</th>
+	</div>
+  	<div class="list text-center" >
+	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%;">
+	  		<table class="table table-hover ">
+			<tr class="border-top border-bottom" >
+				<th style="width:80px;">예매일</th>
+				<th colspan="2" id="perInfo" style="width:600px;">공연정보</th>
+				<th style="width:270px;">예매정보</th>
+				<th style="width:190px;">예매상태</th>
 			</tr>
 			<!-- 티켓예매테이블 -->
-			
+
 			<tr class="border-bottom">
-				<td class="px-3">2020.09.22</td>
-				<td>
-					<div class="performInfo" style="position:relative;text-align:left;padding-right:50px;">
-					<img style="position:absolute;width:80px;top:0;left:10px;" src="${pageContext.request.contextPath }/resources/images/poster/캣츠.jpg"/>
-					<p style="padding-left:100px;">
-						<span class="d-block">캣츠</span>
-						<span class="d-block mt-3"><small>2020.09.10~2020.09.30</small></span>
-						<span class="d-block">롯데콘서트몰</span>
-					</p>
-					</div>
+				<td class="px-3" valign="middle">2020.09.22</td>
+				<td align="right">
+					<!-- <div class="performInfo" style="position:relative;text-align:left;padding-right:50px;"> -->
+					<a class="text-reset" href="#">
+						<img style="width:120px;height:160px;top:0;left:10px;" src="<c:url value='/resources/images/poster/캣츠.jpg' />"/>
+					</a>
+				</td>
+				<td align="left">
+					<a href="#" style="text-decoration: none; color: black;">
+						<p>
+							<span class="d-block"><strong>캣츠</strong> <br />
+								<small>2020.09.10-2020.09.30</small> <br />
+								롯데콘서트몰
+							</span>
+						</p>
+					</a>
+					<!-- </div> -->
 				</td>
 				<td>
-					<div class="booking-info" style="text-align:left;padding-right:80px;">
+					<div class="booking-info" style="text-align:left;">
 						<dl>
 							<dt>예약 정보</dt>
 							<dd>[취소]M045355</dd>
 						</dl>
 						<dl>
 							<dt>관람일</dt>
-							<dd>M045355</dd>
+							<dd>2020.09.22(목)</dd>
 						</dl>
 						<dl>
 							<dt>매수</dt>
@@ -167,10 +182,7 @@
 					</div>
 				</td>
 				<td>
-					<div class="cancel" style="margin-right:50px;">
-						<p>취소완료</p>
-						<input type="button" value="취소 상세" style="font-size:15px;"/>
-					</div>
+					<p>취소완료</p>
 				</td>
 			</tr>
 		</table>
