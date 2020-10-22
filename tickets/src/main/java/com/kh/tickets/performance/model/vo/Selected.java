@@ -20,4 +20,5 @@ public class Selected implements Serializable{
 	private int schNo;
 	private String memberId;
 	private Date tempTime;
+	private String payYn;
 }

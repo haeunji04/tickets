@@ -127,4 +127,6 @@ public interface PerformanceDAO {
 
 	int insertTicket(Ticket ticket);
 
+	int updateSelected(Selected selected);
+
 }

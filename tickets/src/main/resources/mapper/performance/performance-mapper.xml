@@ -482,6 +482,7 @@
 		#{ seatNo },
 		#{ memberId},
 		#{ schNo },
+		default,
 		default
 	)
 	</insert>
@@ -556,6 +557,9 @@
 	<insert id="insertTicket">
 	insert into ticket values(ticket_sequence.nextval,#{ ticPrice },#{ schNo },#{ seatNo },#{ memberId},#{ orderNo },#{ seatName })
 	</insert>
+	<update id="updateSelected">
+	update selected set pay_yn='Y' where sch_no=#{ schNo } and seat_no=#{ seatNo }
+	</update>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
