@@ -35,10 +35,10 @@
 </style>
 <!-- 공연 시작(오픈) 날짜비교 -->
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value="${ now }" pattern="yyyyMMdd HH:mm" var="nowDate" />             <%-- 오늘날짜 --%>
+<fmt:formatDate value="${ now }" pattern="yyyy.MM.dd(E) HH:mm" var="nowDate" />             <%-- 오늘날짜 --%>
 <fmt:formatDate value="${ performance.perStartDate }" pattern="yyyyMMdd" var="openDate"/>     <%-- 시작날짜 --%>
 <fmt:formatDate value="${ performance.perEndDate }" pattern="yyyyMMdd" var="endDate"/>     <%-- 마감날짜 --%>
-<fmt:formatDate value="${ performance.reservationStartDate }" pattern="yyyyMMdd HH:mm" var="reservationStartDate" />
+<fmt:formatDate value="${ performance.reservationStartDate }" pattern="yyyy.MM.dd(E) HH:mm" var="reservationStartDate" />
 
 		<div class="border">
 			<div class="table" style="padding:30px 30px 20px;">
@@ -163,7 +163,7 @@
 		
 		<%-- <c:if test="${ (reservationStartDate <= nowDate) }">	 --%>	
 		<c:choose>
-		<c:when test="${ reservationStartDate <= nowDate }">
+		<c:when test="${ reservationStartDate <= nowDate && performance.categoryCode ne 'C5'}">
 		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
@@ -230,14 +230,15 @@
                 </c:choose>
                 
                 <c:choose>
-					<c:when test="${ reservationStartDate <= nowDate and performance.categoryCode ne 'C5'}">
+					<c:when test="${ reservationStartDate <= nowDate && performance.categoryCode ne 'C5'}">
 						<div class="box_type_comment">
 							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
-				            <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
+				            <button type="button" id="submit-btn" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
 				        </div>
 					</c:when>
-			  		<c:otherwise>
-					</c:otherwise> 	
+			  		<c:when test="${performance.categoryCode ne 'C5' }">
+			  			<h3 class="text-primary my-4" style="text-align:center;"> -${ reservationStartDate }부터 티켓 오픈!-</h3>
+					</c:when> 	
 				</c:choose>
                 <%-- </c:if> --%>
                 <c:if test="${performance.categoryCode eq 'C5'}">
@@ -249,13 +250,13 @@
 							<input type='hidden' name='memberId' value='${loginMember.memberId}'/>
 							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-				            <button type="submit" class="btn btn-primary btn-lg btn-block">예매하기</button>
+				            <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-block">예매하기</button>
 						</form:form>
 				        </div>
 					</c:when>
 			  		<c:otherwise>
 			  		<div>
-					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ dateformat.format(performance.perStartDate) }부터 티켓 오픈!-</h3>
+					  	<h3 class="text-primary my-4" style="text-align:center;"> -${ reservationStartDate }부터 티켓 오픈!-</h3>
 			  		</div>
 					</c:otherwise> 	
 				</c:choose>	

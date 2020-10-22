@@ -68,7 +68,7 @@ function getCookie( name ){
 }
 if ( getCookie( "popup" ) != "done" ){
 	noticeWindow =
-		window.open('${pageContext.request.contextPath}/popup.do','safe_notice','width=600, height=300, left=200, top=200');
+		window.open('${pageContext.request.contextPath}/popup.do','safe_notice','width=450, height=470, left=200, top=130');
 	noticeWindow.opener = self;
 }
 </script>

@@ -132,7 +132,7 @@
 	  	</div>
 	</div>
   	<div class="list text-center" >
-	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%;">
+	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;">
 	  		<table class="table table-hover ">
 			<tr class="border-top border-bottom" >
 				<th style="width:80px;">예매일</th>
