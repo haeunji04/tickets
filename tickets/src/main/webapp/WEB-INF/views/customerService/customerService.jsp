@@ -40,7 +40,7 @@ $(function(){
 	
 });
 </script>
-	<h3>고객센터</h3>
+	<h3 class="text-center my-4">고객센터</h3>
 	<div class="form-group text-center">
 		<nav>
 			<div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
@@ -60,9 +60,9 @@ $(function(){
 					</div>
 				</sec:authorize>
 				<div style="padding-top: 20px; text-align:left">
-					<p style="font-weight: bold; font-size: 20px">공지사항</p>
+					<p style="font-weight: bold; font-size: 20px; text-align:center;">공지사항</p>
 					<p style="text-align:center">* 총 <span class="text-primary"> ${ totalContents }</span> 개의 게시글이 있습니다. *</p>
-					<table id="tbl-board" class="table table-hover" style="width:90%; margin: auto">
+					<table id="tbl-board" class="table table-hover" style="width:90%; margin:0 auto">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -83,7 +83,7 @@ $(function(){
 						</tbody>
 					</table>
 				</div>
-				<div class="align-center">
+				<div class="align-center my-4">
 					<ul class="pagination justify-content-center">
 						${ pageBar }     
 					</ul>

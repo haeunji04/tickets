@@ -310,6 +310,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.update("performance.updateSelected", selected);
 	}
 
+	@Override
+	public List<Performance> selectOpenList() {
+		return sqlSession.selectList("performance.selectOpenList");
+	}
+
 	
 	
 }

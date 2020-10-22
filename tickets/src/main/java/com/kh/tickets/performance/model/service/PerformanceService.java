@@ -132,6 +132,8 @@ public interface PerformanceService {
 	
 	int updateSelected(Selected selected);
 
+	List<Performance> selectOpenList();
+
 
 
 

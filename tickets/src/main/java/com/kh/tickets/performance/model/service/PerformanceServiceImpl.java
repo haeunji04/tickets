@@ -306,6 +306,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.updateSelected(selected);
 	}
 
+	@Override
+	public List<Performance> selectOpenList() {
+		return performanceDAO.selectOpenList();
+	}
+
 	
 	
 

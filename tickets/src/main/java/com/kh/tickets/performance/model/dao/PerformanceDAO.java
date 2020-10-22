@@ -131,5 +131,7 @@ public interface PerformanceDAO {
 	
 	int updateSelected(Selected selected);
 
+	List<Performance> selectOpenList();
+
 
 }
