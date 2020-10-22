@@ -23,8 +23,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerServiceDAO customerServiceDAO;
 
 	@Override
-	public List<Notice> selectNoticeList(int limit, int offset) {
-		return customerServiceDAO.selectNoticeList(limit, offset);
+	public List<Notice> selectNoticeList(Map<String, Object> map) {
+		return customerServiceDAO.selectNoticeList(map);
 	}
 
 	@Override
@@ -40,6 +40,16 @@ public class CustomerServiceImpl implements CustomerService {
 		//1.board테이블에 insert
 		result = customerServiceDAO.insertNotice(notice);	
 		return result;
+	}
+
+	@Override
+	public List<Notice> selectFaqList(Map<String, Object> map) {
+		return customerServiceDAO.selectFaqList(map);
+	}
+
+	@Override
+	public int selectNoticeTotalContents() {
+		return customerServiceDAO.selectNoticeTotalContents();
 	}
 	
 }

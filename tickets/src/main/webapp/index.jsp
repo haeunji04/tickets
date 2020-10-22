@@ -16,7 +16,7 @@
 html,body{ height:100%; display: grid; grid-template-rows: auto 1fr auto;}
 #container{ display: flex; flex-direction: column; min-height:100%; position:relative;} 
 #main-container{ flex: 1; position:relative;} 
-footer{ margin-top: 2100px; }
+footer{ margin-top: 2000px; }
 
 #best0 {
   animation-name: best;

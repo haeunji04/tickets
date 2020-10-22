@@ -3,11 +3,15 @@ package com.kh.tickets.customerService.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.tickets.boardComment.model.vo.ReviewComment;
+import com.kh.tickets.common.Utils;
 import com.kh.tickets.customerService.model.service.CustomerService;
 import com.kh.tickets.customerService.model.vo.Notice;
 import com.kh.tickets.performance.controller.PerformanceController;
@@ -32,25 +38,48 @@ public class CustomerServiceController {
 	@Autowired
 	private CustomerService customerService;
 	
+	@Autowired
+	ServletContext servletContext;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
+	
 	@RequestMapping("customerService.do")
-	public ModelAndView noticeList(ModelAndView mav, 
-								  @RequestParam(defaultValue = "1", 
-												value = "cPage") int cPage) {
-		//1.사용자 입력값 
-		final int limit = 10;
-		int offset = (cPage - 1) * limit;
+	public ModelAndView noticeList(ModelAndView mav,
+								   HttpServletRequest request) {
+		int numPerPage = 10;
+		int cPage = 1;
 		
-		//2. 업무로직
-		List<Notice> list = customerService.selectNoticeList(limit, offset);
-		log.debug("list = {}", list);
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+		}
+
+		int start = (cPage-1) * numPerPage + 1;
+		int end = cPage * numPerPage;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<Notice> noticeList = customerService.selectNoticeList(map);
+		List<Notice> faqList = customerService.selectFaqList(map);
+		log.debug("noticeList = {}", noticeList);
+		log.debug("faqList = {}", faqList);
+		
+		String url = request.getRequestURI() + "?";
 		
 		//전체컨텐츠수 구하기
-		//int totalContents = customerService.selectBoardTotalContents();
+		int totalContents = customerService.selectNoticeTotalContents();
+		String pageBar = Utils.getPageBarHtml(cPage, numPerPage, totalContents, url);
 		
-		//3. view단 처리
-		//mav.addObject("totalContents", totalContents);
-		mav.addObject("list", list);
+		mav.addObject("noticeList", noticeList);
+		mav.addObject("faqList", faqList);
+		mav.addObject("cPage", cPage);
+		mav.addObject("pageBar", pageBar);
+		mav.addObject("totalContents", totalContents);
 		mav.setViewName("customerService/customerService");
+		
 		return mav;
 	}
 	
@@ -61,25 +90,20 @@ public class CustomerServiceController {
 	}
 	
 	@PostMapping("/noticeEnroll.do")
-	public String noticeEnroll(Notice notice,
-							  HttpServletRequest request,
-							  RedirectAttributes redirectAttr) {
-
+	public ModelAndView insertNotice(Notice notice, ModelAndView mav,
+							   RedirectAttributes redirectAttr) {
+		
 		log.debug("notice = {}", notice);
 		
-		//2. 게시글, 첨부파일정보를 DB에 저장
-		try {
-			int result = customerService.insertNotice(notice);
-			redirectAttr.addFlashAttribute("msg", "게시글 등록 성공!");
-		} catch (Exception e) {
-			log.error("게시물 등록  오류", e);
-			
-			//예외발생을 spring container에게 전달 : 지정한  예외페이지로 응답처리
-			throw e;
-		}
+		int result = customerService.insertNotice(notice);
 		
-		return "redirect:/customerService/noticeList.do";
+		redirectAttr.addFlashAttribute("msg", result > 0? "관람후기 등록 성공!" : "관람후기 등록 실패");
+		mav.addObject(notice);		
+		mav.setViewName("redirect:/customerService/customerService.do");
+		
+		return mav;
 	}
+	
 	
 	@GetMapping("/noticeDetail.do")
 	public String boardDetail(@RequestParam int noticeNo,
@@ -96,4 +120,5 @@ public class CustomerServiceController {
 		
 		return "customerService/noticeDetail";
 	}
+
 }
