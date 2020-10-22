@@ -261,11 +261,16 @@ create table schedule(
 );
 ALTER TABLE SCHEDULE MODIFY SCH_DATE_TIME TIMESTAMP;
 
+select * from performance_join_view where per_no = 183;
+
 alter table schedule drop constraints fk_per_no4 cascade;
 alter table schedule add constraint fk_per_no4 foreign key(per_no) references performance(per_no) on delete cascade;
 
-select * from schedule;
+select * from theater where theater_no=190;
 
+update theater set theater_address = '대학로 8가길 85' where theater_no=190;
+select * from schedule;
+commit;
 --삭제관련 수정사항(도현 20.10.06) End
 
 --schedule insert
@@ -584,6 +589,7 @@ alter table theater rename column name to theater_name;
 --중복 공연장 데이터 삭제
 delete from theater where theater_no = 174;
 
+drop view performance_join_view;
 --view생성
 create view performance_join_view as
 select 
@@ -615,7 +621,9 @@ select
     P.per_start_date,
     P.per_end_date,
     P.sale_cnt,
-    P.alone_sale
+    P.alone_sale,
+    P.price,
+    P.reservation_start_date
 from 
     performance P  
         left join theater T 
@@ -624,6 +632,8 @@ from
             on P.location_code = L.location_code
         left join category C
             on P.category_code = C.category_code;
+            
+select * from performance_join_view;
 --====================================
 --결제내역 뷰 테이블
 select * from pay;

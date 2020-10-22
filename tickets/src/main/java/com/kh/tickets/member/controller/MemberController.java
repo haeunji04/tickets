@@ -437,8 +437,9 @@ public class MemberController {
 			log.debug("list@controller = {}", list);
 						
 //			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
-			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
-			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy.MM.dd");
 			mav.addObject("dateformat", dateformat);
 			mav.addObject("dateformat2", dateformat2);
 			mav.addObject("rList", rList);

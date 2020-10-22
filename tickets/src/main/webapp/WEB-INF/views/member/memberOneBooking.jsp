@@ -49,8 +49,9 @@
 	}
 	</script>
 	
+
 		<c:forEach items="${ list }" var="pay">
-		<div class="total-container">
+		<div class="total-container p-3">
 		<div class="booking-one" style="background-image:url('${pageContext.request.contextPath}/resources/images/etc/1.png');">
 			<div class="table" style="padding-top:80px;padding-left:160px;">
 			<table id="perform-info-tbl">
@@ -96,10 +97,11 @@
 			</table>
 			</div>	
 		</div>
+		<br />
 		<div class="person-perform mt-3">
-		<h5 class="text-left mb-3">구매내역</h5>	
+		<h4 class="text-left mb-3">구매내역</h4>	
 			
-			<div class="perform border" style="width:100%;">
+			<div class="perform border py-4" style="width:100%;">
 				<table class="order">
 					<tr>
 						<td>티켓금액</td>
@@ -124,13 +126,16 @@
 				</table>
 			</div>
 		</div>
+		<br />
 		<%-- <c:if test="${ pay.payOption eq '' }"></c:if>  --%>
 		<div class="person-perform mt-3">
-		<h5 class="text-left d-inline-block mb-3">무통장입금 결제내역</h5>	
+
+		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
 		<!-- <div class="more" style="float:right;">
 				<button class="btn btn-outline-secondary rounded-pill d-inline-block text-right" value="">결제수단변경</button>
 		</div> -->
-			<div class="perform border" style="width:100%;">
+			<div class="perform border py-4" style="width:100%;">
+
 				<table class="order">
 					<tr>
 						<td>결제방법</td>
@@ -159,14 +164,16 @@
 				</table>
 			</div>
 		</div>
+		<br />
+
 		<!-- <div class="person-perform mt-3">
-		<h5 class="text-left d-inline-block mb-3">구매좌석</h5>	
+		<h4 class="text-left d-inline-block mb-3">구매좌석</h4>	
 			<div class="more" style="float:right;">
 				<input type="checkbox" name="allcheck" id="allcheck" onchange="checkAll();" />
 				<label for="allcheck">전체선택</label>
 			</div>
-			<div class="perform border" style="width:100%;text-align:center">
-				<table class="seat">
+			<div class="perform border pt-4" style="width:100%;text-align:center">
+				<table class="seat" align="center">
 					<tr>
 						<th>좌석등급</th>
 						<th>좌석번호</th>
@@ -187,18 +194,19 @@
 					
 				</table>
 			</div>
+
 		</div> -->
 				<button type="button" class="btn btn-primary btn-lg btn-block">예매취소 요청</button>
 		</c:forEach>
 		<!-- ========================================================= -->
 		<div class="person-perform mt-3">
-		<h5 class="text-left d-inline-block mb-3">취소수수료</h5>	
-			<div class="perform border" style="width:100%;text-align:center">
-				<table class="fees">
+		<h4 class="text-left d-inline-block mb-3">취소수수료</h4>	
+			<div class="perform border py-4" style="width:100%;text-align:center">
+				<table class="fees" align="center">
 					<tr>
 						<th>취소기간</th>
 						<th>미부과기간</th>
-						<th>예매후 8일~관림일 10일 이내</th>
+						<th>예매후 8일~관람일 10일 이내</th>
 						<th>관람일 7일전</th>
 						<th>관람일 1일전</th>
 					</tr>

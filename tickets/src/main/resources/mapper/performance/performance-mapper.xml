@@ -29,7 +29,9 @@
 			#{ perStartDate },
 			#{ perEndDate },
 			default,
-			#{ aloneSale }
+			#{ aloneSale },
+			default,
+			#{ reservationStartDate }
 			
 		)
 	</insert>
@@ -161,7 +163,9 @@
 			per_rating = #{ perRating },
 			per_start_date = #{ perStartDate },
 			per_end_date = #{ perEndDate },
-			alone_sale = #{ aloneSale }
+			alone_sale = #{ aloneSale },
+			price = #{ price },
+			reservation_start_date = #{ reservationStartDate }
 		where 
 			per_no = #{ perNo }
 	</update>	
@@ -212,7 +216,7 @@
 			#{ perNo },
 			null,
 			#{ parseDate },
-			null
+			(select theater_no from performance where per_no = #{ perNo })
 		)
 	
 	</insert>	
