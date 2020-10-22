@@ -37,7 +37,6 @@ $(function(){
 	});
 	
 });
-
 </script>
 	<h3>고객센터</h3>
 	<div class="form-group text-center">
@@ -48,6 +47,7 @@ $(function(){
 				<a class="nav-item nav-link" id="faq-list-tab" data-toggle="tab" href="#faq-list" role="tab" aria-controls="faq-list" aria-selected="false">FAQ</a>
 			</div>
 		</nav>
+
 		<div class="tab-content" id="nav-tabContent">
 			<!-- 공지사항 -->
 			<div class="tab-pane fade show active" id="notice-list" role="tabpanel" aria-labelledby="notice-list-tab">
@@ -57,23 +57,33 @@ $(function(){
 				</div>
 				<div style="padding-top: 20px; text-align:left">
 					<p style="font-weight: bold; font-size: 20px">공지사항</p>
+					<p style="text-align:center">* 총 <span class="text-primary"> ${ totalContents }</span> 개의 게시글이 있습니다. *</p>
 					<table id="tbl-board" class="table table-hover" style="width:90%; margin: auto">
-						<tr>
-							<th>No</th>
-							<th>분류</th>
-							<th>제목</th>
-							<th>등록일</th>
-						</tr>
-						<c:forEach items="${ list }" var="n">
-						<tr data-notice-no="${ n.noticeNo }">
-							<td>${ n.noticeNo }</td>
-							<td>${ n.noticeKind }</td>
-							<td>${ n.noticeTitle }</td>
-							<td><fmt:formatDate value="${ n.noticeRegDate }" type="date"/></td>
-						</tr>
-						</c:forEach>
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>분류</th>
+								<th>제목</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody>  
+							<c:forEach items="${ noticeList }" var="n">
+							<tr data-notice-no="${ n.noticeNo }">
+								<td>${ n.noticeNo }</td>
+								<td>${ n.noticeKind }</td>
+								<td>${ n.noticeTitle }</td>
+								<td><fmt:formatDate value="${ n.noticeRegDate }" type="date"/></td>
+							</tr>
+							</c:forEach>
+						</tbody>
 					</table>
 				</div>
+				<div class="align-center">
+					<ul class="pagination justify-content-center">
+						${ pageBar }     
+					</ul>
+				</div>	
 			</div>
 			
 			<!-- 이용안내 -->
@@ -89,7 +99,7 @@ $(function(){
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active text-left" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-							티켓츠의 예매 방법을 안내드립니다.
+							<h5>티켓츠의 예매 방법을 안내드립니다.</h5>
 							<hr>
 							1. 회원가입, 로그인, 본인인증<br>
 							<li>예매 전, 티켓츠 회원가입과 로그인을 하셨는 지 확인해 주세요.</li>
@@ -118,7 +128,7 @@ $(function(){
 							<hr>
 						</div>
 						<div class="tab-pane fade text-left" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-							티켓츠의 취소/환불 규정을 안내드립니다.
+							<h5>티켓츠의 취소/환불 규정을 안내드립니다.</h5>
 							<hr>
 							1. 취소 마감 기한
 							<li>공연관람일 전일까지 가능합니다.</li>
@@ -134,42 +144,25 @@ $(function(){
 				
 			<!-- FAQ -->	
 			<div class="tab-pane fade" id="faq-list" role="tabpanel" aria-labelledby="faq-list-tab">
-				<!-- 관리자에게만 보이는 버튼 -->
-				<div style="float: right; padding: 10px 5px;">
-					<input type="button" value="글쓰기" id="btn-add" class="btn" onclick="goCustomerServiceBoardForm();"/>
-				</div>
 				<div style="padding-top: 20px; text-align:left">
-					<p style="font-weight: bold; font-size: 20px">자주하는 질문 BEST 10</p>
-					<table id="tbl-board" class="table table-hover" style="width:90%; margin: auto;">
+					<p style="font-weight: bold; font-size: 20px">자주하는 질문 BEST</p>
+					<table id="tbl-board" class="table table-striped table-hover" style="width:90%; margin: auto">
 						<tr>
-							<td>1</td>
-							<td>티켓예매</td>
-							<td><a href="#none" onclick="javascript:getCont('1073195296', this);">공연예매는 어디서 할 수 있나요?</a></td>
+							<th>No</th>
+							<th>분류</th>
+							<th>제목</th>
 						</tr>
-						<!-- 클릭시 tr 추가 -->
-						<tr>
-							<td><div class="arrow"><span></span></div></td>
-							<td colspan="2">
-								<p>예매 완료 후에는 좌석을 변경할 수 없습니다.</p>
-								<p>변경을 원하시는 경우 [마이티켓 > 예매/취소] 메뉴에서 해당 예매 건을 취소하시고 재 예매하셔야 합니다.</p>
-								<p>예매 건을 취소하는 경우 예매수수료, 취소수수료는 멜론티켓 수수료 정책에 따라 발생합니다.</p>																
-							</td>
+						<c:forEach items="${ faqList }" var="f">
+						<tr data-faq-no="${ f.faqNo }">
+							<td>${ f.faqNo }</td>
+							<td>${ f.faqKind }</td>
+							<td>${ f.faqTitle }</td>
 						</tr>
 						<tr>
-							<td>2</td>
-							<td>티켓예매</td>
-							<td>공연예매 후 좌석변경을 할 수 있나요?</td>
+							<td>└</td>
+							<td colspan="2">${ f.faqContent }</td>
 						</tr>
-						<tr>
-							<td>3</td>
-							<td>티켓예매</td>
-							<td>모바일 티켓 예매는 어떻게 하나요?</td>
-						</tr>
-											<tr>
-							<td>4</td>
-							<td>티켓예매</td>
-							<td>무통장입금 결제수단은 언제까지 이용가능 한가요?</td>
-						</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>

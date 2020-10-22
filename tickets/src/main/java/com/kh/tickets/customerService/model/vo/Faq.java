@@ -1,6 +1,5 @@
 package com.kh.tickets.customerService.model.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -14,11 +13,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Notice implements Serializable{
+public class Faq {
 	
-	private int noticeNo;
-	private String noticeKind;
-	private String noticeTitle;
-	private String noticeContent;
-	private Date noticeRegDate;
+	private int faqNo;
+	private String faqKind;
+	private String faqTitle;
+	private String faqContent;
+
 }
