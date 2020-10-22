@@ -883,7 +883,10 @@ function validate(){
         </script>
       <script>
 		 function nwindow(){
-			 
+			<c:if test="${ empty memberId }">
+				loginAlert();
+				return false;
+			</c:if>
 			var $li = $('.on');
 			var $frm = $li.find('form');
 			var name = $frm[0].getAttribute('name');
