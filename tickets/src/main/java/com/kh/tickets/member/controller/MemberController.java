@@ -522,6 +522,7 @@ public class MemberController {
 		public String ticketDelete(@RequestParam int ticNo, RedirectAttributes redirectAttributes){
 			String orderNo = performanceService.selectOnePay(ticNo);
 			int result = memberService.ticketDelete(ticNo);
+//			int result = memberService.ticketcancel(ticNo);
 			Pay pay = new Pay();
 			log.debug("orderNo = {}", orderNo);
 			
