@@ -140,7 +140,7 @@ if ( getCookie( "popup" ) != "done" ){
 					<a class="nav-link" data-toggle="tab" href="#new"><h3 class="m-10 px-5">New!공연</h3></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#con"><h3 class="m-10 px-5">콘서트/페스티벌</h3></a>
+					<a class="nav-link active" data-toggle="tab" href="#con"><h3 class="m-10 px-5">콘서트&페스티벌</h3></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link link" data-toggle="tab" href="#mu"><h3 class="m-10 px-5">뮤지컬&연극</h3></a>
