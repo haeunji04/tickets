@@ -835,6 +835,10 @@ public class PerformanceController {
 		 for(int i=0;i<length;i++) { //ticket.setOrderNo(payResult.getOrderNo());
 			 ticket.setSeatNo(seatNo[i]); 
 			 ticket.setSeatName(seatName[i]);
+			 Selected selected = new Selected();
+			 selected.setSchNo(ticket.getSchNo());
+			 selected.setSeatNo(seatNo[i]);
+			 int payYn = performanceService.updateSelected(selected);
 			 int price = performanceService.seatPrice(seatNo[i]); 
 			 ticket.setTicPrice(price); 
 			 ticket.setOrderNo(orderNum);
@@ -1271,7 +1275,7 @@ public class PerformanceController {
 		log.debug("memberId@@@={}",memberId);
 		int result = performanceService.addSelect(param);
 		log.debug("result@@={}",result);
-
+		
 		
 	}
 	@PostMapping("/performance/removeSelect")

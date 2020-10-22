@@ -128,6 +128,8 @@ public interface PerformanceService {
 
 	int insertTicket(Ticket ticket);
 
+	int updateSelected(Selected selected);
+
 
 
 
