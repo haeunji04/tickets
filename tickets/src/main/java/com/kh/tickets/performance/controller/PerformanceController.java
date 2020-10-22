@@ -659,6 +659,19 @@ public class PerformanceController {
 		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
 		Selected[] arr = selectedList.toArray(new Selected[selectedList.size()]);
 		
+		
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format2 = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분ss초");
+				
+		Date time = new Date();
+				
+		String time1 = format1.format(time);
+		String time2 = format2.format(time);
+				
+		System.out.println("시간테스트##@#@#");
+		System.out.println(time1);
+		System.out.println(time2);
+		
 		//시간 지난 selected 좌석 삭제
 		// Calendar 객체 생성
 		Calendar cal = Calendar.getInstance() ;
@@ -668,6 +681,8 @@ public class PerformanceController {
 		Calendar fileCal = Calendar.getInstance() ;
 		Date fileDate = null ;		
 		log.debug("arr@@ = {}", arr);
+		
+		
 		
 	    for(int i=0; i<arr.length; i++){
 	    	

@@ -315,6 +315,7 @@ create table ticket(
     constraints fk_seat_no2 foreign key(seat_no) references seat(seat_no)
 );
 --selected
+select * from selected;
 create table selected(
     seat_no number,
     member_id varchar2(15),
@@ -325,6 +326,8 @@ create table selected(
     constraints fk_sch_no3 foreign key(sch_no) references schedule(sch_no)
     
 );
+alter table selected add temp_time timestamp default sysdate;
+
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 CREATE TABLE comment_board (
 	board_comment_no number null,
@@ -645,6 +648,7 @@ from pay Y
         on P.theater_no = T.theater_no;
 
 select  * from member_pay_list_view; 
+select  * from selected; 
 
 --DROP VIEW "MEMBER_PAY_TICKET_VIEW";
 create view member_pay_ticket_view as
