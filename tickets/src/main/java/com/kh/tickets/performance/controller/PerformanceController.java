@@ -676,7 +676,7 @@ public class PerformanceController {
 		// Calendar 객체 생성
 		Calendar cal = Calendar.getInstance();
 		long todayMil = cal.getTimeInMillis(); // 현재 시간(밀리 세컨드)
-		long oneDayMil = 60 * 1000;
+//		long oneMinMil = 60 * 1000;
 
 		Calendar fileCal = Calendar.getInstance();
 		Date fileDate = null;
@@ -697,14 +697,13 @@ public class PerformanceController {
 			log.debug("arrlength@@ = {}", arr.length);
 			log.debug("fileDate@@ = {}", fileDate);
 
-			// 날짜로 계산
-			int diffDay = (int) (diffMil / 60000);
+			// 분으로로 계산
+			int diffMin = (int) (diffMil / 60000);
 
-			log.debug("diffDay@@ = {}", diffDay);
+			log.debug("diffDay@@ = {}", diffMin);
 
 			// 원하는 시간만큼 지났을때. 현재는 분단위
-	        if(diffDay > 3 && arr[i].getPayYn().equals("N")){
-//			if (diffDay > 1) {
+	        if(diffMin > 3 && arr[i].getPayYn().equals("N")){
 
 				int result = performanceService.selectedDelete(arr[i]);
 				if (result > 0) {
@@ -713,11 +712,8 @@ public class PerformanceController {
 					log.debug("임시좌석 삭제실패");
 
 				}
-
 			}
-
 		}
-
 		List<Selected> selectedList = performanceService.selectSelectedList(schNo);
 
 		log.debug("selectedList@={}", selectedList);
