@@ -133,7 +133,7 @@
 		
 		<!-- 무통장관련 -->
 
-		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
+		<%-- <h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
 		<!-- <div class="more" style="float:right;">
 				<button class="btn btn-outline-secondary rounded-pill d-inline-block text-right" value="">결제수단변경</button>
 		</div> -->
@@ -166,7 +166,7 @@
 					</tr>
 				</table>
 			</div>
-		</div>
+		</div> --%>
 		<br />
 
 		<!-- <div class="person-perform mt-3">

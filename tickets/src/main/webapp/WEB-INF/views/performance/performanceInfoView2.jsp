@@ -776,17 +776,15 @@ function validate(){
         var month = now.getMonth() + 1;
         var date = now.getDate();
 
-
         var data = [{
             date: year + '/' + month + '/' + date,
             value: 'today'
         }];
-
         // inline
         var $ca = $('#one').calendar({
             // view: 'month',
             width: 320,
-            height: 320,
+            height: 320, 
             // startWeek: 0,
             // selectedRang: [new Date(), null],
             data: data,
