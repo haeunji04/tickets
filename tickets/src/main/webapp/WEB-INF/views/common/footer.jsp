@@ -68,7 +68,7 @@
 	<%-- </c:if> --%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/jquery.convform.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/demo.css">
-	<section id="question">
+	<section id="question" style="display:none;">
 	    <div class="vertical-align">
 	        <div class="container">
 	            <div class="row">
