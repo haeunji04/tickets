@@ -717,7 +717,7 @@ select * from recently_per_list;
 --select * from recently_per_list_view;
 select * from selected;
 
-
+select sysdate from dual;
 
 commit;
 --rollback;

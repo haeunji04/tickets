@@ -679,9 +679,11 @@ public class PerformanceController {
 	        fileCal.setTime(fileDate);
 	        long diffMil = todayMil - fileCal.getTimeInMillis() ;
 	        log.debug("fileCal.getTimeInMillis()@@ = {}", fileCal.getTimeInMillis());
+	        log.debug("arr[i]={}",arr[i].getSeatNo());
 	        log.debug("todayMil@@ = {}", todayMil);
 	        log.debug("diffMil@@ = {}", diffMil);
 	        log.debug("arrlength@@ = {}", arr.length);
+	        log.debug("fileDate@@ = {}", fileDate);
 	         
 	        //날짜로 계산
 	        int diffDay = (int)(diffMil/60000) ;
@@ -1232,6 +1234,7 @@ public class PerformanceController {
 
 		int seatNo = Integer.parseInt((String) param.get("seatNo"));
 		String memberId = String.valueOf(param.get("memberId"));
+		Date date = new Date();
 		memberId = memberId.replaceAll("\"", "");
 		param.put("seatNo", seatNo);
 		param.put("memberId", memberId);
