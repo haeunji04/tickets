@@ -130,19 +130,19 @@ div#memberId-container span.error{color:red; font-weight:bold;}
 					   value="${loginMember.addr }" readonly>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input class="form-control" type="text" id="sample4_detailAddress" name="addrDetail"
-					   placeholder="${loginMember.addrDetail==null? '상세주소':''}"
-					   value="${ loginMember.addrDetail }">
+					   value="${ loginMember.addrDetail ne null ? loginMember.addrDetail:''} ">
 			</div>
-			<div class="mx-auto" style="width:80px;">
-				<input type="submit" class="btn btn-primary" value="수정"/>
+			<div class="float-center text-center">
+				<div class="d-inline-block " style="width:80px;">
+					<input type="submit" class="btn btn-primary" value="수정"/>
+				</div>
+				<div class="d-inline-block">
+					<button type="button" 
+								class="btn btn-outline-primary"
+								onclick="memberWithdraw('${ loginMember.memberId }')">회원 탈퇴</button>
+				</div>
 			</div>
-				<hr />				
-			<button type="button" 
-						class="btn btn-outline-primary"
-						onclick="memberWithdraw('${ loginMember.memberId }')">회원 탈퇴</button>
-			<div style="float: right;">
 				
-			</div>
 		</div>
 	</form:form>
 	
