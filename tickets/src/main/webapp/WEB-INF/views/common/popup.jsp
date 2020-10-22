@@ -12,7 +12,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8" />
-	<title>팝업 테스트##</title>
+	<title>팝업</title>
 	
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		
@@ -55,14 +55,18 @@ function closeWin(){
 
 </script>
 <body>
-	<div id="close"> 
-	<img src="${pageContext.request.contextPath }/resources/images/etc/팝업웰컴.jpg" style=" width:600px;"/>
-    <form name="form1">
-        <input type="checkbox" name="popup" value="">
-        <span>오늘하루 그만보기</span>
-        <a href="javascript:onclick=closeWin()">[닫기]</a> 
-    </form>
-</div>	
+<div>
+	<div id="close" class="text-center"> 
+	<img src="${pageContext.request.contextPath }/resources/images/etc/팝업.png" style=" width:450px;"/>
+	</div>	
+	<div class="text-center">
+	    <form name="form1">
+	        <input type="checkbox" name="popup" value="">
+	        <span>오늘하루 그만보기</span>
+	        <a href="javascript:onclick=closeWin()">[닫기]</a> 
+	    </form>
+	</div>
+</div>
 
 </body>
 
