@@ -50,8 +50,9 @@
 	</script>
 	
 
-		<c:forEach items="${ list }" var="pay">
+		<c:forEach items="${ list }" var="pay" varStatus="status">
 		<div class="total-container p-3">
+		<h4 class="text-center">── 티켓 ${ status.count } ──</h4>
 		<div class="booking-one" style="background-image:url('${pageContext.request.contextPath}/resources/images/etc/1.png');">
 			<div class="table" style="padding-top:80px;padding-left:160px;">
 			<table id="perform-info-tbl">
@@ -74,7 +75,7 @@
 			</tr>
 			<tr>
 				<td>예매일시</td>
-				<td>${ dateformat.format(pay.payDate) }</td>
+				<td>${ dateformat2.format(pay.payDate) }</td>
 				<td></td>
 				<td>예매자</td>
 				<td>${ pay.name }</td>
@@ -82,7 +83,7 @@
 			<tr>
 				<td>관람일시</td>
 				<!-- <td>2020.11.27(금) 19:30</td> -->
-				<td>${ dateformat.format(pay.schDateTime) }</td>
+				<td>${ dateformat2.format(pay.schDateTime) }</td>
 				<td></td>
 				<!-- <td>취소가능</td>
 				<td>관림일시 하루 전날까지(기간에 따라 수수료 차등)</td> -->
@@ -98,7 +99,7 @@
 			</div>	
 		</div>
 		<br />
-		<div class="person-perform mt-3">
+		<div class="person-perform">
 		<h4 class="text-left mb-3">구매내역</h4>	
 			
 			<div class="perform border py-4" style="width:100%;">
@@ -128,7 +129,7 @@
 		</div>
 		<br />
 		<%-- <c:if test="${ pay.payOption eq '' }"></c:if>  --%>
-		<div class="person-perform mt-3">
+<%-- 		<div class="person-perform mt-3">
 
 		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
 		<!-- <div class="more" style="float:right;">
@@ -163,9 +164,8 @@
 					</tr>
 				</table>
 			</div>
-		</div>
-		<br />
-
+		</div> --%>
+		
 		<!-- <div class="person-perform mt-3">
 		<h4 class="text-left d-inline-block mb-3">구매좌석</h4>	
 			<div class="more" style="float:right;">
@@ -196,10 +196,11 @@
 			</div>
 
 		</div> -->
-				<button type="button" class="btn btn-primary btn-lg btn-block">예매취소 요청</button>
+				<!-- <button type="button" class="btn btn-outline-primary rounded-pill btn-lg btn-block mx-auto mb-3" style="width:30%">예매취소 요청</button> -->
+		<hr class="mt-5"/>
 		</c:forEach>
 		<!-- ========================================================= -->
-		<div class="person-perform mt-3">
+		<div class="person-perform mt-5">
 		<h4 class="text-left d-inline-block mb-3">취소수수료</h4>	
 			<div class="perform border py-4" style="width:100%;text-align:center">
 				<table class="fees" align="center">
@@ -232,6 +233,7 @@
 		</pre>
 		</div>
 		</div>
+		
 		
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

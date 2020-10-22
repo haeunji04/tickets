@@ -87,7 +87,7 @@
 					</a>
 				</td>
 				<td align="left">
-					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do" style="text-decoration: none; color: black;">
+					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do?orderNo=${ pay.orderNo }" style="text-decoration: none; color: black;">
 						<p>
 							<span class="d-block"><strong>${ pay.perTitle }</strong> <br />
 								<small>${ dateformat2.format(pay.perStartDate) } - ${ dateformat2.format(pay.perEndDate) }</small> <br />
