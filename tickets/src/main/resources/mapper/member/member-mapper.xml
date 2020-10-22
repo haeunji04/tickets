@@ -200,6 +200,14 @@
 		where order_no = #{ orderNo }
 	</select>
 	
+	<select id="selectCompanyPayList" resultMap="memberPayListMap">
+		select
+			*
+		from
+			member_pay_list_view
+		where per_no = #{ perNo }
+	</select>
+	
 	<resultMap type="memberPayList" id="memberPayListMap">
 	</resultMap>
 	<resultMap type="memberPayTicket" id="memberPayTicketMap">

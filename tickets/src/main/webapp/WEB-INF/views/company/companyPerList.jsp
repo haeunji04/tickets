@@ -62,6 +62,8 @@
 						onclick="perDateUpdate('${ per.perNo }')">공연일정</button>
 					<button type="button" class="btn btn-outline-primary px-2"
 						onclick="perDelete('${ per.perNo }')">공연삭제</button>
+					<button type="button" class="btn btn-outline-primary px-2"
+						onclick="companyBookingList('${ per.perNo }')">예매목록</button>
 				</td>
 				<%-- <td>
 			<img src="<c:url value='/resources/upload/performance/${ per.detailImgRenamedFileName}' />" 
@@ -96,6 +98,11 @@
 	  method="post" id="perDeleteFrm" >
 	  <input type="hidden" name="perNo"/>
 </form:form>
+<!-- 예매목록 -->
+<form:form action="${ pageContext.request.contextPath }/member/companyBookingList.do"
+	  method="post" id="companyBookingListFrm" >
+	  <input type="hidden" name="perNo"/>
+</form:form>
 
 <script>
 	/**
@@ -116,6 +123,11 @@
 	}
 	function perDelete(perNo){
 		var $frm = $("#perDeleteFrm");
+		$frm.find("[name=perNo]").val(perNo);
+		$frm.submit();
+	}
+	function companyBookingList(perNo){
+		var $frm = $("#companyBookingListFrm");
 		$frm.find("[name=perNo]").val(perNo);
 		$frm.submit();
 	}

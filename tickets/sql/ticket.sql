@@ -715,6 +715,7 @@ select * from pay;
 select * from ticket;
 --
 
+
 delete selected where seat_no='1';
 
 insert into 

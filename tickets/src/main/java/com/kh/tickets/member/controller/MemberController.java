@@ -477,6 +477,42 @@ public class MemberController {
 			return mav;
 		}
 		
+		
+		//결제 및 예약내역 	
+		@PostMapping("/member/companyBookingList.do")
+		public ModelAndView companyBookingList(ModelAndView mav, Principal principal, @RequestParam int perNo) {
+			
+			log.debug("principal = {}", principal);
+			log.debug("perNo = {}", perNo);
+			
+			String memberId = null;
+			if(principal != null) {
+				memberId = principal.getName();			
+			}
+			
+			log.debug("memberId@@  = {}", memberId );
+			
+			List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+			log.debug("rList@controller = {}", rList);
+			
+			List<MemberPayList> list = memberService.selectCompanyPayList(perNo);
+//					List<PerJoin> list = performanceService.todayPerList();
+			log.debug("list@controller = {}", list);
+						
+//					SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
+			
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy.MM.dd");
+			mav.addObject("dateformat", dateformat);
+			mav.addObject("dateformat2", dateformat2);
+			mav.addObject("rList", rList);
+			mav.addObject("list", list);
+			
+			
+			mav.setViewName("member/memberBookingList");
+			return mav;
+				}		
+		
 		@GetMapping("/member/adminMemberSearchList")
 		public ModelAndView adminMemberSearchList(ModelAndView mav,
 												  HttpServletRequest request,

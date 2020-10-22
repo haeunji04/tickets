@@ -110,6 +110,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectMemberPayTicket(orderNo);
 	}
 
+	@Override
+	public List<MemberPayList> selectCompanyPayList(int perNo) {
+		return memberDAO.selectCompanyPayList(perNo);
+	}
+
+	
+
 	
 	
 }

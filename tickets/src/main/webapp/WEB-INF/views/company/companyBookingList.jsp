@@ -67,7 +67,7 @@
 		<div class="reserve-cn-btn" style="margin-left:180px;">
 	    <button id="pill2" class="btn btn-outline-secondary rounded-pill" style="width:200px;height:40px;position:relative;z-index:0;background-color:white;">예매취소</button>
 		</div>
-  	</div>
+  	</div> 
   	<div class="list text-center" >
 	  	<div id="reserv-list" class="reserv-list mx-auto" style="width:90%;">
 	  		<table class="table table-hover ">
@@ -115,6 +115,10 @@
 							<dt>아이디</dt>
 							<dd>${ pay.memberId }</dd>
 						</dl>
+						<dl>
+							<dt>총결제액</dt>
+							<dd>${ pay.totPrice }</dd>
+						</dl>
 					</div>
 				</td>
 				<td>
@@ -133,7 +137,7 @@
 	</div>
 	<!-- 예매 취소 관련  -->
   	<div class="list text-center" >
-	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;">
+	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;'">
 	  		<table class="table table-hover ">
 			<tr class="border-top border-bottom" >
 				<th style="width:80px;">예매일</th>

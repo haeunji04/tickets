@@ -43,4 +43,6 @@ public interface MemberService {
 	List<MemberPayList> selectMemberPayList(String memberId);
 
 	List<MemberPayTicket> selectMemberPayTicket(String orderNo);
+
+	List<MemberPayList> selectCompanyPayList(int perNo);
 }

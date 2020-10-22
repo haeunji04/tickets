@@ -129,6 +129,9 @@
 		<br />
 		<%-- <c:if test="${ pay.payOption eq '' }"></c:if>  --%>
 		<div class="person-perform mt-3">
+		
+		
+		<!-- 무통장관련 -->
 
 		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
 		<!-- <div class="more" style="float:right;">
