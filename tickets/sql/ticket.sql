@@ -291,6 +291,9 @@ create table seat(
     constraints fk_theater_no2 foreign key(theater_no) references theater(theater_no)
 );
 
+ALTER TABLE seat DROP COLUMN theater_no;
+
+select * from seat;
 --Pay
 create table pay(
     order_no varchar2(13) default 'M'||to_char(sysdate,'yyMMddHHssSS'),
@@ -705,7 +708,7 @@ insert into review_comment values(
 		);
 --======================================================
 
-select * from theater;
+select * from theater; where theater_no = 261;
 --select * from location;
 --select * from category;
 select * from member;
@@ -719,9 +722,16 @@ select * from seat;
 select * from selected;
 select * from pay;
 select * from ticket;
+
+update performance set price=15000 where category_code='C5';
 --
 select sch_date_time-1,sch_no from schedule;
 delete selected where seat_no='1';
+
+insert into schedule values(0,161,null,sysdate,1053);
+insert into schedule values(1000,163,null,sysdate,1058);
+insert into schedule values(1001,162,null,sysdate,1055);
+insert into schedule values(1002,163,null,sysdate,1059);
 
 insert into 
     selected
@@ -737,7 +747,6 @@ select * from recently_per_list;
 --select * from recently_per_list_view;
 select * from selected;
 
-select sysdate from dual;
 
 commit;
 --rollback;

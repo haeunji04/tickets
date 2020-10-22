@@ -747,9 +747,14 @@ public class PerformanceController {
 	}
 
 	@GetMapping("/performance/salePerformance.do")
-	public ModelAndView dispaly(ModelAndView mav, @RequestParam String memberId, @RequestParam int perNo) {
+	public ModelAndView dispaly(ModelAndView mav,
+								@RequestParam String memberId,
+								@RequestParam int perNo,
+								@RequestParam String categoryCode) {
 
 		PerJoin performance = performanceService.selectOnePerformance(perNo);
+		mav.addObject("categoryCode", categoryCode);
+		mav.addObject("perNo", perNo);
 		mav.addObject("performance", performance);
 		mav.addObject("memberId", memberId);
 		mav.setViewName("performance/salePerformance");
@@ -792,6 +797,24 @@ public class PerformanceController {
 		mav.addObject("seatNo", seatNo);
 		mav.addObject("seatNoLength", seatNo.length);
 		mav.addObject("seatName", seatName);
+		mav.addObject("memberId", memberId);
+		mav.setViewName("performance/paySelect");
+		return mav;
+	}
+	
+	@GetMapping("/performance/paySelect.do")
+	public ModelAndView paySelect(ModelAndView mav,
+								@RequestParam String memberId,
+								@RequestParam int total,
+								@RequestParam int perNo,
+								@RequestParam int count) {
+		
+		PerJoin performance = performanceService.selectOnePerformance(perNo);
+		Member member = memberService.selectOneMember(memberId);
+		mav.addObject("member", member);
+		mav.addObject("count", count);
+		mav.addObject("performance", performance);
+		mav.addObject("total", total);
 		mav.addObject("memberId", memberId);
 		mav.setViewName("performance/paySelect");
 		return mav;
@@ -856,6 +879,55 @@ public class PerformanceController {
 		mav.addObject("date1", sdf2.format(date));
 		mav.addObject("date2", sdf2.format(date));
 
+		log.debug("result={}", result);
+		mav.setViewName("performance/payComplete");
+		return mav;
+	}
+	
+	@GetMapping("/performance/payComplete.do")
+	public ModelAndView payComplete(Pay pay,
+							Ticket ticket,
+							@RequestParam int total,
+							@RequestParam int perNo,
+							@RequestParam int count,
+							ModelAndView mav) {
+		
+		
+		String orderNum = "M";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHssSS");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY년 MM월 dd일");
+		SimpleDateFormat sdf3 = new SimpleDateFormat("YYYY년 MM월 dd일 HH시 mm분까지");
+		
+		orderNum += sdf.format(new Date());
+		pay.setOrderNo(orderNum);
+		
+		int schNo = performanceService.selectScheduleNo(perNo);
+		pay.setSchNo(schNo);
+	
+		int result = performanceService.insertPay(pay);
+		
+		log.debug("result={}",result);
+		
+			log.debug("ticket={}",ticket);
+			
+			ticket.setSeatNo(0); 
+			Selected selected = new Selected();
+			int price = performanceService.seatPrice(0); 
+			ticket.setTicPrice(price); 
+			ticket.setOrderNo(orderNum);
+			int result2 =performanceService.insertTicket(ticket);
+			log.debug("ticket={}",ticket); 
+			
+		PerJoin performance = performanceService.selectOnePerformance(perNo);
+		mav.addObject("performance", performance);
+		
+		int theaterNo = performanceService.selectScheduleHall(ticket.getSchNo());
+		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
+		
+		Pay payed = performanceService.selectOnePay(orderNum);
+		mav.addObject("payed", payed);
+		mav.addObject("performanceHall", performanceHall);
+		
 		log.debug("result={}", result);
 		mav.setViewName("performance/payComplete");
 		return mav;

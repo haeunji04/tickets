@@ -325,6 +325,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		return sqlSession.selectList("performance.selectOpenList");
 	}
 
+	@Override
+	public int selectScheduleNo(int perNo) {
+		return sqlSession.selectOne("performance.selectScheduleNo", perNo);
+	}
+
 	
 	
 }
