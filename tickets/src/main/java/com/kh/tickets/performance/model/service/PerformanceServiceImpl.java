@@ -296,6 +296,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.insertTicket(ticket);
 	}
 
+	@Override
+	public int selectedDelete(Selected selected) {
+		return performanceDAO.selectedDelete(selected);
+	}
+
 	
 	
 

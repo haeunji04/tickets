@@ -723,9 +723,10 @@ public class PerformanceController {
 	    	// 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드)
 	        fileCal.setTime(fileDate);
 	        long diffMil = todayMil - fileCal.getTimeInMillis() ;
-	        log.debug("fileCal.getTimeInMillis()@@ = {}", fileCal.getTimeInMillis());
-	        log.debug("arr[i]={}",arr[i].getSeatNo());
+	        log.debug("arr[i]={}", arr[i]);
+	        log.debug("arr[i].getSeatNo={}",arr[i].getSeatNo());
 	        log.debug("todayMil@@ = {}", todayMil);
+	        log.debug("fileCal.getTimeInMillis()@@ = {}", fileCal.getTimeInMillis());
 	        log.debug("diffMil@@ = {}", diffMil);
 	        log.debug("arrlength@@ = {}", arr.length);
 	        log.debug("fileDate@@ = {}", fileDate);
@@ -736,18 +737,19 @@ public class PerformanceController {
 	        log.debug("diffDay@@ = {}", diffDay);
 	     
 	         
-//	        // 3일이 지난 파일 삭제
-//	        if(diffDay > 1){
-//	        	
-//	        	int result = performanceService.selectedDelete(arr[i]);
-//	        	if(result>0) {
-//	        		log.debug("임시좌석 삭제성공");	        		
-//	        	}else {
-//	        		log.debug("임시좌석 삭제실패");	        		
-//	        		
-//	        	}
-//	        	
-//	        }
+	        // 원하는 시간만큼 지났을때. 현재는 분단위
+//	        if(diffDay > 1 || arr[i].getPayYn().equals("Y")){
+	        if(diffDay > 1 ){
+	        	
+	        	int result = performanceService.selectedDelete(arr[i]);
+	        	if(result>0) {
+	        		log.debug("임시좌석 삭제성공");	        		
+	        	}else {
+	        		log.debug("임시좌석 삭제실패");	        		
+	        		
+	        	}
+	        	
+	        }
 	    	
 	    }
 		

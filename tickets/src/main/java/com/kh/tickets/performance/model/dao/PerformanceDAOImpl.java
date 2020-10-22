@@ -300,6 +300,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 		
 	}
 
+	@Override
+	public int selectedDelete(Selected selected) {
+		return sqlSession.delete("performance.selectedDelete", selected);
+	}
+
 	
 	
 }
