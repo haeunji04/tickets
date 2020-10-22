@@ -561,6 +561,13 @@
 	update selected set pay_yn='Y' where sch_no=#{ schNo } and seat_no=#{ seatNo }
 	</update>
 	
+	<delete id="selectedDelete">
+		delete from 
+			selected
+		where 
+			temp_time = #{ tempTime } 
+	</delete>
+	
 	<select id="selectOpenList" resultMap="performanceMap">
         select
 			*
@@ -571,11 +578,6 @@
 		order by 
 			reservation_start_date
 	</select>
-	
-	
-	
-	
-	
 	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
