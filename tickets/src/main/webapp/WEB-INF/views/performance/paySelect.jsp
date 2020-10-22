@@ -273,7 +273,7 @@ a{
 			<h5>${ performance.perTitle }</h5>
 		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
 			<ul style="padding-left:20px;">
-				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
+				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.10.24</li>
 				<li>
 					총 ${ seatNoLength }석 선택
 					<br />

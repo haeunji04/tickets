@@ -46,7 +46,6 @@ a{
 	
 	<div id="test" class="seatCharts-container text-center" tabindex="0" style="margin-top:60px;margin-left:30px;width:800px;">
 		<h3>결제가 완료되었습니다.</h3>
-		 <p>${ date1 } 23시 59분까지 입금이 되어야 결제가 완료됩니다.</p>
 		 <p>예매 상세내역은 마이페이지 > 예매확인/취소에서 확인하실 수 있습니다.</p>
     </div>
 		
@@ -99,7 +98,7 @@ a{
 			<h5>${ performance.perTitle }</h5>
 		<div class="seat-grade mx-3 mb-3 border text-left" style="margin-top:30px;">
 			<ul style="padding-left:20px;">
-				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.09.30</li>
+				<li class="d-block" style="border-bottom:1px solid #eeeeee;line-height:40px;">2020.10.24</li>
 				<li>
 					총 ${ payed.seatCount }석 선택
 					<br />

@@ -189,7 +189,7 @@ span.seatCharts-legendDescription {
 				</c:forEach>
 				 <%if(cnt1==1 && cnt2==0) {%>
 				 	style="pointer-events: none;
-						background-color:gray;"
+						background-color:#F4F4F4;"
 				 <%} else{%>
 				 	style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
@@ -235,7 +235,7 @@ span.seatCharts-legendDescription {
 				</c:forEach>
 				 <%if(cnt1==1 && cnt2==0) {%>
 				 	style="pointer-events: none;
-						background-color:gray;"
+						background-color:#F4F4F4;"
 				 <%} else{%>
 				 	style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;

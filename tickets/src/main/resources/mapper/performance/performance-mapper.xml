@@ -593,6 +593,9 @@
 	from schedule
 	where per_no = #{ perNo }
 	</select>
+	<update id="updateSaleCount">
+	update performance set sale_cnt = sale_cnt+1 where per_no = #{ perNo }
+	</update>
 	
 	<select id="selectOneTicket" resultType="string">
 		select
