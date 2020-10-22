@@ -15,7 +15,6 @@ div#notice-container{width: 60%; margin:0 auto; text-align:center;}
 div#notice-container input{margin-bottom:15px;}
 /* 부트스트랩 : 파일라벨명 정렬*/
 div#notice-container label.custom-file-label{text-align:left;}
-#save-btn{color: #eb6864; border-color: #eb6864;}
 textarea.form-control{height: 250px;}
 #notice-kind{width: 150px; float: left; margin-bottom: 10px;}
 </style>
@@ -34,7 +33,7 @@ textarea.form-control{height: 250px;}
 		<input type="text" class="form-control" placeholder="제목" name="noticeTitle" id="notice-title" required>
 	    <textarea class="form-control" name="noticeContent" id="noticeContent" placeholder="내용" required></textarea>
 		<br/>
-		<input type="submit" class="btn btn-outline-success" id="save-btn" value="저장" >
+		<input type="submit" class="btn btn-outline-primary" id="save-btn" value="저장" >
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form:form>
 	
