@@ -164,7 +164,7 @@
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do?memberId=<sec:authentication property="principal.username"/>">내 정보</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
 			          		<a class="dropdown-item" href="#">쿠폰</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a>
+			          		<%-- <a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a> --%>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜한 공연</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 </a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/commentPerList.do">댓글 남긴 공연</a>
@@ -172,7 +172,7 @@
 			          		<hr />
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceRegisterForm.do">공연등록 신청(판매자)</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companyPerList.do">공연 목록(판매자)</a>
-			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a>
+			          		<%-- <a class="dropdown-item" href="${pageContext.request.contextPath}/company/companySales.do">매출 조회(판매자)</a> --%>
 			          		</sec:authorize>
 			          		<%-- <c:if test="${ loginMember.memberRole eq 'A' }"> --%>
 			          		<sec:authorize access="hasRole('ADMIN')">
