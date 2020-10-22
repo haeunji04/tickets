@@ -126,7 +126,10 @@ public interface PerformanceDAO {
 	Pay selectorderNo(Pay pay);
 
 	int insertTicket(Ticket ticket);
-
+	
+	int selectedDelete(Selected selected);
+	
 	int updateSelected(Selected selected);
+
 
 }
