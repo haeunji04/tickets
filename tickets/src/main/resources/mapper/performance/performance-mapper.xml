@@ -560,6 +560,14 @@
 	<update id="updateSelected">
 	update selected set pay_yn='Y' where sch_no=#{ schNo } and seat_no=#{ seatNo }
 	</update>
+	<select id="selectOneDate" resultType="date">
+		select sch_date_time-1
+		from schedule
+		where sch_no = #{ schNo }
+	</select>
+	<select id="selectOnePay" resultMap="payMap">
+	select * from pay where order_no = #{ orderNum }
+	</select>
 	
 	<delete id="selectedDelete">
 		delete from 
@@ -567,6 +575,17 @@
 		where 
 			temp_time = #{ tempTime } 
 	</delete>
+	
+	<select id="selectOpenList" resultMap="performanceMap">
+        select
+			*
+		from
+			performance
+        where 
+        	trunc(cast(reservation_start_date as date)) >= trunc(sysdate)
+		order by 
+			reservation_start_date
+	</select>
 	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>

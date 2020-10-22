@@ -241,7 +241,7 @@ if ( getCookie( "popup" ) != "done" ){
 				<a href="${pageContext.request.contextPath}/performance/openNewsPerList.do">더보기 ❭</a>
 				</div>
 				<ul class="list-group list-group-flush">
-					<c:forEach items="${ newList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
+					<c:forEach items="${ openList }" var="per" begin="0" end= "4" step="1" varStatus="status" >
 					<li class="list-group-item" style="text-align:left;">
 						<a href="${pageContext.request.contextPath }/performance/performanceInfoView2.do?perNo=${ per.perNo}" class="inner inner_ico text-decoration-none">
 							<c:choose>
@@ -254,7 +254,7 @@ if ( getCookie( "popup" ) != "done" ){
 							<span>
 								${ per.perTitle} 티켓 오픈 안내
 								<br />
-								<small class="text-muted">[오픈]${ dateformat.format(per.perStartDate) }</small>
+								<small class="text-muted">[오픈] 20<fmt:formatDate value="${ per.reservationStartDate }" pattern="yy.MM.dd (E) HH:mm"/></small>
 							</span>
 						</a>
 					</li>
