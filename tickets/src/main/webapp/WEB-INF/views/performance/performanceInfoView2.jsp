@@ -161,7 +161,10 @@
 			</div>	
 		</div>
 		
-		<c:if test="${ (reservationStartDate >= nowDate) or (performance.categoryCode ne 'C5') }">		
+		<%-- <c:if test="${ (reservationStartDate <= nowDate) }">	 --%>	
+		<c:choose>
+		<c:when test="${ reservationStartDate <= nowDate }">
+		
 		<div class="wrap_ticketing_process border"><!-- wrap_ticketing_process 상세 예매프로세스 -->
                 <div class="box_ticketing_process text-center">
                     <dl class="date_choice" style="display:inline-grid;margin:30px;">
@@ -223,23 +226,23 @@
                     </dl>
                     
                 </div>
+                </c:when>
+                </c:choose>
+                
                 <c:choose>
-					<c:when test="${ reservationStartDate < nowDate }">
+					<c:when test="${ reservationStartDate <= nowDate and performance.categoryCode ne 'C5'}">
 						<div class="box_type_comment">
 							<input type="hidden" name="categoryCode" id="categoryCode" value="${performance.categoryCode }" />
 				            <button type="button" class="btn btn-primary btn-lg btn-block" onclick='nwindow();'>예매하기</button>
 				        </div>
 					</c:when>
 			  		<c:otherwise>
-			  		<div>
-					  	<h3 class="text-primary my-4" style="text-align:center;"> - 20<fmt:formatDate value="${ performance.reservationStartDate }" pattern="yy.MM.dd(E) hh:mm"/>부터 티켓 오픈! -</h3>
-			  		</div>
 					</c:otherwise> 	
 				</c:choose>
-                </c:if>
-                <c:if test="${openDate <= nowDate and performance.categoryCode eq 'C5'}">
+                <%-- </c:if> --%>
+                <c:if test="${performance.categoryCode eq 'C5'}">
                 <c:choose>
-					<c:when test="${ openDate < nowDate }">
+					<c:when test="${ reservationStartDate <= nowDate }">
 						<div class="box_type_comment">
 						<form:form action="${pageContext.request.contextPath }/performance/salePerformance.do" method="GET">
 							<input type='hidden' name='perNo' value='${performance.perNo}'/>
@@ -271,9 +274,11 @@
 	  <li class="nav-item">
 	    <a class="nav-link" data-toggle="tab" href="#before"><h5 class="m-10 px-4">기대평&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ commntListSize  }</span></h5></a>
 	  </li>
+	  <c:if test="${ reservationStartDate <= nowDate }">
 	  <li class="nav-item">
 		  <a class="nav-link link" data-toggle="tab" href="#after"><h5 class="m-10 px-4">관람후기&nbsp;<span class="badge badge-primary badge-pill text-center align-top">${ reviewList.size() }</span></h5></a>
 	  </li>
+	  </c:if>
 	  <li class="nav-item">
 	    <a class="nav-link link" data-toggle="tab" href="#theater" id="theater-tab"><h5 class="m-10 px-4">공연장정보</h5></a>
 	  </li>
@@ -283,11 +288,12 @@
 	</ul>
 	</div>
 	<div id="myTabContent" class="tab-content d-block mx-auto mt-5 mb-5">
-	  <div class="tab-pane fade active show text-left" id="info">
-		  <h5 class="ml-5 pl-5 my-5 pt-4">공연시간</h5>
+	  <div class="tab-pane fade active show text-left pl-5 my-5 pt-4" id="info">
+		  <h4 class="my-3 pt-4">공연시간</h4>
 		  <pre>${ performance.perContent }</pre>
 		  
-		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"/>
+		 <img src="<c:url value='/resources/upload/performance/${ performance.detailImgRenamedFileName}' />"
+		 	  class="mt-3" />
 		  
 	  </div>
 	  <div class="tab-pane fade" id="before">

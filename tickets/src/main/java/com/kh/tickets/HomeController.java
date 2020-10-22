@@ -125,8 +125,12 @@ public class HomeController {
 		//슬라이드 아래 연극 공연
 		category = "C2";
 		List<Performance> theatreList = performanceService.selectCategoryList(category);
-		log.debug("theatreList= {}", theatreList);
+		//log.debug("theatreList= {}", theatreList);
 		
+		//오픈예정공연
+		List<Performance> openList = performanceService.selectOpenList();
+		
+		model.addAttribute("openList", openList);
 		model.addAttribute("dateformat", dateformat);	
 		model.addAttribute("muRank", mList);
 		model.addAttribute("pickList", pickList);
