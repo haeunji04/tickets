@@ -334,6 +334,10 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	public int updatePayCount(String orderNo) {
 		return sqlSession.update("performance.updatePayCount", orderNo);
 	}
+	
+	public int selectScheduleNo(int perNo) {
+		return sqlSession.selectOne("performance.selectScheduleNo", perNo);
+	}
 
 	
 	

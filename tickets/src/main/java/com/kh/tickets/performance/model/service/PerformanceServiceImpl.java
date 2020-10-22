@@ -330,6 +330,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int updatePayCount(String orderNo) {
 		return performanceDAO.updatePayCount(orderNo);
 	}
+	
+	public int selectScheduleNo(int perNo) {
+		return performanceDAO.selectScheduleNo(perNo);
+	}
 
 	
 	
