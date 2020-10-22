@@ -298,6 +298,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
+	public int selectedDelete(Selected selected) {
+		return performanceDAO.selectedDelete(selected);
+	}
+	
+	@Override
 	public int updateSelected(Selected selected) {
 		return performanceDAO.updateSelected(selected);
 	}
@@ -310,6 +315,10 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public Pay selectOnePay(String orderNum) {
 		return performanceDAO.selectOnePay(orderNum);
+	}	
+	@Override
+	public List<Performance> selectOpenList() {
+		return performanceDAO.selectOpenList();
 	}
 
 	

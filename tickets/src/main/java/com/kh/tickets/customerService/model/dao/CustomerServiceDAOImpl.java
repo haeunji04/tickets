@@ -42,5 +42,12 @@ public class CustomerServiceDAOImpl implements CustomerServiceDAO {
 	public int selectNoticeTotalContents() {
 		return sqlSession.selectOne("customerService.selectNoticeTotalContents");
 	}
+
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return sqlSession.delete("customerService.deleteNotice", noticeNo);
+	}
+	
+	
 	
 }

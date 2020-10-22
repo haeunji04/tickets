@@ -568,6 +568,25 @@
 	<select id="selectOnePay" resultMap="payMap">
 	select * from pay where order_no = #{ orderNum }
 	</select>
+	
+	<delete id="selectedDelete">
+		delete from 
+			selected
+		where 
+			temp_time = #{ tempTime } 
+	</delete>
+	
+	<select id="selectOpenList" resultMap="performanceMap">
+        select
+			*
+		from
+			performance
+        where 
+        	trunc(cast(reservation_start_date as date)) >= trunc(sysdate)
+		order by 
+			reservation_start_date
+	</select>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

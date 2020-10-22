@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- param 한글 encoding 처리 -->
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
@@ -38,7 +40,7 @@ $(function(){
 	
 });
 </script>
-	<h3>고객센터</h3>
+	<h3 class="text-center my-4">고객센터</h3>
 	<div class="form-group text-center">
 		<nav>
 			<div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
@@ -52,13 +54,15 @@ $(function(){
 			<!-- 공지사항 -->
 			<div class="tab-pane fade show active" id="notice-list" role="tabpanel" aria-labelledby="notice-list-tab">
 				<!-- 관리자에게만 보이는 버튼 -->
-				<div style="float: right; padding: 10px 5px;">
-					<input type="button" value="글쓰기" id="btn-add" class="btn" onclick="goNoticeForm();"/>
-				</div>
+				<sec:authorize access="hasRole('ADMIN')">
+					<div style="float: right; padding: 10px 5px;">
+						<input type="button" value="글쓰기" id="btn-add" class="btn" onclick="goNoticeForm();"/>
+					</div>
+				</sec:authorize>
 				<div style="padding-top: 20px; text-align:left">
-					<p style="font-weight: bold; font-size: 20px">공지사항</p>
+					<p style="font-weight: bold; font-size: 20px; text-align:center;">공지사항</p>
 					<p style="text-align:center">* 총 <span class="text-primary"> ${ totalContents }</span> 개의 게시글이 있습니다. *</p>
-					<table id="tbl-board" class="table table-hover" style="width:90%; margin: auto">
+					<table id="tbl-board" class="table table-hover" style="width:90%; margin:0 auto">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -68,7 +72,7 @@ $(function(){
 							</tr>
 						</thead>
 						<tbody>  
-							<c:forEach items="${ noticeList }" var="n">
+							<c:forEach items="${ noticeList }" var="n" varStatus="status">
 							<tr data-notice-no="${ n.noticeNo }">
 								<td>${ n.noticeNo }</td>
 								<td>${ n.noticeKind }</td>
@@ -79,7 +83,7 @@ $(function(){
 						</tbody>
 					</table>
 				</div>
-				<div class="align-center">
+				<div class="align-center my-4">
 					<ul class="pagination justify-content-center">
 						${ pageBar }     
 					</ul>

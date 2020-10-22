@@ -4,12 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="customerService">
 	<select id="selectNoticeList" resultMap="noticeMap">
-		select 
-			* 
-		from 
-			notice
-		order by
-			notice_no desc
+        select 
+		      *
+		from(
+		 	select 
+		 		rownum as rnum,
+                N.* 
+			from 
+                notice N
+            order by
+                notice_no desc
+		    )P
+		where rnum between #{ start } and #{ end }
 	</select>
 	<resultMap id="noticeMap" type="notice">
 	</resultMap>	
@@ -59,6 +65,15 @@
 		where 
 		    notice_no = #{ notice_no }
 	</select>
+	
+	<delete id="deleteNotice">
+		delete from 
+				Notice
+		where
+			notice_no = #{ noticeNo }
+	
+	</delete>
+	
 	<resultMap id="noticeCollectionMap" type="notice">
 		<id column="notice_no" property="noticeNo"/>
 		<result column="notice_title" property="noticeTitle"/>

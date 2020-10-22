@@ -326,6 +326,7 @@ create table ticket(
 
 
 --selected
+select * from selected;
 create table selected(
     seat_no number,
     member_id varchar2(15),
@@ -336,10 +337,14 @@ create table selected(
     constraints fk_sch_no3 foreign key(sch_no) references schedule(sch_no)
     
 );
+<<<<<<< HEAD
 
 alter table selected add pay_yn char(1) default 'N';
 alter table selected add constraint ck_pay_yn check(pay_yn in ('Y','N'));
 
+=======
+alter table selected add temp_time timestamp default sysdate;
+>>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 CREATE TABLE comment_board (
@@ -666,6 +671,7 @@ from pay Y
         on P.theater_no = T.theater_no;
 
 select  * from member_pay_list_view; 
+select  * from selected; 
 
 --DROP VIEW "MEMBER_PAY_TICKET_VIEW";
 create view member_pay_ticket_view as

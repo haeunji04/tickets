@@ -302,6 +302,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	@Override
+	public int selectedDelete(Selected selected) {
+		return sqlSession.delete("performance.selectedDelete", selected);
+	}
+		
+	@Override
 	public int updateSelected(Selected selected) {
 		return sqlSession.update("performance.updateSelected", selected);
 	}
@@ -314,6 +319,10 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public Pay selectOnePay(String orderNum) {
 		return sqlSession.selectOne("performance.selectOnePay", orderNum);
+	}
+	@Override	
+	public List<Performance> selectOpenList() {
+		return sqlSession.selectList("performance.selectOpenList");
 	}
 
 	
