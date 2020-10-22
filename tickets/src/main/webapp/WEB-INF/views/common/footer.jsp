@@ -68,17 +68,50 @@
 	<%-- </c:if> --%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/jquery.convform.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/demo.css">
-	<section id="question" style="display:none;">
+	<section id="question">
 	    <div class="vertical-align">
 	        <div class="container">
 	            <div class="row">
 	                <div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
 	                    <div class="card no-border">
-	                        <div id="chat">
+	                        <div id="chat" class="conv-form-wrapper">
 	                            <form action="" method="GET" class="hidden">
-	                                <select data-conv-question="Hello! This is an example use of the plugin to dynamically generate questions (like using an API). This is the only question that was written on the initial HTML. To end the loop, select END." name="first-question">
-	                                    <option value="understood">Understood</option>
-	                                    <option value="okay">Okay, captain!</option>
+	                                <select data-conv-question="안녕하세요, 티켓츠 가상 도우미 Ticat ⚡️입니다
+										짧고 직접적인 질문을받을 때 가장 잘 작동합니다" name="first-question">
+	                                    <option value="yes">네</option>
+	                                    <option value="sure">알겠습니다.!</option>
+	                                </select>
+	                                <input type="text" name="name" data-conv-question="만나서 반갑습니다. 제가 당신을 뭐라고 불러드리면 될까요?">
+	                                <input type="text" data-conv-question="반가워요 {name}:0님 " data-no-answer="true">
+	                                <!-- <input type="text" data-conv-question="This plugin supports multi-select too. Let's see an example." data-no-answer="true"> -->
+	                                <select name="multi[]"  data-conv-question="무엇을 도와드릴까요?" multiple>
+	                                    <option value="좌석 변경">좌석을 변경</option>
+	                                    <option value="티켓 취소">티켓 취소</option>
+	                                    <option value="회원 탈퇴">회원 탈퇴</option>
+	                                    <option value="관람일시 변경">관람일시 변경</option>
+	                                </select>
+	                                <select name="programmer" data-callback="storeState" data-conv-question="예매 완료 후에는 좌석을 변경할 수 없습니다.
+										변경을 원하시는 경우 [마이티켓 > 예매/취소] 메뉴에서 해당 예매 건을 취소하시고 재 예매하셔야 합니다.">
+	                                    <option value="yes">잘모르겠어요</option>
+	                                    <option value="no">알겠습니다</option>
+	                                </select>
+	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                                        <input type="text" data-conv-question="A fellow programmer! Cool." data-no-answer="true">
+	                                    </div>
+	                                    <div data-conv-case="no">
+		                                    <select name="thought" data-conv-question="더 질문하실게 있으신가요?">
+		                                    	<option value="yes">네</option>
+		                                    	<option value="no">아니요</option>
+		                                    </select>
+	                                    </div>
+	                                </div>
+	                                <select name="callbackTest" data-conv-question="You can do some cool things with callback functions. Want to rollback to the 'programmer' question before?">
+	                                    <option value="yes" data-callback="rollback">Yes</option>
+	                                    <option value="no" data-callback="restore">No</option>
+	                                </select>
+	                                <select data-conv-question="This is it! If you like me, consider donating! If you need support, contact me. When the form gets to the end, the plugin submits it normally, like you had filled it." id="">
+	                                    <option value="">Awesome!</option>
 	                                </select>
 	                            </form>
 	                        </div>
@@ -93,40 +126,46 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery.convform.js"></script>
 
 	<script>
+		function google(stateWrapper, ready) {
+			window.open("https://google.com");
+			ready();
+		}
+		function bing(stateWrapper, ready) {
+			window.open("https://bing.com");
+			ready();
+		}
+		var rollbackTo = false;
+		var originalState = false;
+		function storeState(stateWrapper, ready) {
+			rollbackTo = stateWrapper.current;
+			console.log("storeState called: ",rollbackTo);
+			ready();
+		}
+		function rollback(stateWrapper, ready) {
+			console.log("rollback called: ", rollbackTo, originalState);
+			console.log("answers at the time of user input: ", stateWrapper.answers);
+			if(rollbackTo!=false) {
+				if(originalState==false) {
+					originalState = stateWrapper.current.next;
+						console.log('stored original state');
+				}
+				stateWrapper.current.next = rollbackTo;
+				console.log('changed current.next to rollbackTo');
+			}
+			ready();
+		}
+		function restore(stateWrapper, ready) {
+			if(originalState != false) {
+				stateWrapper.current.next = originalState;
+				console.log('changed current.next to originalState');
+			}
+			ready();
+		}
+	</script>
+	<script>
 		jQuery(function($){
-			var count = 0;
-			var convForm = $('#chat').convform({eventList:{onInputSubmit: function(convState, ready) {
-				console.log('input is being submitted...');
-				//here you send the response to your API, get the results and build the next question
-				//when ready, call 'ready' callback (passed as the second parameter)
-		        if(convState.current.answer.value==='end') {
-		            convState.current.next = false;
-					//emulating random response time (100-600ms)
-					setTimeout(ready, Math.random()*500+100);
-		        } else {
-					if(Array.isArray(convState.current.answer)) var answer = convState.current.answer.join(', ');
-					else var answer = convState.current.answer.text;
-					convState.current.next = convState.newState({
-						type: 'select',
-						noAnswer: true,
-						name: 'dynamic-question-'+count,
-						questions: ['This question state was built on your previous answer (you answered: '+answer+') and doesnt expect an answer'],
-					});
-					convState.current.next.next = convState.newState({
-						type: 'select',
-						name: 'dynamic-question-'+count,
-						questions: ['This question state was built on your previous answer (you answered: '+answer+')'],
-						answers: [
-							{text: 'Answer 1', value: '1'},
-							{text: 'Answer 2', value: '2'},
-							{text: 'END', value: 'end'}
-						]
-					});
-					//emulating random response time (100-600ms)
-					setTimeout(ready, Math.random()*500+100);
-		        }
-		        count++;
-		    }}});
+			convForm = $('#chat').convform({selectInputStyle: 'disable'});
+			console.log(convForm);
 		});
 	</script>
 	<button type="button" id="svg" style="border:0;position:fixed;bottom:10px;right:20px;background-color:white;">

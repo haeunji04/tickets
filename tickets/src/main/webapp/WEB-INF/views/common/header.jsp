@@ -163,7 +163,6 @@
 			        	<div class="dropdown-menu">
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberDetail.do?memberId=<sec:authentication property="principal.username"/>">내 정보</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath }/member/memberBookingList.do">예매 확인/취소</a>
-			          		<a class="dropdown-item" href="#">쿠폰</a>
 			          		<%-- <a class="dropdown-item" href="${pageContext.request.contextPath}/performance/performanceList.do">공연 목록(테스트)</a> --%>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/wishListView.do">찜한 공연</a>
 			          		<a class="dropdown-item" href="${pageContext.request.contextPath}/performance/recentlyPerList.do">최근 본 공연 </a>

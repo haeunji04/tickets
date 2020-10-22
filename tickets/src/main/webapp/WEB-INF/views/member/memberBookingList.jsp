@@ -45,30 +45,10 @@
 	 }
 
 	</style>
-	<script>
-		$(function(){
-			$('.rounded-pill').click(function(){
-				$('.rounded-pill').css('z-index','');
-				$(this).css('z-index','5');
-				
-			});
-			$('#pill1').click(function(){
-				$('#reserv-list').css('display','block');
-				$('#reserv-cn-list').css('display','none');
-			});
-			$('#pill2').click(function(){
-				$('#reserv-cn-list').css('display','block');
-				$('#reserv-list').css('display','none');
-			});
-			
-		});
-	</script>
+	
 	<div class="form-group text-center my-5" style="position:relative;">
 		<div class="reserve-btn">
-	    <button id="pill1" class="btn btn-outline-secondary rounded-pill mx-auto" style="width:200px;height:40px;position:absolute;left:500px;z-index:1;background-color:white;">예매확인</button>
-		</div>
-		<div class="reserve-cn-btn" style="margin-left:180px;">
-	    <button id="pill2" class="btn btn-outline-secondary rounded-pill" style="width:200px;height:40px;position:relative;z-index:0;background-color:white;">예매취소</button>
+		<h2>예매확인</h2>
 		</div>
   	</div>
   	<div class="list text-center" >
@@ -135,63 +115,6 @@
 	  	</div>
 	</div>
 	<!-- 예매 취소 관련  -->
-  	<div class="list text-center" >
-	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;">
-	  		<table class="table table-hover ">
-			<tr class="border-top border-bottom" >
-				<th style="width:80px;">예매일</th>
-				<th colspan="2" id="perInfo" style="width:600px;">공연정보</th>
-				<th style="width:270px;">예매정보</th>
-				<th style="width:190px;">예매상태</th>
-			</tr>
-			<!-- 티켓예매테이블 -->
-
-			<tr class="border-bottom">
-				<td class="px-3" valign="middle">2020.09.22</td>
-				<td align="right">
-					<!-- <div class="performInfo" style="position:relative;text-align:left;padding-right:50px;"> -->
-					<a class="text-reset" href="#">
-						<img style="width:120px;height:160px;top:0;left:10px;" src="<c:url value='/resources/images/poster/캣츠.jpg' />"/>
-					</a>
-				</td>
-				<td align="left">
-					<a href="#" style="text-decoration: none; color: black;">
-						<p>
-							<span class="d-block"><strong>캣츠</strong> <br />
-								<small>2020.09.10-2020.09.30</small> <br />
-								롯데콘서트몰
-							</span>
-						</p>
-					</a>
-					<!-- </div> -->
-				</td>
-				<td>
-					<div class="booking-info" style="text-align:left;">
-						<dl>
-							<dt>예약 정보</dt>
-							<dd>[취소]M045355</dd>
-						</dl>
-						<dl>
-							<dt>관람일</dt>
-							<dd>2020.09.22(목)</dd>
-						</dl>
-						<dl>
-							<dt>매수</dt>
-							<dd>M045355</dd>
-						</dl>
-						<dl>
-							<dt>취소일</dt>
-							<dd>2020.09.22(목) 12:30</dd>
-						</dl>
-					</div>
-				</td>
-				<td>
-					<p>취소완료</p>
-				</td>
-			</tr>
-		</table>
-	  	</div>
-  	</div> 
   	<div class="mt-3">
   		<pre>
   			취소 안내
