@@ -1,5 +1,6 @@
 package com.kh.tickets.performance.model.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -306,6 +307,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 		return performanceDAO.updateSelected(selected);
 	}
 
+	@Override
+	public Date selectOneDate(int schNo) {
+		return performanceDAO.selectOneDate(schNo);
+	}
+
+	@Override
+	public Pay selectOnePay(String orderNum) {
+		return performanceDAO.selectOnePay(orderNum);
+	}	
 	@Override
 	public List<Performance> selectOpenList() {
 		return performanceDAO.selectOpenList();

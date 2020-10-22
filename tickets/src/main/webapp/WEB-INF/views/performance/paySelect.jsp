@@ -130,6 +130,8 @@ a{
 			<input type="hidden" name="totPrice" value="${ total }" />
 			<input type="hidden" name="schNo" value="${ schNo }" />
 			<input type="hidden" name="seatCount" value="${ seatNoLength }" />
+			<input type="hidden" name="originTotal" value="${ originTotal }" />
+			<input type="hidden" name="sale" value="${ sale }"/>
 			<c:forEach items="${ seatName }" var="seatName">
 			<input type="hidden" name="seatName" value="${ seatName }" />
 			</c:forEach>
