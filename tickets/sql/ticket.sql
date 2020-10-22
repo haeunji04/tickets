@@ -713,15 +713,17 @@ select * from theater; where theater_no = 261;
 --select * from category;
 select * from member;
 --select * from category;
-select * from performance;
+select * from performance where per_no = 6;
 select * from comment_board;
 select * from review_comment;
 select * from wishlist;
 select * from schedule;
 select * from seat;
-select * from selected;
+select * from selected where sch_no=28;
 select * from pay;
 select * from ticket;
+
+insert into seat values(0,15000,null,null,null,null);
 
 update performance set price=15000 where category_code='C5';
 --
