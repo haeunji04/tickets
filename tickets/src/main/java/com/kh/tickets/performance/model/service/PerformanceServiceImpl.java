@@ -300,6 +300,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	public int selectedDelete(Selected selected) {
 		return performanceDAO.selectedDelete(selected);
 	}
+	
+	@Override
+	public int updateSelected(Selected selected) {
+		return performanceDAO.updateSelected(selected);
+	}
 
 	
 	
