@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
@@ -438,7 +439,7 @@ public class MemberController {
 						
 //			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
 			
-			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd(E) HH:mm:ss", Locale.KOREAN);
 			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy.MM.dd");
 			mav.addObject("dateformat", dateformat);
 			mav.addObject("dateformat2", dateformat2);
@@ -470,7 +471,9 @@ public class MemberController {
 			log.debug("list@controller = {}", list);
 			
 			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd");
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy.MM.dd(E) HH:mm:ss", Locale.KOREAN);
 			mav.addObject("dateformat", dateformat);
+			mav.addObject("dateformat2", dateformat2);
 			mav.addObject("rList", rList);
 			mav.addObject("list", list);
 			mav.setViewName("member/memberOneBooking");

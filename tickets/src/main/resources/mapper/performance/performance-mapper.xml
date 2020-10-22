@@ -504,7 +504,7 @@
 	</select>	
 	
 	<select id="openNewsPerList" resultMap="performanceMap">
-		select 
+        select 
 			*
 		from(
         	select
@@ -517,7 +517,9 @@
                     performance
                 where 
                 	admin_approval = 'Y'
-                order by per_register_date desc
+                and 
+                    trunc(cast(reservation_start_date as date)) &lt;= trunc(sysdate)
+                order by reservation_start_date desc
                 )P
 		)
 		where rnum between #{ start } and #{ end } 
