@@ -787,17 +787,60 @@ public class PerformanceController {
 
 	@ResponseBody
 	@PostMapping("/performance/payComplete.do")
-	public ModelAndView payComplete(Pay pay, Ticket ticket, @RequestParam String[] seatName, @RequestParam int[] seatNo,
-			ModelAndView mav) {
-
+	public ModelAndView payComplete(Pay pay,
+									Ticket ticket,
+									@RequestParam String[] seatName,
+									@RequestParam int[] seatNo,
+									@RequestParam int originTotal,
+									@RequestParam int sale,
+									ModelAndView mav) {
+	
 		int length = pay.getSeatCount();
 
 		String orderNum = "M";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHssSS");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY년 MM월 dd일");
+		SimpleDateFormat sdf3 = new SimpleDateFormat("YYYY년 MM월 dd일 HH시 mm분까지");
+		
+		Date date =  performanceService.selectOneDate(ticket.getSchNo());
+		log.debug("date@@={}",sdf2.format(date));
+		log.debug("date@@={}",sdf3.format(date));
 		orderNum += sdf.format(new Date());
 		pay.setOrderNo(orderNum);
 
 		int result = performanceService.insertPay(pay);
+		
+		log.debug("result={}",result);
+		
+		
+		 for(int i=0;i<length;i++) { 
+			 ticket.setSeatNo(seatNo[i]); 
+			 ticket.setSeatName(seatName[i]);
+			 Selected selected = new Selected();
+			 selected.setSchNo(ticket.getSchNo());
+			 selected.setSeatNo(seatNo[i]);
+			 int payYn = performanceService.updateSelected(selected);
+			 int price = performanceService.seatPrice(seatNo[i]); 
+			 ticket.setTicPrice(price); 
+			 ticket.setOrderNo(orderNum);
+			 int result2 =performanceService.insertTicket(ticket);
+			 log.debug("ticket={}",ticket); 
+		 }
+		int perNo = performanceService.selectOneSchedule(ticket.getSchNo());
+		PerJoin performance = performanceService.selectOnePerformance(perNo);
+		mav.addObject("performance", performance);
+		
+		int theaterNo = performanceService.selectScheduleHall(ticket.getSchNo());
+		PerformanceHall performanceHall = performanceService.selectOneTheater(theaterNo);
+		
+		Pay payed = performanceService.selectOnePay(orderNum);
+		mav.addObject("payed", payed);
+		mav.addObject("performanceHall", performanceHall);
+		mav.addObject("seatName", seatName); 
+		mav.addObject("originTotal", originTotal);
+		mav.addObject("sale", sale);
+		mav.addObject("date1", sdf2.format(date));
+		mav.addObject("date2", sdf2.format(date));
 
 		log.debug("result={}", result);
 
@@ -818,46 +861,6 @@ public class PerformanceController {
 		return mav;
 	}
 
-//	@PostMapping("/performance/pay.do")
-//	public ModelAndView pay(ModelAndView mav,
-//							  @RequestParam int[] seatNo,
-//							  @RequestParam String[] seatName,
-//							  @RequestParam int schNo,
-//							  @RequestParam String memberId,
-//							  @RequestParam int total,
-//							  @RequestParam String customRadio) {
-//		
-//		log.debug("customRadio={}",customRadio);
-//		int perNo = performanceService.selectOneSchedule(schNo);
-//		PerJoin performance = performanceService.selectOnePerformance(perNo);
-//		Member member = memberService.selectOneMember(memberId);
-//		mav.addObject("member", member);
-//		mav.addObject("performance", performance);
-//		mav.addObject("total", total);
-//		mav.addObject("seatNo", seatNo);
-//		mav.addObject("seatNoLength",seatNo.length);
-//		mav.addObject("seatName", seatName);
-//		mav.addObject("seatNameLength", seatName.length);
-//		mav.setViewName("performance/pay");
-//		return mav;
-//	}
-
-	// 요거 질문: 아래 똑같은데 ModelAndView는 됬는데 Model은 왜 perNo를 못읽고 화면을 다시 못띄우는지? sql까진
-	// wishlist 정상 들어감.
-//	@PostMapping("/performance/wishListInsert.do")
-//	public String wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,
-//								 @ModelAttribute("loginMember") Member loginMember, Model model){
-//		
-//		WishList wishList = new WishList();
-//		wishList.setMemberId(loginMember.getMemberId());
-//		wishList.setPerNo(perNo);		
-//		
-//		int result = performanceService.wishListInsert(wishList);
-//		redirectAttributes.addFlashAttribute("msg", result>0 ? "찜하기 성공" : "찜하기 실패");
-//		
-//		model.addAttribute("perNo", perNo);
-//		return "redirect:/performance/performanceInfoView2.do";
-//	}
 
 	@PostMapping("/performance/wishListInsert.do")
 	public ModelAndView wishListInsert(@RequestParam int perNo, RedirectAttributes redirectAttributes,

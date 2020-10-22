@@ -337,7 +337,14 @@ create table selected(
     constraints fk_sch_no3 foreign key(sch_no) references schedule(sch_no)
     
 );
+<<<<<<< HEAD
+
+alter table selected add pay_yn char(1) default 'N';
+alter table selected add constraint ck_pay_yn check(pay_yn in ('Y','N'));
+
+=======
 alter table selected add temp_time timestamp default sysdate;
+>>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 
 --DROP TABLE "COMMENT_BOARD" CASCADE CONSTRAINTS;
 CREATE TABLE comment_board (
@@ -714,7 +721,7 @@ select * from selected;
 select * from pay;
 select * from ticket;
 --
-
+select sch_date_time-1,sch_no from schedule;
 delete selected where seat_no='1';
 
 insert into 

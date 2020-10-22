@@ -1,5 +1,6 @@
 package com.kh.tickets.performance.model.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -132,6 +133,10 @@ public interface PerformanceService {
 	
 	int updateSelected(Selected selected);
 
+	Date selectOneDate(int schNo);
+
+	Pay selectOnePay(String orderNum);
+	
 	List<Performance> selectOpenList();
 
 
