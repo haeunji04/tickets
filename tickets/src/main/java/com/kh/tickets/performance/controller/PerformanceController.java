@@ -726,7 +726,19 @@ public class PerformanceController {
 		mav.addObject("memberId", memberId);
 		log.debug("memberId={}", memberId);
 		mav.addObject("schNo", schNo);
-		mav.setViewName("/performance/selectSeat2");
+		if(performanceHall.getTotalSeat()==300) {
+			
+			mav.setViewName("/performance/selectSeat");
+		}
+		else if(performanceHall.getTotalSeat()==600) {
+			
+			mav.setViewName("/performance/selectSeat2");
+		}
+		else if(performanceHall.getTotalSeat()==900) {
+
+			mav.setViewName("/performance/selectSeat3");
+			
+		}
 		return mav;
 	}
 
@@ -793,6 +805,7 @@ public class PerformanceController {
 	
 		int length = pay.getSeatCount();
 
+		log.debug("length={}",length);
 		String orderNum = "M";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHssSS");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY년 MM월 dd일");
@@ -810,6 +823,7 @@ public class PerformanceController {
 		
 		
 		 for(int i=0;i<length;i++) { 
+			 log.debug("ticket={}",ticket);
 			 ticket.setSeatNo(seatNo[i]); 
 			 ticket.setSeatName(seatName[i]);
 			 Selected selected = new Selected();
@@ -839,20 +853,6 @@ public class PerformanceController {
 		mav.addObject("date2", sdf2.format(date));
 
 		log.debug("result={}", result);
-
-		for (int i = 0; i < length; i++) { // ticket.setOrderNo(payResult.getOrderNo());
-			ticket.setSeatNo(seatNo[i]);
-			ticket.setSeatName(seatName[i]);
-			Selected selected = new Selected();
-			selected.setSchNo(ticket.getSchNo());
-			selected.setSeatNo(seatNo[i]);
-			int payYn = performanceService.updateSelected(selected);
-			int price = performanceService.seatPrice(seatNo[i]);
-			ticket.setTicPrice(price);
-			ticket.setOrderNo(orderNum);
-			int result2 = performanceService.insertTicket(ticket);
-			log.debug("ticket={}", ticket);
-		}
 		mav.setViewName("performance/payComplete");
 		return mav;
 	}

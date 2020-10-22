@@ -159,51 +159,47 @@ span.seatCharts-legendDescription {
 	<div class="fixed-top" style="height:50px;padding:10px 50px 50px 50px;background-color:white;">
 		<h3 style="float:left;">좌석선택 : ${performance.perTitle }</h3>
 		<div class="select-date" style="float:left;width:250px;padding-left:50px;">
-		<select class="custom-select">
-	      <option selected="">2020.09.30 17:00</option>
-	      <option value="1">2020.10.1 17:00</option>
-	      <option value="2">2020.10.2 17:00</option>
-	      <option value="3">2020.10.30 17:00</option>
-	    </select>
 		</div>
 	</div>
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:50px;">
 		  <div class="front-indicator">1F</div>
 
-		  <% int count=1;
+		   <% int count=1;
 		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
 			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
 				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
+				 <%int cnt1=0; %>
+				 <%int cnt2=0; %>
+				<c:set var="doneLoop" value="false"/>
 				<c:forEach items="${ selectedList }" var="select">
+				<c:if test="${not doneLoop}">
 				<c:set var="count" value="<%=count %>"/>
 					<c:if test="${ select.seatNo eq count}">
-					style="pointer-events: none;
-						background-color:gray;"
+						<% cnt1=1; %>					
+						<c:set var="doneLoop" value="true" />
 					</c:if>
-					<c:if test="${ select.seatNo ne count}">
-					style="<% if(i<6 && (j>5 && j<25)){ %>
+					<%-- <c:if test="${ select.seatNo ne count}">
+					
+					</c:if> --%>
+				</c:if>
+				</c:forEach>
+				 <%if(cnt1==1 && cnt2==0) {%>
+				 	style="pointer-events: none;
+						background-color:gray;"
+				 <%} else{%>
+				 	style="<% if(i<6 && (j>5 && j<25)){ %>
 						background-color:#BEA886;
 					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
 						background-color:#9076FF;
 					<%}else{%>
 						background-color:#70D0EA;
 					<%}%>"
-					</c:if>
-				</c:forEach>
+				 <%} %>
 				<% count++; %>
-				<%--style= "<% if(i<6 && (j>5 && j<25)){ %>
-						background-color:#BEA886;
-					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
-						background-color:#9076FF;
-					<%}else{%>
-						background-color:#70D0EA;
-					<%}%>
-				"> --%>
 				>
-				<%-- <input type="hidden" name="seatNo" value="<%= count++ %>" /> --%>
 				</div>
 			<%} %>
 		</div>
@@ -214,19 +210,43 @@ span.seatCharts-legendDescription {
 	
 	<div id="test" class="seatCharts-container" tabindex="0">
 		  <div class="front-indicator">2F</div>
-		  <% 
+		  <%
 		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="2_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
-				class="seatCharts-seat seatCharts-cell first-class available" onclick="alert(this.id);"
-				style="<% if(i<6){ %>
-						background-color:#70D0EA;
+			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
+				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
+				 <%int cnt1=0; %>
+				 <%int cnt2=0; %>
+				<c:set var="doneLoop" value="false"/>
+				<c:forEach items="${ selectedList }" var="select">
+				<c:if test="${not doneLoop}">
+				<c:set var="count" value="<%=count %>"/>
+					<c:if test="${ select.seatNo eq count}">
+						<% cnt1=1; %>					
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+					<%-- <c:if test="${ select.seatNo ne count}">
+					
+					</c:if> --%>
+				</c:if>
+				</c:forEach>
+				 <%if(cnt1==1 && cnt2==0) {%>
+				 	style="pointer-events: none;
+						background-color:gray;"
+				 <%} else{%>
+				 	style="<% if(i<6 && (j>5 && j<25)){ %>
+						background-color:#BEA886;
+					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+						background-color:#9076FF;
 					<%}else{%>
-						background-color:#AADE48;
-					<%}%>
-				"></div>
+						background-color:#70D0EA;
+					<%}%>"
+				 <%} %>
+				<% count++; %>
+				>
+				</div>
 			<%} %>
 		</div>
 		<%
@@ -236,19 +256,43 @@ span.seatCharts-legendDescription {
 	</div>
 	<div id="test" class="seatCharts-container" tabindex="0">
 		  <div class="front-indicator">3F</div>
-		  <% 
+		   <%
 		  for(int i=1;i<11;i++){ %>
 		<div class="seatCharts-row">
 			<div class="seatCharts-cell seatCharts-space"><%= i %></div>
 			<%for(int j=1;j<31;j++){ %>
-			<div id="3_<%=i %>_<%=j %>" role="checkbox" aria-checked="false" focusable="true" tabindex="-1" 
-				class="seatCharts-seat seatCharts-cell first-class available" onclick="alert(this.id);"
-				style="<% if(i<6){ %>
-						background-color:#70D0EA;
+			<div id="1F_<%=i %>행_<%=j %>열" role="checkbox" value="<%= count %>" aria-checked="false" focusable="true" tabindex="-1" 
+				class="seatCharts-seat seatCharts-cell first-class available" onclick="select(this);"
+				 <%int cnt1=0; %>
+				 <%int cnt2=0; %>
+				<c:set var="doneLoop" value="false"/>
+				<c:forEach items="${ selectedList }" var="select">
+				<c:if test="${not doneLoop}">
+				<c:set var="count" value="<%=count %>"/>
+					<c:if test="${ select.seatNo eq count}">
+						<% cnt1=1; %>					
+						<c:set var="doneLoop" value="true" />
+					</c:if>
+					<%-- <c:if test="${ select.seatNo ne count}">
+					
+					</c:if> --%>
+				</c:if>
+				</c:forEach>
+				 <%if(cnt1==1 && cnt2==0) {%>
+				 	style="pointer-events: none;
+						background-color:gray;"
+				 <%} else{%>
+				 	style="<% if(i<6 && (j>5 && j<25)){ %>
+						background-color:#BEA886;
+					<%}else if((i<6 && (j<=5 || j>=25))|| (i>=6 && i<8) ){%>
+						background-color:#9076FF;
 					<%}else{%>
-						background-color:#AADE48;
-					<%}%>
-				"></div>
+						background-color:#70D0EA;
+					<%}%>"
+				 <%} %>
+				<% count++; %>
+				>
+				</div>
 			<%} %>
 		</div>
 		<%
@@ -377,6 +421,7 @@ span.seatCharts-legendDescription {
 							$(e).addClass('selected');
 							$('.side-bar').append("<h4 class="+e.id+" style='display:block;line-height:30px;'>"+e.id+"</h4>");
 							$('.side-bar').append("<input class="+e.id+" type='hidden' name='seatNo' value="+select.seatNo+" />");
+							$('.side-bar').append("<input class="+e.id+" type='hidden' name='seatName' value="+e.id+" />");
 						},
 						error : function(xhr, status, err){
 							console.log("처리실패", xhr, status, err);
