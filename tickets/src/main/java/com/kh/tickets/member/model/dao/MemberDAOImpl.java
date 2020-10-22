@@ -111,6 +111,18 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberPayTicket> selectMemberPayTicket(String orderNo) {
 		return sqlSession.selectList("member.selectMemberPayTicket", orderNo);
 	}
+
+	@Override
+	public List<MemberPayList> selectCompanyPayList(int perNo) {
+		return sqlSession.selectList("member.selectCompanyPayList", perNo);
+	}
+
+	@Override
+	public int ticketDelete(int ticNo) {
+		return sqlSession.delete("member.ticketDelete", ticNo);
+	}
+
+	
 	
 	
 }

@@ -322,6 +322,15 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
+	public String selectOnePay(int ticNo) {
+		return performanceDAO.selectOnePay(ticNo);
+	}
+
+	@Override
+	public int updatePayCount(String orderNo) {
+		return performanceDAO.updatePayCount(orderNo);
+	}
+	
 	public int selectScheduleNo(int perNo) {
 		return performanceDAO.selectScheduleNo(perNo);
 	}

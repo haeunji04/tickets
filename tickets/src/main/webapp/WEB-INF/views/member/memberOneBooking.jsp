@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- param 한글 encoding 처리 -->
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
@@ -129,9 +132,14 @@
 		</div>
 		<br />
 		<%-- <c:if test="${ pay.payOption eq '' }"></c:if>  --%>
+		<div class="person-perform mt-3">
+		
+		
+		<!-- 무통장관련 -->
 <%-- 		<div class="person-perform mt-3">
+>>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 
-		<h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
+		<%-- <h4 class="text-left d-inline-block mb-3">무통장입금 결제내역</h4>	
 		<!-- <div class="more" style="float:right;">
 				<button class="btn btn-outline-secondary rounded-pill d-inline-block text-right" value="">결제수단변경</button>
 		</div> -->
@@ -165,7 +173,8 @@
 				</table>
 			</div>
 		</div> --%>
-		
+		<br />
+
 		<!-- <div class="person-perform mt-3">
 		<h4 class="text-left d-inline-block mb-3">구매좌석</h4>	
 			<div class="more" style="float:right;">
@@ -196,6 +205,13 @@
 			</div>
 
 		</div> -->
+				<!-- <button type="button" class="btn btn-primary btn-lg btn-block" >예매취소 요청</button> -->
+				<button type="button" class="btn btn-primary btn-lg btn-block"
+						onclick="ticketDelete('${ pay.ticNo }')">예매취소요청</button>
+						
+		
+
+
 				<!-- <button type="button" class="btn btn-outline-primary rounded-pill btn-lg btn-block mx-auto mb-3" style="width:30%">예매취소 요청</button> -->
 		<hr class="mt-5"/>
 		</c:forEach>
@@ -233,6 +249,27 @@
 		</pre>
 		</div>
 		</div>
+	
+
+	<!-- 티켓 취소삭제 -->
+<%-- <form:form action="${ pageContext.request.contextPath }/member/ticketDelete.do?orderNo=${ pay.orderNo }" --%>
+<form:form action="${ pageContext.request.contextPath }/member/ticketDelete.do"
+	  method="post" id="ticketDeleteFrm" >
+	  <input type="hidden" name="ticNo" value=""/>
+</form:form>
+
+<script>
+	/**
+	 * POST 요청 처리할 것
+	 **/
+	
+	function ticketDelete(ticNo){
+
+		var $frm = $("#ticketDeleteFrm");
+		$frm.find("[name=ticNo]").val(ticNo);
+		$frm.submit();
+	}
+</script>
 		
 		
 	<!-- footer -->
