@@ -1,5 +1,6 @@
 package com.kh.tickets.performance.model.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -303,6 +304,16 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public int updateSelected(Selected selected) {
 		return sqlSession.update("performance.updateSelected", selected);
+	}
+
+	@Override
+	public Date selectOneDate(int schNo) {
+		return sqlSession.selectOne("performance.selectOneDate", schNo);
+	}
+
+	@Override
+	public Pay selectOnePay(String orderNum) {
+		return sqlSession.selectOne("performance.selectOnePay", orderNum);
 	}
 
 	

@@ -1,5 +1,6 @@
 package com.kh.tickets.performance.model.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -128,5 +129,9 @@ public interface PerformanceDAO {
 	int insertTicket(Ticket ticket);
 
 	int updateSelected(Selected selected);
+
+	Date selectOneDate(int schNo);
+
+	Pay selectOnePay(String orderNum);
 
 }

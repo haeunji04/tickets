@@ -560,6 +560,14 @@
 	<update id="updateSelected">
 	update selected set pay_yn='Y' where sch_no=#{ schNo } and seat_no=#{ seatNo }
 	</update>
+	<select id="selectOneDate" resultType="date">
+		select sch_date_time-1
+		from schedule
+		where sch_no = #{ schNo }
+	</select>
+	<select id="selectOnePay" resultMap="payMap">
+	select * from pay where order_no = #{ orderNum }
+	</select>
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">
