@@ -68,7 +68,7 @@
 	<%-- </c:if> --%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/jquery.convform.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/demo.css">
-	<section id="demo" style="display:none;">
+	<section id="question" style="display:none;">
 	    <div class="vertical-align">
 	        <div class="container">
 	            <div class="row">
@@ -138,10 +138,10 @@
 $(function(){
 	$("#svg").click(function(){
 
-	if($("#demo").css("display") == "none"){
-	    $("#demo").show();
+	if($("#question").css("display") == "none"){
+	    $("#question").show();
 	} else {
-	    $("#demo").hide();
+	    $("#question").hide();
 	}
 		});
 });

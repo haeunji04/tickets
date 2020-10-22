@@ -91,6 +91,7 @@ a{
             </div>
 		
 	</div>
+	<form:form id="complete" action="${pageContext.request.contextPath }/performance/payComplete.do" method="POST">
 	<div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
 		<h5>결제수단을 선택하세요.</h5>
               <table class="table align-items-center table-flush">
@@ -100,19 +101,19 @@ a{
                       <div class="media align-items-center">
                           <div class="form-group">
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio1" name="customRadio" value="card" class="custom-control-input" checked="">
+						     <input type="radio" id="customRadio1" name="payOption" value="card" class="custom-control-input" checked="">
 						     <label class="custom-control-label" for="customRadio1">신용카드</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio2" name="customRadio" value="kakao" class="custom-control-input">
+						     <input type="radio" id="customRadio2" name="payOption" value="kakao" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio2">카카오페이</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio3" name="customRadio" value="naver" class="custom-control-input">
+						     <input type="radio" id="customRadio3" name="payOption" value="naver" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio3">네이버페이</label>
 						   </div>
 						   <div class="custom-control custom-radio d-inline-block mx-3">
-						     <input type="radio" id="customRadio4" name="customRadio" value="pay" class="custom-control-input">
+						     <input type="radio" id="customRadio4" name="payOption" value="pay" class="custom-control-input">
 						     <label class="custom-control-label" for="customRadio4">무통장입금</label>
 						   </div>
 						  
@@ -125,6 +126,17 @@ a{
                 </tbody>
               </table>
             </div>
+            <input type="hidden" name="memberId" value="${ memberId }" />
+			<input type="hidden" name="totPrice" value="${ total }" />
+			<input type="hidden" name="schNo" value="${ schNo }" />
+			<input type="hidden" name="seatCount" value="${ seatNoLength }" />
+			<c:forEach items="${ seatName }" var="seatName">
+			<input type="hidden" name="seatName" value="${ seatName }" />
+			</c:forEach>
+			<c:forEach items="${ seatNo }" var="seatNo">
+			<input type="hidden" name="seatNo" value="${ seatNo }" />
+			</c:forEach>
+		</form:form>
             <div id="test" class="seatCharts-container" tabindex="0" style="margin-top:60px;margin-left:30px;">
             <h5></h5>
             	<div id="partCheckAgree" class="box_cont box_receipt">
@@ -258,15 +270,7 @@ a{
 			
 		</div>
 		<div class="button" style="padding-left:20px;padding-top:30px;">
-		<%-- <input type="hidden" name="memberId" value="${ memberId }" />
-		<input type="hidden" name="total" value="${ total }" />
-		<input type="hidden" name="schNo" value="${ schNo }" />
-		<c:forEach items="${ seatName }" var="seatName">
-		<input type="hidden" name="seatName" value="${ seatName }" />
-		</c:forEach>
-		<c:forEach items="${ seatNo }" var="seatNo">
-		<input type="hidden" name="seatNo" value="${ seatNo }" />
-		</c:forEach> --%>
+
 		<button type="button" class="btn btn-secondary" style="width:150px;" onclick="history.go(-1);">이전</button>
 		<button type="button" class="btn btn-primary" style="width:150px;" onclick="submit();">결제하기</button>
 		</div>
@@ -286,7 +290,7 @@ a{
 	    }
 	} 
 	function submit(){
-			$("[name=chkAgree]").each(function(){
+			/*$("[name=chkAgree]").each(function(){
 	    	   if($("[name=chkAgree]").is(":checked") == false) {
 	    	   //if($("input:checkbox[id='chkAgree03']").is(":checked") == false) {
 	    		   alert("구매동의를 체크해주세요");
@@ -295,7 +299,7 @@ a{
 	    		 };
 			}); */
 
-		var pay = $('[name=customRadio]:checked').val();
+		var pay = $('[name=payOption]:checked').val();
 
 		if(pay == "card"){
 			 	var IMP = window.IMP; 
@@ -308,11 +312,10 @@ a{
 		            pay_method : 'card',
 		            merchant_uid : 'merchant_' + new Date().getTime(),
 		            name : title,
-		            amount : ${ total }
+		            amount : 100
 		        }, function(rsp) {
 		            if ( rsp.success ) {
-		            	//성공시 이동할 페이지
-		            	msg = "결제 성공";
+		            	$('#complete').submit();
 		            } else {
 		                msg = '결제에 실패하였습니다.';
 		                msg += '에러내용 : ' + rsp.error_msg;
