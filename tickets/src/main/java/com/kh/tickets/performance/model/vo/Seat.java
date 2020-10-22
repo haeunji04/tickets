@@ -22,6 +22,5 @@ public class Seat implements Serializable {
 	private int floor;
 	private int x;
 	private int y;
-	private int theaterNo;
 	
 }
