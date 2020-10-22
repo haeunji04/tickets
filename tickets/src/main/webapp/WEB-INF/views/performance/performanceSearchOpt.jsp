@@ -260,8 +260,7 @@ $(".tab_menu_btn").click(function(){
 
 function displayPerTab(data){
 	//console.log("data = " +data);
-	var $container = $("#tab_content");
-	
+	var $container = $("#tab_content");	
 
 	var html = ""; 
 	if(data.list.length > 0){
@@ -272,8 +271,7 @@ function displayPerTab(data){
 			endDate = new Date(per.perEndDate);
 
 			var fmtStartDate = getFormatDate(startDate);
-			var fmtEndDate = getFormatDate(endDate);
-			
+			var fmtEndDate = getFormatDate(endDate);			
 
 			console.log(per);
 			html += "<div style='width: 235px;' class='text-center d-inline-block p-3 my-2 align-top'>";

@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!-- param 한글 encoding 처리 -->
 <fmt:requestEncoding value="utf-8"/>
 	<!-- header -->
@@ -70,7 +67,7 @@
 		<div class="reserve-cn-btn" style="margin-left:180px;">
 	    <button id="pill2" class="btn btn-outline-secondary rounded-pill" style="width:200px;height:40px;position:relative;z-index:0;background-color:white;">예매취소</button>
 		</div>
-  	</div>
+  	</div> 
   	<div class="list text-center" >
 	  	<div id="reserv-list" class="reserv-list mx-auto" style="width:90%;">
 	  		<table class="table table-hover ">
@@ -90,7 +87,7 @@
 					</a>
 				</td>
 				<td align="left">
-					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do?orderNo=${ pay.orderNo }" style="text-decoration: none; color: black;">
+					<a href="${pageContext.request.contextPath }/member/memberOneBooking.do" style="text-decoration: none; color: black;">
 						<p>
 							<span class="d-block"><strong>${ pay.perTitle }</strong> <br />
 								<small>${ dateformat2.format(pay.perStartDate) } - ${ dateformat2.format(pay.perEndDate) }</small> <br />
@@ -118,6 +115,10 @@
 							<dt>아이디</dt>
 							<dd>${ pay.memberId }</dd>
 						</dl>
+						<dl>
+							<dt>총결제액</dt>
+							<dd>${ pay.totPrice }</dd>
+						</dl>
 					</div>
 				</td>
 				<td>
@@ -136,7 +137,7 @@
 	</div>
 	<!-- 예매 취소 관련  -->
   	<div class="list text-center" >
-	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;">
+	  	<div id="reserv-cn-list" class="reserv-cn-list mx-auto" style="width:90%; display:none;'">
 	  		<table class="table table-hover ">
 			<tr class="border-top border-bottom" >
 				<th style="width:80px;">예매일</th>

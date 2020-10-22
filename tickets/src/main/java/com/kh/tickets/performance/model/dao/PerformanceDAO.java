@@ -138,6 +138,11 @@ public interface PerformanceDAO {
 	
 	List<Performance> selectOpenList();
 
+
+	String selectOnePay(int ticNo);
+
+	int updatePayCount(String orderNo);
+	
 	int selectScheduleNo(int perNo);
 
 

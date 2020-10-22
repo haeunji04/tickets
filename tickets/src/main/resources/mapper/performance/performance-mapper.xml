@@ -594,6 +594,19 @@
 	where per_no = #{ perNo }
 	</select>
 	
+	<select id="selectOneTicket" resultType="string">
+		select
+			order_no
+		from
+			ticket
+		where tic_no = #{ ticNo }
+		
+	</select>	
+	
+	<update id="updatePayCount">
+	update pay set seat_count=seat_count-1 where order_no = #{ orderNo }
+	</update>
+	
 	<resultMap type="performance" id="performanceMap">
 	</resultMap>
 	<resultMap type="performanceHall" id="performanceHallMap">

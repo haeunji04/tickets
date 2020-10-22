@@ -44,6 +44,7 @@ import com.kh.tickets.member.model.vo.MemberPayList;
 import com.kh.tickets.member.model.vo.MemberPayTicket;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
+import com.kh.tickets.performance.model.vo.Pay;
 
 
 
@@ -478,6 +479,61 @@ public class MemberController {
 			mav.addObject("list", list);
 			mav.setViewName("member/memberOneBooking");
 			return mav;
+		}
+		
+		
+		//결제 및 예약내역 	
+		@PostMapping("/member/companyBookingList.do")
+		public ModelAndView companyBookingList(ModelAndView mav, Principal principal, @RequestParam int perNo) {
+			
+			log.debug("principal = {}", principal);
+			log.debug("perNo = {}", perNo);
+			
+			String memberId = null;
+			if(principal != null) {
+				memberId = principal.getName();			
+			}
+			
+			log.debug("memberId@@  = {}", memberId );
+			
+			List<MyRecentlyPerList> rList = performanceService.recentlyPerList(memberId);
+			log.debug("rList@controller = {}", rList);
+			
+			List<MemberPayList> list = memberService.selectCompanyPayList(perNo);
+//					List<PerJoin> list = performanceService.todayPerList();
+			log.debug("list@controller = {}", list);
+						
+//					SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd (E)", Locale.KOREAN);
+			
+			SimpleDateFormat dateformat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			SimpleDateFormat dateformat2 = new SimpleDateFormat("yyyy.MM.dd");
+			mav.addObject("dateformat", dateformat);
+			mav.addObject("dateformat2", dateformat2);
+			mav.addObject("rList", rList);
+			mav.addObject("list", list);
+			
+			
+			mav.setViewName("member/memberBookingList");
+			return mav;
+				}
+		
+		@RequestMapping(value = "/member/ticketDelete.do",
+				method = RequestMethod.POST)
+		public String ticketDelete(@RequestParam int ticNo, RedirectAttributes redirectAttributes){
+			String orderNo = performanceService.selectOnePay(ticNo);
+			int result = memberService.ticketDelete(ticNo);
+			Pay pay = new Pay();
+			log.debug("orderNo = {}", orderNo);
+			
+			int result2 = performanceService.updatePayCount(orderNo);
+			
+			if(result2 >0) {
+				log.debug("payCount 수정 성공");
+			}
+			
+			redirectAttributes.addFlashAttribute("msg", result>0 ? "티켓 삭제성공" : "티켓 삭제실패");
+//			redirectAttributes.addFlashAttribute("orderNo", orderNo);
+			return "redirect:/member/memberBookingList.do";
 		}
 		
 		@GetMapping("/member/adminMemberSearchList")

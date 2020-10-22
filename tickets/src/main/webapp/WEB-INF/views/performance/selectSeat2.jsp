@@ -265,31 +265,31 @@ span.seatCharts-legendDescription {
               <tr>
               	<td colspan="3">좌석별 가격 현황</td>
               </tr>
-              <tr>
+             <tr>
               	<td><div class="foo brown"></div></td>
-              	<td>VIP석</td>
-              	<td>160,000원</td>
+              	<td>S석</td>
+              	<td>50,000원</td>
               </tr>
               <tr>
               	<td><div class="foo purple"></div></td>
-              	<td>R석</td>
-              	<td>130,000원</td>
+              	<td>A석</td>
+              	<td>45,000원</td>
               </tr>
               <tr>
               	<td><div class="foo blue"></div></td>
-              	<td>S석</td>
-              	<td>110,000원</td>
+              	<td>B석</td>
+              	<td>40,000원</td>
               </tr>
-              <tr>
+              <!-- <tr>
               	<td><div class="foo green"></div></td>
               	<td>A석</td>
-              	<td>90,000원</td>
+              	<td>45,000원</td>
               </tr>
               <tr>
               	<td><div class="foo pink"></div></td>
               	<td>B석</td>
-              	<td>60,000원</td>
-              </tr>				
+              	<td>40,000원</td>
+              </tr>			 -->		
           </table>
 		</div>
 		<form:form action="${pageContext.request.contextPath}/performance/salePerformance.do" method="POST">

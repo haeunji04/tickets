@@ -195,7 +195,10 @@ create table performance(
 );
 
 alter table performance add price number;
-update performance set price = 15000 where category_code='C5';
+--update performance set price = 15000 where category_code='C5';
+--update performance set admin_approval = 'N' where per_no='50';
+--select * from performance order by per_end_date desc;
+--commit;
 
 
 alter table performance add sale_cnt int default 0;
@@ -672,7 +675,7 @@ from pay Y
     left join theater T 
         on P.theater_no = T.theater_no;
 
-select  * from member_pay_list_view; 
+select  * from member_pay_list_view order by pay_date desc; 
 select  * from selected; 
 
 --DROP VIEW "MEMBER_PAY_TICKET_VIEW";
@@ -722,9 +725,18 @@ select * from seat;
 select * from selected;
 select * from pay;
 select * from ticket;
+<<<<<<< HEAD
+select order_no from ticket where tic_no = 21;
+select * from SCHEDULE_SEAT;
+=======
 
 update performance set price=15000 where category_code='C5';
+>>>>>>> branch 'master' of https://github.com/tapioca0516/tickets.git
 --
+
+--update pay set seat_count=seat_count-1 where order_no = 'M201021083131';
+
+=======
 select sch_date_time-1,sch_no from schedule;
 delete selected where seat_no='1';
 
