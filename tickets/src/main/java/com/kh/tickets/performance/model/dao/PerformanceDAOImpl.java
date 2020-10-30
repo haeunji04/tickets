@@ -326,7 +326,7 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	}
 
 	@Override
-	public String selectOnePay(int ticNo) {
+	public Ticket selectOnePay(int ticNo) {
 		return sqlSession.selectOne("performance.selectOneTicket", ticNo);
 	}
 
@@ -342,6 +342,11 @@ public class PerformanceDAOImpl implements PerformanceDAO {
 	@Override
 	public int updateSaleCount(int perNo) {
 		return sqlSession.update("performance.updateSaleCount",perNo);
+	}
+
+	@Override
+	public int updateSelectedPayYn(Ticket ticket) {
+		return sqlSession.update("performance.updateSelectedPayYn",ticket);
 	}
 
 	
