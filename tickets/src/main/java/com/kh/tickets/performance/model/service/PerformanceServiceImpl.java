@@ -322,7 +322,7 @@ public class PerformanceServiceImpl implements PerformanceService {
 	}
 
 	@Override
-	public String selectOnePay(int ticNo) {
+	public Ticket selectOnePay(int ticNo) {
 		return performanceDAO.selectOnePay(ticNo);
 	}
 
@@ -338,6 +338,11 @@ public class PerformanceServiceImpl implements PerformanceService {
 	@Override
 	public int updateSaleCount(int perNo) {
 		return performanceDAO.updateSaleCount(perNo);
+	}
+
+	@Override
+	public int updateSelectedPayYn(Ticket ticket) {
+		return performanceDAO.updateSelectedPayYn(ticket);
 	}
 
 	

@@ -45,6 +45,7 @@ import com.kh.tickets.member.model.vo.MemberPayTicket;
 import com.kh.tickets.performance.model.service.PerformanceService;
 import com.kh.tickets.performance.model.vo.MyRecentlyPerList;
 import com.kh.tickets.performance.model.vo.Pay;
+import com.kh.tickets.performance.model.vo.Ticket;
 
 
 
@@ -520,15 +521,28 @@ public class MemberController {
 		@RequestMapping(value = "/member/ticketDelete.do",
 				method = RequestMethod.POST)
 		public String ticketDelete(@RequestParam int ticNo, RedirectAttributes redirectAttributes){
-			String orderNo = performanceService.selectOnePay(ticNo);
+//			Ticket ticket = new Ticket();
+//			String orderNo = performanceService.selectOnePay(ticNo);
+			Ticket ticket = performanceService.selectOnePay(ticNo);
+			log.debug("ticket@# = {}", ticket);
+			String orderNo = ticket.getOrderNo();
+//			int seatNo = ticket.getSeatNo();
 			int result = memberService.ticketDelete(ticNo);
 			Pay pay = new Pay();
 			log.debug("orderNo = {}", orderNo);
 			
+			//취소후 총예약매수 변경
 			int result2 = performanceService.updatePayCount(orderNo);
 			
 			if(result2 >0) {
 				log.debug("payCount 수정 성공");
+			}
+			
+			//해당 공연일정 좌석표에서 취소된 좌석 예약가능으로 변경
+			int result3 = performanceService.updateSelectedPayYn(ticket);
+			
+			if(result3 >0) {
+				log.debug("payYn 수정 성공");
 			}
 			
 			redirectAttributes.addFlashAttribute("msg", result>0 ? "티켓 삭제성공" : "티켓 삭제실패");

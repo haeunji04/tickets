@@ -597,9 +597,10 @@
 	update performance set sale_cnt = sale_cnt+1 where per_no = #{ perNo }
 	</update>
 	
-	<select id="selectOneTicket" resultType="string">
+	<select id="selectOneTicket" resultMap="ticketMap">
 		select
-			order_no
+			*
+			<!-- order_no -->
 		from
 			ticket
 		where tic_no = #{ ticNo }
@@ -608,6 +609,17 @@
 	
 	<update id="updatePayCount">
 	update pay set seat_count=seat_count-1 where order_no = #{ orderNo }
+	</update>
+	
+	<update id="updateSelectedPayYn">
+		update selected set pay_yn = 'N' 
+		where 
+			member_id = #{ memberId }
+			and
+			sch_no = #{ schNo }
+			and
+			seat_no = #{ seatNo }
+			
 	</update>
 	
 	<resultMap type="performance" id="performanceMap">
@@ -631,6 +643,8 @@
 	<resultMap type="selected" id="selectedMap">
 	</resultMap>
 	<resultMap type="pay" id="payMap">
+	</resultMap>
+	<resultMap type="ticket" id="ticketMap">
 	</resultMap>
 	
 </mapper>
